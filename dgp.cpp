@@ -43,12 +43,12 @@ List dgp_cpp(double a1, double a2, int g, int N_i,
     y.col(1) = a1 * y.col(0) + b * x.col(1) + eta + v.col(1);
     
     //Generate Endogenous Variables by looping over columns
-    for(int col = 2; col < (N_t + burn_in); col++){
+    for(int i = 2; i < (N_t + burn_in); i++){
   
-      xi.col(col) = r * xi.col(col - 1) + epsilon.col(col);
-      x.col(col) = theta * eta + g * v.col(col - 1) + xi.col(col);
-      y.col(col) = a1 * y.col(col - 1) + a2 * y.col(col - 2) + 
-                    b * x.col(col) + eta + v.col(col);
+      xi.col(i) = r * xi.col(i - 1) + epsilon.col(i);
+      x.col(i) = theta * eta + g * v.col(i - 1) + xi.col(i);
+      y.col(i) = a1 * y.col(i - 1) + a2 * y.col(i - 2) + 
+                    b * x.col(i) + eta + v.col(i);
       
     }
     
@@ -59,5 +59,5 @@ List dgp_cpp(double a1, double a2, int g, int N_i,
     return List::create(Named("x") = x, Named("y") = y, 
           Named("eta") = eta, Named("v") = v, 
           Named("epsilon") = epsilon);
-                        
+                  
 }
