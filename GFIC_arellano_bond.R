@@ -36,7 +36,7 @@ dgpR <- function(a1, a2, g, N.i, N.t, burn.in = 10,
   x <- x[, -c(1:burn.in)]
   y <- y[, -c(1:burn.in)]
   
-  out <- list(x = x, y = y)
+  out <- list(x = x, y = y, eta = eta, v = v, epsilon = e)
   return(out)
   
 }#END dgpR

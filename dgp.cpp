@@ -17,11 +17,15 @@ List dgp_cpp(double a1, double a2, int g, int N_i,
                       int N_t, int burn_in, double b, 
                       double r, double theta, double s_e, 
                       double s_eta, double s_v){
-          
+    
+    RNGScope scope;
+    
     //Generate exogenous errors
-    arma::mat epsilon = s_e * arma::randn(N_i, N_t + burn_in);
-    arma::mat v = s_v * arma::randn(N_i, N_t + burn_in);
-    arma::colvec eta = s_eta * arma::randn(N_i);
+    arma::colvec epsilon_sims = rnorm(N_i * (N_t + burn_in), 0 , s_e);
+    arma::mat epsilon = reshape(epsilon_sims, N_i, N_t + burn_in);
+    arma::colvec v_sims = rnorm(N_i * (N_t + burn_in), 0, s_v);
+    arma::mat v = reshape(v_sims, N_i, N_t + burn_in);
+    arma::colvec eta = rnorm(N_i, 0, s_eta);
 
     //Initialize matrices to store x, y, xi 
     arma::mat x(N_i, N_t + burn_in);
@@ -52,6 +56,8 @@ List dgp_cpp(double a1, double a2, int g, int N_i,
     x = x.cols(burn_in, burn_in + N_t - 1);
     y = y.cols(burn_in, burn_in + N_t - 1);
     
-    return List::create(Named("x") = x, Named("y") = y);
+    return List::create(Named("x") = x, Named("y") = y, 
+          Named("eta") = eta, Named("v") = v, 
+          Named("epsilon") = epsilon);
                         
 }
