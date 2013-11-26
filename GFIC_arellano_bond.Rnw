@@ -1,0 +1,236 @@
+\documentclass[12pt]{article}
+\usepackage{todonotes}
+\usepackage[margin=1.2in]{geometry}
+\usepackage{amssymb,amsmath,amsthm,graphicx}
+
+\linespread{1.2}
+
+\title{Arellano--Bond GFIC Example}
+\author{Francis J.\ DiTraglia}
+\begin{document}
+
+\maketitle
+
+\section{Simulation Setup}
+
+\paragraph{Data Generating Process} 
+\begin{eqnarray*}
+y_{it} &=& \alpha_1 y_{it-1} + \alpha_2 y_{it-2} +\beta   x_{it} + \eta_i + v_{it}\\
+x_{it} &=& \theta \eta_i + \gamma v_{it-1} + \xi_{it}\\
+\xi_{it} &=& \rho \xi_{it-1} + \epsilon_{it}
+\end{eqnarray*}
+
+\paragraph{Initial Conditions} We set $\xi_{i0} =v_{i0}= y_{i0} = 0$ and then generate $k + T$ time periods from the model. The first $k$ are ``burn-in'' observations which are discarded. 
+
+
+\paragraph{Error Terms}
+The error terms $\epsilon_{it}$, $\eta_i$ and $v_{it}$ are mutually independent, iid, mean zero and normally distributed with variances $\sigma_\epsilon^2, \sigma_\eta^2$ and $\sigma_v^2$, respectively. That is,
+  $$\left[ \begin{array}{c} \boldsymbol{\epsilon}_i \\ \eta_i \\ \boldsymbol{v}_i \end{array} \right] \overset{\mbox{iid}}{\sim} \mbox{N}\left(
+  \left[ \begin{array}{l}
+    \mathbf{0}_{k+T}\\
+    0\\
+    \mathbf{0}_{k+T}
+  \end{array}\right], 
+  \left[ \begin{array}{ccc}
+    \sigma_\epsilon^2 \mathbf{I}_{k+T}&&0 \\
+    &\sigma_\eta^2& \\
+    0&&\sigma_v^2 \mathbf{I}_{k+T}
+  \end{array}\right]
+  \right)$$
+where $\mathbf{v}_i = (v_{i1}, \hdots, v_{i,k+T})'$, $\boldsymbol{\epsilon}_i = (\epsilon_{i1}, \hdots, \epsilon_{i,k+T})'$ and $\mathbf{I}_{k+T}$ is the $(k+T)\times(k+T)$ identity matrix.
+
+\paragraph{Properties of $x_{it}$ and $\xi_{it}$}
+\begin{eqnarray*}
+  \xi_{it} &=& \rho \xi_{it-1} + \epsilon_{it}\\
+    &=& \rho(\rho \xi_{it-2} + \epsilon_{it-1}) + \epsilon_{it}\\
+    &\vdots&\\
+    &=& \epsilon_{it} + \rho \epsilon_{it-1} +\rho^2 \epsilon_{it-2} + \hdots + \rho^{t-2}\epsilon_{i2} + \rho^{t-1}\epsilon_{i1}
+\end{eqnarray*}
+
+
+\begin{eqnarray*}
+  E[\xi_{it}\xi_{is}] &=& E\left[ \left(\epsilon_{it} + \hdots +  \rho^{t-1}\epsilon_{i1}\right) \left(\epsilon_{is} + \hdots +  \rho^{s-1}\epsilon_{i1}\right) \right]\\
+    &=& \sigma_\epsilon^2 \sum_{j=0}^{\min\{s,t \}-1} \rho^{|t-s| + 2j} = \sigma_\epsilon^2 \rho^{|t-s|} \sum_{j=0}^{\min\{s,t \}-1} \rho^{ 2j}\\
+  &=&  \sigma_\epsilon^2 \rho^{|t-s|}\left(\frac{1 - \rho^{\min\{s,t\}}}{1-\rho^2} \right)
+\end{eqnarray*}
+
+\begin{eqnarray*}
+E[x_{it}\eta_i] &=& E[(\theta \eta_i + \gamma v_{it-1} + \xi_{it})\eta_i] =  \theta \sigma_\eta^2\\ \\
+  E[x_{it}v_{is}] &=& E[(\theta \eta_i + \gamma v_{it-1} + \xi_{it})v_{is}] = \gamma E[v_{it-1}v_{is}]\\
+    &=& \left\{\begin{array}{l}\gamma \sigma_v^2 \mbox{ for } s=t-1 \\0 \mbox{ otherwise} \end{array} \right.\\ \\
+  E[x_{it}x_{is}] &=& E[(\theta \eta_i + \gamma v_{it-1} + \xi_{it})(\theta \eta_i + \gamma v_{is-1} + \xi_{is})]\\
+    &=& \theta^2 \sigma_\eta^2 +\gamma E[v_{it-1}v_{is-1}] + E[\xi_{it}\xi_{is}]
+\end{eqnarray*}
+
+\section{Functions to Generate One Draw from the DGP}
+
+\subsection{R Function}
+<<tidy=FALSE>>=
+dgpR <- function(a1, a2, g, N.i, N.t, burn.in = 10, 
+                 b = 1, r = 0, theta = 0.2, s.e = 1, 
+                 s.eta = 1, s.v = 1){
+  
+  #Generate Exogenous Errors
+  e <- rnorm(N.i * (N.t + burn.in), mean = 0, sd = s.e)
+  e <- matrix(e, nrow = N.i)
+  v <- rnorm(N.i * (N.t + burn.in), mean = 0, sd = s.v)
+  v <- matrix(v, nrow = N.i)
+  eta <- rnorm(N.i, mean = 0, sd = s.eta)
+  
+  #Matrices to Store Endogenous Variables
+  y <- x <- xi <- matrix(NA, nrow = N.i, ncol = N.t + burn.in)
+  
+  #First Initialization Step - Set Presample Observations to 0
+  xi[, 1] <- e[, 1]
+  x[, 1] <- theta * eta + xi[, 1]
+  y[, 1] <- b * x[, 1] + eta + v[, 1]
+  
+  #Second Initialization Step - Set Presample Observations to 0
+  xi[, 2] <- r * xi[, 1] + e[, 2]
+  x[, 2] <- theta * eta + g * v[, 1] + xi[, 2]
+  y[, 2] <- a1 * y[, 1] + b * x[, 2] + eta + v[, 2]
+  
+  #Generate Endogenous Variables
+  for(i in 3:(N.t + burn.in)){
+    
+    xi[, i] <- r * xi[, i - 1] + e[, i]
+    x[, i] <- theta * eta + g * v[, i - 1] + xi[, i]
+    y[, i] <- a1 * y[, i - 1] + a2 * y[, i - 2] + b * x[, i] 
+    + eta + v[, i]
+    
+  }#END for
+
+  #Discard Burn-in Samples
+  x <- x[, -c(1:burn.in)]
+  y <- y[, -c(1:burn.in)]
+  
+  out <- list(x = x, y = y)
+  return(out)
+  
+}#END dgpR
+@
+Test this out:
+<<tidy=FALSE>>=
+#foo <- dgpR(a1 = 0.3, a2 = -0.1, g = 0.1, N.i = 25, N.t = 4,r = 0.1)
+#foo$x
+#foo$y
+@
+
+
+
+\subsection{C++ Function}
+Do this later, once everything is working...
+
+\subsection{Performance Comparison}
+Do this later, once everything is working...
+
+
+
+
+\section{Estimators and Selection}
+Recall that the DGP is
+  $$y_{it} = \alpha_1 y_{it-1} + \alpha_2 y_{it-2} + \beta x_{it} + \eta_i +  v_{it}$$
+
+\subsection{Target Parameters and Parameter Restrictions}
+To take a simplified example, suppose that $y_{it}$ is log employment and $x_{it}$ is log wage. Then $\beta$ is the \emph{short-run} wage elasticity and $\beta/(1 - \alpha_1 - \alpha_2)$ is the \emph{long-run} wage elasticity.\footnote{See Hamilton 1.1.16 and Proposition 1.3. For ``long-run'' it is equivalent to consider \emph{either} the cumulative effect of a one-period increase in $x_{it}$ \emph{or} the long-run effect of a \emph{permanent} increase in $x_{it}$.} The two elasticities coincide when there are no dynamics: $\alpha_1 = \alpha_2 = 0$. We consider two cases: one in which the short-run elasticity is the target parameter and one in which the long-run elasticity is the target parameter. 
+
+\todo[inline]{Should mention empirical examples in which long-run elasticities are important and some others where short-run elasticities are more interesting for a particular policy question.}
+
+
+
+\paragraph{Long-Run Effect} In this case, our target parameter is
+  $$\mu = \frac{\beta}{1 - \alpha_1 - \alpha_2}$$
+If we're interested in a long-run effect, this more or less assumes that we think there are dynamics. Hence, it doesn't make sense for us to consider restricting both $\alpha_1$ and $\alpha_2$ to be zero. Instead we'll consider the restriction $\alpha_2 = 0$. This is the equivalent of $\gamma = \gamma_0$ from the theoretical derivations. In the notation of the theoretical portion of the paper, the derivatives that appear in the limiting distribution of $\widehat{\mu}$ (Corollary 3.2) are
+  $$\nabla \varphi_0 = \left[\begin{array}{c} \left.\displaystyle\frac{\partial \mu}{\partial \beta}\right|_{\alpha_2 = 0}\\\\
+\left.\displaystyle\frac{\partial \mu}{\partial \alpha_1}\right|_{\alpha_2 = 0}\\\\
+\left.\displaystyle\frac{\partial \mu}{\partial \alpha_2}\right|_{\alpha_2 = 0}
+  \end{array}\right] = \left[\begin{array}{c} 
+  1/(1-\alpha_1) \\
+  \beta/(1-\alpha_1)^2\\
+  \beta/(1-\alpha_1)^2
+  \end{array}\right]$$
+The element that corresponds to the $\gamma$ block is $\beta/(1-\alpha_1)^2$. This is the component that multiples the bias parameter $\delta$ in the second term of Corollary 3.2.
+
+\paragraph{Short-Run Effect} In this case, our target parameter is simply $\beta$. If we're interested purely in the short-run effect, this doesn't commit us to any view about the importance of dynamics. We can consider restricting both $\alpha_1$ and $\alpha_2$ to be zero. In fact, in the simulation experiment it could make the most sense to only work with a model in which there is a single lag of $y$. In the specification for which $\alpha_1$ and $\alpha_2$ are assumed to be zero, we can simply use OLS! In this case, the target parameter doesn't depend on the nuisance parameters, so $\nabla \varphi_0 = (1,0,0)'$. The elements that correspond to the $\gamma$ block are zeros.
+
+
+
+\subsection{Models}
+To remove the correlated individual effects, we estimate all models in first differences:
+  $$\Delta y_{it} = \alpha_1 \Delta y_{it-1} + \alpha_2 \Delta y_{it-2} + \beta \Delta x_{it} + \Delta v_{it}$$
+As mentioned above, the question of which model specifications to consider depends on the target parameter we have in mind. But since both target parameters depend on $\beta$, the only models we consider correspond to restrictions on $\alpha_1$ and $\alpha_2$, namely:
+\begin{table}[h]
+\centering
+\begin{tabular}{cll}
+Model& Restriction  & Model-Implied Residual \\
+\hline
+L0 & $\alpha_1 = \alpha_2 = 0$ & $\Delta v_{it}^{(0)}= \Delta y_{it} -  \beta \Delta x_{it}$\\
+L1 & $\alpha_2 = 0$ & $\Delta v_{it}^{(1)}= \Delta y_{it} -  \alpha_1 \Delta y_{it-1} -\beta \Delta x_{it}$ \\
+L2& None & $\Delta v_{it}^{(2)} = \Delta y_{it} -  \alpha_1 \Delta y_{it-1} - \alpha_2 \Delta y_{it-2} - \beta \Delta x_{it}$ 
+\end{tabular}
+\end{table}
+where L0 is shorthand for the model with zero lags of $y$, L1 for the model with one lag of $y$ and L2 for the model with two lags of $y$. The corresponding model-implied residuals are $\Delta v_{it}^{(0)}$, $\Delta v_{it}^{(1)}$ and $\Delta v_{it}^{(2)}$.  
+
+
+\subsection{Moment Conditions}
+The regressor $x_{it}$ is predetermined with respect to the error term $v_{it}$. Since $x_{it} = \theta \eta_i + \gamma v_{it-1} + \xi_{it}$, however, it is only strictly exogenous when $\gamma=0$. The moment selection problem is whether or not to use the additional moment conditions that arise from the assumption that $x$ is strictly exogenous. The choice of moment conditions only makes sense after we've specified a model, so we examine L2, L1 and L0 in turn. We will only consider linear GMM estimators in the style of Arellano and Bond (1991).
+
+\paragraph{Moment Selection for L2} This is the ``true'' model in that it is correctly specified regardless of the values of $\alpha_1$ and $\alpha_2$. The model-implied residual is
+$$\Delta v_{it}^{(2)}=  \Delta y_{it} -  \alpha_1 \Delta y_{it-1} - \alpha_2 \Delta y_{it-2} - \beta \Delta x_{it}$$
+Now the question is which moment conditions to use in estimation. Since this model is correctly specified, the model-implied residual equals the true differenced error term: $\Delta v_{it}^{(2)} = \Delta v_{it} = v_{it} - v_{it-1}$. Hence $y_{i1}, \hdots, y_{it-2}$ are valid instruments for time period $t$. If $x$ is predetermined, then $x_{i1}, \hdots, x_{it-1}$ are valid instruments for period $t$. Under the stronger assumption that $x$ is strictly exogenous, which requires $\gamma=0$, $x_{i1}, \hdots, x_{iT}$ are valid instruments for period $t$.
+
+
+
+
+Now, if $t = 1, \hdots, T$ then we can form the residuals $\Delta v_{it}^{(2)}$ for periods $4, \hdots, T$. We lose one time period from taking first differences, another from estimating including the first lag of $y$, and a third period from including the second lag of $y$.
+
+\todo[inline]{Use the optimal instruments or the Arellano-Bond style instruments? Possibility of weak instrument problems. Need second step anyway to get the J-test. Implement parts of the estimator as sums?}
+
+
+\paragraph{Moment Selection for L1} This model is only correctly specified when the restriction $\alpha_2 = 0$ holds. The model-implied residual is
+$$\Delta v_{it}^{(1)}= \Delta y_{it} -  \alpha_1 \Delta y_{it-1} -\beta \Delta x_{it}$$
+Now the question is which moment conditions to use in estimation. Suppose the restriction $\alpha_2 = 0$. Then the model-implied residual equals the true differenced error term: $\Delta v_{it}^{(1)} = \Delta v_{it}= v_{it} - v_{it-1}$. 
+
+The same points about instruments as discussed for L2 hold for L1 only we get more time periods.
+
+If $t = 1, \hdots, T$ then we can form the residuals $\Delta v_{it}^{(1)}$ for periods $3, \hdots, T$. We lose one time period from taking first differences and another from including a lagged value of $y$. Hence, L1 gives us one more time period to use in estimation than L2.
+
+
+\paragraph{Moment Selection for L0} This model is only correctly specified when the restriction $\alpha_1 = \alpha_2 = 0$ holds. The model-implied residual is
+$$\Delta v_{it}^{(0)}= \Delta y_{it} -  \beta \Delta x_{it}$$
+Now the question is which moment conditions to use in estimation. Suppose that the restriction $\alpha_1 = \alpha_2 = 0$ holds. Then the model-implied residual equals the true, differenced error term: $\Delta v_{it}^{(0)} = \Delta v_{it}= v_{it} - v_{it-1}$. 
+
+For L0 we wouldn't use any of the $y$ as instruments. I think in the case of strictly exogenous we can just do OLS? Doesn't the weight matrix cancel since this is just identified?
+
+If $t = 1, \hdots, T$ then we can form the residuals $\Delta v_{it}^{(0)}$ for periods $2, \hdots, T$. We lose one time period from taking first differences. Hence, L0 gives us two more time periods than L2 and one more time period than L1.
+
+
+
+
+
+\newpage
+\section*{OLD}
+The error terms are jointly normal with mean zero. Variances and covariances are given as follows:
+  \begin{eqnarray*}
+    E[\xi_{it}] &=& E[v_{it}] = E[\eta_i] = 0\\
+    Var(\epsilon) &=& \sigma^2_{\xi}, \quad Var(\eta_i) = \sigma^2_{\eta}, \quad Var(v_{it}) = \sigma^2_v\\
+    E[v_{it}\eta_i] &=& 0 \\
+    E[v_{it}\xi_{is}] &=& \left\{\begin{array}{l}\sigma_{v\xi} \mbox{ for } s = t+1 \\ 0 \mbox{ otherwise } \end{array} \right.\\
+    E[\xi_{it}\eta_i] &=& \sigma_{\eta\xi}
+  \end{eqnarray*}
+
+Let $\boldsymbol{\xi}_i = (\xi_{i1}, \hdots, \xi_{i,k+T})'$ and $\boldsymbol{v}_i = (v_{i1}, \hdots, v_{i,k+T})'$. Then, we have
+  $$\left[ \begin{array}{c} \boldsymbol{\xi}_i \\ \eta_i \\ \boldsymbol{v}_i \end{array} \right] \overset{\mbox{iid}}{\sim} \mbox{N}\left(\left[\begin{array}{l} \mathbf{0}_{k+T} \\ 0 \\ \mathbf{0}_{k+T} \end{array}\right], \left[ \begin{array}{ccc}\sigma^2_{\xi} \mathbf{I}_{k+T} & \sigma_{\eta \xi}\boldsymbol{\iota}_{k+T}& \sigma_{v\xi} \Gamma_{k+T}\\\sigma_{\eta \xi}\boldsymbol{\iota}'_{k+T} & \sigma^2_{\eta} & \mathbf{0}'_{k+T} \\ \sigma_{v\xi} \Gamma'_{k+T} & \mathbf{0}_{k+T}& \sigma_v^2 \mathbf{I}_{k+T}\end{array}\right] \right)$$
+where $\mathbf{0}_m$ is an $m\times 1$ vector of zeros, $\boldsymbol{\iota}_m$ is an $m\times 1$ vector of ones, $\mathbf{I}_m$ is the $m\times m$ identity matrix and $\Gamma_m$ is an $m\times m$ matrix with ones on the subdiagonal and zeros elsewhere, namely
+  $$\Gamma_m = \left[ \begin{array}{cc} \mathbf{0}'_{m-1} & 0 \\ \mathbf{I}_{m-1} & \mathbf{0}_{m-1}\end{array}\right]$$
+
+\paragraph{Properties of Exogenous Regressor} We want to parameterize everything in terms of $x$, so we first need to see how the underlying parameters of the DGP determine $E[x_{it}\eta_i]$ and $E[x_{it}v_{is}]$. Since $x_{it}$ follows an AR(1) process with $x_{i0} = 0$, 
+  \begin{eqnarray*}
+    x_{it} &=& \rho x_{it-1} + \xi_{it} \\
+          &=& \rho(\rho x_{it-2} + \xi_{it-1}) + \xi_{it}\\
+          &\vdots&\\
+          &=& \xi_{it} + \rho \xi_{it-1} + \hdots +\rho^{?} \xi_{i2} + \rho^{?}\xi_{i1} 
+  \end{eqnarray*}
+ 
+
+\end{document}
