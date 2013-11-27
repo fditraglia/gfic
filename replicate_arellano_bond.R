@@ -18,10 +18,13 @@ data(EmplUK) #UK Unemployment data from Arellano & Bond (1992)
 
 #Example from Section 5.4 of the plm package vignette
 #Replicates Table 4b of Arellano & Bond (1991)
-#``Employment is explained by past values of employment (two lags), current and first lag of wages and output and current value of capital.''
-emp.gmm <- pgmm(log(emp) ~ lag(log(emp), 1:2) + lag(log(wage), 0:1)
-           + log(capital) + lag(log(output), 0:1) | lag(log(emp), 2:99), data = EmplUK, effect = "twoways", model = "twosteps")
+#Employment is explained by past values of employment (two lags), current and first lag of wages and output and current value of capital
 
-#Estimates in the vignette agree with the paper, but standard errors are much bigger
+#effect = "twoways" estimates in first differences to eliminate individual effects and includes time dummies
+emp.gmm <- pgmm(log(emp) ~ lag(log(emp), 1:2) + lag(log(wage), 0:1) + log(capital) + lag(log(output), 0:1) | lag(log(emp), 2:99), data = EmplUK, effect = "twoways", model = "twosteps")
+
+#Estimates in the vignette agree with the paper, but standard errors are much bigger than in the paper. 
 summary(emp.gmm)
+
+
 
