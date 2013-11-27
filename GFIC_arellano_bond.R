@@ -16,7 +16,7 @@ dgpR <- function(a1, a2, g, N.i, N.t, burn.in = 10,
   xi[, 1] <- e[, 1]
   x[, 1] <- theta * eta + xi[, 1]
   y[, 1] <- b * x[, 1] + eta + v[, 1]
-  
+
   #Second Initialization Step - Set Presample Observations to 0
   xi[, 2] <- r * xi[, 1] + e[, 2]
   x[, 2] <- theta * eta + g * v[, 1] + xi[, 2]
@@ -27,8 +27,7 @@ dgpR <- function(a1, a2, g, N.i, N.t, burn.in = 10,
     
     xi[, i] <- r * xi[, i - 1] + e[, i]
     x[, i] <- theta * eta + g * v[, i - 1] + xi[, i]
-    y[, i] <- a1 * y[, i - 1] + a2 * y[, i - 2] + b * x[, i] 
-    + eta + v[, i]
+    y[, i] <- a1 * y[, i - 1] + a2 * y[, i - 2] + b * x[, i] + eta + v[, i]
     
   }#END for
 
@@ -36,7 +35,7 @@ dgpR <- function(a1, a2, g, N.i, N.t, burn.in = 10,
   x <- x[, -c(1:burn.in)]
   y <- y[, -c(1:burn.in)]
   
-  out <- list(x = x, y = y, eta = eta, v = v, epsilon = e)
+  out <- list(x = x, y = y)
   return(out)
   
 }#END dgpR

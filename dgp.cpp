@@ -13,7 +13,7 @@ GFIC paper.
 using namespace Rcpp;
 
 // [[Rcpp::export]]
-List dgp_cpp(double a1, double a2, int g, int N_i, 
+List dgp_cpp(double a1, double a2, double g, int N_i, 
                       int N_t, int burn_in, double b, 
                       double r, double theta, double s_e, 
                       double s_eta, double s_v){
@@ -36,7 +36,7 @@ List dgp_cpp(double a1, double a2, int g, int N_i,
     xi.col(0) = epsilon.col(0); //Remember: Arma zero-indexes!
     x.col(0) = theta * eta + xi.col(0); 
     y.col(0) = b * x.col(0) + eta + v.col(0);
-  
+    
     //Second Initialization Step - Presample Obs = 0
     xi.col(1) = r * xi.col(0) + epsilon.col(1);
     x.col(1) = theta * eta + g * v.col(0) + xi.col(1);
@@ -56,8 +56,6 @@ List dgp_cpp(double a1, double a2, int g, int N_i,
     x = x.cols(burn_in, burn_in + N_t - 1);
     y = y.cols(burn_in, burn_in + N_t - 1);
     
-    return List::create(Named("x") = x, Named("y") = y, 
-          Named("eta") = eta, Named("v") = v, 
-          Named("epsilon") = epsilon);
+    return List::create(Named("x") = x, Named("y") = y);
                   
 }

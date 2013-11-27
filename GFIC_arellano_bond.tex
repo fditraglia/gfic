@@ -20,7 +20,16 @@ x_{it} &=& \theta \eta_i + \gamma v_{it-1} + \xi_{it}\\
 \xi_{it} &=& \rho \xi_{it-1} + \epsilon_{it}
 \end{eqnarray*}
 
-\paragraph{Initial Conditions} We set $\xi_{i0} =v_{i0}= y_{i0} = 0$ and then generate $k + T$ time periods from the model. The first $k$ are ``burn-in'' observations which are discarded. 
+\paragraph{Initial Conditions} We set all pre-sample observations to zero and then generate $k + T$ time periods from the model. The first $k$ are ``burn-in'' observations which are discarded. Specifically, we initialize as follows:
+  \begin{eqnarray*}
+    \xi_{i0} &=& v_{i0} = y_{i0} = y_{i,-1} = 0\\ \\
+    \xi_{i1} &=& \rho \xi_{i0} + \epsilon_{i1} = \epsilon_{i1}\\
+    x_{i1} &=& \theta \eta_i + \gamma v_{i0} + \xi_{i1} = \theta \eta_i + \xi_{i1} \\
+    y_{i1} &=& \alpha_1 y_{i0} + \alpha_2 y_{i,-1} + \beta x_{i1} + \eta_i + v_{i1} = \beta x_{i1} + \eta_i + v_{i1}  \\ \\
+    \xi_{i2} &=& \rho \xi_{i1} + \epsilon_{i2} \\
+    x_{i2} &=& \theta \eta_i + \gamma v_{i1} + \xi_{i2}\\
+    y_{i2} &=& \alpha_1 y_{i1} + \alpha_2 y_{i0} + \beta x_{i2} + \eta_i + v_{i2} = \alpha_1 y_{i1} + \beta x_{i2} + \eta_i + v_{i2} 
+  \end{eqnarray*}
 
 
 \paragraph{Error Terms}
