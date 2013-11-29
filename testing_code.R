@@ -36,17 +36,10 @@ x.diff <- lapply(seq_len(N.i), function(i) x.diff[i,])
 y.diff <- lapply(seq_len(N.i), function(i) y.diff[i,])
 y <- lapply(seq_len(N.i), function(i) y[i,])
 
-#List of datasets for each individual. Rows of each of the N.i dataframes correspond to time periods with NAs "padding" the missing time periods as a sanity check.
-data.list <- mapply(function(y.diff, x.diff, y) data.frame(y.diff = y.diff, x.diff = x.diff, y = y), x.diff, y.diff, y, SIMPLIFY = FALSE)
-
-
 #Instruments for each individual (list of lists)
 Z.i <- function(i){
   
-  y <- data.list[[i]]$y
-  x.diff <- data.list[[i]]$x.diff
-  N.t <- nrow(data.list[[i]])
-  lapply(3:N.t, function(j) c(y[1:(j - 2)], x.diff[j]))
+  lapply(3:N.t, function(j) c(y[[i]][1:(j - 2)], x.diff[[i]][j]))
   
 }
 
@@ -60,10 +53,7 @@ Z <- lapply(seq_len(N.i), function(i) t(bdiag(Z[[i]])))
 #Regressors for each individual (list of matrices)
 X.tilde.i <- function(i){
   
-  x.diff <- data.list[[i]]$x.diff
-  y.diff <- data.list[[i]]$y.diff
-  N.t <- nrow(data.list[[i]])
-  cbind(y.diff[2:(N.t - 1)], x.diff[3:N.t])
+  cbind(y.diff[[i]][2:(N.t - 1)], x.diff[[i]][3:N.t])
   
 }
 
@@ -72,9 +62,7 @@ X.tilde <- lapply(seq_len(N.i), X.tilde.i)
 #Outcomes for each individual (list of vectors)
 y.tilde.i <- function(i){
   
-  y.diff <- data.list[[i]]$y.diff
-  N.t <- nrow(data.list[[i]])
-  y.diff[3:N.t]
+  y.diff[[i]][3:N.t]
   
 }
 y.tilde <- lapply(seq_len(N.i), y.tilde.i)
