@@ -14,7 +14,7 @@ ABsim <- function(a){
 }
 
 
-set.seed(2871)
+set.seed(871)
 foo <- ABsim(0.5) #A draw from the DGP of Panel 1, Table 1, A&B 1991
 x <- foo$x
 y <- foo$y
@@ -36,47 +36,67 @@ x.diff <- lapply(seq_len(N.i), function(i) x.diff[i,])
 y.diff <- lapply(seq_len(N.i), function(i) y.diff[i,])
 y <- lapply(seq_len(N.i), function(i) y[i,])
 
-#List of design matrices corresponding to each individual. Rows of each of the N.i dataframes correspond to time periods with NAs "padding" the missing time periods as a sanity check.
+#List of datasets for each individual. Rows of each of the N.i dataframes correspond to time periods with NAs "padding" the missing time periods as a sanity check.
 data.list <- mapply(function(y.diff, x.diff, y) data.frame(y.diff = y.diff, x.diff = x.diff, y = y), x.diff, y.diff, y, SIMPLIFY = FALSE)
 
-#Instrument Matrix is block-diagonal. Construct using sparse matrices
-library(Matrix)
 
-#Instruments for person i
+#Instruments for each individual (list of lists)
 Z.i <- function(i){
   
-  data.i <- data.list[[i]]
-  Z.i <- lapply(3:nrow(data.i), function(j) with(data.i, c(y[1:(j - 2)], x.diff[j])))
-  Z.i <- bdiag(Z.i)
-  Z.i <- t(Z.i)
+  y <- data.list[[i]]$y
+  x.diff <- data.list[[i]]$x.diff
+  N.t <- nrow(data.list[[i]])
+  lapply(3:N.t, function(j) c(y[1:(j - 2)], x.diff[j]))
   
 }
 
-#Function for a given individual
-XZ.i <- function(i){
+Z <- lapply(seq_len(N.i), Z.i)
+
+#Convert to list of sparse matrices
+library(Matrix)
+Z <- lapply(seq_len(N.i), function(i) t(bdiag(Z[[i]])))
+
+
+#Regressors for each individual (list of matrices)
+X.tilde.i <- function(i){
   
-  data.i <- data.list[[i]]
-  Z.i <- lapply(3:nrow(data.i), function(j) with(data.i, c(y[1:(j - 2)], x.diff[j])))
-  
-  Z.i <- bdiag(Z.i)
-  Z.i <- t(Z.i)
-  
-  X.tilde.i <- as.matrix(data.i[3:nrow(data.i), c("x.diff", "y.diff")])
-  XZ.i <- crossprod(X.tilde.i, Z.i)
-  return(XZ.i)
+  x.diff <- data.list[[i]]$x.diff
+  y.diff <- data.list[[i]]$y.diff
+  N.t <- nrow(data.list[[i]])
+  cbind(y.diff[2:(N.t - 1)], x.diff[3:N.t])
   
 }
 
+X.tilde <- lapply(seq_len(N.i), X.tilde.i)
 
-XZ <- lapply(seq_len(N.i), XZ.i)
+#Outcomes for each individual (list of vectors)
+y.tilde.i <- function(i){
+  
+  y.diff <- data.list[[i]]$y.diff
+  N.t <- nrow(data.list[[i]])
+  y.diff[3:N.t]
+  
+}
+y.tilde <- lapply(seq_len(N.i), y.tilde.i)
+
+
+XZ <- lapply(seq_len(N.i), function(i) crossprod(X.tilde[[i]], Z[[i]]))
 XZ <- Reduce('+', XZ) #Sum over all individuals
 
-H <- bandSparse(5, 5, k = c(0,-1, 1), list(rep(2, 5), rep(-1, 5), rep(-1, 5)))
-Z <- lapply(seq_len(N.i), Z.i)
-W.n <- lapply(seq_len(N.i), function(i) t(Z[[i]]) %*% H %*% Z[[i]])
-W.n <- Reduce('+', W.n)
-W.n <- W.n / N.i
-W.n <- solve(W.n)
+Zy <- lapply(seq_len(N.i), function(i) crossprod(Z[[i]], y.tilde[[i]]))
+Zy <- Reduce('+', Zy)
 
-solve(XZ %*% W.n %*% t(XZ))
+
+H <- bandSparse(5, 5, k = c(0,-1, 1), list(rep(2, 5), rep(-1, 5), rep(-1, 5)))
+W.inv <- lapply(seq_len(N.i), function(i) t(Z[[i]]) %*% H %*% Z[[i]])
+W.inv <- Reduce('+', W.inv) / N.i
+W <- solve(W.inv)
+
+solve(XZ %*% W %*% t(XZ)) %*% XZ %*% W %*% Zy
+
+
+
+
+
+
 
