@@ -77,8 +77,9 @@ ABfit <- function(x, y){
   K.inv <- XZW %*% t(XZ)
   K <- chol2inv(qr.R(qr(K.inv)))
   b <- solve(K.inv) %*% XZW %*% Zy
-  #Direct calculation is: solve(XZ %*% W %*% t(XZ)) %*% XZ %*% W %*% Zy  
-  row.names(b) <- c('alpha', 'beta')
+  #Direct calculation is: solve(XZ %*% W %*% t(XZ)) %*% XZ %*% W %*% Zy
+  b <- as.vector(b)
+  names(b) <- c("a", "b")
   return(b)
   
   

@@ -23,19 +23,9 @@ sim.2 <- replicate(100, test.sim(0.2))
 sim.5 <- replicate(100, test.sim(0.5))
 sim.8 <- replicate(100, test.sim(0.8))
 
-a.sim.2 <- sapply(seq_len(100), function(i) sim.2[[i]][1,1], simplify = "array")
-b.sim.2 <- sapply(seq_len(100), function(i) sim.2[[i]][2,1], simplify = "array")
-a.sim.5 <- sapply(seq_len(100), function(i) sim.5[[i]][1,1], simplify = "array")
-b.sim.5 <- sapply(seq_len(100), function(i) sim.5[[i]][2,1], simplify = "array")
-a.sim.8 <- sapply(seq_len(100), function(i) sim.8[[i]][1,1], simplify = "array")
-b.sim.8 <- sapply(seq_len(100), function(i) sim.8[[i]][2,1], simplify = "array")
-
-
-names(a.sim.2) <- names(b.sim.2) <- names(a.sim.5) <- names(b.sim.5) <- names(a.sim.8) <- names(b.sim.8) <- NULL
-
-sim.2 <- data.frame(a = a.sim.2, b = b.sim.2)
-sim.5 <- data.frame(a = a.sim.5, b = b.sim.5)
-sim.8 <- data.frame(a = a.sim.8, b = b.sim.8)
+sim.2 <- t(sim.2)
+sim.5 <- t(sim.5)
+sim.8 <- t(sim.8)
 
 sims <- list(sim.2, sim.5, sim.8)
 names(sims) <- c("a=0.2", "a=0.5", "a=0.8")
