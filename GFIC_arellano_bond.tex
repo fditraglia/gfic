@@ -44,7 +44,7 @@ which gives
     \end{eqnarray*}
 
 \paragraph{Estimators}
-
+Do they include constants? Does it make a difference?
 
 \section{My Simulation Setup}
 
@@ -54,6 +54,14 @@ y_{it} &=& \alpha_1 y_{it-1} + \alpha_2 y_{it-2} +\beta   x_{it} + \eta_i + v_{i
 x_{it} &=& \theta \eta_i + \gamma v_{it-1} + \xi_{it}\\
 \xi_{it} &=& \rho \xi_{it-1} + \epsilon_{it}
 \end{eqnarray*}
+
+\paragraph{Relationship to Arellano-Bond Simplified Simulation} Set $\alpha_2 = \theta = \gamma =0$, $\beta = 1$, and $\rho = 0.8$. Then we have:
+\begin{eqnarray*}
+y_{it} &=& \alpha y_{it-1} +   x_{it} + \eta_i + v_{it}\\
+x_{it} &=&  \xi_{it}\\
+\xi_{it} &=& 0.8 \xi_{it-1} + \epsilon_{it}
+\end{eqnarray*}
+which is the same as the simulation setup in Table 1 of Arellano \& Bond (1991). The only difference I can see is that in the paper they hold $x_{it}$ fixed across replications whereas I do not.
 
 \paragraph{Initial Conditions} We set all pre-sample observations to zero and then generate $k + T$ time periods from the model. The first $k$ are ``burn-in'' observations which are discarded. Specifically, we initialize as follows:
   \begin{eqnarray*}
