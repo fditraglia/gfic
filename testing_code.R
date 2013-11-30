@@ -61,7 +61,7 @@ x <- testy$x
 y <- testy$y
 sourceCpp("ABfit.cpp")
 foo <- ABfit_cpp(x, y)
-foo$H
+foo
 
 
 

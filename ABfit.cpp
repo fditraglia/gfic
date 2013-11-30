@@ -26,11 +26,42 @@ List ABfit_cpp(NumericMatrix x_r, NumericMatrix y_r) {
    arma::mat H = 2 * arma::mat(N_t - 2, N_t - 2, arma::fill::eye);
    H.diag(-1) = -1 * arma::vec(N_t - 3, arma::fill::ones);
    H.diag(1) = -1 * arma::vec(N_t - 3, arma::fill::ones);
+
+   //Number of instruments in each time period
+   arma::vec N_y_instruments = arma::linspace(1, N_t - 2, N_t - 2);
+   arma::vec N_x_instruments = arma::ones(N_t - 2);
+   arma::vec N_instruments = N_y_instruments + N_x_instruments;
    
+   //Total number of moment conditions
+   int m = arma::sum(N_instruments);
+   
+   //Starting and ending columns for embedding instruments in Z_i
+   //Remember: zero indexing!
+   arma::vec end_cols = arma::cumsum(N_instruments) - 1;
+   arma::vec start_cols = end_cols - N_instruments + 1;
+   
+   //For the moment, just look at the first individual
+   int i = 0;
+   
+   //Initialize Z_i and fill with zeros
+   arma::mat Z_i(N_t - 2, m, arma::fill::zeros);
+      
+   //Loop over time periods to construct matrix products
+   //For a given individual: j indexes end_cols and start_cols
+   for(int j = 0; j < N_t - 2; j++){
+     
+     arma::rowvec test_row(N_instruments(j), arma::fill::ones);
+     Z_i(arma::span(j,j), arma::span(start_cols(j), end_cols(j))) = 
+            test_row;
+     
+   }
    //Construct XZ, Zy for each i
    
    return List::create(Named("xdiff") = xdiff, 
-        Named("ydiff") = ydiff, Named("H") = H);
+        Named("ydiff") = ydiff, Named("H") = H, 
+        Named("Nz") = N_instruments, Named("m") = m,
+        Named("end_cols") = end_cols, 
+        Named("start_cols") = start_cols, Named("Z_i") = Z_i);
     
   
 //  #Instruments for each individual (list of lists)
