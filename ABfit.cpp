@@ -47,12 +47,14 @@ List ABfit_cpp(NumericMatrix x_r, NumericMatrix y_r) {
    arma::mat Z_i(N_t - 2, m, arma::fill::zeros);
       
    //Loop over time periods to construct matrix products
-   //For a given individual: j indexes end_cols and start_cols
+   //For a given individual: j indexes rows of Z_i as well as 
+   //elements of end_cols and start_cols
    for(int j = 0; j < N_t - 2; j++){
      
-     arma::rowvec test_row(N_instruments(j), arma::fill::ones);
+     //Careful: y starts at t = 1, xdiff starts at t = 2
      Z_i(arma::span(j,j), arma::span(start_cols(j), end_cols(j))) = 
-            test_row;
+            join_rows(  y( arma::span(i, i), arma::span(0,j) ),  
+              xdiff( arma::span(i, i), arma::span(j + 1, j + 1) ));
      
    }
    //Construct XZ, Zy for each i
