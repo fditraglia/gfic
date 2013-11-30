@@ -11,7 +11,42 @@
 
 \maketitle
 
-\section{Simulation Setup}
+\section{Arellano-Bond (1991) Simulation Setup}
+
+\paragraph{DGP -- General Version}
+Ten ``burn-in'' crossections discarded, $y_{i0}=0$. Sample size $N =100$ individuals, $T = 7$ time periods. 
+    \begin{eqnarray*}
+      y_{it} &=& \alpha y_{it-1} + \beta x_{it} + \eta_i + v_{it}\\
+      x_{it} &=& \rho x_{it-1} + \epsilon_{it}\\
+      v_{it} &=& \sigma_{it}(\xi_{it} + \phi \xi_{it-1})\\
+      \sigma_{it}^2 &=& \theta_0 + \theta_1 x_{it}^2\\
+      \eta_i &\sim& \mbox{iid N}(0,\sigma_\eta^2)\\
+      \xi_{it} &\sim& \mbox{iid N}(0,1)\\
+      \epsilon_{it} &\sim& N(0,\sigma_\epsilon^2)\\
+    \end{eqnarray*}
+
+\paragraph{DGP -- Simplification (Table 1)} 
+  \begin{eqnarray*}
+    \theta_1 = \phi = 0\\
+    \theta_0 = \sigma^2 = 1\\
+    \sigma^2_{\eta} = 1\\
+    \beta = 1\\
+    \rho = 0.8\\
+    \sigma_\epsilon^2 = 0.9
+  \end{eqnarray*}
+which gives
+    \begin{eqnarray*}
+      y_{it} &=& \alpha y_{it-1} + x_{it} + \eta_i + v_{it}\\
+      x_{it} &=& 0.8 x_{it-1} + \epsilon_{it}\\
+      \eta_i &\sim& \mbox{iid N}(0,\sigma_\eta^2)\\
+      v_{it} &\sim& \mbox{iid N}(0,1)\\
+      \epsilon_{it} &\sim& N(0,0.9)\\
+    \end{eqnarray*}
+
+\paragraph{Estimators}
+
+
+\section{My Simulation Setup}
 
 \paragraph{Data Generating Process} 
 \begin{eqnarray*}
