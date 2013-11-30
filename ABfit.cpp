@@ -21,7 +21,7 @@ List ABfit_cpp(NumericMatrix x_r, NumericMatrix y_r) {
    arma::mat ydiff = y.cols(1, N_t - 1) - y.cols(0, N_t - 2);
    
    //Initialize Covariance matrix of differenced errors
-   //with 2 on main diagonal, -1 on the sib and super
+   //with 2 on main diagonal, -1 on the sub and super
    //diagonals
    arma::mat H = 2 * arma::mat(N_t - 2, N_t - 2, arma::fill::eye);
    H.diag(-1) = -1 * arma::vec(N_t - 3, arma::fill::ones);
@@ -53,41 +53,42 @@ List ABfit_cpp(NumericMatrix x_r, NumericMatrix y_r) {
      
      //Careful: y starts at t = 1, xdiff starts at t = 2
      Z_i(arma::span(j,j), arma::span(start_cols(j), end_cols(j))) = 
-            join_rows(  y( arma::span(i, i), arma::span(0,j) ),  
+            arma::join_rows(  y( arma::span(i, i), arma::span(0,j) ),  
               xdiff( arma::span(i, i), arma::span(j + 1, j + 1) ));
      
    }
-   //Construct XZ, Zy for each i
+   
+   
+   //Note: both ydiff and xdiff start at t = 2 but ydiff enters
+   //as a lagged RHS variable.
+   arma::colvec ydiff_lag_i = ydiff( arma::span(i, i), 
+                                 arma::span(0, N_t - 3) ).t();
+   arma::colvec xdiff_i = xdiff( arma::span(i, i), 
+                                 arma::span(1, N_t - 2) ).t();
+   arma::mat X_tilde_i = arma::join_rows(ydiff_lag_i, xdiff_i);
+   
+   arma::colvec y_tilde_i = ydiff( arma::span(i, i), 
+                                 arma::span(1, N_t - 2) ).t();
+   
+   //Construct XZ, ZHZ, and Zy for each i   
+   arma::mat XZ_i = X_tilde_i.t() * Z_i;
+   arma::mat Zy_i = Z_i.t() * y_tilde_i;
+   arma::mat ZHZ_i = Z_i.t() * H * Z_i;
+   
+
    
    return List::create(Named("xdiff") = xdiff, 
         Named("ydiff") = ydiff, Named("H") = H, 
         Named("Nz") = N_instruments, Named("m") = m,
         Named("end_cols") = end_cols, 
-        Named("start_cols") = start_cols, Named("Z_i") = Z_i);
+        Named("start_cols") = start_cols, Named("Z_i") = Z_i,
+        Named("X_tilde_i") = X_tilde_i,
+        Named("y_tilde_i") = y_tilde_i,
+        Named("ZHZ_i") = ZHZ_i,
+        Named("Zy_i") = Zy_i,
+        Named("XZ_i") = XZ_i);
     
   
-//  #Instruments for each individual (list of lists)
-//  Z.i <- function(i){
-//    
-//    lapply(3:N.t, function(j) c(y[[i]][1:(j - 2)], x.diff[[i]][j]))
-//    
-//  }
-//  
-//  Z <- lapply(individuals, Z.i)
-//  
-//  #Convert to list of sparse matrices
-//  Z <- lapply(individuals, function(i) t(bdiag(Z[[i]])))
-//  
-//  
-//  #Regressors for each individual (list of matrices)
-//  X.tilde.i <- function(i){
-//    
-//    cbind(y.diff[[i]][2:(N.t - 1)], x.diff[[i]][3:N.t])
-//    
-//  }
-//  
-//  X.tilde <- lapply(individuals, X.tilde.i)
-//  
 //  #Outcomes for each individual (list of vectors)
 //  y.tilde.i <- function(i){
 //    
