@@ -55,8 +55,13 @@ lapply(sims, g)
 # STDEV 0.05911683 0.0675210
 
 
-
-
+#Test out the C++ version of ABfit
+testy <- ABsim(0.2)
+x <- testy$x
+y <- testy$y
+sourceCpp("ABfit.cpp")
+foo <- ABfit_cpp(x, y)
+foo$H
 
 
 
