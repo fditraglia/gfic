@@ -21,7 +21,9 @@ testsimCpp <- function(a){
   
   sim.data <- ABsim(a)
   out <- ABfit_cpp(x = sim.data$x, y = sim.data$y)$b
-  return(as.vector(out))
+  out <- as.vector(out)
+  names(out) <- c("a", "b")
+  return(out)
 }
 
 
@@ -54,6 +56,8 @@ simsCpp <- list(simCpp.2, simCpp.5, simCpp.8)
 names(simsCpp) <- c("a=0.2", "a=0.5", "a=0.8")
 
 
+#Returns true!
+all.equal(simsCpp, simsR)
 
 
 g <- function(a.b.dataframe){
@@ -102,5 +106,5 @@ summaryCpp
 # MEAN  0.76670162 0.9899416
 # STDEV 0.05911683 0.0675210
 
-
+all.equal(summaryR, summaryCpp)
 
