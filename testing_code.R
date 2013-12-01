@@ -67,7 +67,13 @@ bR <- ABfit(x,y)
 all.equal(as.vector(bCpp), as.vector(bR))
 
 microbenchmark(ABfit_cpp(x, y), ABfit(x, y))
-
+# Unit: microseconds
+# expr        min         lq      median
+# ABfit_cpp(x, y)    414.549    422.486    444.6165
+# ABfit(x, y) 681218.531 692722.582 698398.9735
+# uq        max neval
+# 455.7545    526.159   100
+# 706567.4530 790436.044   100
 
 
 
