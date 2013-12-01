@@ -56,12 +56,19 @@ lapply(sims, g)
 
 
 #Test out the C++ version of ABfit
+set.seed(3728)
 testy <- ABsim(0.2)
 x <- testy$x
 y <- testy$y
 sourceCpp("ABfit.cpp")
 foo <- ABfit_cpp(x, y)
-foo
+bCpp <- foo$b
+bR <- ABfit(x,y)
+all.equal(as.vector(bCpp), as.vector(bR))
+
+microbenchmark(ABfit_cpp(x, y), ABfit(x, y))
+
+
 
 
 

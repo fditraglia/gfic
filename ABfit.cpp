@@ -98,19 +98,23 @@ List ABfit_cpp(NumericMatrix x_r, NumericMatrix y_r) {
      
    }
    
-   //Weighting matrix for one-step estimator
-   arma::mat W_N = ZHZ / N_i;
+
+   //Note that chol(M) returns upper-triangular matrix R
+   //M = L * L.t() = R.t() * R
+   arma::mat L = chol(ZHZ / N_i).t();
+   arma::mat Xw = solve(trimatl(L), XZ.t());
+   arma::colvec yw = solve(trimatl(L), Zy);
    
+   //Now we simply have a least squares problem in Xw, yw
+   arma::colvec b = solve(Xw, yw);
    
-   return List::create(Named("W_N") = W_N,
+   arma::mat W_sqrt = chol(ZHZ / N_i);
+   
+   return List::create(Named("b") = b,
+                       Named("W_inv") = ZHZ/N_i,
                        Named("XZ") = XZ,
                        Named("Zy") = Zy);
     
-  
-//  #Probably better not to use "solve" here but I'm not sure how to handle a qr decomposition for sparse matrices...
-//  H <- bandSparse(5, 5, k = c(0,-1, 1), list(rep(2, 5), rep(-1, 5), rep(-1, 5)))
-//  W.inv <- lapply(individuals, function(i) t(Z[[i]]) %*% H %*% Z[[i]])
-//  W.inv <- Reduce('+', W.inv) / N.i
 //  W <- solve(W.inv)
 //  
 //  XZW <- XZ %*% W
