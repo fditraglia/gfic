@@ -53,71 +53,60 @@ List ABfit_cpp(NumericMatrix x_r, NumericMatrix y_r) {
    arma::mat X_tilde_i(N_t - 2, N_reg, arma::fill::zeros);
    arma::colvec y_tilde_i(N_t - 2, 1, arma::fill::zeros);
    arma::mat XZ_i(N_reg, m, arma::fill::zeros);
-   arma::mat Zy_i(m, 1, arma::fill::zeros);
+   arma::colvec Zy_i(m, 1, arma::fill::zeros);
    arma::mat ZHZ_i(m, m, arma::fill::zeros);
    
-   //For the moment, just look at the first individual
-   int i = 0;
+   //Initialize Matrices that accumulate over individuals in i loop
+   arma::mat XZ = XZ_i;
+   arma::mat ZHZ = ZHZ_i;
+   arma::colvec Zy = Zy_i;
    
-   //Loop over time periods to construct matrix products
-   //For a given individual: j indexes rows of Z_i as well as 
-   //elements of end_cols and start_cols
-   for(int j = 0; j < N_t - 2; j++){
+   //Loop over individuals
+   for(int i = 0; i < N_i; i++){
      
-     //Careful: y starts at t = 1, xdiff starts at t = 2
-     Z_i(arma::span(j,j), arma::span(start_cols(j), end_cols(j))) = 
-            arma::join_rows(  y( arma::span(i, i), arma::span(0,j) ),  
-              xdiff( arma::span(i, i), arma::span(j + 1, j + 1) ));
+     //Loop over time periods to construct matrix products
+     //For a given individual: j indexes rows of Z_i as well as
+     //elements of end_cols and start_cols
+     for(int j = 0; j < N_t - 2; j++){
+       
+       //Careful: y starts at t = 1, xdiff starts at t = 2
+       Z_i(arma::span(j,j), arma::span(start_cols(j), end_cols(j))) = 
+           arma::join_rows(  y( arma::span(i, i), arma::span(0,j) ),  
+           xdiff( arma::span(i, i), arma::span(j + 1, j + 1) ));
+     }
+     
+     //Note: both ydiff and xdiff start at t = 2 but ydiff enters
+     //as a lagged RHS variable.
+     ydiff_lag_i = ydiff( arma::span(i, i), 
+                          arma::span(0, N_t - 3) ).t();
+     xdiff_i = xdiff( arma::span(i, i), 
+                      arma::span(1, N_t - 2) ).t();
+     X_tilde_i = arma::join_rows(ydiff_lag_i, xdiff_i);
+   
+     y_tilde_i = ydiff( arma::span(i, i), 
+                        arma::span(1, N_t - 2) ).t();
+     
+     //Construct XZ, ZHZ, and Zy for person i 
+     XZ_i = X_tilde_i.t() * Z_i;
+     Zy_i = Z_i.t() * y_tilde_i;
+     ZHZ_i = Z_i.t() * H * Z_i;     
+   
+     //Accumulate over i
+     XZ += XZ_i;
+     Zy += Zy_i;
+     ZHZ += ZHZ_i;
      
    }
    
+   //Weighting matrix for one-step estimator
+   arma::mat W_N = ZHZ / N_i;
    
-   //Note: both ydiff and xdiff start at t = 2 but ydiff enters
-   //as a lagged RHS variable.
-   ydiff_lag_i = ydiff( arma::span(i, i), 
-                        arma::span(0, N_t - 3) ).t();
-   xdiff_i = xdiff( arma::span(i, i), 
-                    arma::span(1, N_t - 2) ).t();
-   X_tilde_i = arma::join_rows(ydiff_lag_i, xdiff_i);
    
-   y_tilde_i = ydiff( arma::span(i, i), 
-                      arma::span(1, N_t - 2) ).t();
-   
-   //Construct XZ, ZHZ, and Zy for person i 
-   XZ_i = X_tilde_i.t() * Z_i;
-   Zy_i = Z_i.t() * y_tilde_i;
-   ZHZ_i = Z_i.t() * H * Z_i;
-   
-
-   
-   return List::create(Named("xdiff") = xdiff, 
-        Named("ydiff") = ydiff, Named("H") = H, 
-        Named("Nz") = N_instruments, Named("m") = m,
-        Named("end_cols") = end_cols, 
-        Named("start_cols") = start_cols, Named("Z_i") = Z_i,
-        Named("X_tilde_i") = X_tilde_i,
-        Named("y_tilde_i") = y_tilde_i,
-        Named("ZHZ_i") = ZHZ_i,
-        Named("Zy_i") = Zy_i,
-        Named("XZ_i") = XZ_i);
+   return List::create(Named("W_N") = W_N,
+                       Named("XZ") = XZ,
+                       Named("Zy") = Zy);
     
   
-//  #Outcomes for each individual (list of vectors)
-//  y.tilde.i <- function(i){
-//    
-//    y.diff[[i]][3:N.t]
-//    
-//  }
-//  y.tilde <- lapply(individuals, y.tilde.i)
-//  
-//  
-//  XZ <- lapply(individuals, function(i) crossprod(X.tilde[[i]], Z[[i]]))
-//  XZ <- Reduce('+', XZ) #Sum over all individuals
-//  
-//  Zy <- lapply(individuals, function(i) crossprod(Z[[i]], y.tilde[[i]]))
-//  Zy <- Reduce('+', Zy)
-//  
-//  
 //  #Probably better not to use "solve" here but I'm not sure how to handle a qr decomposition for sparse matrices...
 //  H <- bandSparse(5, 5, k = c(0,-1, 1), list(rep(2, 5), rep(-1, 5), rep(-1, 5)))
 //  W.inv <- lapply(individuals, function(i) t(Z[[i]]) %*% H %*% Z[[i]])
