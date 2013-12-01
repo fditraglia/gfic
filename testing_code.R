@@ -6,18 +6,8 @@ sourceCpp("ABfit.cpp")
 source("GFIC_arellano_bond.R")
 
 
-#Function to replicate one draw from the simulation experiment reported in the first column of Table 1 in Arellano & Bond (1991)
-#NOTE: this code is slow! Takes about 0.7 seconds to run...
-testsimR <- function(a){
-  
-  sim.data <- ABsim(a)
-  ABfit(x = sim.data$x, y = sim.data$y)
-  
-}
-
-#C++ version uses ABfit_cpp which is over 1500 times faster than the
-#R version of the same
-testsimCpp <- function(a){
+#Function to replicate one draw from the simulation experiment reported in the first column of Table 1 in Arellano & bond (1991)
+testsim <- function(a){
   
   sim.data <- ABsim(a)
   out <- ABfit_cpp(x = sim.data$x, y = sim.data$y)$b
@@ -27,26 +17,12 @@ testsimCpp <- function(a){
 }
 
 
-#Replicate Column 1 of Table 1 in Arellano & Bond (1991)
+
+#Replicate Column 1 of Table 1 in Arellano & Bond (1991) but with 10000 rather than 100 replications
 set.seed(871)
-simR.2 <- replicate(100, testsimR(0.2))
-simR.5 <- replicate(100, testsimR(0.5))
-simR.8 <- replicate(100, testsimR(0.8))
-
-simR.2 <- t(simR.2)
-simR.5 <- t(simR.5)
-simR.8 <- t(simR.8)
-
-simsR <- list(simR.2, simR.5, simR.8)
-names(simsR) <- c("a=0.2", "a=0.5", "a=0.8")
-
-
-
-#C++ version of the simulation
-set.seed(871)
-simCpp.2 <- replicate(100, testsimCpp(0.2))
-simCpp.5 <- replicate(100, testsimCpp(0.5))
-simCpp.8 <- replicate(100, testsimCpp(0.8))
+simCpp.2 <- replicate(10000, testsim(0.2))
+simCpp.5 <- replicate(10000, testsim(0.5))
+simCpp.8 <- replicate(10000, testsim(0.8))
 
 simCpp.2 <- t(simCpp.2)
 simCpp.5 <- t(simCpp.5)
@@ -55,9 +31,6 @@ simCpp.8 <- t(simCpp.8)
 simsCpp <- list(simCpp.2, simCpp.5, simCpp.8)
 names(simsCpp) <- c("a=0.2", "a=0.5", "a=0.8")
 
-
-#Returns true!
-all.equal(simsCpp, simsR)
 
 
 g <- function(a.b.dataframe){
@@ -69,42 +42,20 @@ g <- function(a.b.dataframe){
   
 }
 
-
-
-summaryR <- lapply(simsR, g)
-summaryR
-#$`a=0.2`
-#a          b
-#MEAN  0.17861145 1.00066024
-#STDEV 0.07318933 0.06464598
-# 
-# $`a=0.5`
-# a         b
-# MEAN  0.42672098 1.0128821
-# STDEV 0.09163048 0.0632998
-# 
-# $`a=0.8`
-# a         b
-# MEAN  0.76670162 0.9899416
-# STDEV 0.05911683 0.0675210
-
-
-summaryCpp <- lapply(simsCpp, g)
-summaryCpp
+lapply(simsCpp, g)
 # $`a=0.2`
-# [,1]       [,2]
-# MEAN  0.17861145 1.00066024
-# STDEV 0.07318933 0.06464598
+# a          b
+# MEAN  0.16694128 1.00629941
+# STDEV 0.07441652 0.06315172
 # 
 # $`a=0.5`
-# [,1]      [,2]
-# MEAN  0.42672098 1.0128821
-# STDEV 0.09163048 0.0632998
+# a          b
+# MEAN  0.44370741 1.00504139
+# STDEV 0.09239409 0.06239628
 # 
 # $`a=0.8`
-# [,1]      [,2]
-# MEAN  0.76670162 0.9899416
-# STDEV 0.05911683 0.0675210
+# a          b
+# MEAN  0.77083541 0.99246129
+# STDEV 0.05900658 0.06452556
 
-all.equal(summaryR, summaryCpp)
 
