@@ -11,6 +11,9 @@ List ABfit_cpp(NumericMatrix x_r, NumericMatrix y_r) {
    int N_i = x_r.nrow();
    int N_t = x_r.ncol();
    
+   //Number of regressors in this example
+   int N_reg = 2;
+   
    //Initialize armadillo matrices for R input matrices
    //and reuse original memory
    arma::mat x(x_r.begin(), N_i, N_t, false);
@@ -40,12 +43,22 @@ List ABfit_cpp(NumericMatrix x_r, NumericMatrix y_r) {
    arma::vec end_cols = arma::cumsum(N_instruments) - 1;
    arma::vec start_cols = end_cols - N_instruments + 1;
    
+   //Initialize instrument matrix Z_i and fill with zeros
+   arma::mat Z_i(N_t - 2, m, arma::fill::zeros);
+   
+   //Initialize all other matrices for individual i that
+   //appear in the loop over i and fill with zeros
+   arma::colvec ydiff_lag_i(N_t - 2, arma::fill::zeros);
+   arma::colvec xdiff_i(N_t - 2, arma::fill::zeros);
+   arma::mat X_tilde_i(N_t - 2, N_reg, arma::fill::zeros);
+   arma::colvec y_tilde_i(N_t - 2, 1, arma::fill::zeros);
+   arma::mat XZ_i(N_reg, m, arma::fill::zeros);
+   arma::mat Zy_i(m, 1, arma::fill::zeros);
+   arma::mat ZHZ_i(m, m, arma::fill::zeros);
+   
    //For the moment, just look at the first individual
    int i = 0;
    
-   //Initialize Z_i and fill with zeros
-   arma::mat Z_i(N_t - 2, m, arma::fill::zeros);
-      
    //Loop over time periods to construct matrix products
    //For a given individual: j indexes rows of Z_i as well as 
    //elements of end_cols and start_cols
@@ -61,19 +74,19 @@ List ABfit_cpp(NumericMatrix x_r, NumericMatrix y_r) {
    
    //Note: both ydiff and xdiff start at t = 2 but ydiff enters
    //as a lagged RHS variable.
-   arma::colvec ydiff_lag_i = ydiff( arma::span(i, i), 
-                                 arma::span(0, N_t - 3) ).t();
-   arma::colvec xdiff_i = xdiff( arma::span(i, i), 
-                                 arma::span(1, N_t - 2) ).t();
-   arma::mat X_tilde_i = arma::join_rows(ydiff_lag_i, xdiff_i);
+   ydiff_lag_i = ydiff( arma::span(i, i), 
+                        arma::span(0, N_t - 3) ).t();
+   xdiff_i = xdiff( arma::span(i, i), 
+                    arma::span(1, N_t - 2) ).t();
+   X_tilde_i = arma::join_rows(ydiff_lag_i, xdiff_i);
    
-   arma::colvec y_tilde_i = ydiff( arma::span(i, i), 
-                                 arma::span(1, N_t - 2) ).t();
+   y_tilde_i = ydiff( arma::span(i, i), 
+                      arma::span(1, N_t - 2) ).t();
    
-   //Construct XZ, ZHZ, and Zy for each i   
-   arma::mat XZ_i = X_tilde_i.t() * Z_i;
-   arma::mat Zy_i = Z_i.t() * y_tilde_i;
-   arma::mat ZHZ_i = Z_i.t() * H * Z_i;
+   //Construct XZ, ZHZ, and Zy for person i 
+   XZ_i = X_tilde_i.t() * Z_i;
+   Zy_i = Z_i.t() * y_tilde_i;
+   ZHZ_i = Z_i.t() * H * Z_i;
    
 
    
