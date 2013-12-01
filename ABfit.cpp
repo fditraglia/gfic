@@ -114,17 +114,5 @@ List ABfit_cpp(NumericMatrix x_r, NumericMatrix y_r) {
                        Named("W_inv") = ZHZ/N_i,
                        Named("XZ") = XZ,
                        Named("Zy") = Zy);
-    
-//  W <- solve(W.inv)
-//  
-//  XZW <- XZ %*% W
-//  K.inv <- XZW %*% t(XZ)
-//  K <- chol2inv(qr.R(qr(K.inv)))
-//  b <- solve(K.inv) %*% XZW %*% Zy
-//  #Direct calculation is: solve(XZ %*% W %*% t(XZ)) %*% XZ %*% W %*% Zy
-//  b <- as.vector(b)
-//  names(b) <- c("a", "b")
-//  return(b)
-   
    
 }
