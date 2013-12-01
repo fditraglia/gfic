@@ -1,5 +1,14 @@
-//C++ version of ABfit
-
+/*------------------------------------------------------------
+Filename:        ABfit.cpp
+Author:          Frank DiTraglia
+First Version:   2013-30-11
+This Version:    2013-30-11
+--------------------------------------------------------------
+This function calculates the Arellano-Bond estimator in a 
+simple setting: one lag of y and a single exogenous regressor.
+This corresponds to the simulation study in Table 1 of
+Arellano & Bond (1991).
+------------------------------------------------------------*/
 // [[Rcpp::depends(RcppArmadillo)]]
 
 #include <RcppArmadillo.h>
