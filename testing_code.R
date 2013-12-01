@@ -2,33 +2,60 @@ library(RcppArmadillo)
 library(Matrix)
 setwd("~/gfic")
 sourceCpp("dgp.cpp")
+sourceCpp("ABfit.cpp")
 source("GFIC_arellano_bond.R")
 
 
 #Function to replicate one draw from the simulation experiment reported in the first column of Table 1 in Arellano & Bond (1991)
 #NOTE: this code is slow! Takes about 0.7 seconds to run...
-test.sim <- function(a){
+testsimR <- function(a){
   
   sim.data <- ABsim(a)
   ABfit(x = sim.data$x, y = sim.data$y)
   
 }
 
+#C++ version uses ABfit_cpp which is over 1500 times faster than the
+#R version of the same
+testsimCpp <- function(a){
+  
+  sim.data <- ABsim(a)
+  out <- ABfit_cpp(x = sim.data$x, y = sim.data$y)$b
+  return(as.vector(out))
+}
 
+
+#Replicate Column 1 of Table 1 in Arellano & Bond (1991)
 set.seed(871)
+simR.2 <- replicate(100, testsimR(0.2))
+simR.5 <- replicate(100, testsimR(0.5))
+simR.8 <- replicate(100, testsimR(0.8))
 
-#Simulations corresponding to alpha = 0.2, 0.5, 0.8
-#Each of these takes a little over a minute. I really need to speed things up...
-sim.2 <- replicate(100, test.sim(0.2))
-sim.5 <- replicate(100, test.sim(0.5))
-sim.8 <- replicate(100, test.sim(0.8))
+simR.2 <- t(simR.2)
+simR.5 <- t(simR.5)
+simR.8 <- t(simR.8)
 
-sim.2 <- t(sim.2)
-sim.5 <- t(sim.5)
-sim.8 <- t(sim.8)
+simsR <- list(simR.2, simR.5, simR.8)
+names(simsR) <- c("a=0.2", "a=0.5", "a=0.8")
 
-sims <- list(sim.2, sim.5, sim.8)
-names(sims) <- c("a=0.2", "a=0.5", "a=0.8")
+
+
+#C++ version of the simulation
+set.seed(871)
+simCpp.2 <- replicate(100, testsimCpp(0.2))
+simCpp.5 <- replicate(100, testsimCpp(0.5))
+simCpp.8 <- replicate(100, testsimCpp(0.8))
+
+simCpp.2 <- t(simCpp.2)
+simCpp.5 <- t(simCpp.5)
+simCpp.8 <- t(simCpp.8)
+
+simsCpp <- list(simCpp.2, simCpp.5, simCpp.8)
+names(simsCpp) <- c("a=0.2", "a=0.5", "a=0.8")
+
+
+
+
 g <- function(a.b.dataframe){
   
   MEAN <- apply(a.b.dataframe, 2, mean)
@@ -38,7 +65,10 @@ g <- function(a.b.dataframe){
   
 }
 
-lapply(sims, g)
+
+
+summaryR <- lapply(simsR, g)
+summaryR
 #$`a=0.2`
 #a          b
 #MEAN  0.17861145 1.00066024
@@ -55,26 +85,22 @@ lapply(sims, g)
 # STDEV 0.05911683 0.0675210
 
 
-#Test out the C++ version of ABfit
-set.seed(3728)
-testy <- ABsim(0.2)
-x <- testy$x
-y <- testy$y
-sourceCpp("ABfit.cpp")
-foo <- ABfit_cpp(x, y)
-bCpp <- foo$b
-bR <- ABfit(x,y)
-all.equal(as.vector(bCpp), as.vector(bR))
-
-microbenchmark(ABfit_cpp(x, y), ABfit(x, y))
-# Unit: microseconds
-# expr        min         lq      median
-# ABfit_cpp(x, y)    414.549    422.486    444.6165
-# ABfit(x, y) 681218.531 692722.582 698398.9735
-# uq        max neval
-# 455.7545    526.159   100
-# 706567.4530 790436.044   100
-
+summaryCpp <- lapply(simsCpp, g)
+summaryCpp
+# $`a=0.2`
+# [,1]       [,2]
+# MEAN  0.17861145 1.00066024
+# STDEV 0.07318933 0.06464598
+# 
+# $`a=0.5`
+# [,1]      [,2]
+# MEAN  0.42672098 1.0128821
+# STDEV 0.09163048 0.0632998
+# 
+# $`a=0.8`
+# [,1]      [,2]
+# MEAN  0.76670162 0.9899416
+# STDEV 0.05911683 0.0675210
 
 
 
