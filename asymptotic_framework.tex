@@ -1,0 +1,124 @@
+%!TEX root = main.tex
+\section{Notation and Asymptotic Framework}
+\label{sec:asymp}
+Let $f(\cdot, \cdot)$ be a $(p+q)$-vector of moment functions of a random vector $Z$ and an $(r+s)$-dimensional parameter vector $\beta$.
+To represent moment selection, we partition the moment functions according to $f(\cdot,\cdot) = \left(g(\cdot, \cdot)', h(\cdot, \cdot)'\right)'$ where $g(\cdot, \cdot)$ and $h(\cdot, \cdot)$ are $p$- and $q$-vectors.
+The moment condition associated with $g(\cdot, \cdot)$ is assumed to be correct, while that associated with $h(\cdot,\cdot)$ is locally mis-specified.  
+The moment selection problem is to choose which, if any, of the elements of $h$ to use in estimation. 
+To represent model selection, we partition the full parameter vector according to $\beta = \left(\gamma', \theta'\right)'$, where $\gamma$ is an $r$-vector and $\theta$ an $s$-vector of parameters.
+The model selection problem is to decide which if any of the elements of $\gamma$ to estimate, and which to set equal to the corresponding elements of $\gamma_0$, an $r$-vector of known constants.
+The parameters contained in $\theta$ are those that we always estimate, the ``protected'' parameters.
+Any specification that does not estimate the full parameter vector $\beta$ is locally mis-specified.
+The precise form of the local mis-specification, over parameter restrictions and moment conditions, is as follows.
+
+\begin{assump}[Local Mis-specification]
+\label{assump:local}
+Let $\{Z_{ni}\colon 1\leq i \leq n, n =1, 2, \hdots\}$ be a triangular array of random vectors defined on a probability space $(\Upsilon, \mathcal{F},P)$ satisfying
+	\begin{enumerate}[(a)]
+		\item $E[g(Z_{ni}, \gamma_n,\theta_0)]=0$
+		\item $E[h\left( Z_{ni}, \gamma_n, \theta_0\right)] = \tau_n$
+		\item $\{f(Z_{ni}, \gamma_n, \theta_0)\colon 1\leq i \leq n, n = 1, 2, \hdots \}$ is uniformly integrable, and 
+		\item $Z_{ni}\overset{d}{\rightarrow} Z_i$, where the $Z_i$ are identically distributed.
+	\end{enumerate}
+	where $\gamma_n = \gamma_0 + n^{-1/2}\delta$ with $\delta$ an unknown $r$-vector of constants and $\tau_n = n^{-1/2}\tau$ with $\tau$ an unknown $q$-vector of constants.
+\end{assump}
+
+Under Assumption \ref{assump:local}, the true parameter vector $\beta_n = \left(\gamma_n', \theta_0' \right)'$, changes with sample size but converges to $\beta_0 = \left(\gamma_0', \theta_0'\right)'$ as $n\rightarrow \infty$. 
+Unless some elements of $\delta$ are zero, any estimator that restricts $\gamma$ is mis-specified for fixed $n$. 
+In the limit, however, the restriction $\gamma = \gamma_0$ holds. 
+Similarly, for any fixed sample size $n$, the expectation of $h$ evaluated at the true parameter value $\beta_n$ depends on the unknown constant vector $\tau$, but this source of mis-specification disappears in the limit. 
+Thus, under Assumption \ref{assump:local}, only estimators that use moment conditions from $g$ to estimate the full parameter vector $\beta$ are correctly specified. 
+In the limit, however, \emph{every} estimator is correctly specified, regardless of which elements of $\gamma$ it restricts and which elements of $h$ it includes. 
+The purpose of local mis-specification is to ensure that squared asymptotic bias is of the same order as asymptotic variance: Assumption \ref{assump:local} is a device rather than literal description of real-world data. 
+To simplify the proofs we make the following further assumption concerning the triangular array Assumption \ref{assump:local}, although it is not strictly necessary.
+\begin{assump}
+\label{assump:add}
+$\{Z_{ni}\colon 1\leq i \leq n, n =1, 2, \hdots\}$ is $iid$ over $i$ for fixed $n$.
+\end{assump}
+Note that, by Assumptions \ref{assump:local}--\ref{assump:add}, the limiting random variable $Z_i$ satisfies the population moment condition $E[f\left(Z_i,\gamma_0, \theta_0\right) )]=0$. 
+Since the $Z_i$ are assumed to have a common marginal law, we will use the shorthand $Z$ for $Z_i$ throughout.
+
+
+Before defining the estimators under consideration, we require some further notation. Let $b$ be a \emph{model selection vector}, an $r$-vector of ones and zeros indicating which elements of $\gamma$ we have chosen to estimate. 
+When $b = 1_r$, where $1_m$ represents an $m$-vector of ones, we estimate both $\theta$ and the full vector $\gamma$. 
+When $b = 0_r$, where $0_m$ denotes an $m$-vector of zeros, we estimate only $\theta$, setting $\gamma=\gamma_0$. 
+More generally, we estimate $|b|$ components of $\gamma$ and set the others equal to the corresponding elements of $\gamma_0$. 
+Let $\gamma^{(b)}$ be the $|b|$-dimensional subvector of $\gamma$ corresponding to those elements selected for estimation. 
+Similarly, let $\gamma^{(-b)}_0$ denote the $(r-|b|)$-dimensional subvector containing the values to which we set those components of $\gamma$ that are \emph{not} estimated.
+Analogously, let $c=\left(c_g', c_h'\right)'$ be a \emph{moment selection vector}, a $(p+q)$-vector of ones and zeros indicating which of the moment conditions we have chosen to use in estimation. 
+We denote by $|c|$ the total number of moment conditions used in estimation. 
+Let $\mathcal{BC}$ denote the collection of all model and moment selection pairs $(b,c)$ under consideration.
+
+
+To express moment and model selection in matrix form, we define the selection matrices $\Xi_b$ and $\Xi_c$.
+Multiplying $\beta$ by the $(|b| + s)\times(r+s)$ \emph{model selection matrix} $\Xi_b$ extracts the elements corresponding to $\theta$ and the subset of $\gamma$ indicated by the model selection vector $b$. 
+Thus $\Xi_b \beta = \left(\gamma^{(b)'}, \theta' \right)'$.
+Similarly, multiplying a vector by the $|c|\times(p+q)$ moment selection matrix $\Xi_c$ extracts the components corresponding to the moment conditions indicated by the moment selection vector $c$. 
+
+To express the estimators themselves, define the sample analogue of the expectations in Assumption \ref{assump:local} as follows,
+\begin{equation}
+	f_n(\beta) = \frac{1}{n}\sum_{i=1}^n f(Z_{ni}, \gamma, \theta) = \left[\begin{array}{c}g_n(\beta)\\ h_n(\beta) \end{array} \right] = \left[\begin{array}{c} n^{-1}\sum_{i=1}^n g(Z_{ni}, \gamma, \theta)\\n^{-1}\sum_{i=1}^n h(Z_{ni}, \gamma, \theta) \end{array}\right]
+\end{equation}
+and let $\widetilde{W}$ be a $(q+p)\times(q+p)$ positive semi-definite weighting matrix
+\begin{equation}
+	\widetilde{W} = \left[\begin{array}{cc} \widetilde{W}_{gg} & \widetilde{W}_{gh}\\ \widetilde{W}_{hg} & \widetilde{W}_{hh}  \end{array}\right]
+\end{equation}
+partitioned conformably to the partition of $f(Z,\beta)$ by $g(Z,\beta)$ and $h(Z,\beta)$. Each model and moment selection pair $(b,c)\in \mathcal{BC}$ defines a $(|b|+s)$-dimensional estimator $\widehat{\beta}(b,c)=( \widehat{\gamma}^{(b)}(b,c)',\widehat{\theta}(b,c)')'$ of $\beta^{(b)}= \left(\gamma^{(b)'}, \theta'  \right)'$ according to
+	\begin{equation}
+    \widehat{\beta}(b,c) = \underset{\beta^{(b)}\in \mathbf{B}^{(b)}} {\mbox{arg min}}\;\left[\Xi_c f_n\left(\beta^{(b)}, \gamma_0^{(-b)}\right)\right]'\left[\Xi_c \widetilde{W}\Xi_c' \right]\left[\Xi_c f_n\left(\beta^{(b)}, \gamma_0^{(-b)}\right)\right].
+	\end{equation}
+A particularly important special case is the estimator using only the moment conditions in $g$ to estimate the full parameter vector $\beta = \left(\theta', \gamma' \right)'$, the \emph{valid} estimator:
+\begin{equation}
+  \widehat{\beta}_v =\left[\begin{array}{c}\widehat{\gamma}_{v} \\  \widehat{\theta}_{v} \end{array} \right] =\underset{\beta \in \mathbf{B}}{\mbox{arg min}}\; g_n(\beta)' \widetilde{W}_{gg} \; g_n(\beta).
+\end{equation}
+Because it is correctly specified both for finite $n$ and in the limit, the valid estimator contains the information we use to identify $\tau$ and $\delta$, and thus carry out moment and model selection. 
+For estimation based on $g$ alone to be possible, we require $p \geq r+s$. 
+This is assumed throughout.
+
+
+Because Assumption \ref{assump:local} ensures that they are correctly specified in the limit, \emph{all} candidate specifications $(b,c)\in \mathcal{BC}$ provide consistent estimators of $\theta_0$ under standard, high level regularity conditions.\footnote{The required high-level sufficient conditions are essentially identical to Assumption 2.2 of \cite{DiTraglia2012}.} Essential differences arise, however, when we consider their respective asymptotic distributions. 
+Let
+		\begin{equation}F  =  \left[\begin{array}{cc}  \nabla_{\gamma'}g\left(Z,\gamma_0, \theta_0\right) &   \nabla_{\theta'}g\left(Z,\gamma_0, \theta_0\right) \\
+ \nabla_{\gamma'}h\left(Z,\gamma_0, \theta_0\right)  &   \nabla_{\theta'}h\left(Z,\gamma_0, \theta_0\right)  
+		 \end{array}\right] 
+	\end{equation}
+partitioned according to
+	\begin{equation}F  = \left[\begin{array}{cc}F_\gamma & F_\theta \end{array}\right] = 
+		  \left[\begin{array}{cc} G_\gamma & G_\theta \\
+					 H_\gamma& H_\theta
+		 \end{array}\right] = \left[\begin{array}{c} G\\ H \end{array}\right]
+	\end{equation}
+and define
+	\begin{equation}
+		\Omega = Var\left[ \begin{array}{c} g(Z, \gamma_0, \theta_0) \\ h(Z, \gamma_0, \theta_0) \end{array}\right] =\left[ \begin{array}{cc}\Omega_{gg} & \Omega_{gh}\\ \Omega_{hg}& \Omega_{hh} \end{array} \right].
+	\end{equation}
+Notice that each of these expressions involves the limiting random variable $Z$ rather than $Z_{ni}$. 
+Thus, the corresponding expectations are taken with respect to a distribution for which all moment conditions have expectation zero  evaluated at $(\gamma_0,\theta_0)$.
+Finally, let $F(b,c) = \Xi_c F \Xi_b'$ and similarly define $\Omega_c = \Xi_c \Omega \Xi_c'$ and $W_c = \Xi_c W \Xi_c'$ where $W$ is the positive definite probability limit of $\widetilde{W}$. 
+Under Assumption \ref{assump:local}, both $\delta$ and $\tau$ induce a bias term in the limiting distribution of $\sqrt{n}\left(\widehat{\beta}(b,c) - \beta_0^{(b)}\right)$. 
+The key results is as follows.
+\begin{thm}[Asymptotic Distribution]
+\label{thm:asymp}
+Under Assumptions \ref{assump:local}--\ref{assump:add} and standard regularity conditions,
+		\begin{equation}
+		\sqrt{n}\left(\widehat{\beta}(b,c) - \beta_0^{(b)}\right) \overset{d}{\rightarrow} - K(b,c)\Xi_c \left(\mathscr{N}+ \left[ \begin{array}{c} 0\\ \tau\end{array}\right] - F_\gamma\delta\right)
+	\end{equation}
+where $\beta_0^{(b)'} = (\theta_0, \gamma_0^{(b)})$,
+	\begin{equation}
+		K(b,c) = \left[F(b,c)'W_c F(b,c)\right]^{-1} F(b,c)' W_c 
+	\end{equation}
+and
+	\begin{equation}
+		\mathscr{N} = \left[\begin{array}{c} \mathscr{N}_g\\  \mathscr{N}_h\end{array}\right]\sim \mbox{N}\left(\left[\begin{array}{c} 0\\ 0\end{array}\right] , \left[ \begin{array}{cc}\Omega_{gg} & \Omega_{gh}\\ \Omega_{hg}& \Omega_{hh} \end{array} \right]\right).
+	\end{equation}
+\end{thm}	
+Because it employs the correct specification, the valid estimator of $\theta$ shows no asymptotic bias.
+Moreover, the valid estimator of $\gamma$ has an asymptotic distribution that is centered around $\delta$, suggesting an estimator of this bias parameter.
+\begin{cor}[Asymptotic Distribution of Valid Estimator]
+\label{cor:valid}
+Under Assumptions \ref{assump:local}--\ref{assump:add} and standard regularity conditions,
+		$$\sqrt{n}\left( \widehat{\beta}_v - \beta_0 \right) = \sqrt{n}\left(\begin{array}{c} \widehat{\theta}_v - \theta_0\\ \widehat{\gamma}_v - \gamma_0\end{array} \right) \overset{d}{\rightarrow}  \left[\begin{array}{c} 0\\ \delta\end{array}\right] -K_v \mathscr{N}_g$$
+where $K_v = \left[G'W_{gg}G\right]^{-1}G'W_{gg}$ and $W_{gg} = \mbox{plim }\widetilde{W}_{gg}$.
+\end{cor}
+We use these results in the following section to construct the GFIC.
+

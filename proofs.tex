@@ -1,0 +1,106 @@
+%!TEX root = main.tex
+\subsection*{Results from Section \ref{sec:asymp}}
+
+\begin{proof}[Proof of Theorem \ref{thm:asymp}]
+By a mean-value expansion around $(\gamma_0,\theta_0)$,
+	$$\sqrt{n}\left(\widehat{\beta}(b,c) - \beta_0^{(b)}\right) = - K(b,c)\Xi_c \sqrt{n} f_n(\gamma_0,\theta_0) + o_p(1)$$
+and by the Lindeberg-Feller central limit theorem,
+	$$\sqrt{n} f_n(\gamma_0,\theta_0) - \sqrt{n}E\left[f(Z_{ni},\gamma_0,\theta_0) \right]\overset{d}{\rightarrow} \left[\begin{array}{c} \mathscr{N}_g\\  \mathscr{N}_h\end{array}\right].$$
+Now, by a mean-value expansion around $\gamma_n$,
+	\begin{eqnarray*}
+		\sqrt{n}E\left[ f(Z_{ni}, \gamma_0, \theta_0) \right] &=& \sqrt{n}E\left[ f(Z_{ni}, \gamma_n,\theta_0) \right] + \sqrt{n}\nabla_{\gamma'}E\left[ f(Z_{ni}, \bar{\gamma},\theta_0) \right] (\gamma_0 -\gamma_n)\\
+			&=&\left[ \begin{array}{c} 0\\ \tau\end{array}\right] - \nabla_{\gamma'}E\left[ f(Z_{ni}, \bar{\gamma},\theta_0) \right] \delta\\
+			&\rightarrow& \left[ \begin{array}{c} 0\\ \tau\end{array}\right] - F_\gamma\delta.
+	\end{eqnarray*}
+Hence,
+	\begin{equation}
+		\sqrt{n}f_n(\gamma_0, \theta_0) \overset{d}{\rightarrow} \left[\begin{array}{c} \mathscr{N}_g\\  \mathscr{N}_h\end{array}\right]+ \left[ \begin{array}{c} 0\\ \tau\end{array}\right] - F_\gamma\delta
+	\end{equation}
+and the result follows by the continuous mapping theorem.
+\end{proof}
+
+\begin{proof}[Proof of Corollary \ref{cor:valid}]
+For the valid estimator,
+	$$\Xi_c \left(\left[\begin{array}{c} \mathscr{N}_g\\  \mathscr{N}_h\end{array}\right]+ \left[ \begin{array}{c} 0\\ \tau\end{array}\right] - F_\gamma\delta\right) =  \mathscr{N}_g - G_\gamma \delta$$
+since $\Xi_c$ picks out only components corresponding to $g$. Thus,
+	$$\sqrt{n}\left( \widehat{\beta}_v - \beta_0 \right) \overset{d}{\rightarrow} -K_v\left(\mathscr{N}_g - G_\gamma \delta\right).$$
+Finally
+	\begin{eqnarray*}
+		K_v G_\gamma \delta&=&  \left(\left[\begin{array}{c}G_\gamma' \\ G_\theta'\end{array}\right] W_{gg} \left[\begin{array}{cc} G_\gamma & G_\theta \end{array}\right] \right) \left[\begin{array}{c}G_\gamma' \\ G_\theta'\end{array}\right]W_{gg} G_\gamma\delta\\ \\
+			&=& \left[\begin{array}{cc} 
+				G_\gamma'W_{gg}G_\gamma & G_\gamma'W_{gg}G_\theta\\
+				G_\theta'W_{gg}G_\gamma & G_\theta'W_{gg}G_\theta
+			\end{array} \right]^{-1}
+			\left[\begin{array}{c}
+				G_\gamma'W_{gg}G_\gamma\\
+				G_\theta'W_{gg}G_\gamma
+			\end{array}\right]\delta =\left[\begin{array}{c} 0\\ \delta\end{array}\right]
+	\end{eqnarray*}
+by the definition of the matrix inverse.
+\end{proof}
+
+
+\subsection*{Results from Section \ref{sec:GFIC}}
+
+\begin{proof}[Proof of Corollary \ref{cor:mulimit}]
+   By a mean-value expansion around $\gamma_0$,
+	\begin{eqnarray*}
+		\mu_n  &=& \varphi(\gamma_0,\theta_0)+ \nabla_\gamma \varphi(\bar{\gamma},\theta_0)'(\gamma_n - \gamma_0)\\
+			&=& \mu_0 + \nabla_\gamma \varphi(\bar{\gamma},\theta_0)' \delta/\sqrt{n}
+	\end{eqnarray*}
+for some $\bar{\gamma}$ between $\gamma_0$ and $\gamma_n = \gamma_0 +\delta/\sqrt{n}$. Hence,
+	$$\sqrt{n}(\mu_n - \mu_0) = \nabla_\gamma \varphi(\bar{\gamma},\theta_0)' \delta \rightarrow \nabla_\gamma \varphi(\gamma_0,\theta_0)' \delta $$
+The result follows since
+$$\sqrt{n}\left(\widehat{\mu}(b,c) - \mu_n \right)  = \sqrt{n}\left( \widehat{\mu}(b,c) - \mu_0 \right) - \sqrt{n}\left(\mu_n - \mu_0\right).$$
+\end{proof}
+
+
+\begin{proof}[Proof of Corollary \ref{cor:muvalid}]
+The result follows from Corollaries \ref{cor:valid} and \ref{cor:mulimit} since,
+	\begin{eqnarray*}
+		\sqrt{n}\left( \widehat{\mu}_v - \mu_n\right) &\overset{d}{\rightarrow}&\nabla_\beta\varphi_0' \left\{ \left[\begin{array}{c} 0\\ \delta \end{array}\right] -K_v\mathscr{N}_g  \right\}-\nabla_\gamma \varphi_0' \delta\\ 
+			&=& -\nabla_\beta\varphi_0' K_v\mathscr{N}_g + \left[\begin{array}{cc} \nabla_\theta\varphi_0'  & \nabla_\gamma\varphi_0' \end{array}\right]\left[\begin{array}{c} 0\\ \delta\end{array}\right]-\nabla_\gamma \varphi_0' \delta\\
+			&=& -\nabla_\beta(\gamma_0,\theta_0)' K_v\mathscr{N}_g.
+	\end{eqnarray*}
+\end{proof}
+
+
+\begin{proof}[Proof of Lemma \ref{lem:tauhatasymp}]
+By a mean-value expansion around $\beta_0 = ( \gamma_0', \theta_0')'$,
+	$$\sqrt{n}h_n\left(\widehat{\beta}_v \right) = \sqrt{n}h_n(\beta_0) + H \sqrt{n} \left(\widehat{\beta}_v - \beta_0\right) + o_p(1).$$
+Now, since
+	$$\sqrt{n}f_n(\gamma_0,\theta_0) \overset{d}{\rightarrow} \left[\begin{array}{c} \mathscr{N}_g\\  \mathscr{N}_h\end{array}\right]+ \left[ \begin{array}{c} 0\\ \tau\end{array}\right] - \left[\begin{array}{c}G_\gamma\\ H_\gamma \end{array}\right]\delta$$
+we have
+	$$\sqrt{n}h_n(\gamma_0,\theta_0)\overset{d}{\rightarrow} \mathscr{N}_h + \tau - H_\gamma \delta.$$
+Substituting, 
+	\begin{eqnarray*}
+		\sqrt{n}h_n(\widehat{\beta}_v) &\overset{d}{\rightarrow}&  \mathscr{N}_h + \tau - H_\gamma \delta+ H\left( -K_v \mathscr{N}_g + \left[\begin{array}{c} 0 \\ \delta \end{array} \right]\right)\\ 
+			&=& \mathscr{N}_h + \tau - H_\gamma \delta - HK_v \mathscr{N}_g + \left[ \begin{array}{cc} H_\theta & H_\gamma \end{array}\right] \left[\begin{array}{c} 0 \\ \delta \end{array} \right]\\
+			&=& \mathscr{N}_h  + \tau - H_\gamma \delta - HK_v \mathscr{N}_g  + H_\gamma \delta\\
+			&=& \tau - HK_v \mathscr{N}_g + \mathscr{N}_h
+	\end{eqnarray*}
+as claimed.
+\end{proof}
+
+\begin{proof}[Proof of Corollary \ref{cor:biasestimators}]
+Define
+	$$\left[\begin{array}{c} U\\ V \end{array}\right]=\left[\begin{array}{c}\delta\\ \tau\end{array} \right] +\Psi\left[\begin{array}{c}\mathscr{N}_g \\ \mathscr{N}_h \end{array}\right].$$
+By the Continuous Mapping Theorem and Theorem \ref{thm:jointbias},
+	$$\left[\begin{array}{c} \widehat{\delta} \\ \widehat{\tau} \end{array}\right]\left[\begin{array}{cc} \widehat{\delta}' & \widehat{\tau}'\end{array} \right] \overset{d}{\rightarrow} \left[\begin{array}{c} U\\V \end{array}\right]\left[\begin{array}{cc}U' & V'\end{array} \right] $$
+The result follows since
+$$\Psi\Omega\Psi' =Var\left[\begin{array}{c}U\\V\end{array}\right] = 
+E\left[\begin{array}{cc} 
+				UU'&UV'\\
+				VU'&VV'
+				\end{array}\right] - 
+				\left[\begin{array}{cc}
+				\delta\delta'&\delta\tau'\\
+				\tau\delta'&\tau\tau'
+				\end{array}\right].$$
+\end{proof}
+
+
+
+
+
+

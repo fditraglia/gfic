@@ -1,0 +1,103 @@
+%!TEX root = main.tex
+\section{The GFIC}
+\label{sec:GFIC}
+The GFIC chooses among potentially incorrect moment conditions and parameter restrictions to minimize estimator AMSE for a scalar target parameter. 
+Denote this target parameter by $\mu = \varphi(\gamma, \theta)$, where  $\varphi$ is a real-valued, almost surely continuous function of the underlying model parameters $\theta$ and $\gamma$.
+Let $\mu_n = \varphi(\gamma_n,\theta_0)$ and define $\mu_0$ and $\widehat{\mu}(b,c)$  analogously.
+By Theorem \ref{thm:asymp} and the delta method, we have the following result.
+\begin{cor} Under the hypotheses of Theorem \ref{thm:asymp},
+		$$\sqrt{n}\left(\widehat{\mu}(b,c) - \mu_0 \right) \overset{d}{\rightarrow} -\nabla_\beta\varphi_0'\Xi_b '  K(b,c)\Xi_c \left(\mathscr{N}+ \left[ \begin{array}{c} 0\\ \tau\end{array}\right] - F_\gamma\delta\right) $$
+where $\varphi_0 = \varphi(\gamma_0,\theta_0)$.
+\end{cor}
+The true value of $\mu$, however,  is $\mu_n$ rather than $\mu_0$ under Assumption \ref{assump:local}.
+Accordingly, to calculate AMSE we recenter the limit distribution as follows.
+\begin{cor} 
+\label{cor:mulimit}
+Under the hypotheses of Theorem \ref{thm:asymp},
+		$$\sqrt{n}\left(\widehat{\mu}(b,c) - \mu_n \right) \overset{d}{\rightarrow} -\nabla_\beta\varphi_0'\Xi_b '  K(b,c)\Xi_c \left(\mathscr{N}+ \left[ \begin{array}{c} 0\\ \tau\end{array}\right] - F_\gamma\delta\right) -\nabla_\gamma \varphi_0' \delta$$
+where $\varphi_0 = \varphi(\gamma_0,\theta_0)$.
+\end{cor}
+
+We see that the limiting distribution of $\widehat{\mu}(b,c)$ is not, in general, centered around zero: both $\tau$ and $\delta$ induce an asymptotic bias. 
+Note that, while $\tau$ enters the limit distribution only once, $\delta$ has two distinct effects. 
+First, like $\tau$, it shifts the limit distribution of $\sqrt{n}f_n(\gamma_0, \theta_0)$ away from zero, thereby influencing the asymptotic behavior of $\sqrt{n}\left(\widehat{\mu}(b,c) - \mu_0 \right)$. 
+Second, unless the derivative of $\varphi$ with respect to $\gamma$ is zero at $(\gamma_0, \theta_0)$, $\delta$ induces a second source of bias when $\widehat{\mu}(b,c)$ is recentered around $\mu_n$. 
+Crucially, this second source of bias exactly cancels the asymptotic bias present in the limit distribution of $\widehat{\gamma}_v$. 
+Thus, the valid estimator of $\mu$ is asymptotically unbiased and its AMSE equals its asymptotic variance.
+\begin{cor}
+\label{cor:muvalid}
+Under the hypotheses of Theorem \ref{thm:asymp},
+	$$\sqrt{n}\left( \widehat{\mu}_v - \mu_n\right) \overset{d}{\rightarrow} -\nabla_\beta \varphi(\theta_0, \gamma_0)' K_v\mathscr{N}_g$$
+where $\widehat{\mu}_v = \varphi(\widehat{\theta}_v,\widehat{\gamma}_v)$. Thus, the valid estimator $\widehat{\mu}_v$ shows no asymptotic bias and has asymptotic variance $\nabla_\beta \varphi(\theta_0, \gamma_0)'K_v \Omega_{gg}K_v'\nabla_\beta \varphi(\theta_0, \gamma_0)$.
+\end{cor}
+ 
+Using Corollary \ref{cor:mulimit}, the AMSE of $\widehat{\mu}(b,c)$ is as follows,
+	\begin{equation}
+	\label{eq:AMSE}
+		\mbox{AMSE}\left(\widehat{\mu}(b,c)\right) = \mbox{AVAR}\left(\widehat{\mu}\left(b,c\right)\right)  + \mbox{BIAS}\left(\widehat{\mu}\left(b,c\right)\right)^2
+	\end{equation}
+where
+	\begin{eqnarray}
+		\mbox{AVAR}\left(\widehat{\mu}\left(b,c\right)\right) &=& \nabla_\beta\varphi_0'\Xi_b '  K(b,c)\Omega_c K(b,c)'\Xi_b\nabla_\beta\varphi_0\\
+		\mbox{BIAS}\left(\widehat{\mu}\left(b,c\right)\right) &=& -\nabla_{\beta} \phi_0' M(b,c)\left[\begin{array}{c} \delta \\ \tau\end{array} \right]
+		\label{eq:bias}
+\end{eqnarray}
+and
+\begin{equation}
+	M(b,c) = \Xi_b'K(b,c) \Xi_c \left[\begin{array}{cc} -G_\gamma & 0 \\ -H_\gamma & I \end{array} \right] +\left[\begin{array}{ll} I_r & 0_{r\times q} \\ 0_{p\times r} & 0_{s\times q} \end{array} \right]
+\end{equation}
+
+The idea behind the GFIC is to construct an estimate $\widehat{\mbox{AMSE}}\left(\widehat{\mu}(b,c)\right)$ and choose the specification $(b^*,c^*)\in\mathcal{BC}$ that makes this quantity as small as possible. 
+As a side-effect of the consistency of the estimators $\widehat{\beta}(b,c)$, the usual sample analogues provide consistent estimators of $K(b,c)$ and $F_{\gamma}' = (G_\gamma', H_\gamma')$ under Assumption \ref{assump:local}, and $\varphi(\widehat{\theta}_v,\gamma_0)$ is consistent for $\varphi_0$. 
+Consistent estimators of $\Omega$ are also readily available under local mis-specification although the best choice may depend on the situation.\footnote{For more on this point, see \cite{DiTraglia2012} Section 3.3.} Since $\gamma_0$ is known, as are $\Xi_b$ and $\Xi_c$, only $\delta$ and $\tau$ remain to be estimated. 
+Unfortunately, neither of these quantities is consistently estimable under local mis-specification. 
+Intuitively, the data become less and less informative about $\tau$ and $\delta$ as the sample size increases since each term is divided by $\sqrt{n}$. 
+Multiplying through by $\sqrt{n}$ counteracts this effect, but also stabilizes the variance of our estimators. 
+Hence, the best we can do is to construct \emph{asymptotically unbiased} estimators of $\tau$ and $\delta$. 
+Corollary \ref{cor:valid} provides the required estimator for $\delta$, namely $\widehat{\delta} = \sqrt{n}\left(\widehat{\gamma}_v - \gamma_0\right)$.
+
+\begin{cor}[Asymptotically Unbiased Estimator of $\delta$] 
+\label{cor:deltahat}
+Under the hypotheses of Theorem \ref{thm:asymp},
+	$$\widehat{\delta} = \sqrt{n}\left(\widehat{\gamma}_v - \gamma_0\right) \overset{d}{\rightarrow} \delta - K_{v}^{\gamma} \mathscr{N}_g$$
+where $K_v = \left[G'W_{gg}G\right]^{-1}G'W_{gg} = \left(K_{v}^{\gamma '}, K_{v}^{\theta '}\right)'$. Hence, $\widehat{\delta}$ is an asymptotically unbiased estimator of $\delta$.
+\end{cor} 
+
+To estimate $\tau$, we simply plug $\widehat{\beta}_v$ into the locally mis-specified moment conditions contained in $h$.
+
+\begin{lem}[Asymptotically Unbiased Estimator of $\tau$]
+\label{lem:tauhatasymp}
+Under the hypotheses of Theorem \ref{thm:asymp},
+	$$\widehat{\tau} = \sqrt{n}h_n\left(\widehat{\beta}_v\right) \overset{d}{\rightarrow} \tau - HK_v \mathscr{N}_g + \mathscr{N}_h$$
+where, as above, $K_v = \left[G'W_{gg}G\right]^{-1}G'W_{gg}$. Hence, $\widehat{\tau}$ is an asymptotically unbiased estimator of $\tau$.
+\end{lem}
+
+Combining Corollary \ref{cor:deltahat} and Lemma \ref{lem:tauhatasymp}, we can express the joint distribution of $\widehat{\delta}$ and $\widehat{\tau}$ as follows.
+
+\begin{thm}
+\label{thm:jointbias}
+Under the hypotheses of Theorem \ref{thm:asymp},
+	$$\left[\begin{array}{c}\widehat{\delta}\\ \widehat{\tau}\end{array}\right] = \sqrt{n}\left[\begin{array}{c}\left(\widehat{\gamma}_v-\gamma_0\right)\\h_n(\widehat{\beta}_v)\end{array}\right]
+	\overset{d}{\rightarrow} \left[\begin{array}{c}\delta\\ \tau\end{array} \right] +\Psi \mathscr{N}. $$
+	where $$\Psi = \left[\begin{array}{cc} -K_{v}^\gamma&\mathbf{0} \\ -HK_v&I\end{array}\right]$$
+and $K_v$ is partitioned according to $K_v' = (K_v^{\gamma '}, K_v^{\theta '})$
+\end{thm}
+From Equation \ref{eq:bias},
+$$\mbox{BIAS}\left(\widehat{\mu}\left(b,c\right)\right)^2 = \nabla_\beta \varphi_0' M(b,c) \left[\begin{array}{cc}  \tau \tau'& \tau \delta'\\ \delta \tau'& \delta \delta'\end{array}\right] M(b,c)' \nabla_\beta \varphi_0$$
+Thus, the bias parameters $\tau$ and $\delta$ enter the AMSE expression in Equation \ref{eq:AMSE} as outer products: $\tau\tau'$, $\delta\delta'$ and $\tau\delta'$.
+Although $\widehat{\tau}$ and $\widehat{\delta}$ are asymptotically unbiased estimators of $\tau$ and $\delta$, it does \emph{not} follow that $\widehat{\tau}\widehat{\tau}$, $\widehat{\delta}\widehat{\delta}$ and $\widehat{\tau}\widehat{\delta}'$ are  asymptotically unbiased estimators of $\tau\tau'$, $\delta\delta'$, and $\tau\delta'$. 
+The following result shows how to adjust these quantities to provide the required asymptotically unbiased estimates. 
+
+\begin{cor}
+\label{cor:biasestimators}
+Suppose that $\widehat{\Psi}$ and $\widehat{\Omega}$ are consistent estimators of $\Psi$ and $\Omega$. Then,
+	\begin{equation}\widehat{B} = \left[\begin{array}{cc}  \widehat{\tau} \widehat{\tau}'& \widehat{\tau} \widehat{\delta}'\\ \widehat{\delta} \widehat{\tau}'& \widehat{\delta} \widehat{\delta}'\end{array}\right] - \widehat{\Psi} \widehat{\Omega} \widehat{\Psi}'\end{equation}
+is an asymptotically unbiased estimator of the squared bias matrix
+$$\left[\begin{array}{cc}  \tau \tau'& \tau \delta'\\ \delta \tau'& \delta \delta'\end{array}\right].$$
+\end{cor}
+Combining Corollary \ref{cor:biasestimators} with consistent estimates of the remaining quantities yields the GFIC, an asymptotically unbiased estimator of the AMSE of our estimator of a target parameter $\mu$ under each specification $(b,c)\in \mathcal{BC}$
+\begin{equation}
+\mbox{GFIC}(b,c) =\nabla_\beta \widehat{\varphi}_0' \left[\Xi_b' \widehat{K}(b,c)\widehat{\Omega}_c \widehat{K}(b,c)'\Xi_b +  \widehat{M}(b,c) \;\widehat{B} \; \widehat{M}(b,c)'\right]\nabla_\beta \widehat{\varphi}_0.
+\end{equation}
+We choose the specification $(b^*,c^*)$ that minimizes the value of the GFIC over the candidate set $\mathcal{BC}$. 
+
