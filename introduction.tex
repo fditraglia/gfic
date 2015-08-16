@@ -1,0 +1,59 @@
+%!TEX root = main.tex
+\section{Introduction}
+
+
+An econometric model is a tool for answering a particular research question: different questions may suggest different models for the same data. 
+And the fact that a model is wrong, as the old saying goes, does not prevent it from being useful. 
+This paper proposes a novel selection criterion for GMM estimation that takes both of these points to heart: the generalized focused information criterion (GFIC). 
+Rather than attempting to identify the correct specification, the GFIC chooses from a set of potentially mis-specified moment conditions and parameter restrictions to yield the smallest mean squared error (MSE) estimator of a user-specified scalar target parameter. 
+We derive the GFIC under local mis-specification, using asymptotic mean squared error (AMSE) to approximate finite-sample MSE. 
+In this framework mis-specification, while present for any fixed sample size, disappears in the limit so that asymptotic variance and squared bias remain comparable. 
+GMM estimators remain consistent under local mis-specification but their limit distributions show an asymptotic bias. 
+Adding an additional moment condition or imposing a parameter restriction generally reduces asymptotic variance but, if incorrectly specified, introduces a source of bias.
+The GFIC trades off these two effects in the first-order asymptotic expansion of an estimator to approximate its finite sample behavior.
+
+The GFIC requires two assumptions. First, it must be possible to write all candidate models as parameter restrictions applied to a ``wide'' or ``unrestricted'' model. 
+In a regression setting, for example, the unrestricted model would include all regressors while the other candidate models might restrict certain regression coefficients to be zero. 
+As long as all candidate models nest inside the unrestricted model, the GFIC allows us to make non-nested model comparisons. 
+Second, we must have a minimal set of moment conditions that are known to be valid and identify the parameters of the unrestricted model.
+When these conditions hold, the GFIC provides an asymptotically unbiased estimator of AMSE for each candidate specification. 
+When the second condition does not hold, it remains possible to use the GFIC to carry out a sensitivity analysis (c.f.\ \cite{DiTraglia2012}, Section 3.2), although we will not consider this situation further here. 
+
+
+As its name suggests, the GFIC extends the focused information criterion (FIC) of \cite{ClaeskensHjort2003}, a model selection procedure for maximum likelihood estimators that uses local mis-specification to approximate the MSE of a target parameter. 
+The idea of targeted, risk-based model selection has proved popular in recent years, leading to a number of interesting extensions. 
+\cite{HjortClaeskens2006}, for example, propose an FIC for the Cox proportional hazards model while \cite{ClaeskensCarroll} extend the FIC more generally to problems in which the likelihood involves an infinite-dimensional parameter but selection is carried out over the parametric part. 
+More recently, \cite{ZhangLiang} extend the FIC to generalized additive partially linear models and \cite{BehlClaeskensDette} develop an FIC for quantile regression.
+
+While MSE is a natural risk-function for asymptotically normal estimators, different applications of model selection may call for different risk functions. \cite{ClaeskensCroux2006}, for example, suggest combining local mis-specification with $L_p$-risk or mis-classification error rates to derive an FIC better-suited to prediction in logistic regression models. 
+In a similar vein, the weighted FIC (wFIC) of \cite{ClaeskensHjort2008} provides a potentially important tool for policy analysis, allowing researchers to choose the model that minimizes weighted average risk for generalized linear models. 
+While the FIC can be used, for example, to choose the best model for estimating the mean response at a given set of covariate values, the wFIC allows us to minimize the expected mean response over a \emph{distribution} of covariate values corresponding to some target population.
+In time series problems, predictive MSE is typically more interesting than estimator MSE.
+
+Accordingly, \cite{ClaeskensCroux} develop an FIC to minimize forecast MSE in autoregressive models where the true order of the process is infinite. 
+Independently of the FIC literature, \cite{Schorfheide2005} likewise uses local mis-specification to suggest a procedure for using finite order vector autoregressions to forecast an infinite-order vector moving average process with minimum quadratic loss. 
+This idea shares similarities with \cite{Skouras2001}.
+ 
+Like the FIC and related proposals, the GFIC uses local mis-specification to derive a risk-based selection criterion.
+Unlike them, however, the GFIC provides both moment and model selection for general GMM estimators. 
+The focused moment selection criterion (FMSC) of \cite{DiTraglia2012} represents a special case of the GFIC in which model specification is fixed and selection carried out over moment conditions only. 
+Thus, the GFIC extends both the FIC and the FMSC.
+Comparatively few papers propose criteria for simultaneous GMM model and moment selection under mis-specification.
+\footnote{See \cite{Smith1992} for an approach to GMM model selection based on non-nested hypothesis testing.} \cite{AndrewsLu} propose a family of selection criteria by adding appropriate penalty and ``bonus'' terms to the J-test statistic, yielding analogues of AIC, BIC, and the Hannan-Quinn information criterion.
+\cite{HongPrestonShum} extend this idea to generalized empirical likelihood (GEL). 
+The principal goal of both papers is consistent selection: they state conditions under which the correct model and all correct moment conditions are chosen in the limit. 
+As a refinement to this approach, \cite{LaiSmallLiu} suggest a two-step procedure: first consistently eliminate incorrect models using an empirical log-likelihood ratio criterion, and then select from the remaining models using a bootstrap covariance matrix estimator. 
+The point of the second step is to address a shortcoming in the standard limit theory. 
+While first-order asymptotic efficiency requires that we use all available correctly specified moment conditions, this can lead to a deterioration in finite sample performance if some conditions are only weakly informative.
+\cite{HallPeixe2003} make a similar point about the dangers of including ``redundant'' moment conditions while \cite{Caner2009} proposes a lasso-type GMM estimator to consistently remove redundant parameters.
+
+
+In contrast to these suggestions, the GFIC does not aim to identify the correct model and moment conditions: its goal is a low MSE estimate of a quantity of interest, even if this entails using a specification that is not exactly correct.  
+Although their combined moments (CM) estimator is not strictly a selection procedure, \cite{JudgeMittelhammer} take a similar perspective, emphasizing that incoporating the information from an incorrect specification could lead to favorable bias-variance tradeoff under the right circumstances. 
+Their proposal uses a Cressie-Read divergence measure to combine the information from competing moment specifications, for example OLS versus two-stage least squares (2SLS), yielding a data-driven compromise estimator. 
+Unlike the GFIC, however, the CM estimator is not targeted to a particular research goal.
+
+The remainder of this paper is organized as follows. Section \ref{sec:asymp} derives the asymptotic distribution of GMM estimators under locally mis-specified moment conditions and parameter restrictions. 
+Section \ref{sec:GFIC}  uses this information to calculate the AMSE of a user-specified target parameter and provides asymptotically unbiased estimators of the required bias parameters, yielding the GFIC. 
+Section \ref{sec:panel} specializes the GFIC to a dynamic panel example, and explores its performance in a simulation study. 
+Section \ref{sec:conclude} concludes. Proofs appear in the Appendix.
