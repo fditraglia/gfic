@@ -1,0 +1,46 @@
+%!TEX root = main.tex
+\section{Random Effects versus Fixed Effects Example}
+\label{sec:REvsFE}
+In this section we consider a simple example in which the the GFIC is used to choose between and average over alternative assumptions about individual heterogeneity: Random Effects versus Fixed Effects.
+For simplicity we consider the homoskedastic case and assume that any strictly exogenous regressors, including a constant term, have been ``projected out'' so we may treat all random variables as mean zero.
+Suppose that
+\begin{eqnarray}
+  y_{it} &=& \beta x_{it}+ v_{it}\\
+  v_{it} &=& \alpha_i + \varepsilon_{it}
+  \label{eq:REvsFEmodel}
+\end{eqnarray}
+for $i = 1, \hdots, N$, $t=1, \hdots, T$ where $\varepsilon_{it}$ is iid across $i,t$ with $Var(\varepsilon_{it}) = \sigma^2_{\varepsilon}$ and $\alpha_i$ is iid across $i$ with $Var\left( \alpha_i \right)=\sigma^2_{\alpha}$.
+Stacking observations for a given individual over time in the usual way, let $\mathbf{y}_i = (y_{i1}, \hdots, y_{iT})'$ and define $\mathbf{x}_i, \mathbf{v}_i$ and $\boldsymbol{\varepsilon}_i$ analogously.
+Our goal in this example is to estimate $\beta$, the effect of $x$ on $y$.
+Although $x_{it}$ is uncorrelated with the time-varying portion of the error term, $Cov(x_{it},\varepsilon_{it})=0$, we are unsure whether or not it is correlated with the individual effect $\alpha_i$. 
+If we knew for certain that $Cov(x_{it},\alpha_i)=0$, we would prefer to report the ``random effects'' generalized least squares (GLS) estimator given by
+\begin{equation}
+  \widehat{\beta}_{GLS} = \left(\sum_{i=1}^{N} \mathbf{x}_i' \widehat{\Omega}^{-1} \mathbf{x}_i\right)^{-1}\left(\sum_{i=1}^{N} \mathbf{x}_i'  \widehat{\Omega}^{-1} \mathbf{y}_i   \right)\\
+  \label{eq:REdef}
+\end{equation}
+where $\widehat{\Omega}^{-1}$ is a preliminary consistent estimator of 
+\begin{equation}
+  \Omega^{-1} = [Var(\mathbf{v}_i)]^{-1} = \frac{1}{\sigma_\epsilon^2} \left[I_T - \frac{\sigma_\alpha^2}{(T\sigma_\alpha^2 + \sigma_\epsilon^2)} \boldsymbol{\iota}_T\boldsymbol{\iota}_T'\right]
+  \label{eq:OmegaInvRE}
+\end{equation}
+and $I_T$ denotes the $T\times 1$ identity matrix and $\boldsymbol{\iota}_T$ a $T$-vector of ones.
+This estimator makes efficient use of the variation between and within individuals, resulting in an estimator with a lower variance.
+When $Cov(x_{it},\alpha_i)\neq 0$, however, the random effects estimator is biased. 
+Although its variance is higher than that of the GLS estimator, the ``fixed effects'' estimator given by 
+\begin{equation}
+  \widehat{\beta}_{FE} = \left(\sum_{i=1}^{N} \mathbf{x}_i' Q \mathbf{x}_i\bigg)^{-1}\bigg(\sum_{i=1}^{N} \mathbf{x}_i' Q\mathbf{y}_i   \right),
+  \label{eq:FEdef}
+\end{equation}
+where $Q=I_T - \boldsymbol{\iota}\boldsymbol{\iota}'/T$, remains unbiased even when $x_{it}$ is correlated with $\alpha_i$. 
+
+The conventional wisdom holds that one should use the fixed effects estimator whenever $Cov(x_{it},\alpha_i)\neq 0$.
+If the correlation between the regressor of interest and the individual effect is \emph{sufficiently small}, however, the lower variance of the random effects estimator could more than compensate for its bias in a mean-squared error sense.
+This is precisely the possibility that we consider here using the GFIC.
+In this example, the local mis-specification assumption takes the form
+\begin{equation}
+  \sum_{t=1}^T E\left[ x_{it}\alpha_i \right] = \frac{\tau}{\sqrt{N}}
+  \label{eq:REvsFElocalmisp}
+\end{equation}
+where $\tau$ is fixed, unknown constant.
+In the limit the random effects assumption that $Cov(x_{it},\alpha_i)=0$ holds, since $\tau/\sqrt{N} \rightarrow 0$.
+Unless $\tau=0$, however, it does not hold for any finite sample size.
