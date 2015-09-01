@@ -4,31 +4,26 @@
 We now evaluate the performance of the GFIC in two simulation experiment: one based on the fixed versus random effects example from Section ??? and another based on the dynamic panel example from Section??? 
 
 \subsection{Fixed vs.\ Random Effects Example}
-\begin{itemize}
-\item Consider the DGP (as in Guggenberger (JoE, 2010))
-\begin{align*}
-y_{it}& = \beta x_{it} + u_{it},\\
-u_{it}& = \alpha_i + \epsilon_{it}
-\end{align*}
-
-
+We employ a simulation design similar to that used by \cite{GuggenbergerRE}, namely
+\begin{equation*}
+  y_{it} = 0.5 x_{it} + \alpha_i + \varepsilon_{it}
+\end{equation*}
 where
-
 \[
-\begin{bmatrix}
+  \begin{bmatrix}
 x_{i1}\\
 x_{i2}\\
 \vdots\\
 x_{iT}\\
 \alpha_i
-\end{bmatrix}_{(T+1)\times 1}  \sim \quad N \left (
+\end{bmatrix}  \sim \quad N \left (
 \begin{bmatrix}
 0\\
 0\\
 \vdots\\
 0\\
 0
-\end{bmatrix} \,\,, \qquad 
+\end{bmatrix} , \, 
 \begin{bmatrix}
 1 & \rho & \ldots & \rho & \gamma\\
 \rho & 1 & \ldots & \rho & \gamma\\
@@ -38,33 +33,20 @@ x_{iT}\\
 \end{bmatrix}
 \right)
 \]
+independently of $\left( \varepsilon_{i1}, \dots, \varepsilon_{iT} \right)' \sim \mbox{ iid } N(0, \sigma_{\varepsilon}^2 \mathbf{I}_T)$.
+In this design, $\gamma$ controls the correlation between $x_{it}$ and the individual effects $\alpha_i$, while $\rho$ controls the persistence of $x_{it}$ over time.
+Larger values of $\gamma$ correspond to larger violations of the assumption underlying the random effects estimator, increasing the bias of this estimator.
+Larger values of $\rho$, on the other hand,
 
-which is independent of 
+Quasi time-demeaning scale $\lambda = 1- \sqrt{\frac{\sigma_\epsilon^2}{T\sigma_\alpha^2 + \sigma_\epsilon^2}}$ depends on $\sigma_\epsilon^2$ (given $\sigma_\alpha^2, \,\, T$).
 
-\[
-\begin{bmatrix}
-\epsilon_{i1}\\
-\vdots\\
-\epsilon_{iT}
-\end{bmatrix}  \quad \sim_{i.i.d.} N(0,\,\,  \sigma_{\epsilon}^2 \mathbf{I}_T)
-\]
+item For all the simulation results, $T$ is set to be 2 and $\beta$ is set to be 0.5.
 
-\item From the covariance-variance matrix above,\footnote{$\gamma$ is analogous to $q$, and $\rho$ is to $p$, $\sigma_\epsilon^2$ is to $\sigma_v^2$ in Guggenberger (2010).} 
-\begin{align*}
-Var(\alpha_{i})& = 1\\
-Corr(x_{it}, \alpha_i) & = \gamma, \quad \text{for\,\, all\,\, $t$}\\
-Corr(x_{it}, x_{is}) & = \rho,\quad \text{for\,\, $t\neq s$}\\
-\end{align*}
+item We will see how RMSE of fixed/random effect estimator (FE/RE), estimator chosen via FMSC selection (FMSC), AMSE-minimizing average estimator (AVG) differ for various combinations of $\gamma, \rho , \sigma_\epsilon^2, N$. The number of simulation replications is 10000.
 
-\item Quasi time-demeaning scale $\lambda = 1- \sqrt{\frac{\sigma_\epsilon^2}{T\sigma_\alpha^2 + \sigma_\epsilon^2}}$ depends on $\sigma_\epsilon^2$ (given $\sigma_\alpha^2, \,\, T$).
+For $T=2$, we consider fine grid of $\rho$ to be from 0.3 to 0.9 with grid size 0.01. Fine grid of $\gamma$ is set to be from 0.0 to 0.7 with grid size 0.1. Grid of $\gamma$ is set in order to make the covariance-variance matrix to be positive definite.\footnote{Note that in Table 3 of Guggenberger (2010), some combinations of parameters cannot render positive definite $C_{p,q}$ matrix.} $N = 100, 200, 500$ is considered, and $\sigma_\epsilon^2 = 1$. For $T=5$, fine grid of $\rho$ is shrunk to be from 0.4 to 0.9 with grid size 0.01 in order to guarantee positive definiteness. All the other parameters' grids are the same as in $T=2$ case.
 
-\item For all the simulation results, $T$ is set to be 2 and $\beta$ is set to be 0.5.
-
-\item We will see how RMSE of fixed/random effect estimator (FE/RE), estimator chosen via FMSC selection (FMSC), AMSE-minimizing average estimator (AVG) differ for various combinations of $\gamma, \rho , \sigma_\epsilon^2, N$. The number of simulation replications is 10000.
-
-\item For $T=2$, we consider fine grid of $\rho$ to be from 0.3 to 0.9 with grid size 0.01. Fine grid of $\gamma$ is set to be from 0.0 to 0.7 with grid size 0.1. Grid of $\gamma$ is set in order to make the covariance-variance matrix to be positive definite.\footnote{Note that in Table 3 of Guggenberger (2010), some combinations of parameters cannot render positive definite $C_{p,q}$ matrix.} $N = 100, 200, 500$ is considered, and $\sigma_\epsilon^2 = 1$. For $T=5$, fine grid of $\rho$ is shrunk to be from 0.4 to 0.9 with grid size 0.01 in order to guarantee positive definiteness. All the other parameters' grids are the same as in $T=2$ case.
-
-\item We need estimators for $\sigma_\alpha^2$, $\sigma_\epsilon^2$, and $\sigma_v^2$ where $\sigma_v^2 = Var(v_{it} = \alpha_i + \epsilon_{it})$. Let 
+item We need estimators for $\sigma_\alpha^2$, $\sigma_\epsilon^2$, and $\sigma_v^2$ where $\sigma_v^2 = Var(v_{it} = \alpha_i + \epsilon_{it})$. Let 
 \begin{align*}
 \widehat{\epsilon}_{it}& = (y_{it} -\bar{y}_i) - (x_{it} - \bar{x}_i) \widehat{\beta}_{FE}\\
 \widehat{v}_{it} &= y_{it} - x_{it} \widehat{\beta}_{OLS}
@@ -76,7 +58,7 @@ In the simulations, the followings are used:
 \widehat{\sigma}_\alpha^2 &= \widehat{\sigma}_v^2 - \widehat{\sigma}_\epsilon^2
 \end{align*}
 
-\item All the terms needed for the simulation can be substituted with consistent estimators except for $\tau$. For $\tau$, asymptotically unbiased estimator is used, i.e., 
+item All the terms needed for the simulation can be substituted with consistent estimators except for $\tau$. For $\tau$, asymptotically unbiased estimator is used, i.e., 
 
 \[
 \widehat{\tau} = \frac{1}{\sqrt{N}} \sum_{i=1}^N \mathbf{x}_i' \widehat{\Omega}^{-1} (\mathbf{y}_i - \mathbf{x}_i\widehat{\beta}_{FE}) \cdot (T\widehat{\sigma}_\alpha^2+\widehat{\sigma}_\epsilon^2).\\
@@ -84,7 +66,6 @@ In the simulations, the followings are used:
 
 In addition, we need $\sigma^2 = -\frac{(T\sigma_\alpha^2 + \sigma_\epsilon^2)^2}{\widetilde{K}} \bigg(1-\frac{\sigma_\epsilon^2}{\widehat{K}\widetilde{K}}\bigg) = \frac{(T\sigma_\alpha^2 + \sigma_\epsilon^2)^2}{\widetilde{K}} \bigg(\frac{VAR(\widehat{\beta}_{FE})}{VAR(\widehat{\beta}_{RE})}-1\bigg)$. We know that $VAR(\widehat{\beta}_{FE}) \geq VAR(\widehat{\beta}_{RE})$ using $\lambda = 1-\sqrt{\frac{\sigma_\epsilon^2}{T\sigma_\alpha^2+\sigma_\epsilon^2}}$ (quasi time-demeaning). Using $\widehat{\lambda},$ we can guarantee $\widehat{\sigma}^2$ to be greater than 0. 
 
-\end{itemize}
 
 \begin{figure}[h]
   \centering
