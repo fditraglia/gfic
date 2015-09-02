@@ -1,7 +1,11 @@
 %!TEX root = main.tex
 \section{Averaging and Post-Selection Inference}
-
-
+\label{sec:avg}
+While we are primarily concerned in this paper with the mean-squared error performance of our proposed selection techniques, it is important to have tools for carrying out valid inference post-selection.
+To this end, we now show how to extend the results from Section 4 of \cite{DiTraglia2012} to the more general setting considered in this paper, one that allows for simultaneous model and moment selection.\footnote{Because the conceptual issues are largely the same as in the case where one considers only moment selection, we direct the reader to \cite{DiTraglia2012} for more discussion.}
+Consider an estimator of the form 
+	$$\widehat{\mu} = \sum_{(b,c) \in \mathcal{BC}} \widehat{\omega}(b,c) \widehat{\mu}(b,c)$$
+  where $\widehat{\mu}$ denotes the target parameter under the moment conditions and parameter restrictions indexed by $(b,c)$, $\mathcal{BC}$ denotes the full set of candidate specifications, and $\widehat{\omega}(b,c)$ denotes a collection of data-dependent weights satisfying the following assumption.
 \begin{assump}[Data-Dependent Weights] Let $\widehat{\omega}(b,c)$ be a function of the data $Z_{n1}, \hdots, Z_{nn}$ and $(b,c)$ satisfying
 	\begin{enumerate}[(a)] 
 		\item $\sum_{(b,c) \in \mathcal{BC}} \widehat{\omega}(b,c) = 1$
@@ -10,17 +14,24 @@
 \label{assump:weight}
 \end{assump}
 
+Assumption \ref{assump:weight} is quite weak, covering a broad range of examples, including genuine averaging estimators, post-GFIC estimators, and pre-test estimators based on the J-statistic.
+Under this assumption, we can characterize the limit distribution of $\widehat{\mu}$ as follows.
+
 \begin{cor}[Limit Distribution of Averaging Estimators]
-Let $\widehat{\omega}(b,c)$ be a set of weights satisfying Assumption \ref{assump:weight} and define
-	$$\widehat{\mu} = \sum_{(b,c) \in \mathcal{BC}} \widehat{\omega}(b,c) \widehat{\mu}(b,c).$$
-Then, under the hypotheses of Theorem \ref{thm:asymp},  
+Let $\widehat{\omega}(b,c)$ be a set of weights satisfying Assumption \ref{assump:weight}. Then, under the hypotheses of Theorem \ref{thm:asymp},  
 	$$\sqrt{n}\left(\widehat{\mu} - \mu_n\right) \overset{d}{\rightarrow} \Lambda(\tau,\delta)$$
 where
 	\begin{equation}
 		\Lambda(\tau,\delta) = -\nabla_\beta\varphi_0' \sum_{(b,c) \in \mathcal{BC}} \psi(\mathscr{N},\delta, \tau|b,c) \left\{\Xi_b' K(b,c) \Xi_c \mathscr{N} + M(b,c)  \left[\begin{array}{c}\delta \\ \tau \end{array} \right]\right\}
 	\end{equation}
 \end{cor}
-
+Note that the limit distribution from the preceding corollary is highly non-normal: it is a \emph{randomly} weighted average of a normal random vector, $\mathscr{N}$.
+To tabulate this distribution for the purposes of inference, we will in general need to resort to simulation.
+If $\tau$ and $\delta$ were known, the story would end here.
+We could simply substitute consistent estimators of $K$ and $M$, and then repeatedly draw $\mathscr{N} \sim N(0, \widehat{\Omega})$, where $\widehat{\Omega}$ is a consistent estimator of $\Omega$, and thus tabulate the distribution of $\Lambda$ to arbitrary precision. 
+Unfortunately, no consistent estimators of $\tau$ or $\delta$ exist: all we have at our disposal are asymptotically unbiased estimators.
+Simply plugging in these estimators $\widehat{\tau}$ and $\widehat{\delta}$ and proceeding with the simulation is not guaranteed to lead to valid confidence intervals.\footnote{Although it does not work in general, in particular examples, this plug-in procedure may perform well. For more discussion of this point, see Section 4.4 of \cite{DiTraglia2012}.}
+In contrast, the following two-step procedure, is guaranteed to yield confidence intervals with asymptotic coverage probability \emph{no less than} $1-(\alpha_1 + \alpha_2)$.
 
 \begin{alg}[Simulation-based Confidence Interval for $\widehat{\mu}$]
 \label{alg:conf}
@@ -44,17 +55,17 @@ where
 \end{enumerate}
 \end{alg}
 
-%\begin{thm}[Simulation-based Confidence Interval for $\widehat{\mu}$]
-%\label{pro:sim}
-%If
-%\begin{enumerate}[(a)]
-%	\item $\widehat{\Psi}$, $\widehat{\Omega}$, $\widehat{\theta}$ and $\widehat{K}_S$ are consistent estimators of $\Psi$, $\Omega$, $\theta_0$ and $K_S$;
-%	\item $\widehat{\varphi}(M|S) = \varphi(M|S)+ o_p(1)$;
-%	\item $\widehat{\Delta}(\widehat{\tau},\tau) = \left(\widehat{\tau} - \tau\right)' \left(\widehat{\Psi}\widehat{\Omega}\widehat{\Psi}'\right)^{-1} \left(\widehat{\tau} - \tau\right)$ and
-%	\item $T(\widehat{\tau}) = \left\{\tau \colon  \Delta_n(\widehat{\tau},\tau) \leq \chi^2_q(\delta)\right\}$ where $\chi^2_q(\delta)$ denotes the $1-\delta$ quantile of a $\chi^2$ distribution with $q$ degrees of freedom
-%\end{enumerate}
-%then, the interval $\mbox{CI}_{sim}$ defined in Algorithm \ref{alg:conf} has asymptotic coverage probability no less than $1-(\alpha_1 + \alpha_2)$ as $B,n\rightarrow \infty$.
-%\end{thm}
+\begin{thm}[Simulation-based Confidence Interval for $\widehat{\mu}$]
+\label{pro:sim}
+If
+\begin{enumerate}[(a)]
+	\item $\widehat{\Psi}$, $\widehat{\Omega}$, $\widehat{\theta}$ and $\widehat{K}_S$ are consistent estimators of $\Psi$, $\Omega$, $\theta_0$ and $K_S$;
+	\item $\widehat{\varphi}(M|S) = \varphi(M|S)+ o_p(1)$;
+	\item $\widehat{\Delta}(\widehat{\tau},\tau) = \left(\widehat{\tau} - \tau\right)' \left(\widehat{\Psi}\widehat{\Omega}\widehat{\Psi}'\right)^{-1} \left(\widehat{\tau} - \tau\right)$ and
+	\item $T(\widehat{\tau}) = \left\{\tau \colon  \Delta_n(\widehat{\tau},\tau) \leq \chi^2_q(\delta)\right\}$ where $\chi^2_q(\delta)$ denotes the $1-\delta$ quantile of a $\chi^2$ distribution with $q$ degrees of freedom
+\end{enumerate}
+then, the interval $\mbox{CI}_{sim}$ defined in Algorithm \ref{alg:conf} has asymptotic coverage probability no less than $1-(\alpha_1 + \alpha_2)$ as $B,n\rightarrow \infty$.
+\end{thm}
 
 
 

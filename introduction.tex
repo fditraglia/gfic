@@ -12,7 +12,16 @@ GMM estimators remain consistent under local mis-specification but their limit d
 Adding an additional moment condition or imposing a parameter restriction generally reduces asymptotic variance but, if incorrectly specified, introduces a source of bias.
 The GFIC trades off these two effects in the first-order asymptotic expansion of an estimator to approximate its finite sample behavior.
 
-Model selection of any kind requires a source of identifying information.
+The GFIC takes its motivation from a situation that is common in empirical practice.
+A researcher who hopes to estimate a parameter of interest $\mu$ must decide which assumptions to use.
+On the one hand is a set of relatively uncontroversial ``baseline'' assumptions.
+We suppose that the baseline assumptions are correct and identify $\mu$.
+But the very fact that that the baseline assumptions do not raise eyebrows suggests that they may not be especially informative about $\mu$. 
+On the other hand are one or more stronger controversial ``suspect'' assumptions.
+These stronger assumptions are expected to be much more informative about $\mu$.
+If we were certain that they were correct, we would definitely choose to impose them in estimation.
+Indeed, by continuity, even if they were \emph{nearly} correct, imposing the suspect assumptions could yield a favorable bias-variance tradeoff.
+This is the essential idea behind the GFIC.
 
 The focused moment selection criterion (FMSC) of \cite{DiTraglia2012} can be viewed as a special case of the GFIC. 
 While the FMSC considers the problem of selecting moment conditions while holding the model specification \emph{fixed}, the GFIC allows us to select over both aspects of our specification simultaneously.
@@ -31,7 +40,6 @@ While MSE is a natural risk-function for asymptotically normal estimators, diffe
 In a similar vein, the weighted FIC (wFIC) of \cite{ClaeskensHjort2008} provides a potentially important tool for policy analysis, allowing researchers to choose the model that minimizes weighted average risk for generalized linear models. 
 While the FIC can be used, for example, to choose the best model for estimating the mean response at a given set of covariate values, the wFIC allows us to minimize the expected mean response over a \emph{distribution} of covariate values corresponding to some target population.
 In time series problems, predictive MSE is typically more interesting than estimator MSE.
-
 Accordingly, \cite{ClaeskensCroux} develop an FIC to minimize forecast MSE in autoregressive models where the true order of the process is infinite. 
 Independently of the FIC literature, \cite{Schorfheide2005} likewise uses local mis-specification to suggest a procedure for using finite order vector autoregressions to forecast an infinite-order vector moving average process with minimum quadratic loss. 
 This idea shares similarities with \cite{Skouras2001}.
@@ -55,6 +63,9 @@ Their proposal uses a Cressie-Read divergence measure to combine the information
 Unlike the GFIC, however, the CM estimator is not targeted to a particular research goal.
 
 The remainder of this paper is organized as follows. Section \ref{sec:asymp} derives the asymptotic distribution of GMM estimators under locally mis-specified moment conditions and parameter restrictions. 
-Section \ref{sec:GFIC}  uses this information to calculate the AMSE of a user-specified target parameter and provides asymptotically unbiased estimators of the required bias parameters, yielding the GFIC. 
-Section \ref{sec:panel} specializes the GFIC to a dynamic panel example, and explores its performance in a simulation study. 
-Section \ref{sec:conclude} concludes. Proofs appear in the Appendix.
+Section \ref{sec:GFIC} uses this information to calculate the AMSE of a user-specified target parameter and provides asymptotically unbiased estimators of the required bias parameters, yielding the GFIC. 
+Section \ref{sec:avg} extends the results on averaging estimators and post-selection inference from \cite{DiTraglia2012} to the more general setting of this paper.
+Section \ref{sec:REvsFE} specializes the GFIC to the problem of choosing between random effects and fixed effects estimators, and proposes an estimator that optimally averages the two while Section \ref{sec:panel} considers a dynamic panel example.
+Section \ref{sec:simulation} presents the results of simulation studies for each of the two examples and Section \ref{sec:conclude} concludes. 
+Proofs appear in the Appendix.
+
