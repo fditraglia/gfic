@@ -52,6 +52,7 @@ An asymptotically unbiased estimator of $\tau$ for this example is given by
 \end{equation}
 leading to the following result, from which we will construct the GFIC for this example.
 \begin{thm}[Fixed versus Random Effects Limit Distributions]
+\label{thm:REvsFE}
   Let $\left( \mathbf{x}_{ni}, \alpha_{ni}, \boldsymbol{\varepsilon}_{ni} \right)$ be an iid triangular array of random variables such that $Var(\boldsymbol{\varepsilon}_i|\mathbf{x}_{ni},\alpha_{ni})\rightarrow \sigma_{\varepsilon}^2 I_T$, $E[\mathbf{x}_{it}'Q\boldsymbol{\varepsilon}_{it}]=0$, and $E\left[ \alpha_i \boldsymbol{\iota}_T'\mathbf{x}_{it} \right]=\tau/\sqrt{n}$ for all $n$.
   Then, under standard regularity conditions,
 \[
@@ -71,28 +72,28 @@ c\tau \\
 0 & -c\sigma^2 & \sigma^2
 \end{array}\right] \right)
 \]
-where $\eta^2 = E[\mathbf{x}_i'\Omega^{-1}\mathbf{x}_i]$, $c = E[\mathbf{x}_i' Q \mathbf{x}_i]/(T\sigma_\alpha^2 + \sigma_\varepsilon^2)$, and $\sigma^2 = ???$.
+where $\eta^2 = E[\mathbf{x}_i'\Omega^{-1}\mathbf{x}_i]$, $c = E[\mathbf{x}_i' Q \mathbf{x}_i]/(T\sigma_\alpha^2 + \sigma_\varepsilon^2)$, and
+\[\sigma^2 = \frac{(T\sigma_{\alpha}^2 + \sigma_{\varepsilon}^2)^2}{E\left[ \mathbf{x}_i'\Omega^{-1}\mathbf{x}_i \right]}\left( \frac{\sigma_{\varepsilon}^2}{E\left[ \mathbf{x}_i \Omega^{-1} \mathbf{x}_i \right]E\left[ \mathbf{x}_i Q \mathbf{x}_i \right]} - 1 \right). \]
 \end{thm}
-
-\todo[inline]{Finish off statement of theorem, explain how to estimate everything, and explain the averaging estimator. Shouldn't take too long I hope!}
-
-We need estimators for $\sigma_\alpha^2$, $\sigma_\epsilon^2$, and $\sigma_v^2$ where $\sigma_v^2 = Var(v_{it} = \alpha_i + \epsilon_{it})$. Let 
+We see from Theorem \ref{thm:REvsFE} that 
+\begin{eqnarray*}
+  AMSE(\widehat{\beta}_{RE}) &=& c^2 \tau^2 + \eta^2 \\
+  AMSE(\widehat{\beta}_{FE}) &=& c^2\sigma^2 + \eta^2  
+\end{eqnarray*}
+and $\widehat{\tau}^2 - \sigma^2$ provides an asymptotically unbiased estimator of $\tau$.
+Thus, substituting $\widehat{\tau} - \sigma^2$ for $\tau$ and rearranging the preceding AMSE expressions, the GFIC tells us that we should select the random effects estimator whenever $|\widehat{\tau}|\leq \sqrt{2} \sigma$.
+To implement this rule in practice, we construct a consistent estimator of $\sigma^2$, for which we require estimators of $\sigma_{\alpha}^2, \sigma_{\varepsilon}^2$ and $\sigma_{v}^2 = Var(\alpha_i + \varepsilon_{it})$.
+We estimate these from the following residuals
 \begin{align*}
 \widehat{\epsilon}_{it}& = (y_{it} -\bar{y}_i) - (x_{it} - \bar{x}_i) \widehat{\beta}_{FE}\\
 \widehat{v}_{it} &= y_{it} - x_{it} \widehat{\beta}_{OLS}
 \end{align*} 
-In the simulations, the followings are used: 
+where $\widehat{\beta}$ denotes the pooled OLS estimator of $\beta$, leading to the following variance estimators: 
 \begin{align*}
 \widehat{\sigma}_\epsilon^2 &= \frac{1}{N(T-1)-1} \sum_{i=1}^N \sum_{t=1}^T \widehat{\epsilon}_{it}^2\\
 \widehat{\sigma}_v^2 &= \frac{1}{NT-1} \sum_{i=1}^N \sum_{t=1}^T \widehat{v}_{it}^2\\
-\widehat{\sigma}_\alpha^2 &= \widehat{\sigma}_v^2 - \widehat{\sigma}_\epsilon^2
+\widehat{\sigma}_\alpha^2 &= \widehat{\sigma}_v^2 - \widehat{\sigma}_\epsilon^2.
 \end{align*}
 
-item All the terms needed for the simulation can be substituted with consistent estimators except for $\tau$. For $\tau$, asymptotically unbiased estimator is used, i.e., 
-
-\[
-\widehat{\tau} = \frac{1}{\sqrt{N}} \sum_{i=1}^N \mathbf{x}_i' \widehat{\Omega}^{-1} (\mathbf{y}_i - \mathbf{x}_i\widehat{\beta}_{FE}) \cdot (T\widehat{\sigma}_\alpha^2+\widehat{\sigma}_\epsilon^2).\\
-\]
-
-In addition, we need $\sigma^2 = -\frac{(T\sigma_\alpha^2 + \sigma_\epsilon^2)^2}{\widetilde{K}} \bigg(1-\frac{\sigma_\epsilon^2}{\widehat{K}\widetilde{K}}\bigg) = \frac{(T\sigma_\alpha^2 + \sigma_\epsilon^2)^2}{\widetilde{K}} \bigg(\frac{VAR(\widehat{\beta}_{FE})}{VAR(\widehat{\beta}_{RE})}-1\bigg)$. We know that $VAR(\widehat{\beta}_{FE}) \geq VAR(\widehat{\beta}_{RE})$ using $\lambda = 1-\sqrt{\frac{\sigma_\epsilon^2}{T\sigma_\alpha^2+\sigma_\epsilon^2}}$ (quasi time-demeaning). Using $\widehat{\lambda},$ we can guarantee $\widehat{\sigma}^2$ to be greater than 0. 
-
+Selection, of course, is a somewhat crude procedure: it is essentially an average that uses all-or-nothing weights.
+As a consequence, relatively small changes to the data could produce discontinuous changes in the weights, leading to a procedure with a high variance.
