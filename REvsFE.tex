@@ -76,10 +76,12 @@ where $\eta^2 = E[\mathbf{x}_i'\Omega^{-1}\mathbf{x}_i]$, $c = E[\mathbf{x}_i' Q
 \[\sigma^2 = \frac{(T\sigma_{\alpha}^2 + \sigma_{\varepsilon}^2)^2}{E\left[ \mathbf{x}_i'\Omega^{-1}\mathbf{x}_i \right]}\left( \frac{\sigma_{\varepsilon}^2}{E\left[ \mathbf{x}_i \Omega^{-1} \mathbf{x}_i \right]E\left[ \mathbf{x}_i Q \mathbf{x}_i \right]} - 1 \right). \]
 \end{thm}
 We see from Theorem \ref{thm:REvsFE} that 
-\begin{eqnarray*}
+\begin{eqnarray}
   AMSE(\widehat{\beta}_{RE}) &=& c^2 \tau^2 + \eta^2 \\
+  \label{eq:REAMSE}
   AMSE(\widehat{\beta}_{FE}) &=& c^2\sigma^2 + \eta^2  
-\end{eqnarray*}
+  \label{eq:FEAMSE}
+\end{eqnarray}
 and $\widehat{\tau}^2 - \sigma^2$ provides an asymptotically unbiased estimator of $\tau$.
 Thus, substituting $\widehat{\tau} - \sigma^2$ for $\tau$ and rearranging the preceding AMSE expressions, the GFIC tells us that we should select the random effects estimator whenever $|\widehat{\tau}|\leq \sqrt{2} \sigma$.
 To implement this rule in practice, we construct a consistent estimator of $\sigma^2$, for which we require estimators of $\sigma_{\alpha}^2, \sigma_{\varepsilon}^2$ and $\sigma_{v}^2 = Var(\alpha_i + \varepsilon_{it})$.
@@ -88,7 +90,7 @@ We estimate these from the following residuals
 \widehat{\epsilon}_{it}& = (y_{it} -\bar{y}_i) - (x_{it} - \bar{x}_i) \widehat{\beta}_{FE}\\
 \widehat{v}_{it} &= y_{it} - x_{it} \widehat{\beta}_{OLS}
 \end{align*} 
-where $\widehat{\beta}$ denotes the pooled OLS estimator of $\beta$, leading to the following variance estimators: 
+where $\widehat{\beta}_{OLS}$ denotes the \emph{pooled} OLS estimator of $\beta$, leading to the following variance estimators: 
 \begin{align*}
 \widehat{\sigma}_\epsilon^2 &= \frac{1}{N(T-1)-1} \sum_{i=1}^N \sum_{t=1}^T \widehat{\epsilon}_{it}^2\\
 \widehat{\sigma}_v^2 &= \frac{1}{NT-1} \sum_{i=1}^N \sum_{t=1}^T \widehat{v}_{it}^2\\
@@ -97,3 +99,12 @@ where $\widehat{\beta}$ denotes the pooled OLS estimator of $\beta$, leading to 
 
 Selection, of course, is a somewhat crude procedure: it is essentially an average that uses all-or-nothing weights.
 As a consequence, relatively small changes to the data could produce discontinuous changes in the weights, leading to a procedure with a high variance.
+Rather than selecting between the random effects and fixed effects estimators based on estimated AMSE, an alternative idea is to consider a more general weighted average of the form
+\[\widetilde{\beta}(\omega) =  \omega \widehat{\beta}_{FE} + (1 - \omega)\widehat{\beta}_{RE}\]
+and for $\omega \in [0,1]$ \emph{optimize} the choice of $\omega$ to minimize AMSE. 
+From Theorem \ref{thm:REvsFE} we see that the AMSE-minimizing value of $\omega$ is $\omega^* = (1 + \tau^2/\sigma^2)^{-1}$.
+Substituting our asymptotically unbiased estimator of $\tau^2$ and our consistent estimator $\widehat{\sigma}^2$ of $\sigma^2$, we propose the following plug-in estimator of $\omega^*$ 
+\begin{equation*}
+  \omega^* = \left[ 1 + \frac{ \max\left\{  \widehat{\tau}^2 - \widehat{\sigma}^2, 0\right\}}{\widehat{\sigma}^2} \right]
+\end{equation*}
+where we take the maximum over $\widehat{\tau}$ and zero to ensure that $\widehat{\omega}^*$ is between zero and one. 
