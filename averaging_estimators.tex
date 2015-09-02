@@ -30,7 +30,7 @@ To tabulate this distribution for the purposes of inference, we will in general 
 If $\tau$ and $\delta$ were known, the story would end here.
 We could simply substitute consistent estimators of $K$ and $M$, and then repeatedly draw $\mathscr{N} \sim N(0, \widehat{\Omega})$, where $\widehat{\Omega}$ is a consistent estimator of $\Omega$, and thus tabulate the distribution of $\Lambda$ to arbitrary precision. 
 Unfortunately, no consistent estimators of $\tau$ or $\delta$ exist: all we have at our disposal are asymptotically unbiased estimators.
-Simply plugging in these estimators $\widehat{\tau}$ and $\widehat{\delta}$ and proceeding with the simulation is not guaranteed to lead to valid confidence intervals.\footnote{Although it does not work in general, in particular examples, this plug-in procedure may perform well. For more discussion of this point, see Section 4.4 of \cite{DiTraglia2012}.}
+Simply plugging in these estimators $\widehat{\tau}$ and $\widehat{\delta}$ and proceeding with the simulation is not guaranteed to lead to valid confidence intervals.\footnote{Although it does not work in general, in particular examples this plug-in procedure may perform well. For more discussion of this point, see Section 4.4 of \cite{DiTraglia2012}.}
 In contrast, the following two-step procedure, is guaranteed to yield confidence intervals with asymptotic coverage probability \emph{no less than} $1-(\alpha_1 + \alpha_2)$.
 
 \begin{alg}[Simulation-based Confidence Interval for $\widehat{\mu}$]
@@ -41,8 +41,8 @@ In contrast, the following two-step procedure, is guaranteed to yield confidence
 	\item For each $(\delta,\tau)\in R(\alpha_1)$:
 		\begin{enumerate}[(i)]
 			\item For each $j = 1, 2, \hdots, B$, generate $\mathscr{N}_j \sim N(0, \widehat{\Omega})$
-			\item For each for $j = 1, 2, \hdots, B$ set $$\Lambda_j(\tau,\delta)= -\nabla_\beta\widehat{\varphi}_0' \sum_{(b,c) \in \mathcal{BC}} \widehat{\psi}(\mathscr{N}_j,\delta, \tau|b,c) \left\{\Xi_b' \widehat{K}(b,c) \Xi_c \mathscr{N}_j + \widehat{M}(b,c)  \left[\begin{array}{c}\delta \\ \tau \end{array} \right]\right\}$$
-			\item Using $\{\Lambda_j(\delta, \tau)\}_{j=1}^B$, calculate $\widehat{a}(\delta,\tau)$, $\widehat{b}(\delta, \tau)$ such that
+			\item For each for $j = 1, 2, \hdots, J$ set $$\Lambda_j(\tau,\delta)= -\nabla_\beta\widehat{\varphi}_0' \sum_{(b,c) \in \mathcal{BC}} \widehat{\psi}(\mathscr{N}_j,\delta, \tau|b,c) \left\{\Xi_b' \widehat{K}(b,c) \Xi_c \mathscr{N}_j + \widehat{M}(b,c)  \left[\begin{array}{c}\delta \\ \tau \end{array} \right]\right\}$$
+			\item Using $\{\Lambda_j(\delta, \tau)\}_{j=1}^J$, calculate $\widehat{a}(\delta,\tau)$, $\widehat{b}(\delta, \tau)$ such that
 		$$P\left\{ \widehat{a}(\delta,\tau) \leq\Lambda(\delta,\tau)\leq \widehat{b}(\delta,\tau) \right\} = 1 - \alpha_2$$
 		\end{enumerate}
 	\item Define
@@ -57,16 +57,6 @@ In contrast, the following two-step procedure, is guaranteed to yield confidence
 
 \begin{thm}[Simulation-based Confidence Interval for $\widehat{\mu}$]
 \label{pro:sim}
-If
-\begin{enumerate}[(a)]
-	\item $\widehat{\Psi}$, $\widehat{\Omega}$, $\widehat{\theta}$ and $\widehat{K}_S$ are consistent estimators of $\Psi$, $\Omega$, $\theta_0$ and $K_S$;
-	\item $\widehat{\varphi}(M|S) = \varphi(M|S)+ o_p(1)$;
-	\item $\widehat{\Delta}(\widehat{\tau},\tau) = \left(\widehat{\tau} - \tau\right)' \left(\widehat{\Psi}\widehat{\Omega}\widehat{\Psi}'\right)^{-1} \left(\widehat{\tau} - \tau\right)$ and
-	\item $T(\widehat{\tau}) = \left\{\tau \colon  \Delta_n(\widehat{\tau},\tau) \leq \chi^2_q(\delta)\right\}$ where $\chi^2_q(\delta)$ denotes the $1-\delta$ quantile of a $\chi^2$ distribution with $q$ degrees of freedom
-\end{enumerate}
-then, the interval $\mbox{CI}_{sim}$ defined in Algorithm \ref{alg:conf} has asymptotic coverage probability no less than $1-(\alpha_1 + \alpha_2)$ as $B,n\rightarrow \infty$.
+Let $\nabla_{\beta}\widehat{\varphi}_0$, $\widehat{\psi}(\cdot|b,c)$, $\widehat{K}(b,c)$ and $\widehat{M}(b,c)$ be consistent estimators of $\nabla_\beta \varphi$, $\psi(\cdot|b,c)$, $K(b,c)$ and $M(b,c)$ and let $R(\alpha_1)$ be a $(1-\alpha_1)\times 100\%$ joint confidence region for $(\delta,\tau)$ constructed from Theorem \ref{thm:jointbias}.
+Then the interval $CI_{sim}$ defined in Algorithm \ref{alg:conf} has asymptotic coverage probability no less than $1-\left( \alpha_1 + \alpha_2 \right)$ as $J,n\rightarrow \infty$. 
 \end{thm}
-
-
-
-
