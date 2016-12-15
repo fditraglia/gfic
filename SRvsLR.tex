@@ -1,0 +1,282 @@
+\section{Dynamic Panel Example (Short-run Effect v.s. Long-run Effect)}
+\label{sec:SRvsLR}
+
+\vspace{0.1in}
+The true data generating process is 
+	\begin{equation}
+				y_{it} = \alpha_1 y_{it-1} + \alpha_2 y_{it-2} + \beta x_{it} + u_{it}
+	\end{equation}
+where $i = 1, \hdots, n$ indexes individuals and $t=1, \hdots, T$  indexes time periods. We assume stationarity of $x_{it}$ and $u_{it}$ so that $y_{it}$ is stationary. The error term $u_{it}$ follows a one-way error components model
+	\begin{equation}
+				u_{it}= \eta_i + v_{it}
+	\end{equation}
+with idiosyncratic component $v_{it}$ and individual effect $\eta_i$. We consider the model with two lagged dependent variables, since we are interested in the different estimators related to short-run and long-run effect. (So the focus is whether $\alpha_2$ is zero or not.) 
+\begin{align*}
+\text{short-run effect} &: \quad \beta\\
+\text{long-run effect} &: \frac{\beta}{1-\alpha_1-\alpha_2}
+\end{align*}
+
+We assume that $x_{it}$ is predetermined. 
+That is, $E[x_{it}v_{is}] = 0$ for all $s\geq t$ but $E[x_{it}v_{is}]$ may be nonzero for $s<t$. 
+To remove the correlated individual effects, we take first differences, yielding
+	\begin{equation}
+	\Delta y_{it} = \alpha_1 \Delta y_{it-1} + \alpha_2 \Delta y_{it-2} + \beta \Delta x_{it} + \Delta v_{it}.
+	\end{equation}
+Under the true data generating process, $x_{it-1}$, and $ y_{it-2}, y_{it-3}$ are valid instruments for period $t$.\footnote{We consider the just-identified case. Under homoskedasticity, 2SLS estimator is the same as efficient GMM estimator. We consider 2SLS estimator in this example. In Arellano \& Bond (1991), all the previous lags $y_{t-2}, \hdots$ are used as instruments and efficient GMM is computed.}
+
+Because we observe only $t = 1, \hdots, T$, estimation in differences with a lagged dependent variable uses information from $T-3$ time periods: $t = 4, \hdots, T$.\\
+In contrast, estimation without a lagged variable $y_{it-2}$ uses information from $T-2$ time periods: $t=3, \hdots, T$.
+When $T$ is small, as in many micro-data applications, including an unnecessary lagged variable could result in a huge loss in information, substantially increasing the variance of our estimate of $\beta$. 
+On the other hand, unless $\alpha_2$ is zero, failing to include a lagged variable $y_{it-2}$ will bias our estimates. 
+If $\alpha_2$ is \emph{nearly} zero, however, this bias may be small compared to the reduction in variance achieved by using an additional time period and estimating one fewer parameter. 
+Our model selection decision is whether or not to set $\alpha_2 = 0$.  
+
+Taking these considerations together, we consider two specifications: LW (including $y_{it-2}$) and W (excluding $y_{it-2}$). 
+ LW is the correct specification in contrast to W. \\
+Estimation based on LW uses the $3(T - 3)$ moment conditions
+
+	\begin{equation}
+E\left[ \left(\begin{array}{c} y_{i,t-2}\\ y_{i,t-3}\\ x_{i,t-1}
+\end{array}\right)\left(\Delta y_{it} - \alpha_1\Delta y_{i,t-1} - \alpha_2 \Delta y_{i,t-2} -\beta \Delta x_{it}\right)\right] = 0, \mbox{ for } t = 4, \hdots, T
+\end{equation}
+
+
+Estimation based on specification W uses the $2(T-2)$ moment conditions
+
+\begin{equation}
+E\left[ \left(\begin{array}{c} y_{i,t-2}\\ x_{i,t-1}
+\end{array}\right)\left(\Delta y_{it} - \alpha_1\Delta y_{i,t-1}  -\beta \Delta x_{it}\right)\right] = 0, \mbox{ for } t = 3, \hdots, T
+\end{equation}
+
+Because specifications W uses the wrong model, however, these moment conditions are mis-specified:
+\begin{equation}
+\label{eq:trueexpectSRvsLR}
+E\left[\left(\begin{array}{c}y_{i,t-2}\\x_{i,t-1}\end{array}\right) \left(\Delta y_{it} - \alpha_1 \Delta x_{it}-\beta \Delta x_{it} \right)\right] = \left[\begin{array}{c}\alpha_2 E[y_{i,t-2}\Delta y_{i,t-2}]\\\alpha_2 E[x_{i,t-1}\Delta y_{i,t-2}] \end{array} \right]
+\end{equation}
+which are non-zero unless $\alpha_2 = 0$.
+
+
+
+\subsection*{(a) Estimators and Local Mis-specification}
+\vspace{0.1in}
+Our aim is to use the GFIC to choose between competing estimators for short-run and long-run effect. 
+To do so we must first specify the appropriate form of local mis-specification. In this framework the true parameter vector is $\theta_n = \left(\alpha_1, \delta/\sqrt{n}, \beta \right)'$ which converges to $\theta = \left(\alpha_1,0,\beta \right)'$. 
+
+\begin{assump}[Local Mis-specification for Dynamic Panel Example]
+Assume that $\alpha_2 = \delta/\sqrt{n}$ where $\delta$ is unknown constant.\\
+\end{assump}
+
+For additional notations, the symbol ``+'' used as a superscript indicates the inclusion of the extra time period $t=3$ that becomes available when we exclude the lagged dependent variable.
+Using this convention, let $\Delta y_i = \left( \Delta y_{i4}, \hdots, \Delta y_{iT} \right)'$ and  $\Delta y_i^+ = \left( \Delta y_{i3},  \hdots, \Delta y_{iT} \right)'$.
+Define $\Delta x_i, \Delta x_i^+$ and $\Delta \epsilon, \Delta \epsilon^+$ analogously. 
+Similarly, let $\Delta y_{i,-1}=\left(\Delta y_{i3}, \hdots, \Delta y_{i,T-1}\right)'$ and $\Delta y_{i,-1}^+=\left(\Delta y_{i2}, \hdots, \Delta y_{i,T-1}\right)'$. Likewise, $\Delta y_{i,-2}=\left(\Delta y_{i2}, \hdots, \Delta y_{i,T-1}\right)'$ and $\Delta y_{i,-2}^+=\left(\Delta y_{i1}, \hdots, \Delta y_{i,T-1}\right)'$
+Note that the first element of $\Delta y_{i,-2}^+$ is not observed as $t=1$ is the first available time period. 
+Stacking over individuals in the usual way, define $\Delta y = \left( \Delta y_1', \hdots, \Delta y_n'\right)'$  and so on.
+
+The specifications LW has a design matrix as:
+	\begin{equation}
+	X_{LW} = \left[\begin{array}{ccc}  \Delta y_{-1} & \Delta y_{-2} & \Delta x \end{array}\right]
+	\end{equation}
+
+Similarly, let
+\begin{equation}
+	X_W^+ = \left[ \begin{array}{cc}\Delta y_{-1}^+ & \Delta x^+ \end{array} \right].
+\end{equation}
+
+Then we have:
+
+	\begin{eqnarray}
+		\Delta y &=& X_{LW} \theta_n + \Delta v\\
+		\label{eq:DGPplusSRvsLR}
+		\Delta y^+ &=& X_W^+ \theta_n + \Delta v^+
+	\end{eqnarray}
+
+We now turn our attention to the instrument matrices. For ease of notation, define the $(T-k+1)\times 1$ column vector
+	\begin{equation}
+		\left\{ z_t\right\}_{t=k}^{T} = \left(z_k, z_{k+1}, \hdots, z_{T-1}, z_T \right)'
+	\end{equation}
+and the $(T-k+1)\times (T-k+1)$ diagonal matrix
+\begin{equation}
+		D\left\{ z_t \right\}_{t=k}^{T} = \left[\begin{array}{ccc} z_{k} & & 0\\ &\ddots&\\ 0 &&z_T \end{array}\right].
+\end{equation}
+
+To construct the instrument matrices, first define the $(T-3)\times(T-3)$ submatrices
+\begin{eqnarray}
+	Z(y_{i,-2}) &=& D\left\{ y_{i,t-2} \right\}_{t=4}^{T}\\
+     Z(y_{i,-3}) &=& D\left\{ y_{i,t-3} \right\}_{t=4}^{T}\\
+	Z(x_{i,-1}) &=& D\left\{ x_{i,t-1} \right\}_{t=4}^{T}
+ \end{eqnarray}
+and the $(T-2)\times(T-2)$ submatrices
+\begin{eqnarray}
+	Z(y_{i,-2}^+) &=&D\left\{ y_{i,t-2} \right\}_{t=3}^{T}\\
+		Z(x_{i,-1}^+) &=& D\left\{x_{i,t-1}  \right\}_{t=3}^{T}.
+ \end{eqnarray}
+As above, the symbol ``+'' used as a superscript indicates the addition of an additional time period. 
+Combining these, define 
+	\begin{eqnarray}
+	Z_{LW,i} &=&  \left(Z(y_{i,-2}), Z(y_{i,-3}), Z(x_{i,-1}) \right)'\\
+	Z_{W,i} &=&  \left(Z(y_{i,-2}^+),  Z(x_{i,-1}^+) \right)'
+	\end{eqnarray}
+Stacking over individuals, let $Z_{LW}' = \left(Z_{LW,1}, \hdots,  Z_{LW,N}\right)$ and so on. 
+Finally, define the shorthand
+\begin{equation}
+\label{eq:KSRvsLR}
+	\widehat{K} = \left[\left(\frac{X'Z}{n}\right)\left(\frac{Z'Z}{n}\right)^{-1}\left(\frac{Z'X}{n}\right)\right]^{-1}\left(\frac{X'Z}{n}\right)\left(\frac{Z'Z}{n}\right)^{-1}.
+\end{equation}
+Using this notation, our two estimators are:
+\begin{eqnarray}
+	\widehat{\theta}_{LW} &=& \widehat{K}_{LW}\left(\frac{Z_{LW}'\Delta y}{n}\right)\\
+	\widehat{\theta}_{W} &=&  \widehat{K}_W\left(\frac{Z_{W}'\Delta y^+}{n}\right).
+\end{eqnarray}
+which can be expanded as 
+	\begin{eqnarray}
+	\label{eq:distexpandLSSRvsLR}
+						\sqrt{n}(\widehat{\theta}_{LW} - \theta) = \sqrt{n} \left[\begin{array}{l} \widehat{\alpha}_{1,LW}-\alpha_1\\ 
+\widehat{\alpha}_{2,LW}\\						
+						\widehat{\beta}_{LW} - \beta
+						\end{array}\right]   &=& \left[\begin{array}{c}0 \\ \delta\\ 0\end{array}\right]+ \widehat{K}_{LW}\left(\frac{Z_{LW}'\Delta v}{n^{1/2}}\right)
+\end{eqnarray}
+and
+\begin{eqnarray}
+		\sqrt{n}\left(\widehat{\theta}_W-\theta \right) =\sqrt{n} \left[\begin{array}{l} \widehat{\alpha}_{1,W}-\alpha_1\\ 
+						\widehat{\beta}_{W} - \beta
+						\end{array}\right]  &=&  \widehat{K}_W\left[\delta\left( \frac{Z_{W}'\Delta y_{-2}^+}{n}\right) + \left( \frac{Z_{W}'\Delta v^+}{n^{1/2}}\right)\right]
+	\end{eqnarray}
+
+Combining these expressions with the Lindeberg-Feller central limit theorem and standard regularity conditions gives
+	\begin{eqnarray}
+			\label{eq:dynpan2SRvsLR}
+ 			\sqrt{n} \left[\begin{array}{l} \widehat{\alpha}_{1,LW}-\alpha_1\\ 
+\widehat{\alpha}_{2,LW}\\ 			
+ 			\widehat{\beta}_{LW} - \beta \end{array}\right]   &\overset{d}{\rightarrow}& \left[\begin{array}{c} 0 \\ \delta\\ 0\end{array}\right] +K_{LW}\; N\left(0, \mathcal{V}_{LW}\right)
+	\end{eqnarray}
+and
+\begin{eqnarray}
+ 	\sqrt{n}\left[\begin{array}{l} \widehat{\alpha}_{1,W}-\alpha_1\\ 
+			\widehat{\beta}_{W} - \beta \end{array}\right]  &\overset{d}{\rightarrow}&K_W  \left[\delta \left[\begin{array}{l} \psi_0\\ 
+\psi_1 \end{array}\right]  \otimes \iota_{T-2} + N\left(0, \mathcal{V}_W\right) \right].
+	\end{eqnarray}
+where $K$ denotes the probability limit of $\widehat{K}$  and
+	\begin{eqnarray}
+		\psi_0 &=&E[y_{i,t-2}\Delta y_{i,t-2}] \\
+		\psi_1 &=&E[x_{i,t-1} \Delta y_{i,t-2}]
+	\end{eqnarray}	
+with the expectations taken with respect to the limiting DGP, in which all specifications are correct. 
+
+\subsection*{(b) Estimators for Short-run Effect}
+
+\vspace{0.1in}
+
+Suppose we are interested in short-run effect of $x_{it}$ on $y_{it}$, i.e. $\beta$.  Then  by $\Delta-$method,
+
+	\begin{eqnarray}
+ 			\sqrt{n} (\widehat{\beta}_{LW}-\beta) &\overset{d}{\rightarrow}& N\left(0,\quad \left[\begin{array}{ccc} 0& 0& 
+1 \end{array}\right] K_{LW}\mathcal{V}_{LW} K_{LW}' \left[\begin{array}{l} 0\\ 0\\ 
+1 \end{array}\right]  \right)
+	\end{eqnarray}
+and
+\begin{eqnarray}
+ 	\sqrt{n}(\widehat{\beta}_{W}-\beta) &\overset{d}{\rightarrow}&\left[\begin{array}{cc} 0& 1 \end{array}\right]
+ 	K_W  \left[\delta \left[\begin{array}{l} \psi_0\\ 
+\psi_1 \end{array}\right]  \otimes \iota_{T-2} + N\left(0, \mathcal{V}_W\right) \right].
+	\end{eqnarray}
+	
+%	We can choose between $\widehat{\beta}_{LW}$ and $\widehat{\beta}_W$ comparing their AMSE.
+	
+\subsection*{(c) Estimators for Long-run Effect}
+\vspace{0.1in}
+
+	Suppose we are interested in long-run effect which is expressed as $h(\theta) = h(\alpha_1, \alpha_2, \beta) = \frac{\beta}{1-\alpha_1-\alpha_2}$ and $h_w(\theta) = \frac{\beta}{1-\alpha_1}$. Note that $h'(\theta) = \left[\begin{array}{ccc} \frac{\beta}{(1-\alpha_1-\alpha_2)^2}& \frac{\beta}{(1-\alpha_1-\alpha_2)^2} & \frac{1}{1-\alpha_1-\alpha_2}\end{array}\right]_{\alpha_2=0} =\left[\begin{array}{ccc} \frac{\beta}{(1-\alpha_1)^2}& \frac{\beta}{(1-\alpha_1)^2} & \frac{1}{1-\alpha_1}\end{array}\right] $. Also, $h_w'(\theta) = \left[\begin{array}{ccc} \frac{\beta}{(1-\alpha_1-\alpha_2)^2}& \frac{1}{1-\alpha_1-\alpha_2}\end{array}\right]_{\alpha_2=0} =\left[\begin{array}{ccc} \frac{\beta}{(1-\alpha_1)^2}& \frac{1}{1-\alpha_1}\end{array}\right] $. From $\Delta-$method, we can get
+	
+	\begin{eqnarray}
+ 			\sqrt{n} (h(\widehat{\theta}_{LW})-h(\theta)) &\overset{d}{\rightarrow}&  			N\left(0,\,\, h'(\theta)K_{LW}\mathcal{V}_{LW}K_{LW}'h'(\theta) \right)
+	\end{eqnarray}
+	
+	
+and
+\begin{eqnarray}
+ 	\sqrt{n}(h_w(\widehat{\theta}_{W})-h_w(\theta)) &\overset{d}{\rightarrow}&
+ h_w'(\theta)	K_W  \left[\delta \left[\begin{array}{l} \psi_0\\ 
+\psi_1 \end{array}\right]  \otimes \iota_{T-2} + N\left(0, \mathcal{V}_W\right) \right].
+	\end{eqnarray}
+
+	
+	Consider centering expression (31) to $h(\theta_n)$ where $\alpha_2 = \frac{\delta}{\sqrt{n}}$. Using Taylor expansion,
+	
+	\[
+h(\theta_n) = h(\theta) + \bigtriangledown_{\alpha_2} h(\bar{\theta})'\frac{\delta}{\sqrt{n}}.		
+	\]	
+	
+	Hence, we have
+	\begin{eqnarray}
+ 			\sqrt{n} (h(\widehat{\theta}_{LW})-h(\theta_n)) &\overset{d}{\rightarrow}&  			N\left(0,\,\, h'(\theta)K_{LW}\mathcal{V}_{LW}K_{LW}'h'(\theta) \right) -\bigtriangledown_{\alpha_2} h(\theta)'\delta 
+	\end{eqnarray}
+	
+	We can use $\widehat{\delta} = \sqrt{n}\,\, \widehat{\alpha}_{2, LW}$ which is asymptotically unbiased estimator of $\delta$.	
+\begin{eqnarray}
+ 			\widehat{\delta} &\overset{d}{\rightarrow}& \delta + (0, 1, 0)K_{LW} \mathcal{V}_{LW} K_{LW}'(0, 1, 0)'	  			
+	\end{eqnarray}	
+	
+
+\section{Simulation Study: Dynamic Panel Example}
+We now evaluate the performance of the GFIC in a simulation experiment based on the dynamic panel example from the preceding section. We are interested in comparing LW (including $y_{it-2}$) and W (excluding $y_{it-2}$) cases. It is a model selection problem of whether $\alpha_2=0$. The simulated covariates and error terms are jointly normal with mean zero and unit variance. Specifically,
+	\begin{equation}
+		\left[\begin{array}{c}
+			x_{i}\\
+			\eta_i\\
+			v_{i}
+	 \end{array} \right]\sim \mbox{iid}\; N\left(\left[\begin{array}{c}0_T\\ 0\\ 0_T \end{array}\right] ,\left[\begin{array}{ccc}
+	 	 I_T & \sigma_{x\eta}\iota_T&\sigma_{xv}\Gamma_T \\
+	 		\sigma_{x\eta}\iota_T'& 1&0_T' \\
+	 		\sigma_{xv}\Gamma_T'& 0_T&  I_T
+	 \end{array}\right]\right)
+	\end{equation}
+where $0_m$ denotes an $m$-vector of zeros, $I_m$ the $(m\times m)$ identity matrix, $\iota_m$ an $m$-vector of ones, and $\Gamma_m$ an $m\times m$ matrix with ones on the subdiagonal and zeros elsewhere, namely
+	\begin{equation}
+		\Gamma_m = \left[\begin{array}{cc}
+	 	0_{m-1}' & 0\\
+	 	I_{m-1} & 0_{m-1}
+	 \end{array}\right].
+	\end{equation}
+Under this covariance matrix structure, $\eta_i$ and $v_{i}$ are uncorrelated with each other, but both are correlated with $x_{i}$: $E[x_{it}\eta_i]=\sigma_{x\eta}$ and $x_{it}$ is predetermined but not strictly exogenous with respect to $v_{it}$. Specifically, $E[x_{it}v_{it-1}]=\sigma_{xv}$, while $E[x_{it}v_{is}]=0$ for $s\neq t-1$. We initialize the presample observations $y_{i0}$ to zero, the mean of their stationary distribution, and generate the remaining time periods according to 
+$$y_{it} = \alpha_1 y_{it-1} +\alpha_2 y_{it-2} + \beta x_{it} + \eta_i + v_{it}$$
+In the simulation we take
+ \[ 
+ \alpha_1 = 0.4,\quad \beta = 0.5,\quad \sigma_{x\eta}=0.2,\quad \sigma_{xv}=0.1,\quad N=250,\quad T=5
+ \]  
+ and vary $\alpha_2$ over a grid. Each grid point is based on 1000 simulation replications.
+
+The question is how the finite sample "MAD" (Median Absolute Deviation)\footnote{We choose to use MAD instead of MSE since there appear cases where MSE is infinity. MAD is robust to outliers, and less arbitrary than truncated MSE where researcher should decide truncation point.} of the 2SLS estimators of i) $\beta$ (short run effect of $x_{it}$ on $y_{it}$) and ii) $\beta/(1-\alpha_1-\alpha_2)$ (long run effect) changes with different parameter specification, especially $\alpha_2$.  
+
+The following shows MAD comparisons for the short-run and long-run estimators over $\alpha_2$ values. Column LW or W show MAD of the estimators when the specification corresponding to column name is chosen always. On the contrary, column GFIC shows MAD of the estimators whose specification is chosen according to GFIC.   
+
+\begin{table}[!hpt]
+\centering
+\small
+\begin{tabular}{  c | c c  c | c c c  }
+\hline
+\hline
+Parameter & \multicolumn{3}{c}{Short-run Effect} & \multicolumn{3}{c}{Long-run Effect} \\
+    $\alpha_2$ &      LW  &       W   &    GFIC    & LW &     W &   GFIC\\
+    \hline
+ 0.10  &0.231&\bf{\color{blue}0.141}& 0.173& 0.801& \bf{\color{blue}0.582}& 0.688\\
+  0.11 & 0.237& \bf{\color{blue}0.156}& 0.181& 0.834& \bf{\color{blue}0.633}& 0.716\\
+ 0.12   &0.240& \bf{\color{blue}0.174}& 0.193& 0.850& \bf{\color{blue}0.685}& 0.752\\
+ 0.13   &0.238& \bf{\color{blue}0.187}& 0.201& 0.870& \bf{\color{blue}0.729}& 0.787\\
+ 0.14 &0.220& \bf{\color{blue}0.198}& 0.203& 0.870& \bf{\color{blue}0.764}& 0.808\\
+\bf{\color{red} 0.15}  & \bf{\color{blue}0.201}& 0.219& 0.211& 0.844& \bf{\color{blue}0.822}& 0.839\\
+\bf{\color{red} 0.16}  & \bf{\color{blue}0.205}& 0.223& 0.210& 0.883& \bf{\color{blue}0.856}& 0.862\\
+ 0.17  &\bf{\color{blue}0.181}& 0.242& 0.204& \bf{\color{blue}0.860}& 0.911& 0.897\\
+ 0.18  & \bf{\color{blue}0.162}& 0.258& 0.189& \bf{\color{blue}0.835}& 0.959& 0.891\\
+ 0.19  &\bf{\color{blue}0.161}& 0.265& 0.181& \bf{\color{blue}0.866}& 0.997& 0.917\\
+ 0.20  &\bf{\color{blue}0.143}& 0.288& 0.162& \bf{\color{blue}0.858}& 1.054& 0.910 \\
+\hline
+ \hline
+\end{tabular}
+\vspace{0.1in}
+\caption{MAD Comparison of Short-run and Long-run Estimators ($\alpha_1 = 0.4$)}
+\end{table}		
+
+As expected, specification LW including $y_{it-2}$ renders lower MAD compared to specification W as $\alpha_2$ increases. Interestingly, there are cases where different specification is favored depending on the time horizon of interest given $\alpha_2$. For $\alpha_2 = 0.15$ and 0.16, we can see that LW gives lower MAD for short-run effect whereas it gives higher MAD for long-run effect. Throughout $\alpha_2$ values considered, GFIC works well since its MAD always lies between the best and the worst specification. 
+
+

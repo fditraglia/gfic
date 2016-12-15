@@ -1,0 +1,316 @@
+\section{Slope Heterogeneity Example}
+
+
+\begin{align*}
+y_{it} &= \beta_i x_{it} + \epsilon_{it}\\
+& = (\beta + \eta_i) x_{it} + \epsilon_{it}\\
+& = \beta x_{it} +  \eta_i x_{it} + \epsilon_{it}
+\end{align*}
+where
+\begin{align*}
+\epsilon_{it}\,\, \text{i.i.d. over $i, t$}, \quad & var(\epsilon_{it})=\sigma_\epsilon^2\\
+\eta_i \,\, \text{i.i.d. over $i$},\quad & var(\eta_i) = \sigma_\eta^2 \\
+E( \epsilon_{i} | \mathbf{x}_{i}) = 0, \quad & E(\eta_i \epsilon_{i} | \mathbf{x}_{i})=0 
+\end{align*}
+
+
+For simplicity, assume everything is mean zero, and $\beta \in \mathbb{R}$, then
+
+\[
+E[y_{it}]= \beta E[x_{it}] + E[\eta_i x_{it}]+ E[\epsilon_{it}] = 0.\\
+\]
+
+ 
+
+
+\subsection*{(a) OLS Estimator}
+
+
+
+\begin{align*}
+\widehat{\beta}_{OLS} &= \bigg(\sum_{i=1}^{N} \mathbf{x}_i'  \mathbf{x}_i\bigg)^{-1}\bigg(\sum_{i=1}^{N} \mathbf{x}_i' \mathbf{y}_i   \bigg)\\
+&= \bigg(\sum_{i=1}^{N} \mathbf{x}_i'  \mathbf{x}_i\bigg)^{-1}\bigg(\sum_{i=1}^{N} \mathbf{x}_i' (  \mathbf{x}_i \beta + \mathbf{x}_i \eta_i+ \mathbf{\epsilon}_i) \bigg)\\
+&= \beta + \bigg(\sum_{i=1}^{N} \mathbf{x}_i'  \mathbf{x}_i\bigg)^{-1}\bigg(\sum_{i=1}^{N} \mathbf{x}_i'  \mathbf{x}_i \eta_i \bigg) +\bigg(\sum_{i=1}^{N} \mathbf{x}_i'  \mathbf{x}_i\bigg)^{-1}\bigg(\sum_{i=1}^{N} \mathbf{x}_i'  \mathbf{\epsilon}_i \bigg)
+\end{align*}
+
+Hence, 
+\begin{align*}
+\sqrt{N}(\widehat{\beta}_{OLS} - \beta) & = \bigg(\frac{1}{N}\sum_{i=1}^{N} \mathbf{x}_i'  \mathbf{x}_i\bigg)^{-1}\bigg(\frac{1}{\sqrt{N}}\sum_{i=1}^{N} \mathbf{x}_i'\mathbf{x}_i\mathbf{\eta}_i   \bigg)+ \bigg(\frac{1}{N}\sum_{i=1}^{N} \mathbf{x}_i'  \mathbf{x}_i\bigg)^{-1}\bigg(\frac{1}{\sqrt{N}}\sum_{i=1}^{N} \mathbf{x}_i'\mathbf{\epsilon}_i   \bigg)\\
+&= \left[\bigg(\frac{1}{N}\sum_{i=1}^{N} \mathbf{x}_i'  \mathbf{x}_i\bigg)^{-1}, \,\, \bigg(\frac{1}{N}\sum_{i=1}^{N} \mathbf{x}_i'  \mathbf{x}_i\bigg)^{-1} \right] \begin{bmatrix}
+\frac{1}{\sqrt{N}}\sum_{i=1}^{N} \mathbf{x}_i'\mathbf{x}_i\mathbf{\eta}_i   \\
+\frac{1}{\sqrt{N}}\sum_{i=1}^{N} \mathbf{x}_i'\mathbf{\epsilon}_i   
+\end{bmatrix}
+\end{align*}
+
+
+Let's consider local misspecification in the form of
+
+\[
+\sum_{t=1}^T E[x_{it}^2 \eta_i] = \frac{\delta}{\sqrt{N}}, \qquad \text{where\,\,}  \delta \neq 0
+\]
+\vspace{0.2in}
+
+Then the asymptotic distribution of $\widehat{\beta}_{OLS}$ is derived as
+\[
+\sqrt{N} (\widehat{\beta}_{OLS}-\beta) \rightarrow_{d} N\bigg(\big(E[\mathbf{x}_i'\mathbf{x}_i]\big)^{-1}\delta,\quad \sigma_\eta^2 \big(E[\mathbf{x}_i'\mathbf{x}_i]\big)^{-1}E[\mathbf{x}_i'\mathbf{x}_i\mathbf{x}_i'  \mathbf{x}_i]\big(E[\mathbf{x}_i'\mathbf{x}_i]\big)^{-1} + \sigma_\epsilon^2 \big(E[\mathbf{x}_i'\mathbf{x}_i]\big)^{-1}   \bigg)
+\]
+
+\subsection*{(b) Mean Group Estimator}
+
+\vspace{0.2in}
+
+Mean group (MG) estimator is the average of the OLS estimator $\widehat{\beta}_i$ across cross-section,
+
+
+\begin{align*}
+\widehat{\beta}_{MG} & = \frac{1}{N}\sum_{i=1}^N \widehat{\beta}_i\\
+&= \frac{1}{N} \sum_{i=1}^N \bigg( \mathbf{x}_i'  \mathbf{x}_i\bigg)^{-1}\bigg( \mathbf{x}_i'  \mathbf{y}_i   \bigg)\\
+&= \frac{1}{N} \sum_{i=1}^N \bigg( \mathbf{x}_i'  \mathbf{x}_i\bigg)^{-1}\bigg( \mathbf{x}_i' ( \mathbf{x}_i \beta + \mathbf{x}_i \eta_i+ \mathbf{\epsilon}_i)   \bigg)\\
+&= \beta + \frac{1}{N}\sum_{i=1}^N\eta_i+ \frac{1}{N}\sum_{i=1}^N \bigg( \mathbf{x}_i'  \mathbf{x}_i\bigg)^{-1} \bigg( \mathbf{x}_i' \mathbf{\epsilon}_i\bigg)
+\end{align*}
+
+The asymptotic distribution of $\widehat{\beta}_{MG}$ is
+
+\[
+\sqrt{N} (\widehat{\beta}_{MG}-\beta) \rightarrow_{d} N\bigg(0,\,\,\sigma_\eta^2+ \sigma_\epsilon^2 E\big([\mathbf{x}_i'  \mathbf{x}_i]^{-1} \big)\bigg)
+\]
+
+
+\vspace{0.2in}
+(1)\quad Since $var[\mathbf{x}_i' \mathbf{x}_i] = E[\mathbf{x}_i'  \mathbf{x}_i\mathbf{x}_i' \mathbf{x}_i] - (E[\mathbf{x}_i'  \mathbf{x}_i])^2 \geq 0,$ the first term of asymptotic variance of $\widehat{\beta}_{OLS}$ is greater than $\sigma_\eta^2$.\\
+(2)\quad From set-up I, we checked that $ E\bigg(\frac{1}{\sum_{t=1}^T x_{it}^2}\bigg) =  E\big([\mathbf{x}_i'  \mathbf{x}_i]^{-1}) \geq  \big(E[\mathbf{x}_i' \mathbf{x}_i]\big)^{-1}   =\frac{1}{E(\sum_{t=1}^T x_{it}^2)}$\\
+
+$\Rightarrow$ It is not clear which is bigger between $AVAR(\widehat{\beta}_{OLS})$ and $AVAR(\widehat{\beta}_{MG})$.
+
+\subsection*{(c) Estimators}
+\vspace{0.2in}
+Consistent estimator for $\sigma_\epsilon^2$:
+\[
+\widehat{\sigma}_\epsilon^2 = \frac{\mathbf{y}'M_{\mathbf{X}}\mathbf{y}}{NT-1}
+\]
+ Consistent estimator for $\sigma_\eta^2$:
+\[
+\widehat{\sigma}_\eta^2 = \frac{S_b}{N-1} - \frac{1}{N} \sum_{i=1}^N \widehat{\sigma}_\epsilon^2 (\mathbf{x}_i' \mathbf{x}_i)^{-1}
+\]
+where $S_b = \sum_{i=1}^N \widehat{\beta}_i \widehat{\beta}_i' - \frac{1}{N} \sum_{i=1}^N \widehat{\beta}_i \sum_{i=1}^N \widehat{\beta}_i'$. As noted in the footnote of Swamy (1970), there is no guarantee that $\widehat{\sigma}_\eta^2$ is positive. The following shows the assumptions taken in Swamy (1970): For $i,j = 1, 2, \ldots, N,$
+
+\begin{itemize}
+\item[(a)] $E\epsilon_i = 0, \quad E\epsilon_i\epsilon_j' = \begin{cases}
+\sigma_{\epsilon,ii}I & \text{if $i=j$}\\
+0& \text{if $i\neq j$}
+\end{cases}
+$
+\item[(b)] $E\beta_i = \beta$
+\item[(c)] $E(\beta_i - \beta)(\beta_j-\beta)' = \begin{cases}
+\Delta & \text{if $i=j$}\\
+0 & \text{if $i\neq j$}
+\end{cases}$
+\item[(d)] $\beta_i$ and $\epsilon_j$ are independent
+\item[(e)] $\beta_i$ and $\beta_j$ for $i\neq j$ are independent
+\end{itemize}
+\vspace{0.2in}
+
+
+Asymptotically unbiased estimator of $\delta$:
+\[
+\widehat{\delta} = \frac{1}{\sqrt{N}} \sum_{i=1}^N \mathbf{x}_i' (\mathbf{y}_i - \mathbf{x}_i \widehat{\beta}_{MG})
+\]
+
+\vspace{0.2in}
+
+We can get the asymptotic distribution of $\widehat{\delta}$ as follows:
+\begin{align*}
+\widehat{\delta} &= \frac{1}{\sqrt{N}} \sum_{i=1}^N \mathbf{x}_i' (\mathbf{y}_i - \mathbf{x}_i \widehat{\beta}_{MG})\\
+& = \frac{1}{\sqrt{N}} \sum_{i=1}^N \mathbf{x}_i' \big (\mathbf{y}_i - \mathbf{x}_i (\widehat{\beta}_{MG} - \beta) - \mathbf{x}_i \beta \big)\\
+&= \frac{1}{\sqrt{N}} \sum_{i=1}^N \mathbf{x}_i'\big(\mathbf{x}_i\eta
+_i + \epsilon_i -\mathbf{x}_i (\widehat{\beta}_{MG} - \beta) \big)\\
+&= \frac{1}{\sqrt{N}} \sum_{i=1}^N \mathbf{x}_i'(\mathbf{x}_i\eta_i + \epsilon_i) - \frac{1}{\sqrt{N}} \sum_{i=1}^N \mathbf{x}_i'\mathbf{x}_i (\widehat{\beta}_{MG} - \beta)\\
+&=\underbrace{\begin{bmatrix}
+1 & 1& -\frac{1}{N}\sum_{i=1}^N \mathbf{x}_i'\mathbf{x}_i
+\end{bmatrix}}_{term (1)} \underbrace{\begin{bmatrix}
+\frac{1}{\sqrt{N}} \sum_{i=1}^N \mathbf{x}_i'\mathbf{x}_i \eta_i \\
+\frac{1}{\sqrt{N}} \sum_{i=1}^N \mathbf{x}_i'\epsilon_i\\
+\sqrt{N} (\widehat{\beta}_{MG} - \beta)
+\end{bmatrix}}_{term (2)}
+\end{align*}
+\[
+term(1) \rightarrow_{p} \begin{bmatrix}
+1 & 1 & -E[\mathbf{x}_i'\mathbf{x}_i]
+\end{bmatrix}
+\]
+\begin{align*}
+term(2)& = \begin{bmatrix}
+\frac{1}{\sqrt{N}} \sum_{i=1}^N \mathbf{x}_i' \mathbf{x_i} \eta_i\\
+\frac{1}{\sqrt{N}} \sum_{i=1}^N \mathbf{x}_i' \epsilon_i \\
+\frac{1}{\sqrt{N}} \sum_{i=1}^N \eta_i + \frac{1}{\sqrt{N}} \sum_{i=1}^N \big(\mathbf{x}_i'\mathbf{x}_i\big)^{-1}  \mathbf{x}_i'\epsilon_i 
+\end{bmatrix} \rightarrow_d 
+N\bigg( \begin{bmatrix}
+\delta, & 0,& 0
+\end{bmatrix}',  \Omega_\delta \bigg)
+\end{align*}
+
+Under the current assumptions, the variance-covariance matrix becomes
+
+\[ \Omega_\delta \equiv
+\begin{bmatrix}
+\sigma_\eta^2 E[\mathbf{x}_i'\mathbf{x}_i \mathbf{x}_i \mathbf{x}_i] & 0 & \sigma_\eta^2 E[\mathbf{x}_i'\mathbf{x}_i]\\
+ 0 & \sigma_\epsilon^2 E[\mathbf{x}_i'\mathbf{x}_i] & \sigma_\epsilon^2\\
+\sigma_\eta^2 E[\mathbf{x}_i'\mathbf{x}_i]& \sigma_\epsilon^2 & \sigma_\eta^2 + \sigma_\epsilon^2 E[(\mathbf{x}_i'\mathbf{x}_i)^{-1}]
+\end{bmatrix}
+\]
+
+
+\[
+\therefore \widehat{\delta} \rightarrow_d N\bigg( \delta, \quad \begin{bmatrix}
+1 & 1& -E[\mathbf{x}_i'\mathbf{x}_i]
+\end{bmatrix}  \Omega_\delta \begin{bmatrix}
+1 & 1& -E[\mathbf{x}_i'\mathbf{x}_i]
+\end{bmatrix}'  \bigg)
+\]
+
+
+Asymptotically unbiased estimator of $\delta^2$ is $\widehat{\delta}^2 - \widehat{\sigma}_\delta^2.$
+\vspace{0.2in}
+
+\subsection*{(d) Comparison of Asymptotic Variances and FMSC Criteria}
+\vspace{0.2in}
+Assume $x_{it} \sim N(0, \sigma_x^2)$ and $\epsilon_{it} \sim N(0, \sigma_\epsilon^2)$, both i.i.d. across $t$. With $x_{it} \in \mathbb{R}$,
+
+\[
+AVAR(\widehat{\beta}_{OLS}) = \underbrace{\frac{\sigma_\eta^2 E\big[\sum_{t=1}^T x_{it}^2 \sum_{t=1}^T x_{it}^2 \big ]}{E\big [\sum_{t=1}^T x_{it}^2 \big]E\big[\sum_{t=1}^T x_{it}^2 \big]}}_{(***)} +\frac{\sigma_\epsilon^2}{E\big[\sum_{t=1}^T x_{it}^2\big ]}
+\]
+
+\begin{align*}
+(***) &= \frac{\sigma_\eta^2 E\big[\sum_{t=1}^T x_{it}^2 \sum_{t=1}^T x_{it}^2 \big ]}{E\big [\sum_{t=1}^T x_{it}^2 \big]E\big[\sum_{t=1}^T x_{it}^2 \big]}\\
+& = \sigma_\eta^2 \frac{T E[x_{it}^4] + T(T-1) E[x_{it}^2] E[x_{it}^2]}{T^2 E[x_{it}^2] E[x_{it}^2]}\\
+&= \sigma_\eta^2\frac{(3T + T(T-1)) E[x_{it}^2]^2}{T^2 E[x_{it}^2]^2}\\
+&=\sigma_\eta^2 \frac{T^2+2T}{T^2}
+\end{align*}
+
+
+\vspace{0.2in}
+
+
+The second and third equality come from Isserlis' theorem.
+\begin{align*}
+(i)\quad E[x_{it}^4] &= 3 E[x_{it}^2]^2 \\
+(ii) \quad E[x_{ij}^2 x_{ik}^2] &= E[x_{ij}^2] E[x_{ik}^2] + \underbrace{2E[x_{ij}x_{ik}]^2}_{=0 \text{\,\,under i.i.d. across t}} \quad \text{for $j \neq k$}
+\end{align*}
+\vspace{0.2in}
+Note that $E\big [\sum_{t=1}^T x_{it}^2  \big] = \sum_{t=1}^T Var(x_{it}) = T\sigma_x^2$.
+\[
+\therefore AVAR(\widehat{\beta}_{OLS}) = \sigma_\eta^2 \frac{T^2 +2T}{T^2} + \frac{\sigma_\epsilon^2}{T\sigma_x^2}
+\]
+
+Let's assume $\sigma_x = 1$, thereby $x_{it} \sim N(0,1)$ and  $\sum_{t=1}^Tx_{it}^2 \sim \chi^2(T)$. We can write
+
+\begin{align*}
+AVAR(\widehat{\beta}_{MG}) &= \sigma_\eta^2 + \sigma_\epsilon^2 E\bigg(\frac{1}{\sum_{t=1}^T x_{it}^2}\bigg)\\
+& = \sigma_\eta^2 + \frac{\sigma_\epsilon^2}{T-2}
+\end{align*}
+
+The second equality is from expectation of inverse chi-squared random variable. Now we can compare the asymptotic variance of $\widehat{\beta}_{OLS}$ and $\widehat{\beta}_{MG}$.
+\begin{align*}
+\sigma_\eta^2 \frac{T^2 +2T}{T^2} + \frac{\sigma_\epsilon^2}{T} &> \sigma_\eta^2 + \frac{\sigma_\epsilon^2}{T-2}\\
+\sigma_\eta^2 \frac{2}{T} &> \frac{2\sigma_\epsilon^2}{T(T-2)}\\
+\sigma_\eta^2 &> \frac{\sigma_\epsilon^2}{T-2}
+\end{align*}
+
+As $T$ increases and $\sigma_\eta^2$ increases, $\widehat{\beta}_{MG}$ is preferred in terms of having lower variance.
+\begin{align*}
+AMSE(\widehat{\beta}_{OLS}) & = Bias^2 + AVAR \\
+&= \bigg( \big(E[\mathbf{x}_i'\mathbf{x}_i]^{-1} \delta\bigg)^2 + \sigma_\eta^2 \frac{T^2+2T}{T^2} + \frac{\sigma_\epsilon^2}{T}\\
+&= \frac{\delta^2}{T^2} + \sigma_\eta^2 \frac{T^2+2T}{T^2} + \frac{\sigma_\epsilon^2}{T}
+\end{align*}
+\begin{align*}
+AMSE(\widehat{\beta}_{MG}) & = Bias^2 + AVAR \\
+&= 0 + \sigma_\eta^2 + \frac{\sigma_\epsilon^2}{T-2}\\
+\end{align*}
+
+Note that $\widehat{\sigma}_\delta^2 = \sigma_\eta^2 \cdot 2T - \sigma_\epsilon^2 T + \frac{T^2 \sigma_\epsilon^2}{T-2}$. So FMSC can be derived as choosing $\widehat{\beta}_{MG}$ if
+\begin{align*}
+\frac{\widehat{\delta}^2 - \widehat{\sigma}_\delta^2}{T^2} + \sigma_\eta^2\frac{T^2+2T}{T^2} + \frac{\sigma_\epsilon^2}{T} &> \sigma_\eta^2 + \frac{\sigma_\epsilon^2}{T-2}
+\end{align*}
+\vspace{0.2in}
+
+What is $x_{it}$ are serially correlated? Suppose $x_{it}$ is stationary MA(1) across t such that
+\[
+x_{it} = u_{it} + \theta u_{i,t-1}, \quad u_{it} \sim N(0, \sigma_u^2)
+\]
+\begin{align*}
+E[x_{it}] &= 0\\
+ Var[x_{it}] &= (1+\theta^2)\sigma_u^2\\
+Cov(x_{it}, x_{i,t-1}) & = \theta \sigma_u^2\\
+Cov(x_{it}, x_{i,k}) & = 0 \quad \text{for $|k|>1$}
+\end{align*}
+
+Note that $E(\sum_{t=1}^T x_{it}^2) = \sum_{t=1}^T Var[x_{it}] = T (1+\theta^2) \sigma_u^2$. Also,
+
+\begin{align*}
+E\big( \sum_{t=1}^T x_{it}^2 \sum_{t=1}^T x_{it}^2\big) & = E\bigg[\big(x_{i1}^2 + x_{i2}^2 + \hdots + x_{iT}^2 \big) \big(x_{i1}^2 + x_{i2}^2 + \hdots + x_{iT}^2 \big)     \bigg]\\
+& = T \cdot E[x_{it}^4] + \sum_{j=1}^T\sum_{j\neq k} E[x_{ij}^2x_{ik}^2]
+\end{align*}
+
+By Isserlis' theorem,
+\[
+E[x_{ij}^2 x_{ik}^2] = E[x_{ij}^2]E[x_{ik}^2] + 2E[x_{ij}x_{ik}]^2 = E[x_{ij}^2]E[x_{ik}^2] + 2 \gamma(|j-k|)^2
+\]
+
+where $\gamma(d)$ is the covariance with displacement $d$. Hence,
+
+\[
+E\big( \sum_{t=1}^T x_{it}^2 \sum_{t=1}^T x_{it}^2\big) = 3T (1+\theta^2)^2\sigma_u^4 + T(T-1)(1+\theta^2)^2\sigma_u^4 + 4(T-1)\theta^2\sigma_u^4
+\]
+
+since all the covariance terms with displacement greater than 1 are zero. 
+
+\begin{align*}
+AVAR(\widehat{\beta}_{OLS}) &= \sigma_\eta^2 \frac{(T^2+2T)(1+\theta^2)^2 + 4(T-1)\theta^2}{T^2(1+\theta^2)^2} + \frac{\sigma_\epsilon^2}{(1+\theta^2)\sigma_u^2} \cdot \frac{1}{T}\\
+AVAR(\widehat{\beta}_{MG}) &= \sigma_\eta^2 + \sigma_\epsilon^2 E\bigg( \frac{1}{\sum_{t=1}^T x_{it}^2}\bigg)
+\end{align*}
+
+
+Recall that 
+\begin{align*}
+x_{it} & = u_{it} + \theta u_{i,t-1}\\
+x_{it} & \sim N(0, (1+\theta^2)\sigma_u^2)\\
+\frac{x_{it}}{\sqrt{(1+\theta^2) \sigma_u^2}} & \sim N(0,1)
+\end{align*}
+
+Then, 
+
+\[
+E\bigg( \frac{1}{\sum_{t=1}^T x_{it}^2 } \bigg) = E \bigg( \frac{\frac{1}{(1+\theta^2)\sigma_u^2}}{\sum_{t=1}^T \big( \frac{x_{it}}{\sqrt{(1+\theta^2)\sigma_u^2}}\big)^2}   \bigg) = \frac{1}{(1+\theta^2)\sigma_u^2} \cdot \frac{1}{T-2}
+\]
+
+
+\begin{align*}
+AVAR(\widehat{\beta}_{OLS}) &= \sigma_\eta^2 \bigg( 1+\frac{2}{T} +\frac{4(T-1)\theta^2}{T^2(1+\theta^2)^2}   \bigg)  + \frac{\sigma_\epsilon^2}{(1+\theta^2)\sigma_u^2} \cdot \frac{1}{T}\\
+AVAR(\widehat{\beta}_{MG})& =\sigma_\eta^2 + \frac{\sigma_\epsilon^2}{(1+\theta^2)\sigma_u^2} \cdot \frac{1}{T-2} 
+\end{align*}
+
+
+\section{Simulation Results}
+\subsection{Slope Heterogeneity Example}
+
+We use the following data generating process which allows for the slope heterogeneity:
+\begin{align*}
+y_{it} & = \beta_i x_{it} + \epsilon_{it} = (\beta + \eta_i) x_{it} + \epsilon_{it}\\
+&= \beta x_{it} + \eta_i x_{it} + \epsilon_{it}
+\end{align*}
+
+We consider the case where $x_{it}$ is serially correlated to be MA(1),\footnote{We also consider the case without any serial correlation where $x_{it} \sim N(0,1)$. We do not include the results in the paper but they are available upon request.} i.e., 
+\[
+x_{it} = u_{it} + \theta_u u_{i,t-1}, \quad u_{it} \sim N(0, \sigma_u^2).
+\]
+ For simplicity, we fix the variance of $x_{it}$ to be 1. Once $\theta_u$ is chosen, $\sigma_u$ is determined since $var(x_{it}) = (1+\theta_u^2)\sigma_u^2.$ To construct FMSC criterion, we need an estimate for $\theta_u$ and $\sigma_u$. Since we assume $\theta_u$ is homogeneous across $i$, we take the first individual's time series of $x_{1t}$ and estimate $\theta_u$, $\sigma_u$. All calculations are based on 1,000 simulation replications. For the following figures, we use $\beta = 0.5, T = 20, \sigma_\epsilon = 4$. We vary $\theta_u$ (the persistence of $x_{it}$) and $\sigma_\eta$ (the degree of slope heterogeneity). We present the results where we adopt "coarse" parameter grid for the persistence parameter $\theta_u \in \{0.3, 0.6, 0.9\}$. In the first figure, we consider the case where the degree of slope heterogeneity is small. Throughout the figures, we can check that the OLS estimator provides the lower than the MG estimator. The RMSE of the post-GFIC estimator lies between the OLS and the MG RMSEs. The second figure covers the case where the slope heterogeneity is substantial having value between 0.5 and 1.5. We can see that as $\sigma_\eta$ increases, the RMSE of OLS becomes bigger than that of MG. Similar to the previous figures, the post-GFIC estimator splits the different between the OLS and MG estimators.
+
+\begin{figure}
+  \input{heterog_fig.tex}
+  \caption{Slope heterogeneity example}
+\end{figure}
+
+\begin{figure}
+  \input{heterog_fig2.tex}
+  \caption{Slope heterogeneity example}
+\end{figure}
