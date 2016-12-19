@@ -46,12 +46,12 @@ where $\ell$ may not equal $p$ and $\theta$ and $\boldsymbol{\gamma}_\ell$ may n
 To denote the residual from a model with no lags, $\ell = 0$, we use the shorthand $\Delta v_{it}(\theta) = \Delta y_{it} - \theta \Delta x_{it}$.
 To avoid weak and many instruments problems, we consider two-stage least squares (TSLS) estimation based on the following instrument sets
 \begin{align}
-  \mathbf{z}_{it}^{\text{P}}(\ell) &\equiv \left[
+  \mathbf{z}_{it}(\ell,\text{P}) &\equiv \left[
   \begin{array}{cccc}
     y_{it-2} & \cdots & y_{it-(\ell + 1)} & x_{it-1}
   \end{array}
 \right]'\\
-\mathbf{z}_{it}^{\text{S}}(\ell) &\equiv \left[
+\mathbf{z}_{it}(\ell, \text{S}) &\equiv \left[
 \begin{array}{ccccc}
   y_{it-2} & \cdots & y_{it-(\ell + 1)} & x_{it-1} & x_{it}
 \end{array}
@@ -59,8 +59,10 @@ To avoid weak and many instruments problems, we consider two-stage least squares
 \end{align}
 following \cite{AndersonHsiao}\footnote{Although a system-GMM approach is asymptotically more efficient, it can lead to serious finite sample problems. See, for example, \cite{Roodman}.} 
 The preceding definitions apply for $\ell \geq 1$. 
-When $\ell = 0$ we use the shorthand $\mathbf{z}_{it}^{\text{P}} = x_{it-1}$ and $\mathbf{z}_{it}^{\text{S}} = (x_{it-1}, x_{it})'$.
+When $\ell = 0$ we use the shorthand $\mathbf{z}_{it}(\text{P}) = x_{it-1}$ and $\mathbf{z}_{it}(\text{S}) = (x_{it-1}, x_{it})'$.
 \todo[inline]{Explain about the two instrument sets, borrowing text from below. The point here is to unify as much of the discussion as possible for the two special cases we'll explore below. Explain how many time periods a model with lag length $\ell$ uses. Then say that we're going to specialize to two simple cases below. Is there a way to be more general in the expressions that I write down? That would be ideal. Then we could always specialize to the case that appears in the simulation.}
+
+\todo[inline]{Explain what will be local to zero!}
 
 \subsection{Models and Moment Conditions}
 Our aim is to estimate $\theta$, the effect of a regressor $x_{it}$ on an outcome $y_{it}$, with minimum MSE. The true data generating process is 
