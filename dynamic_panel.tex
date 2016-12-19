@@ -3,15 +3,20 @@
 \label{sec:panel}
 We now specialize the GFIC to a dynamic panel model of the form 
 \begin{equation}
-  y_{it} = \left(\gamma_1 y_{it-1} + \cdots + \gamma_p y_{it-p}\right) + \theta x_{it} + \eta_i + v_{it}
+  y_{it} = \gamma_1 y_{it-1} + \cdots + \gamma_p y_{it-p} + \theta x_{it} + \eta_i + v_{it}
+  \label{eq:truepanel}
 \end{equation}
 where $i = 1, \hdots, n$ indexes individuals and $t=1, \hdots, T$  indexes time periods. 
-For simplicity, and without loss of generality, we suppose that there are no exogenous time-varying regressors, including a constant, so that the error terms are mean-zero.\footnote{Alternatively, we can simply project out any time-varying exogenous covariates $\mathbf{w}_{it}$ after taking first-differences.} 
-The unobserved error term $\eta_i$ is a correlated individual effect: $\sigma_{x\eta}\equiv \mathbb{E}\left[ x_{it}\eta_i \right]$ may not equal zero. 
-The endogenous regressor $x_{it}$ is assumed to be predetermined but not necessarily strictly exogenous: $\mathbb{E}[x_{it} v_{is}]=0$ for all $s \geq t$ but may be nonzero for $z < t$.  
+For simplicity, and without loss of generality, we suppose that there are no exogenous time-varying regressors and that all random variables are mean zero.\footnote{Alternatively, we can simply de-mean and project out any time-varying exogenous covariates $\mathbf{w}_{it}$ after taking first-differences.} 
+The unobserved error $\eta_i$ is a correlated individual effect: $\sigma_{x\eta}\equiv \mathbb{E}\left[ x_{it}\eta_i \right]$ may not equal zero. 
+The endogenous regressor $x_{it}$ is assumed to be predetermined but not necessarily strictly exogenous: $\mathbb{E}[x_{it} v_{is}]=0$ for all $s \geq t$ but may be nonzero for $s < t$.  
 We assume throughout that $y_{it}$ is stationary, which requires both $x_{it}$ and $u_{it}$ to be stationary and $|\boldsymbol{\gamma}| < 1$ where $\boldsymbol{\gamma} = (\gamma_1, \dots, \gamma_p)'$.
-Our goal is to estimate a given target parameter with minimum MSE: either $\mu_{SR} \equiv \theta$, the short-run effect of $x$ on $y$, or $\mu_{LR}\equiv \theta / \left[1 - \left(\gamma_1 + \cdots + \gamma_p\right)\right]$, the long-run effect. 
-The question is which assumptions should we use in estimation?
+Our goal is to estimate a given target parameter with minimum MSE: either the short-run effect $\mu_{\text{SR}}$ or the long-run effect $\mu_{\text{LR}}$ of $x$ on $y$, where 
+\begin{equation}
+  \mu_{\text{SR}} \equiv \theta, \quad \mu_{\text{LR}} \equiv \frac{\theta}{1- (\gamma_1 + \cdots + \gamma_p)}.
+  \label{eq:paneltarget}
+\end{equation}
+The question is which assumptions to use in estimation.
 As we discuss below, the answer may depend on whether our target is $\mu_{SR}$ or $\mu_{LR}$.
 
 Our first decision is what assumption to impose on the relationship between $x_{it}$ and $v_{it}$.
@@ -26,10 +31,36 @@ In the short panel datasets common in microeconomic applications, losing even on
 At the same time, unless $\gamma_{\ell+1} = \cdots = \gamma_p = 0$, failing to include all $p$ lags in the model introduces a bias.
 In this example, the GFIC simultaneously chooses over exogeneity assumptions for $x$ and lag length for $y$ to optimally trade off bias and variance.
 
-
-To avoid many and weak and many instruments problems, we consider 2SLS estimators similar to those suggested by \cite{AndersonHsiao}.\footnote{Although a system-GMM approach is asymptotically more efficient, it can lead to serious finite sample problems. See, for example, \cite{Roodman}.} 
-Specifically, 
-
+To eliminate the individual effects $\eta_i$ we work in first differences.
+Defining $\Delta$ in the usual way, so that $\Delta y_{it} = y_{it} - y_{it-1}$ and so on, we can write Equation \ref{eq:truepanel} as
+\begin{align}
+  \Delta y_{it} = \gamma_1 \Delta y_{it-1} + \cdots + \gamma_p \Delta y_{it-p} + \theta \Delta x_{it} + \Delta v_{it}.
+  \label{eq:truepaneldiff}
+\end{align}
+To allow the consideration of models with different lag lengths, define the residual
+\begin{equation}
+  \Delta v_{it}\left(\theta, \boldsymbol{\gamma}_\ell \right) = \Delta y_{it} - \left(\gamma_1 \Delta y_{it-1} + \cdots + \gamma_\ell \Delta y_{it-1} \right) - \theta \Delta x_{it} 
+  \label{eq:panelresidual}
+\end{equation}
+where $\ell$ may not equal $p$ and $\theta$ and $\boldsymbol{\gamma}_\ell$ may not be the true parameter values.
+To denote the residual from a model with no lags, $\ell = 0$, we use the shorthand $\Delta v_{it}(\theta) = \Delta y_{it} - \theta \Delta x_{it}$.
+To avoid weak and many instruments problems, we consider two-stage least squares (TSLS) estimation based on the following instrument sets
+\begin{align}
+  \mathbf{z}_{it}^{\text{P}}(\ell) &\equiv \left[
+  \begin{array}{cccc}
+    y_{it-2} & \cdots & y_{it-(\ell + 1)} & x_{it-1}
+  \end{array}
+\right]'\\
+\mathbf{z}_{it}^{\text{S}}(\ell) &\equiv \left[
+\begin{array}{ccccc}
+  y_{it-2} & \cdots & y_{it-(\ell + 1)} & x_{it-1} & x_{it}
+\end{array}
+\right]'
+\end{align}
+following \cite{AndersonHsiao}\footnote{Although a system-GMM approach is asymptotically more efficient, it can lead to serious finite sample problems. See, for example, \cite{Roodman}.} 
+The preceding definitions apply for $\ell \geq 1$. 
+When $\ell = 0$ we use the shorthand $\mathbf{z}_{it}^{\text{P}} = x_{it-1}$ and $\mathbf{z}_{it}^{\text{S}} = (x_{it-1}, x_{it})'$.
+\todo[inline]{Explain about the two instrument sets, borrowing text from below. The point here is to unify as much of the discussion as possible for the two special cases we'll explore below. Explain how many time periods a model with lag length $\ell$ uses. Then say that we're going to specialize to two simple cases below. Is there a way to be more general in the expressions that I write down? That would be ideal. Then we could always specialize to the case that appears in the simulation.}
 
 \subsection{Models and Moment Conditions}
 Our aim is to estimate $\theta$, the effect of a regressor $x_{it}$ on an outcome $y_{it}$, with minimum MSE. The true data generating process is 
