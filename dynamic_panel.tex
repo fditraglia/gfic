@@ -45,7 +45,7 @@ To allow the consideration of models with different lag lengths, some of which m
 \end{equation}
 where $\ell$ may not equal $p$ and $\theta$ and $\boldsymbol{\gamma}_\ell$ may not be the true parameter values.
 To denote the residual from a model with no lags, $\ell = 0$, we use the shorthand $\Delta v_{it}(\theta) = \Delta y_{it} - \theta \Delta x_{it}$.
-To avoid weak and many instruments problems estimation based on the instrument sets
+For simplicity and to avoid many instruments problems -- see e.g.\ \cite{Roodman} -- we focus here on estimation using the instrument sets
 \begin{align}
   \mathbf{z}_{it}(\ell,\text{P}) &\equiv \left[
   \begin{array}{cccc}
@@ -61,8 +61,8 @@ To avoid weak and many instruments problems estimation based on the instrument s
 \right]'
   \label{eq:ZdpanelS}
 \end{align}
-following \cite{AndersonHsiao}.\footnote{Although a system-GMM approach is asymptotically more efficient, it can lead to serious finite sample problems. See, for example, \cite{Roodman}.} 
-The preceding definitions apply for $\ell \geq 1$. 
+similar to \cite{AndersonHsiao}.
+Modulo a change in notation, one could just as easily proceed using the instrument sets suggested by \cite{ArellanoBond}.
 When $\ell = 0$ we use the shorthand $\mathbf{z}_{it}(\text{P}) = x_{it-1}$ and $\mathbf{z}_{it}(\text{S}) = (x_{it-1}, x_{it})'$.
 Using these instruments, estimation of a model with $\ell$ lags is based on the $(\ell + 1)\times T$ moment conditions
 \begin{equation}
@@ -83,27 +83,21 @@ The crux of our moment selection decision is to trade off the variance reduction
 
 In the examples and simulations described below we consider two-stage least squares estimation of $\mu_{SR}$ and $\mu_{LR}$ based on the moment conditions in Equations \ref{eq:MCdpanelP} and \ref{eq:MCdpanelS} using the instruments defined in Equations \ref{eq:ZdpanelP} and \ref{eq:ZdpanelS}.
 To define these estimators, we first introduce some additional notation.
-Let
-\begin{align}
-%Z_i(\ell,\mbox{P}) &= \left[
-%\begin{array}{ccc}
-%  \mathbf{z}_{i,\ell+2}'(\ell,\mbox{P}) & & 0\\
-%  & \ddots & \\
-%  0 & & \mathbf{z}_{iT}'(\ell,\mbox{P})  
-%\end{array}
-%\right]\\
-%Z_i(\ell,\mbox{S}) &= \left[
-%\begin{array}{ccc}
-%  \mathbf{z}_{i,\ell+2}'(\ell,\mbox{S}) & & 0\\
-%  & \ddots & \\
-%  0 & & \mathbf{z}_{iT}'(\ell,\mbox{S})  
-%\end{array}
-%\right]\\
-Z_i(\ell,\mbox{P}) &= \mbox{diag}\left\{ \mathbf{z}_{it}'(\ell,\mbox{P}) \right\}_{t=\ell+2}^T
-  \label{eq:dpanelZPiDef}\\
-  Z_i(\ell,\mbox{S}) &= \mbox{diag}\left\{ \mathbf{z}_{it}'(\ell,\mbox{S}) \right\}_{t=\ell+2}^T
-  \label{eq:dpanelZSiDef}
-\end{align}
+First, let $\Delta \mathbf{y}_{i}'(\ell) = [\Delta y_{i,\ell+2}, \cdots, \Delta y_{iT}]$.
+Next, for $\ell \geq 1$ define $\mathbf{w}_{it}'(\ell) = [\Delta y_{it-1}, \cdots, \Delta y_{it-\ell}, \Delta x_{it}]$ and let $\mathbf{w}_{it}(0) = \Delta x_{it}$.
+Stacking these vectors over $t$, let $W_i(\ell) = [\mathbf{w}_{i\ell+2}(\ell), \hdots, \mathbf{w}_{iT}(\ell)]$.
+Now, define the instrument matrices $Z_i(\ell,\mbox{P}) = \mbox{diag}\left\{ \mathbf{z}_{it}'(\ell,\mbox{P}) \right\}_{t=\ell+2}^T$ and $Z_i(\ell,\mbox{S}) = \mbox{diag}\left\{ \mathbf{z}_{it}'(\ell,\mbox{S}) \right\}_{t=\ell+2}^T$.
+Finally, stacking over individuals in the usual way, let $\Delta \mathbf{y}'(\ell) = [\Delta \mathbf{y}_1(\ell)', \hdots, \Delta \mathbf{y}_n']$,  $W'(\ell) = [W_1(\ell),\hdots, W_n(\ell)]$, $Z'(\ell,\mbox{P}) = \left[ Z_1'(\ell, \mbox{P}), \hdots, Z_n'(\ell,\mbox{P})\right]$ and $Z'(\ell,\mbox{S}) = \left[ Z_1'(\ell, \mbox{S}), \hdots, Z_n'(\ell,\mbox{S})\right]$.
+Using the shorthand
+\begin{equation}
+  \widehat{K}= \left[ \left( \frac{W'Z}{n} \right)\left( \frac{Z'Z}{n} \right)^{-1}\left( \frac{Z'W}{n} \right)^{-1} \right]\left( \frac{W'Z}{n} \right)\left( \frac{Z'Z}{n} \right)^{-1}
+\end{equation}
+Using this notation, the TSLS estimator of the full parameter vector $\beta' = (\boldsymbol{\gamma}'_\ell, \theta)$ under a model with $\ell$ lags is
+\begin{equation}
+  \widehat{\beta}\left( \ell,\cdot \right) = \widehat{K}(\ell, \cdot) \left[ \frac{Z'(\ell,\cdot)\Delta \mathbf{y}(\ell)}{n} \right]
+\end{equation}
+where $(\ell, \cdot)$ is $(\ell, \mbox{P})$ or $(\ell, \mbox{S})$ depending on which possible instrument set is used in estimation.
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
