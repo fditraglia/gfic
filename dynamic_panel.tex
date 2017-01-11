@@ -7,7 +7,7 @@ We now specialize the GFIC to a dynamic panel model of the form
   \label{eq:truepanel}
 \end{equation}
 where $i = 1, \hdots, n$ indexes individuals and $t=1, \hdots, T$  indexes time periods. 
-For simplicity, and without loss of generality, we suppose that there are no exogenous time-varying regressors and that all random variables are mean zero.\footnote{Alternatively, we can simply de-mean and project out any time-varying exogenous covariates $\mathbf{w}_{it}$ after taking first-differences.} 
+For simplicity, and without loss of generality, we suppose that there are no exogenous time-varying regressors and that all random variables are mean zero.\footnote{Alternatively, we can simply de-mean and project out any time-varying exogenous covariates after taking first-differences.} 
 The unobserved error $\eta_i$ is a correlated individual effect: $\sigma_{x\eta}\equiv \mathbb{E}\left[ x_{it}\eta_i \right]$ may not equal zero. 
 The endogenous regressor $x_{it}$ is assumed to be predetermined but not necessarily strictly exogenous: $\mathbb{E}[x_{it} v_{is}]=0$ for all $s \geq t$ but may be nonzero for $s < t$.  
 We assume throughout that $y_{it}$ is stationary, which requires both $x_{it}$ and $u_{it}$ to be stationary and $|\boldsymbol{\gamma}| < 1$ where $\boldsymbol{\gamma} = (\gamma_1, \dots, \gamma_p)'$.
@@ -82,8 +82,33 @@ Given the instrument sets that we consider, the only violation of strict exogene
 The crux of our moment selection decision is to trade off the variance reduction that comes from using both $x_{it}$ and $x_{it-1}$ to instrument for $\Delta x_{it}$ against the bias that emerges if $x_{it}$ is correlated with $v_{it-1}$.
 
 In the examples and simulations described below we consider two-stage least squares estimation of $\mu_{SR}$ and $\mu_{LR}$ based on the moment conditions in Equations \ref{eq:MCdpanelP} and \ref{eq:MCdpanelS} using the instruments defined in Equations \ref{eq:ZdpanelP} and \ref{eq:ZdpanelS}.
-To simplify the notation that follows, define
+To define these estimators, we first introduce some additional notation.
+Let
+\begin{align}
+%Z_i(\ell,\mbox{P}) &= \left[
+%\begin{array}{ccc}
+%  \mathbf{z}_{i,\ell+2}'(\ell,\mbox{P}) & & 0\\
+%  & \ddots & \\
+%  0 & & \mathbf{z}_{iT}'(\ell,\mbox{P})  
+%\end{array}
+%\right]\\
+%Z_i(\ell,\mbox{S}) &= \left[
+%\begin{array}{ccc}
+%  \mathbf{z}_{i,\ell+2}'(\ell,\mbox{S}) & & 0\\
+%  & \ddots & \\
+%  0 & & \mathbf{z}_{iT}'(\ell,\mbox{S})  
+%\end{array}
+%\right]\\
+Z_i(\ell,\mbox{P}) &= \mbox{diag}\left\{ \mathbf{z}_{it}'(\ell,\mbox{P}) \right\}_{t=\ell+2}^T
+  \label{eq:dpanelZPiDef}\\
+  Z_i(\ell,\mbox{S}) &= \mbox{diag}\left\{ \mathbf{z}_{it}'(\ell,\mbox{S}) \right\}_{t=\ell+2}^T
+  \label{eq:dpanelZSiDef}
+\end{align}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Dynamic Panel Example -- OLD VERSION}
+\todo[inline]{Have Minsu check that they new, simpler notation indeed leads to the same procedure as the one described using the old notation, preserved in the section for reference.}
 
 \subsection{Models and Moment Conditions}
 Our aim is to estimate $\theta$, the effect of a regressor $x_{it}$ on an outcome $y_{it}$, with minimum MSE. The true data generating process is 
