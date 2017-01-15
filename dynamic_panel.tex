@@ -27,7 +27,7 @@ Our second decision is how many lags of $y$ to use in estimation.
 This is the \emph{model selection} decision.
 The true model contains $p$ lags of $y$.
 If we estimate only $\ell < p$ lags we not only have more degrees of freedom but more observations: every additional lag of $y$ requires us to drop one time period from estimation. 
-In the short panel datasets common in microeconomic applications, losing even one additional time period can represent a massive loss of information.
+In the short panel datasets common in microeconomic applications, losing even one additional time period can represent a substantial loss of information.
 At the same time, unless $\gamma_{\ell+1} = \cdots = \gamma_p = 0$, failing to include all $p$ lags in the model introduces a bias.
 In this example, the GFIC simultaneously chooses over exogeneity assumptions for $x$ and lag length for $y$ to optimally trade off bias and variance.
 
@@ -38,13 +38,13 @@ Defining $\Delta$ in the usual way, so that $\Delta y_{it} = y_{it} - y_{it-1}$ 
   \Delta y_{it} = \gamma_1 \Delta y_{it-1} + \cdots + \gamma_p \Delta y_{it-p} + \theta \Delta x_{it} + \Delta v_{it}.
   \label{eq:truepaneldiff}
 \end{align}
-To allow the consideration of models with different lag lengths, some of which may be mis-specified, define the residual
-\begin{equation}
-  \Delta v_{it}\left(\theta, \boldsymbol{\gamma}_\ell \right) = \Delta y_{it} - \left(\gamma_1 \Delta y_{it-1} + \cdots + \gamma_\ell \Delta y_{it-1} \right) - \theta \Delta x_{it} 
-  \label{eq:panelresidual}
-\end{equation}
-where $\ell$ may not equal $p$ and $\theta$ and $\boldsymbol{\gamma}_\ell$ may not be the true parameter values.
-To denote the residual from a model with no lags, $\ell = 0$, we use the shorthand $\Delta v_{it}(\theta) = \Delta y_{it} - \theta \Delta x_{it}$.
+%To allow the consideration of models with different lag lengths, some of which may be mis-specified, define the residual
+%\begin{equation}
+%  \Delta v_{it}\left(\theta, \boldsymbol{\gamma}_\ell \right) = \Delta y_{it} - \left(\gamma_1 \Delta y_{it-1} + \cdots + \gamma_\ell \Delta y_{it-1} \right) - \theta \Delta x_{it} 
+%  \label{eq:panelresidual}
+%\end{equation}
+%where $\ell$ may not equal $p$ and $\theta$ and $\boldsymbol{\gamma}_\ell$ may not be the true parameter values.
+%To denote the residual from a model with no lags, $\ell = 0$, we use the shorthand $\Delta v_{it}(\theta) = \Delta y_{it} - \theta \Delta x_{it}$.
 For simplicity and to avoid many instruments problems -- see e.g.\ \cite{Roodman} -- we focus here on estimation using the instrument sets
 \begin{align}
   \mathbf{z}_{it}(\ell,\text{P}) &\equiv \left[
@@ -64,24 +64,37 @@ For simplicity and to avoid many instruments problems -- see e.g.\ \cite{Roodman
 similar to \cite{AndersonHsiao}.
 Modulo a change in notation, one could just as easily proceed using the instrument sets suggested by \cite{ArellanoBond}.
 When $\ell = 0$ we use the shorthand $\mathbf{z}_{it}(\text{P}) = x_{it-1}$ and $\mathbf{z}_{it}(\text{S}) = (x_{it-1}, x_{it})'$.
-Using these instruments, estimation of a model with $\ell$ lags is based on the $(\ell + 1)\times T$ moment conditions
-\begin{equation}
-  E\left[ \mathbf{z}_{it}(\ell,\mbox{P})\Delta v_{it}(\theta, \boldsymbol{\gamma}_\ell) \right] = 0, \quad \mbox{for } t = (\ell + 2),\dots, T
-  \label{eq:MCdpanelP}
-\end{equation}
-if $x$ is only assumed to be predetermined and is based on the $(\ell + 2)\times T$ moment conditions 
-\begin{equation}
-  E\left[ \mathbf{z}_{it}(\ell,\mbox{S})\Delta v_{it}(\theta, \boldsymbol{\gamma}_\ell) \right] = 0, \quad \mbox{for } t = (\ell + 2),\dots, T 
-  \label{eq:MCdpanelS}
-\end{equation}
+Using these instruments, estimation of a model with $\ell$ lags is based on $(\ell + 1)\times T$ moment conditions
+%\begin{equation}
+%  E\left[ \mathbf{z}_{it}(\ell,\mbox{P})\Delta v_{it}(\theta, \boldsymbol{\gamma}_\ell) \right] = 0, \quad \mbox{for } t = (\ell + 2),\dots, T
+%  \label{eq:MCdpanelP}
+%\end{equation}
+if $x$ is only assumed to be predetermined and is based on $(\ell + 2)\times T$ moment conditions 
+%\begin{equation}
+%  E\left[ \mathbf{z}_{it}(\ell,\mbox{S})\Delta v_{it}(\theta, \boldsymbol{\gamma}_\ell) \right] = 0, \quad \mbox{for } t = (\ell + 2),\dots, T 
+%  \label{eq:MCdpanelS}
+%\end{equation}
 if $x$ is assumed to be strictly exogenous.
-To abstract for a moment from the model selection decision, suppose that we estimate a model with the true lag length so that $\Delta v_{it}(\theta, \boldsymbol{\gamma}_p) = \Delta v_{it}$.
+To abstract for a moment from the model selection decision, suppose that we estimate a model with the true lag length $p$.
+%so that $\Delta v_{it}(\theta, \boldsymbol{\gamma}_p) = \Delta v_{it}$.
 The only difference between the P and S sets of moment conditions is that the latter adds over-identifying information in the form of $E[x_{it}\Delta v_{it}]$.
 If $x$ is strictly exogenous, this expectation equals zero, but if $x$ is only predetermined, then $E[x_{it}\Delta v_{it}] = -E[x_{it}v_{it-1}] \neq 0$ so the over-identifying moment condition is invalid.
 Given the instrument sets that we consider, the only violation of strict exogeneity that is relevant for our moment selection exercise is $E[x_{it}v_{it-1}]\neq 0$.
 The crux of our moment selection decision is to trade off the variance reduction that comes from using both $x_{it}$ and $x_{it-1}$ to instrument for $\Delta x_{it}$ against the bias that emerges if $x_{it}$ is correlated with $v_{it-1}$.
 
-In the examples and simulations described below we consider two-stage least squares estimation of $\mu_{SR}$ and $\mu_{LR}$ based on the moment conditions in Equations \ref{eq:MCdpanelP} and \ref{eq:MCdpanelS} using the instruments defined in Equations \ref{eq:ZdpanelP} and \ref{eq:ZdpanelS}.
+In the examples and simulations described below we consider two-stage least squares (TSLS) estimation of $\mu_{SR}$ and $\mu_{LR}$ using the instruments defined in Equations \ref{eq:ZdpanelP} and \ref{eq:ZdpanelS}.
+For simplicity, we consider choosing betwen two lag length specifications: the first one is correct, $\ell = p$, and one of includes one lag too few: $\ell = p - 1$.
+Because the two lag specifications use different time periods in estimation, we require some additional notation to make this clear. 
+First let $\Delta \mathbf{y}_{i} = [\Delta y_{i,p+2}, \cdots, \Delta y_{iT}]'$ and $\Delta \mathbf{y}^+_{i} = [\Delta y_{i,p+1}, \cdots, \Delta y_{iT}]'$.
+The superscript ``+'' indicates the inclusion of an additional time period: $t = p+1$.
+
+
+Next, for $\ell \geq 1$ define $\mathbf{w}_{it}'(\ell) = [\Delta y_{it-1}, \cdots, \Delta y_{it-\ell}, \Delta x_{it}]$ and let $\mathbf{w}_{it}(0) = \Delta x_{it}$.
+Stacking these vectors over $t$, let $W_i(\ell) = [\mathbf{w}_{i\ell+2}(\ell), \hdots, \mathbf{w}_{iT}(\ell)]$.
+Now, define the instrument matrices $Z_i(\ell,\mbox{P}) = \mbox{diag}\left\{ \mathbf{z}_{it}'(\ell,\mbox{P}) \right\}_{t=\ell+2}^T$ and $Z_i(\ell,\mbox{S}) = \mbox{diag}\left\{ \mathbf{z}_{it}'(\ell,\mbox{S}) \right\}_{t=\ell+2}^T$.
+Finally, stacking over individuals in the usual way, let $\Delta \mathbf{y}'(\ell) = [\Delta \mathbf{y}_1(\ell)', \hdots, \Delta \mathbf{y}_n']$,  $W'(\ell) = [W_1(\ell),\hdots, W_n(\ell)]$, $Z'(\ell,\mbox{P}) = \left[ Z_1'(\ell, \mbox{P}), \hdots, Z_n'(\ell,\mbox{P})\right]$ and $Z'(\ell,\mbox{S}) = \left[ Z_1'(\ell, \mbox{S}), \hdots, Z_n'(\ell,\mbox{S})\right]$.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 To define these estimators, we first introduce some additional notation.
 First, let $\Delta \mathbf{y}_{i}'(\ell) = [\Delta y_{i,\ell+2}, \cdots, \Delta y_{iT}]$.
 Next, for $\ell \geq 1$ define $\mathbf{w}_{it}'(\ell) = [\Delta y_{it-1}, \cdots, \Delta y_{it-\ell}, \Delta x_{it}]$ and let $\mathbf{w}_{it}(0) = \Delta x_{it}$.
