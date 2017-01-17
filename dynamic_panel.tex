@@ -31,11 +31,11 @@ In the short panel datasets common in microeconomic applications, losing even on
 At the same time, unless $\gamma_{\ell+1} = \cdots = \gamma_k = 0$, failing to include all $p$ lags in the model introduces a bias.
 In this example, the GFIC simultaneously chooses over exogeneity assumptions for $x$ and lag length for $y$ to optimally trade off bias and variance.
 
-\subsection{Moment Conditions and Estimators}
+\subsection{Estimators and Local Mis-specification}
 To eliminate the individual effects $\eta_i$ we work in first differences.
 Defining $\Delta$ in the usual way, so that $\Delta y_{it} = y_{it} - y_{it-1}$ and so on, we can write Equation \ref{eq:truepanel} as
 \begin{align}
-  \Delta y_{it} = \gamma_1 \Delta y_{it-1} + \cdots + \gamma_k \Delta y_{it-p} + \theta \Delta x_{it} + \Delta v_{it}.
+  \Delta y_{it} = \gamma_1 \Delta y_{it-1} + \cdots + \gamma_k \Delta y_{it-k} + \theta \Delta x_{it} + \Delta v_{it}.
   \label{eq:truepaneldiff}
 \end{align}
 %To allow the consideration of models with different lag lengths, some of which may be mis-specified, define the residual
@@ -68,24 +68,18 @@ Thus, in a model with $\ell$ lags, we have $(\ell + 1)\times T$ moment condition
   Z_i(\ell,\text{P}) &= \mbox{diag}\left\{ \mathbf{z}'_{it}(\ell,\text{P})  \right\}_{t = \ell + 2}^T & Z_i(\ell,\text{S}) &= \mbox{diag}\left\{\mathbf{z}'_{it}(\ell,\text{S}) \right\}_{t = \ell +2}^T 
 \end{align}
 for individual $i$.
-%\begin{equation}
-%  E\left[ \mathbf{z}_{it}(\ell,\mbox{P})\Delta v_{it}(\theta, \boldsymbol{\gamma}_\ell) \right] = 0, \quad \mbox{for } t = (\ell + 2),\dots, T
-%  \label{eq:MCdpanelP}
-%\end{equation}
-%\begin{equation}
-%  E\left[ \mathbf{z}_{it}(\ell,\mbox{S})\Delta v_{it}(\theta, \boldsymbol{\gamma}_\ell) \right] = 0, \quad \mbox{for } t = (\ell + 2),\dots, T 
-%  \label{eq:MCdpanelS}
-%\end{equation}
 To abstract for a moment from the model selection decision, suppose that we estimate a model with the true lag length $k$.
-%so that $\Delta v_{it}(\theta, \boldsymbol{\gamma}_p) = \Delta v_{it}$.
 The only difference between the P and S sets of moment conditions is that the latter adds over-identifying information in the form of $E[x_{it}\Delta v_{it}]$.
 If $x$ is strictly exogenous, this expectation equals zero, but if $x$ is only predetermined, then $E[x_{it}\Delta v_{it}] = -E[x_{it}v_{it-1}] \neq 0$ so the over-identifying moment condition is invalid.
-Given the instrument sets that we consider, the only violation of strict exogeneity that is relevant for our moment selection exercise is $E[x_{it}v_{it-1}]\neq 0$.
-The crux of our moment selection decision is to trade off the variance reduction that comes from using both $x_{it}$ and $x_{it-1}$ to instrument for $\Delta x_{it}$ against the bias that emerges if $x_{it}$ is correlated with $v_{it-1}$.
+Given the instrument sets that we consider, this is the only violation of strict exogeneity that is relevant for our moment selection so we take $-E[x_{it}v_{it-1}] = \tau/\sqrt{n}$.
 
 In the examples and simulations described below we consider two-stage least squares (TSLS) estimation of $\mu_{SR}$ and $\mu_{LR}$ using the instruments defined in Equations \ref{eq:ZdpanelP} and \ref{eq:ZdpanelS}.
 For simplicity, we select between two lag length specifications: one of which is correct, $\ell = k$, and one of includes one lag too few: $\ell = r$ where $r = k-1$.
-Because the two specifications use different time periods in estimation, we require some additional notation to make this clear. 
+Accordingly, we make coefficient associated with the $k$\textsuperscript{th} lag local to zero.
+Let $\boldsymbol{\gamma}' = (\gamma_1, \cdots, \gamma_{k-1}, \gamma_{k})$ denote the full vector of lag coefficients that $\boldsymbol{\gamma}_{r} = (\gamma_1, \cdots, \gamma_{r})$ the first $r = k-1$ lag coefficients.
+Then, the true parameter vector is $\beta_n = (\boldsymbol{\gamma}'_{r}, \delta/\sqrt{n}, \theta)$ which becomes, in the limit, $\beta = (\boldsymbol{\gamma}'_r, 0, \theta)$.
+
+Because the two lag specifications we consider use different time periods in estimation, we require some additional notation to make this clear. 
 First let
 $\Delta \mathbf{y}_{i} = [\Delta y_{i,k+2}, \cdots, \Delta y_{iT}]'$ and $\Delta \mathbf{y}^+_{i} = [\Delta y_{i,k+1}, \Delta y_{i,k+2}, \cdots, \Delta y_{iT}]'$ 
 where the superscript ``+'' indicates the inclusion of an additional time period: $t = k+1$.
@@ -122,66 +116,47 @@ Finally, stacking over individuals in the usual way, let
    \Delta \mathbf{y}_n
  \end{array}
  \right], \;
- X_r^{+} = \left[
+ X_\ell^{+} = \left[
  \begin{array}{c}
-   X_1^{+'}(r) \\
+   X_1^{+'}(\ell) \\
   \vdots \\
-   X_n^{+'}(r)
+   X_n^{+'}(\ell)
  \end{array}
  \right], \;
- X_k = \left[
+ X_\ell = \left[
  \begin{array}{c}
-   X_1'(k) \\
+   X_1'(\ell) \\
   \vdots \\
-   X_n'(k)
+   X_n'(\ell)
  \end{array}
  \right]
 \end{equation}
-and define
-\begin{equation}
-  Z_{k\text{P}} = \left[
- \begin{array}{c}
-   Z_1(k,\text{P})\\
-  \vdots \\
-   Z_n(k,\text{P})\\
- \end{array}
- \right], \;
-  Z_{k\text{S}} = \left[
- \begin{array}{c}
-   Z_1(k,\text{S})\\
-  \vdots \\
-   Z_n(k,\text{S})\\
- \end{array}
- \right]\;
-  Z_{r\text{P}} = \left[
- \begin{array}{c}
-   Z_1(r,\text{P})\\
-  \vdots \\
-   Z_n(r,\text{P})\\
- \end{array}
- \right]\;
-  Z_{r\text{S}} = \left[
- \begin{array}{c}
-   Z_1(r,\text{S})\\
-  \vdots \\
-   Z_n(r,\text{S})\\
- \end{array}
- \right].
- \end{equation}
+where $\ell$ is either $r$ or $k$ and similarly define $Z'(\ell,\cdot) = [Z'_1(\ell,\cdot) \cdots Z'_n(\ell,\cdot)]$ where $(\cdot)$ is $\text{P}$ or $\text{S}$ depending on which instrument set is in use.
+Using this notation, the true model is
+\begin{align}
+  \Delta \mathbf{y} &= X(k) + \Delta \mathbf{v} &  \Delta \mathbf{y}^{+} &= X(k)^{+} + \Delta \mathbf{v}^+.
+\end{align}
 Now, using the shorthand
 \begin{equation}
-  \widehat{K}= \left[ \left( \frac{W'Z}{n} \right)\left( \frac{Z'Z}{n} \right)^{-1}\left( \frac{Z'W}{n} \right)^{-1} \right]\left( \frac{W'Z}{n} \right)\left( \frac{Z'Z}{n} \right)^{-1}
+  \widehat{Q}= \left[ \left( \frac{X'Z}{n} \right)\left( \frac{Z'Z}{n} \right)^{-1}\left( \frac{Z'X}{n} \right)^{-1} \right]\left( \frac{X'Z}{n} \right)\left( \frac{Z'Z}{n} \right)^{-1}
 \end{equation}
 we can define our four estimators as follows:
-\todo[inline]{Change from here down. Define the estimators, explain what's local to zero, give the basic results and say how everything is estimated. Keep it brief! Move algebra into appendix.}
-Using this notation, the TSLS estimator of the full parameter vector $\beta' = (\boldsymbol{\gamma}'_\ell, \theta)$ under a model with $\ell$ lags is
-\begin{equation}
-  \widehat{\beta}\left( \ell,\cdot \right) = \widehat{K}(\ell, \cdot) \left[ \frac{Z'(\ell,\cdot)\Delta \mathbf{y}(\ell)}{n} \right]
-\end{equation}
-where $(\ell, \cdot)$ is $(\ell, \mbox{P})$ or $(\ell, \mbox{S})$ depending on which possible instrument set is used in estimation.
+\begin{align}
+  \widehat{\beta}(k,\text{P}) &= \widehat{Q}(k,\text{P})\left[ \frac{Z(r,\text{S})\Delta y}{n} \right]& 
+  \widehat{\beta}(k,\text{S}) &= \widehat{Q}(k,\text{S})\left[ \frac{Z(r,\text{S})\Delta y}{n} \right]\\ 
+  \widehat{\beta}(r,\text{P}) &= \widehat{Q}(r,\text{P})\left[ \frac{Z(r,\text{S})\Delta y^{+}}{n} \right]& 
+  \widehat{\beta}(r,\text{S}) &=  \widehat{Q}(r,\text{S})\left[ \frac{Z(r,\text{S})\Delta y^{+}}{n} \right].
+\end{align}
+Expanding,
+\begin{align}
+  \sqrt{n}\left[\widehat{\beta}(k,\text{P}) - \beta\right] &= \widehat{Q}(k,\text{P})\left[ \frac{Z(r,\text{S})\Delta y^{+}}{n} \right]\\ 
+  \sqrt{n}\left[\widehat{\beta}(k,\text{S}) - \beta\right] &= \widehat{Q}(k,\text{S})\left[ \frac{Z(r,\text{S})\Delta y^{+}}{n} \right]\\ 
+  \widehat{\beta}(r,\text{P}) &= \widehat{Q}(r,\text{P})\left[ \frac{Z(r,\text{S})\Delta y^{+}}{n} \right]\\
+  \widehat{\beta}(r,\text{S}) &=  \widehat{Q}(r,\text{S})\left[ \frac{Z(r,\text{S})\Delta y^{+}}{n} \right]
+\end{align}
 
 \subsection{GFIC for the Dynamic Panel Example}
-\todo[inline]{Presumably the final thing to do in this section, before specializing to particular examples, is to give the limit distribution of an estimator that is based on the correct lag specification versus incorrect, and the correct MCs versus the invalid MCs. Although should probably also give the description of how to estimate $\tau$. Also need to show what we make local to zero: both for the moment and model selection. Then we need to do that derivative calculation etc.\ for the situation where the target parameter is the long run estimator.}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Dynamic Panel Example -- OLD VERSION}
