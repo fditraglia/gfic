@@ -92,57 +92,88 @@ where the superscript ``+'' indicates the inclusion of an additional time period
 Define $\Delta x_i$, $\Delta x_{i}^{+}$, $\Delta v_i$, and $\Delta v_{i}^{+}$ analogously.
 Next, define $L^k\Delta y_i^{+} = [\Delta y_{i1}, \Delta y_{i2}, \cdots, \Delta y_{iT-1}]'$ where $L^k$ denotes the element-wise application of the $k$\textsuperscript{th} order lag operator.
 Note that the first element of $L^k\Delta y_{i}^{+}$ is unobserved since $\Delta y_{i1} = y_{i1} - y_{i0}$ but $t=1$ is the first time period.
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-First let 
-\begin{align}
-  \Delta\mathbf{y}_i(\kappa:\tau) &= \left[
+Now we define the matrices of regressors for the two specifications: $\ell = k$ and $\ell = r$:
+\begin{align*}
+  X_i^{+'}(r) &= \left[
   \begin{array}{ccccc}
-   \Delta y_{i\kappa} & \Delta y_{i\kappa+1} & \cdots & \Delta y_{i\tau-1} & \Delta y_{i\tau}
+    L \Delta \mathbf{y}_i^{+} &  L^2 \Delta \mathbf{y}_i^{+} & \cdots & L^{k-1}\Delta \mathbf{y}_i^{+} & \Delta \mathbf{x}_i^+
   \end{array}
-\right]' \\
-\Delta \mathbf{y}(\kappa:\tau) &= \left[
-  \begin{array}{ccc}
-  \Delta \mathbf{y}_1(\kappa:\tau)' & \cdots \Delta \mathbf{y}_n(\kappa:\tau)'
-\end{array}
-\right]'\\
-Y(\ell) &= 
-\left[
-\begin{array}{cccc}
-  \Delta \mathbf{y}(\ell + 2:T) & \cdots & \Delta\mathbf{y}(\ell-1:T-1) & \Delta \mathbf{y}(1:T-\ell) 
-\end{array}
-\right]
-\end{align}
-where $\kappa,\tau$ are two time periods such that $\kappa < \tau$.
-Define $\Delta \mathbf{x}_i(\kappa:\tau)$ and $\Delta \mathbf{x}(\kappa:\tau)$.
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{align}
-\Delta \mathbf{y}_{i} &= [\Delta y_{i,p+2}, \cdots, \Delta y_{iT}]' & \Delta \mathbf{y}^+_{i} &= [\Delta y_{i,p+1}, y_{i,p+2}, \cdots, \Delta y_{iT}]'\\
-Z_{iP} &= \mbox{diag}\left\{ \mathbf{z}_{it}'(\ell,\mbox{P}) \right\}_{t=p+2}^T &
-Z_{iS}^+ &= \mbox{diag}\left\{ \mathbf{z}_{it}'(\ell,\mbox{S}) \right\}_{t=p+1}^T\\
-Z_{iS} &= \mbox{diag}\left\{ \mathbf{z}_{it}'(\ell,\mbox{S}) \right\}_{t=p+2}^T &
-Z_{iP}^+ &= \mbox{diag}\left\{ \mathbf{z}_{it}'(\ell,\mbox{P}) \right\}_{t=p+1}^T
-\end{align}
-where the superscript ``+'' indicates the inclusion of an additional time period: $t = p+1$.
-Similarly, defin
-
-
-Next, for $\ell \geq 1$ define $\mathbf{w}_{it}'(\ell) = [\Delta y_{it-1}, \cdots, \Delta y_{it-\ell}, \Delta x_{it}]$ and let $\mathbf{w}_{it}(0) = \Delta x_{it}$.
-Stacking these vectors over $t$, let $W_i(\ell) = [\mathbf{w}_{i\ell+2}(\ell), \hdots, \mathbf{w}_{iT}(\ell)]$.
-Finally, stacking over individuals in the usual way, let $\Delta \mathbf{y}'(\ell) = [\Delta \mathbf{y}_1(\ell)', \hdots, \Delta \mathbf{y}_n']$,  $W'(\ell) = [W_1(\ell),\hdots, W_n(\ell)]$, $Z'(\ell,\mbox{P}) = \left[ Z_1'(\ell, \mbox{P}), \hdots, Z_n'(\ell,\mbox{P})\right]$ and $Z'(\ell,\mbox{S}) = \left[ Z_1'(\ell, \mbox{S}), \hdots, Z_n'(\ell,\mbox{S})\right]$.
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-To define these estimators, we first introduce some additional notation.
-First, let $\Delta \mathbf{y}_{i}'(\ell) = [\Delta y_{i,\ell+2}, \cdots, \Delta y_{iT}]$.
-Next, for $\ell \geq 1$ define $\mathbf{w}_{it}'(\ell) = [\Delta y_{it-1}, \cdots, \Delta y_{it-\ell}, \Delta x_{it}]$ and let $\mathbf{w}_{it}(0) = \Delta x_{it}$.
-Stacking these vectors over $t$, let $W_i(\ell) = [\mathbf{w}_{i\ell+2}(\ell), \hdots, \mathbf{w}_{iT}(\ell)]$.
-Now, define the instrument matrices $Z_i(\ell,\mbox{P}) = \mbox{diag}\left\{ \mathbf{z}_{it}'(\ell,\mbox{P}) \right\}_{t=\ell+2}^T$ and $Z_i(\ell,\mbox{S}) = \mbox{diag}\left\{ \mathbf{z}_{it}'(\ell,\mbox{S}) \right\}_{t=\ell+2}^T$.
-Finally, stacking over individuals in the usual way, let $\Delta \mathbf{y}'(\ell) = [\Delta \mathbf{y}_1(\ell)', \hdots, \Delta \mathbf{y}_n']$,  $W'(\ell) = [W_1(\ell),\hdots, W_n(\ell)]$, $Z'(\ell,\mbox{P}) = \left[ Z_1'(\ell, \mbox{P}), \hdots, Z_n'(\ell,\mbox{P})\right]$ and $Z'(\ell,\mbox{S}) = \left[ Z_1'(\ell, \mbox{S}), \hdots, Z_n'(\ell,\mbox{S})\right]$.
-Using the shorthand
+\right]\\
+  X_i'(k) &= \left[
+  \begin{array}{cccccc}
+    L \Delta \mathbf{y}_i &  L^2 \Delta \mathbf{y}_i & \cdots & L^{k-1}\Delta \mathbf{y}_i & L^k\Delta \mathbf{y}_i & \Delta \mathbf{x}_i
+  \end{array}
+\right].
+\end{align*}
+Note that $X_i^{+}(r)$ contains one more row than $X_i(k)$ but $X_i(k)$ contains one more column that $X_i^{+}(r)$: removing the $k$\textsuperscript{th} lag from the model by setting $\ell = r = k-1$ allows us to use an additional time period in estimation and reduces the number of regressors by one. 
+Finally, stacking over individuals in the usual way, let  
+\begin{equation}
+ \Delta \mathbf{y}^{+} = \left[
+ \begin{array}{c}
+   \Delta \mathbf{y}_1^{+}\\
+  \vdots \\
+   \Delta \mathbf{y}_n^{+}
+ \end{array}
+ \right], \;
+ \Delta \mathbf{y} = \left[
+ \begin{array}{c}
+   \Delta \mathbf{y}_1\\
+  \vdots \\
+   \Delta \mathbf{y}_n
+ \end{array}
+ \right], \;
+ X_r^{+} = \left[
+ \begin{array}{c}
+   X_1^{+'}(r) \\
+  \vdots \\
+   X_n^{+'}(r)
+ \end{array}
+ \right], \;
+ X_k = \left[
+ \begin{array}{c}
+   X_1'(k) \\
+  \vdots \\
+   X_n'(k)
+ \end{array}
+ \right]
+\end{equation}
+and define
+\begin{equation}
+  Z_{k\text{P}} = \left[
+ \begin{array}{c}
+   Z_1(k,\text{P})\\
+  \vdots \\
+   Z_n(k,\text{P})\\
+ \end{array}
+ \right], \;
+  Z_{k\text{S}} = \left[
+ \begin{array}{c}
+   Z_1(k,\text{S})\\
+  \vdots \\
+   Z_n(k,\text{S})\\
+ \end{array}
+ \right]\;
+  Z_{r\text{P}} = \left[
+ \begin{array}{c}
+   Z_1(r,\text{P})\\
+  \vdots \\
+   Z_n(r,\text{P})\\
+ \end{array}
+ \right]\;
+  Z_{r\text{S}} = \left[
+ \begin{array}{c}
+   Z_1(r,\text{S})\\
+  \vdots \\
+   Z_n(r,\text{S})\\
+ \end{array}
+ \right].
+ \end{equation}
+Now, using the shorthand
 \begin{equation}
   \widehat{K}= \left[ \left( \frac{W'Z}{n} \right)\left( \frac{Z'Z}{n} \right)^{-1}\left( \frac{Z'W}{n} \right)^{-1} \right]\left( \frac{W'Z}{n} \right)\left( \frac{Z'Z}{n} \right)^{-1}
 \end{equation}
+we can define our four estimators as follows:
+\todo[inline]{Change from here down. Define the estimators, explain what's local to zero, give the basic results and say how everything is estimated. Keep it brief! Move algebra into appendix.}
 Using this notation, the TSLS estimator of the full parameter vector $\beta' = (\boldsymbol{\gamma}'_\ell, \theta)$ under a model with $\ell$ lags is
 \begin{equation}
   \widehat{\beta}\left( \ell,\cdot \right) = \widehat{K}(\ell, \cdot) \left[ \frac{Z'(\ell,\cdot)\Delta \mathbf{y}(\ell)}{n} \right]
