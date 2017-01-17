@@ -26,9 +26,9 @@ Imposing the stronger assumption of strict exogeneity gives us more and stronger
 Our second decision is how many lags of $y$ to use in estimation.
 This is the \emph{model selection} decision.
 The true model contains $k$ lags of $y$.
-If we estimate only $\ell < k$ lags we not only have more degrees of freedom but more observations: every additional lag of $y$ requires us to drop one time period from estimation. 
+If we estimate only $r < k$ lags we not only have more degrees of freedom but more observations: every additional lag of $y$ requires us to drop one time period from estimation. 
 In the short panel datasets common in microeconomic applications, losing even one additional time period can represent a substantial loss of information.
-At the same time, unless $\gamma_{\ell+1} = \cdots = \gamma_k = 0$, failing to include all $p$ lags in the model introduces a bias.
+At the same time, unless $\gamma_{r+1} = \cdots = \gamma_k = 0$, failing to include all $k$ lags in the model introduces a bias.
 In this example, the GFIC simultaneously chooses over exogeneity assumptions for $x$ and lag length for $y$ to optimally trade off bias and variance.
 
 \subsection{Estimators and Local Mis-specification}
@@ -38,13 +38,6 @@ Defining $\Delta$ in the usual way, so that $\Delta y_{it} = y_{it} - y_{it-1}$ 
   \Delta y_{it} = \gamma_1 \Delta y_{it-1} + \cdots + \gamma_k \Delta y_{it-k} + \theta \Delta x_{it} + \Delta v_{it}.
   \label{eq:truepaneldiff}
 \end{align}
-%To allow the consideration of models with different lag lengths, some of which may be mis-specified, define the residual
-%\begin{equation}
-%  \Delta v_{it}\left(\theta, \boldsymbol{\gamma}_\ell \right) = \Delta y_{it} - \left(\gamma_1 \Delta y_{it-1} + \cdots + \gamma_\ell \Delta y_{it-1} \right) - \theta \Delta x_{it} 
-%  \label{eq:panelresidual}
-%\end{equation}
-%where $\ell$ may not equal $p$ and $\theta$ and $\boldsymbol{\gamma}_\ell$ may not be the true parameter values.
-%To denote the residual from a model with no lags, $\ell = 0$, we use the shorthand $\Delta v_{it}(\theta) = \Delta y_{it} - \theta \Delta x_{it}$.
 For simplicity and to avoid many instruments problems -- see e.g.\ \cite{Roodman} -- we focus here on estimation using the instrument sets
 \begin{align}
   \mathbf{z}'_{it}(\ell, \text{P}) &\equiv \left[
@@ -62,13 +55,14 @@ For simplicity and to avoid many instruments problems -- see e.g.\ \cite{Roodman
   \label{eq:ZdpanelS}
 \end{align}
 similar to \cite{AndersonHsiao}.\footnote{Modulo a change in notation, one could just as easily proceed using the instrument sets suggested by \cite{ArellanoBond}.}
-In the case $\ell = 0$, we define $\mathbf{z}'_{it}(0,\text{P}) = x_{it-1}$ and $\mathbf{z}'_{it}(0,\text{S}) = (x_{it-1}, x_{it})$.
-Thus, in a model with $\ell$ lags, we have $(\ell + 1)\times T$ moment conditions if $x$ is assumed to be predetermined versus $(\ell + 2)\times T$ if it is assumed to be strictly exogenous, corresponding to the instrument matrices
+Throughout this discussion we use $\ell$ as a placeholder for the lag length used in estimation.
+If $\ell = 0$, $\mathbf{z}'_{it}(0,\text{P}) = x_{it-1}$ and $\mathbf{z}'_{it}(0,\text{S}) = (x_{it-1}, x_{it})$.
+Given these instrument sets, we have $(\ell + 1)\times T$ moment conditions if $x$ is assumed to be predetermined versus $(\ell + 2)\times T$ if it is assumed to be strictly exogenous, corresponding to the instrument matrices
 \begin{align}
   Z_i(\ell,\text{P}) &= \mbox{diag}\left\{ \mathbf{z}'_{it}(\ell,\text{P})  \right\}_{t = \ell + 2}^T & Z_i(\ell,\text{S}) &= \mbox{diag}\left\{\mathbf{z}'_{it}(\ell,\text{S}) \right\}_{t = \ell +2}^T 
 \end{align}
 for individual $i$.
-To abstract for a moment from the model selection decision, suppose that we estimate a model with the true lag length $k$.
+To abstract for a moment from the model selection decision, suppose that we estimate a model with the true lag length: $\ell = k$.
 The only difference between the P and S sets of moment conditions is that the latter adds over-identifying information in the form of $E[x_{it}\Delta v_{it}]$.
 If $x$ is strictly exogenous, this expectation equals zero, but if $x$ is only predetermined, then $E[x_{it}\Delta v_{it}] = -E[x_{it}v_{it-1}] \neq 0$ so the over-identifying moment condition is invalid.
 Given the instrument sets that we consider, this is the only violation of strict exogeneity that is relevant for our moment selection so we take $-E[x_{it}v_{it-1}] = \tau/\sqrt{n}$.
@@ -88,18 +82,18 @@ Next, define $L^k\Delta y_i^{+} = [\Delta y_{i1}, \Delta y_{i2}, \cdots, \Delta 
 Note that the first element of $L^k\Delta y_{i}^{+}$ is unobserved since $\Delta y_{i1} = y_{i1} - y_{i0}$ but $t=1$ is the first time period.
 Now we define the matrices of regressors for the two specifications: $\ell = k$ and $\ell = r$:
 \begin{align*}
-  X_i^{+'}(r) &= \left[
+  W_i^{+'}(r) &= \left[
   \begin{array}{ccccc}
     L \Delta \mathbf{y}_i^{+} &  L^2 \Delta \mathbf{y}_i^{+} & \cdots & L^{k-1}\Delta \mathbf{y}_i^{+} & \Delta \mathbf{x}_i^+
   \end{array}
 \right]\\
-  X_i'(k) &= \left[
+  W_i'(k) &= \left[
   \begin{array}{cccccc}
     L \Delta \mathbf{y}_i &  L^2 \Delta \mathbf{y}_i & \cdots & L^{k-1}\Delta \mathbf{y}_i & L^k\Delta \mathbf{y}_i & \Delta \mathbf{x}_i
   \end{array}
 \right].
 \end{align*}
-Note that $X_i^{+}(r)$ contains one more row than $X_i(k)$ but $X_i(k)$ contains one more column that $X_i^{+}(r)$: removing the $k$\textsuperscript{th} lag from the model by setting $\ell = r = k-1$ allows us to use an additional time period in estimation and reduces the number of regressors by one. 
+Note that $W_i^{+}(r)$ contains one more row than $W_i(k)$ but $W_i(k)$ contains one more column that $W_i^{+}(r)$: removing the $k$\textsuperscript{th} lag from the model by setting $\ell = r = k-1$ allows us to use an additional time period in estimation and reduces the number of regressors by one. 
 Finally, stacking over individuals in the usual way, let  
 \begin{equation}
  \Delta \mathbf{y}^{+} = \left[
@@ -116,44 +110,46 @@ Finally, stacking over individuals in the usual way, let
    \Delta \mathbf{y}_n
  \end{array}
  \right], \;
- X_\ell^{+} = \left[
+ W_\ell^{+} = \left[
  \begin{array}{c}
-   X_1^{+'}(\ell) \\
+   W_1^{+'}(\ell) \\
   \vdots \\
-   X_n^{+'}(\ell)
+   W_n^{+'}(\ell)
  \end{array}
  \right], \;
- X_\ell = \left[
+ W_\ell = \left[
  \begin{array}{c}
-   X_1'(\ell) \\
+   W_1'(\ell) \\
   \vdots \\
-   X_n'(\ell)
+   W_n'(\ell)
  \end{array}
  \right]
 \end{equation}
 where $\ell$ is either $r$ or $k$ and similarly define $Z'(\ell,\cdot) = [Z'_1(\ell,\cdot) \cdots Z'_n(\ell,\cdot)]$ where $(\cdot)$ is $\text{P}$ or $\text{S}$ depending on which instrument set is in use.
 Using this notation, the true model is
 \begin{align}
-  \Delta \mathbf{y} &= X(k) + \Delta \mathbf{v} &  \Delta \mathbf{y}^{+} &= X(k)^{+} + \Delta \mathbf{v}^+.
+  \Delta \mathbf{y} &= W(k)\beta_n + \Delta \mathbf{v} &  \Delta \mathbf{y}^{+} &= W(k)^{+}\beta_n + \Delta \mathbf{v}^+
 \end{align}
+under local mis-specification.
 Now, using the shorthand
 \begin{equation}
-  \widehat{Q}= \left[ \left( \frac{X'Z}{n} \right)\left( \frac{Z'Z}{n} \right)^{-1}\left( \frac{Z'X}{n} \right)^{-1} \right]\left( \frac{X'Z}{n} \right)\left( \frac{Z'Z}{n} \right)^{-1}
+  \widehat{Q}= \left[ \left( \frac{W'Z}{n} \right)\left( \frac{Z'Z}{n} \right)^{-1}\left( \frac{Z'W}{n} \right)^{-1} \right]\left( \frac{W'Z}{n} \right)\left( \frac{Z'Z}{n} \right)^{-1}
 \end{equation}
-we can define our four estimators as follows:
+we can define our estimators as follows
 \begin{align}
-  \widehat{\beta}(k,\text{P}) &= \widehat{Q}(k,\text{P})\left[ \frac{Z(r,\text{S})\Delta y}{n} \right]& 
-  \widehat{\beta}(k,\text{S}) &= \widehat{Q}(k,\text{S})\left[ \frac{Z(r,\text{S})\Delta y}{n} \right]\\ 
-  \widehat{\beta}(r,\text{P}) &= \widehat{Q}(r,\text{P})\left[ \frac{Z(r,\text{S})\Delta y^{+}}{n} \right]& 
-  \widehat{\beta}(r,\text{S}) &=  \widehat{Q}(r,\text{S})\left[ \frac{Z(r,\text{S})\Delta y^{+}}{n} \right].
+  \widehat{\beta}(k,\cdot) &= \widehat{Q}(k,\cdot)\left[ \frac{Z'(r,\text{S})\Delta \mathbf{y}}{n} \right]& 
+  \widehat{\beta}(r,\cdot) &= \widehat{Q}(r,\cdot)\left[ \frac{Z'(r,\text{S})\Delta \mathbf{y}^{+}}{n} \right]
 \end{align}
-Expanding,
+where $(\cdot)$ is either $\text{P}$ or $\text{S}$ depending on which instrument set is used.
+Expanding, we have 
 \begin{align}
-  \sqrt{n}\left[\widehat{\beta}(k,\text{P}) - \beta\right] &= \widehat{Q}(k,\text{P})\left[ \frac{Z(r,\text{S})\Delta y^{+}}{n} \right]\\ 
-  \sqrt{n}\left[\widehat{\beta}(k,\text{S}) - \beta\right] &= \widehat{Q}(k,\text{S})\left[ \frac{Z(r,\text{S})\Delta y^{+}}{n} \right]\\ 
-  \widehat{\beta}(r,\text{P}) &= \widehat{Q}(r,\text{P})\left[ \frac{Z(r,\text{S})\Delta y^{+}}{n} \right]\\
-  \widehat{\beta}(r,\text{S}) &=  \widehat{Q}(r,\text{S})\left[ \frac{Z(r,\text{S})\Delta y^{+}}{n} \right]
+  \sqrt{n}\left[\widehat{\beta}(k,\cdot) - \beta\right] &=(\mathbf{0}', \delta, 0)' + \widehat{Q}(k,\cdot)\left[ \frac{Z'(r,\cdot)\Delta \mathbf{v}}{\sqrt{n}} \right]\
 \end{align}
+for the specifications that include all $k$ lags versus
+\begin{align}
+  \widehat{\beta}(r,\cdot) &=  \widehat{Q}(r,\cdot)\left\{ \delta \left[\frac{Z'(r,\cdot) L^{k-1}\Delta \mathbf{y}^+}{n}\right] + \left[\frac{Z'(r,\cdot)\Delta \mathbf{v}^{+}}{\sqrt{n}}\right] \right\}
+\end{align}
+for the specifications that include $r = k-1$ lags.
 
 \subsection{GFIC for the Dynamic Panel Example}
 
