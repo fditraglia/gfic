@@ -100,6 +100,16 @@ E\left[\begin{array}{cc}
 \end{proof}
 
 
+\begin{proof}[Proof of Theorem \ref{thm:limitDpanel}.]
+  This proof is standard, so we provide only a sketch.
+Expanding, 
+\begin{align*}
+  \sqrt{n}\left[\widehat{\beta}(k,\cdot) - \beta\right] &=(\mathbf{0}', \delta, 0)' + \widehat{Q}(k,\cdot)\left[ n^{-1/2}Z'(k,\cdot)\Delta \mathbf{v}\right]\\
+  \sqrt{n}\left[\widehat{\beta}(r,\cdot) - \beta_{r}\right] &=  \widehat{Q}(r,\cdot)\left\{ \delta \left[n^{-1}Z'(r,\cdot) L^{k}\Delta \mathbf{y}^+\right] + \left[n^{-1/2}Z'(r,\cdot)\Delta \mathbf{v}^{+}\right] \right\}
+\end{align*}
+The result follows, after some algebra, by applying the Lindeberg-Feller central limit theorem to $n^{-1/2}Z'(k,\cdot)\Delta \mathbf{v}$ and $n^{-1/2}Z'(r,\cdot)\Delta \mathbf{v}^{+}$ and an appropriate law of large numbers to $n^{-1} Z'(r,\cdot)L^k \Delta \mathbf{y}^{+}$, where $(\cdot)$ is either $\text{P}$ or $\text{S}$ depending on the instrument set used.
+\end{proof}
+
 
 
 

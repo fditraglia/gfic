@@ -11,14 +11,15 @@ For simplicity, and without loss of generality, we suppose that there are no exo
 The unobserved error $\eta_i$ is a correlated individual effect: $\sigma_{x\eta}\equiv \mathbb{E}\left[ x_{it}\eta_i \right]$ may not equal zero. 
 The endogenous regressor $x_{it}$ is assumed to be predetermined but not necessarily strictly exogenous: $\mathbb{E}[x_{it} v_{is}]=0$ for all $s \geq t$ but may be nonzero for $s < t$.  
 We assume throughout that $y_{it}$ is stationary, which requires both $x_{it}$ and $u_{it}$ to be stationary and $|\boldsymbol{\gamma}| < 1$ where $\boldsymbol{\gamma} = (\gamma_1, \dots, \gamma_k)'$.
-Our goal is to estimate a given target parameter with minimum MSE: either the short-run effect $\mu_{\text{SR}}$ or the long-run effect $\mu_{\text{LR}}$ of $x$ on $y$, where 
+Our goal is to estimate a given one of the following two target parameters with minimum MSE:
 \begin{equation}
   \mu_{\text{SR}} \equiv \theta, \quad \mu_{\text{LR}} \equiv \frac{\theta}{1- (\gamma_1 + \cdots + \gamma_k)}.
   \label{eq:paneltarget}
 \end{equation}
-The question is which assumptions to use in estimation.
-As we discuss below, the answer may depend on whether our target is $\mu_{SR}$ or $\mu_{LR}$.
+where $\mu_{\text{SR}}$ denotes the short-run effect and $\mu_{\text{LR}}$ the long-run effect of $x$ on $y$.
 
+The question is which assumptions to use in estimation.
+Naturally, the answer may depend on whether our target is $\mu_{SR}$ or $\mu_{LR}$.
 Our first decision is what assumption to impose on the relationship between $x_{it}$ and $v_{it}$.
 This is the \emph{moment selection} decision.
 We assumed above that $x$ is predetermined.
@@ -29,9 +30,8 @@ The true model contains $k$ lags of $y$.
 If we estimate only $r < k$ lags we not only have more degrees of freedom but more observations: every additional lag of $y$ requires us to drop one time period from estimation. 
 In the short panel datasets common in microeconomic applications, losing even one additional time period can represent a substantial loss of information.
 At the same time, unless $\gamma_{r+1} = \cdots = \gamma_k = 0$, failing to include all $k$ lags in the model introduces a bias.
-In this example, the GFIC simultaneously chooses over exogeneity assumptions for $x$ and lag length for $y$ to optimally trade off bias and variance.
+%In this example, the GFIC simultaneously chooses over exogeneity assumptions for $x$ and lag length for $y$ to optimally trade off bias and variance.
 
-\subsection{Estimators and Local Mis-specification}
 To eliminate the individual effects $\eta_i$ we work in first differences.
 Defining $\Delta$ in the usual way, so that $\Delta y_{it} = y_{it} - y_{it-1}$ and so on, we can write Equation \ref{eq:truepanel} as
 \begin{align}
@@ -90,56 +90,25 @@ Now we define the matrices of regressors for the two specifications: $\ell = k$ 
 \right].
 \end{align*}
 Note that $W_i^{+}(r)$ contains one more row than $W_i(k)$ but $W_i(k)$ contains one more column that $W_i^{+}(r)$: removing the $k$\textsuperscript{th} lag from the model by setting $\ell = r = k-1$ allows us to use an additional time period in estimation and reduces the number of regressors by one. 
-Finally, stacking over individuals in the usual way, let  
-\begin{equation}
- \Delta \mathbf{y}^{+} = \left[
- \begin{array}{c}
-   \Delta \mathbf{y}_1^{+}\\
-  \vdots \\
-   \Delta \mathbf{y}_n^{+}
- \end{array}
- \right], \;
- \Delta \mathbf{y} = \left[
- \begin{array}{c}
-   \Delta \mathbf{y}_1\\
-  \vdots \\
-   \Delta \mathbf{y}_n
- \end{array}
- \right], \;
- W_\ell^{+} = \left[
- \begin{array}{c}
-   W_1^{+'}(\ell) \\
-  \vdots \\
-   W_n^{+'}(\ell)
- \end{array}
- \right], \;
- W_\ell = \left[
- \begin{array}{c}
-   W_1'(\ell) \\
-  \vdots \\
-   W_n'(\ell)
- \end{array}
- \right]
-\end{equation}
-where $\ell$ is either $r$ or $k$ and similarly define $Z'(\ell,\cdot) = [Z'_1(\ell,\cdot) \cdots Z'_n(\ell,\cdot)]$ where $(\cdot)$ is $\text{P}$ or $\text{S}$ depending on which instrument set is in use.
-Using this notation, the true model is
+Stacking over individuals, let $\Delta \mathbf{y} = [\Delta \mathbf{y}'_1 \cdots \Delta \mathbf{y}'_n]'$, $W_\ell = [W_1(\ell) \cdots W_n(\ell)]'$ and define $\Delta \mathbf{y}^{+}$ and $W_\ell^{+}$ analogously, where $\ell$ denotes the lag length used in estimation.
+Finally, let $Z'(\ell,\cdot) = [Z'_1(\ell,\cdot) \cdots Z'_n(\ell,\cdot)]$ where $(\cdot)$ is $\text{P}$ or $\text{S}$ depending on the instrument set is in use.
+Using this notation, under local mis-specification the true model is
 \begin{align}
   \Delta \mathbf{y} &= W(k)\beta_n + \Delta \mathbf{v} &  \Delta \mathbf{y}^{+} &= W(k)^{+}\beta_n + \Delta \mathbf{v}^+
 \end{align}
-under local mis-specification.
-Now, using the shorthand
-\begin{equation}
-  \widehat{Q}= \left[ \left( \frac{W'Z}{n} \right)\left( \frac{Z'Z}{n} \right)^{-1}\left( \frac{Z'W}{n} \right)^{-1} \right]\left( \frac{W'Z}{n} \right)\left( \frac{Z'Z}{n} \right)^{-1}
-\end{equation}
-we can define our estimators as follows
+Using the shorthand $\widehat{Q} \equiv n[W' Z(Z'Z)^{-1} Z'W]^{-1}W'Z(Z'Z)^{-1}$ our candidate estimators are
 \begin{align}
-  \widehat{\beta}(k,\cdot) &= \widehat{Q}(k,\cdot)\left[ \frac{Z'(r,\text{S})\Delta \mathbf{y}}{n} \right]& 
+  \widehat{\beta}(k,\cdot) &= \widehat{Q}(k,\cdot)\left[ \frac{Z'(k,\text{S})\Delta \mathbf{y}}{n} \right]& 
   \widehat{\beta}(r,\cdot) &= \widehat{Q}(r,\cdot)\left[ \frac{Z'(r,\text{S})\Delta \mathbf{y}^{+}}{n} \right]
 \end{align}
-where $(\cdot)$ is either $\text{P}$ or $\text{S}$ depending on which instrument set is used.
+where $(\cdot)$ is either $\text{P}$ or $\text{S}$ depending on which instrument set is used and $r = k-1$, one lag fewer than the true lag length $k$.
+The following result describes the limit distribution of $\widehat{\beta}(k,\text{P})$, $\widehat{\beta}(k,\text{S})$, $\widehat{\beta}(r,\text{P})$, and $\widehat{\beta}(r,\text{P})$ which we will use to construct the GFIC.
 
-\begin{thm}
-  Under the model, local mis-specification, and standard regularity conditions
+\begin{thm}[Limit Distributions for Dynamic Panel Estimators]
+  \label{thm:limitDpanel}
+  Let $(y_{nit},x_{nit}, v_{nit})$ be a triangular array of random variables that is iid over $i$, stationary over $t$, and satisfies Equation \ref{eq:truepaneldiff} with $\gamma_k = \delta / \sqrt{n}$.
+  Suppose further that $x_{it}$ is predetermined with respect to $v_{it}$ but not strictly exogenous: $E[x_{it}\Delta v_{it}] = \tau/\sqrt{n}$.
+  Then, under standard regularity conditions,
   \begin{align*}
     \sqrt{n}\left[ \widehat{\beta}(k,\text{P})-\beta \right] &\rightarrow^d 
     \left[
@@ -158,15 +127,12 @@ where $(\cdot)$ is either $\text{P}$ or $\text{S}$ depending on which instrument
     \begin{array}{c}
       \mathbf{0}_{k+1} \\ \tau
     \end{array}
-  \right] + \mbox{N}\left(\mathbf{0}, \mathcal{V}(k,\text{S})\right)\right\}
-  \end{align*}
-  for the estimators based on the true lag length $k$ versus
-  \begin{align*}
-    \sqrt{n}\left[ \widehat{\beta}(r,\text{P})- \beta_r \right] &\rightarrow^d Q(r,\text{P}) \left[\boldsymbol{\iota}_{T-k} \otimes \delta \psi_{\text{P}} + \mbox{N}\left(\mathbf{0}, \mathcal{V}(r,\text{P}) \right) \right]\\
+  \right] + \mbox{N}\left(\mathbf{0}, \mathcal{V}(k,\text{S})\right)\right\}\\
+    \sqrt{n}\left[ \widehat{\beta}(r,\text{P})- \beta_r \right] &\rightarrow^d Q(r,\text{P}) \left[\boldsymbol{\iota}_{T-k} \otimes \delta \boldsymbol{\psi}_{\text{P}} + \mbox{N}\left(\mathbf{0}, \mathcal{V}(r,\text{P}) \right) \right]\\
     \sqrt{n}\left[ \widehat{\beta}(r,\text{S})- \beta_r\right] &\rightarrow^d Q(r,\text{S}) \left[\boldsymbol{\iota}_{T-k} \otimes 
-    \left( \delta + \left[
+    \left( \delta \left[
   \begin{array}{c}
-    \psi_{\text{P}} \\ \psi_{\text{S}}
+    \boldsymbol{\psi}_{\text{P}} \\ \psi_{\text{S}}
 \end{array}
 \right] + \left[
 \begin{array}{c}
@@ -174,29 +140,63 @@ where $(\cdot)$ is either $\text{P}$ or $\text{S}$ depending on which instrument
 \end{array}
 \right]\right) + \mbox{N}\left( \mathbf{0}, \mathcal{V}\left(r,\text{S}\right) \right)\right]
   \end{align*}
-  for the estimators based in the incorrect lag length $r = k-1$, where $\mathcal{V}(k,\cdot) = \mbox{Var}\left[ Z_i(k,\cdot) \Delta \mathbf{v}_i  \right]$ and $\mathcal{V}(r,\cdot) = \mbox{Var}\left[ Z_i(r,\cdot) \Delta \mathbf{v}^{+}_i  \right]$, $Q(\ell,\cdot)$ is the probability limit of $\widehat{Q}(\ell,\cdot)$, $\psi_{\text{P}} = E[\textbf{z}_{it}(k-1,\text{P}) \Delta y_{it -k}]$, and $\psi_{\text{S}} = E[x_{it} \Delta y_{it-k}]$.
+  where $k = r - 1$, $\beta' = (\gamma_1, \hdots, \gamma_{r}, 0, \theta)$, $\beta_r' = (\gamma_1, \hdots, \gamma_{r}, \theta)$, $\mathcal{V}(k,\cdot) = \mbox{Var}\left[ Z_i(k,\cdot) \Delta \mathbf{v}_i  \right]$, $\mathcal{V}(r,\cdot) = \mbox{Var}\left[ Z_i(r,\cdot) \Delta \mathbf{v}^{+}_i  \right]$, $\widehat{Q}(\ell,\cdot) \rightarrow_p Q(\ell,\cdot)$, $\boldsymbol{\psi}_{\text{P}} = E[\textbf{z}_{it}(r,\text{P}) \Delta y_{it -k}]$, $\psi_{\text{S}} = E[x_{it} \Delta y_{it-k}]$, and $\boldsymbol{\iota}_{d}$ denotes a $d$-vector of ones.
 \end{thm}
 
-
-\begin{proof}
-Expanding, we have 
-\begin{align}
-  \sqrt{n}\left[\widehat{\beta}(k,\cdot) - \beta\right] &=(\mathbf{0}', \delta, 0)' + \widehat{Q}(k,\cdot)\left[ \frac{Z'(k,\cdot)\Delta \mathbf{v}}{\sqrt{n}} \right]\
-\end{align}
-for the specifications that include all $k$ lags versus
-\begin{align}
-  \sqrt{n}\left[\widehat{\beta}(r,\cdot) - \beta_{r}\right] &=  \widehat{Q}(r,\cdot)\left\{ \delta \left[\frac{Z'(r,\cdot) L^{k}\Delta \mathbf{y}^+}{n}\right] + \left[\frac{Z'(r,\cdot)\Delta \mathbf{v}^{+}}{\sqrt{n}}\right] \right\}
-\end{align}
-for the specifications that include only $r = k-1$ lags.
-
+To operationalize the GFIC, we need to provide appropriate estimators of all quantities that appear in Theorem \ref{thm:limitDpanel}.
+To estimate ${Q}(k,\text{P})$, ${Q}(k,\text{S})$, ${Q}(k,\text{P})$, and ${Q}(r,\text{S})$ we employ the usual sample analogues $\widehat{Q}(\cdot,\cdot)$ given above, which remain consistent under local mis-specification.
+There are many consistent estimators for the variance matrices $\mathcal{V}(k,\text{P})$, $\mathcal{V}(k,\text{S})$, $\mathcal{V}(r,\text{P})$, $\mathcal{V}(r,\text{S})$ under local mis-specification.
+In our simulations and empirical example below, we employ the usual heteroskedasticity-consistent, panel-robust variance matrix estimator.
+Because $E[\mathbf{z}_{it}(\ell,\text{S})\Delta v_{it}]\neq 0$, we center our estimators of $\mathcal{V}(\ell, \text{S})$ by subtracting the sample analogue of this expectation when calculating the sample variance.
+We estimate $\boldsymbol{\psi}_{\text{P}}$ and $\psi_{\text{S}}$ as follows
 \begin{align*}
-  \frac{Z'(r,\cdot) L^k \Delta \mathbf{y}^+}{n} = \frac{1}{n}\sum_{i=1}^n Z'(r,\cdot) L^k \Delta \mathbf{y}^{+}  
+  \widehat{\boldsymbol{\psi}}_{\text{P}} &= \frac{1}{n(T - k - 1)}\sum_{t = k+2}^T \sum_{i = 1}^n \mathbf{z}_{it}(r,\text{P}) \Delta y_{it-k} &
+  \widehat{\psi}_{\text{S}} &= \frac{1}{n(T - k - 1)}\sum_{t = k+2}^T \sum_{i = 1}^n x_{it} \Delta y_{it-k}
 \end{align*}
-so we need $E[\mathbf{z}_{it}(r,\cdot) \Delta y_{it - r - 1}]$ which we'll call $\psi_{\text{S}}$ and  $(\psi_{\text{P}}, \psi_{\text{S}})$.
-\end{proof}
+using our assumption of stationarity from above.
+The only remaining quantities we need to construct the GFIC involve the bias parameters $\delta$ and $\tau$. 
+We can read off an asymptotically unbiased estimator of $\delta$ directly from Theorem \ref{thm:limitDpanel}, namely $\widehat{\delta} = \sqrt{n}\; \widehat{\gamma}_k(k,\text{P})$ the estimator of $\gamma_k$ based on the instrument set that assumes only that $x$ is pre-determined rather than strictly exogenous.
+To construct an asymptotically unbiased estimator of $\tau$, we 
 
 
-\subsection{GFIC for the Dynamic Panel Example}
+define $Z'(x) = \left(Z(x_1), \hdots, Z(x_n)\right)$, see Equation \ref{eq:Zx}, and expand the quantity $n^{-1/2}(\Delta y -X_L\widehat{\beta}_{LW})$ as follows:
+$$n^{-1/2}(\Delta y -X_L\widehat{\beta}_{LW}) = \left[\begin{array}{cc} -n^{-1} Z'(x)X_L \widehat{K}_{LW}& I \end{array} \right]n^{-1/2} Z'_{LS}\Delta v$$
+Now, by the Lindeberg-Feller Central Limit Theorem (c.f.\ Equation \ref{eq:dynpan1}) we have
+$$n^{-1/2} Z'_{LS}\Delta v \overset{d}{\rightarrow}\left[\begin{array}{c}0_2\\ \tau \end{array}\right]\otimes \iota_{T-2} + N\left(0, \mathcal{V}_{LS}\right)$$
+and by a Law of Large Numbers,
+	$$n^{-1}Z'(x)X_L \overset{p}{\rightarrow} E\left[\begin{array}{cc} x_{it}\Delta y_{it-1} & x_{it}\Delta x_{it}\end{array} \right]\otimes \iota_{T-2}$$
+where the expectations are taken with respect to the limiting DGP. 
+Thus,
+	\begin{equation}
+		n^{-1/2}(\Delta y -X_L\widehat{\beta}_{LW}) \overset{d}{\rightarrow} \tau \otimes \iota_{T-2} + \left[ \begin{array}{cc} \Psi & I\end{array}\right] N(0, \mathcal{V}_{LS})
+	\end{equation}
+where
+\begin{equation}
+	\Psi = -E\left[\begin{array}{cc} x_{it}\Delta y_{it-1} & x_{it}\Delta x_{it}\end{array} \right]\otimes \iota_{T-2} K_{LW}
+\end{equation}
+Using stationarity to gain efficiency we take the time average
+\begin{equation}
+\widetilde{\tau} =  \left(\frac{\iota'_{T-2}}{T-2} \right)n^{-1/2} Z'(x)(\Delta y - X_L \widehat{\beta}_{LW})
+\end{equation}
+as our estimator of $\tau$. 
+It follows from above that
+\begin{equation}
+	\widetilde{\tau} \overset{d}{\rightarrow} \tau + \left(\frac{\iota'_{T-2}}{T-2} \right)\left[ \begin{array}{cc} \Psi & I\end{array}\right] N(0, \mathcal{V}_{LS})
+\end{equation}
+As describe above for the general GMM case, asymptotically unbiased estimators of $\tau$ and $\delta$ require a bias correction to provide asymptotically unbiased estimators of the quantities $\tau^2$, $\delta^2$ and $\tau\delta$ needed to estimate AMSE. 
+To carry out this correction, we use the joint distribution of the bias parameter estimators:
+	\begin{equation}
+	 \left[\begin{array}{c} \widehat{\delta} \\ \widetilde{\tau}  \end{array} \right] \overset{d}{\rightarrow} \left[\begin{array}{c} \widehat{\delta} \\ \widetilde{\tau}  \end{array} \right]  + \left[\begin{array}{cc} K_{LW}^\gamma&0 \\ \left(\frac{\iota'_{T-2}}{T-2} \right) \Psi&  \left(\frac{\iota'_{T-2}}{T-2} \right) I\end{array} \right] N(0, \mathcal{V}_{LS})
+	\end{equation}
+where $K_{LW}^\gamma$ denotes the first row of $K_{LW}$ (i.e.\ the row corresponding to $\gamma$).
+Asymptotically unbiased estimators of $\delta^2$, $\tau^2$ and $\tau\delta$ are given by
+\begin{eqnarray}
+	\delta^2 \colon &&\widehat{\delta}^2 - \widehat{\sigma}_\delta^2\\
+	\tau^2 \colon &&\widetilde{\tau}^2 - \widehat{\sigma}_\tau^2\\
+	\tau \delta \colon && \widetilde{\tau}\widehat{\delta} - \widehat{\sigma}_{\tau\delta}
+\end{eqnarray}
+where $\widehat{\sigma}_\delta^2$, $\widehat{\sigma}_\tau^2$ and $\widehat{\sigma}_{\tau\delta}$ are consistent estimators of the elements of
+$$\left[\begin{array}{cc} K_{LW}^\gamma&0 \\ \left(\frac{\iota'_{T-2}}{T-2} \right) \Psi&  \left(\frac{\iota'_{T-2}}{T-2} \right) I\end{array} \right] \mathcal{V}_{LS}  \left[\begin{array}{cc} K_{LW}^\gamma&0 \\ \left(\frac{\iota'_{T-2}}{T-2} \right) \Psi&  \left(\frac{\iota'_{T-2}}{T-2} \right) I\end{array} \right]'$$
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
