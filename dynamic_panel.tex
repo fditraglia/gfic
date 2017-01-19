@@ -73,9 +73,9 @@ Because the two lag specifications we consider use different time periods in est
 First let
 $\Delta \mathbf{y}_{i} = [\Delta y_{i,k+2}, \cdots, \Delta y_{iT}]'$ and $\Delta \mathbf{y}^+_{i} = [\Delta y_{i,k+1}, \Delta y_{i,k+2}, \cdots, \Delta y_{iT}]'$ 
 where the superscript ``+'' indicates the inclusion of an additional time period: $t = k+1$.
-Define $\Delta x_i$, $\Delta x_{i}^{+}$, $\Delta v_i$, and $\Delta v_{i}^{+}$ analogously.
-Next, define $L^k\Delta y_i^{+} = [\Delta y_{i1}, \Delta y_{i2}, \cdots, \Delta y_{iT-k}]'$ where $L^k$ denotes the element-wise application of the $k$\textsuperscript{th} order lag operator.
-Note that the first element of $L^k\Delta y_{i}^{+}$ is unobserved since $\Delta y_{i1} = y_{i1} - y_{i0}$ but $t=1$ is the first time period.
+Define $\Delta \mathbf{x}_i$, $\Delta \mathbf{x}_{i}^{+}$, $\Delta \mathbf{v}_i$, and $\Delta \mathbf{v}_{i}^{+}$ analogously.
+Next, define $L^k\Delta \mathbf{y}_i^{+} = [\Delta y_{i1}, \Delta y_{i2}, \cdots, \Delta y_{iT-k}]'$ where $L^k$ denotes the element-wise application of the $k$\textsuperscript{th} order lag operator.
+Note that the first element of $L^k\Delta \mathbf{y}_{i}^{+}$ is unobserved since $\Delta y_{i1} = y_{i1} - y_{i0}$ but $t=1$ is the first time period.
 Now we define the matrices of regressors for the two specifications: $\ell = k$ and $\ell = r$:
 \begin{align*}
   W_i^{+'}(r) &= \left[
@@ -156,9 +156,22 @@ We estimate $\boldsymbol{\psi}_{\text{P}}$ and $\psi_{\text{S}}$ as follows
 using our assumption of stationarity from above.
 The only remaining quantities we need to construct the GFIC involve the bias parameters $\delta$ and $\tau$. 
 We can read off an asymptotically unbiased estimator of $\delta$ directly from Theorem \ref{thm:limitDpanel}, namely $\widehat{\delta} = \sqrt{n}\; \widehat{\gamma}_k(k,\text{P})$ the estimator of $\gamma_k$ based on the instrument set that assumes only that $x$ is pre-determined rather than strictly exogenous.
-To construct an asymptotically unbiased estimator of $\tau$, we 
+To construct an asymptotically unbiased estimator of $\tau$, we use the residuals from the specification that uses \emph{both} the correct moment conditions and the correct lag specification, specifically
+\begin{equation}
+  \widehat{\tau} = \left( \frac{\boldsymbol{\iota}_{T-k-1}'}{T - k - 1} \right) n^{-1/2} X' \left[\Delta \mathbf{y} - W(k)  \right]
+\end{equation}
+where $X' = [X_1 \cdots X_n]$ and $X_i = \mbox{diag}\left\{ x_{it} \right\}_{t = k + 2}^{T}$.
+The following result gives the joint limiting behavior of $\widehat{\delta}$ and $\widehat{\tau}$, which we will use to construct the GFIC.
 
+\begin{thm}[Joint Limit Distribution of $(\widehat{\delta},\widehat{\tau})$]
+  Under blah blah blah assumptions.
+	\begin{equation}
+	 \left[\begin{array}{c} \widehat{\delta} \\ \widehat{\tau}  \end{array} \right] \overset{d}{\rightarrow} \left[\begin{array}{c} \widehat{\delta} \\ \widehat{\tau}  \end{array} \right]  + \left[\begin{array}{cc} K_{LW}^\gamma&0 \\ \left(\frac{\iota'_{T-2}}{T-2} \right) \Psi&  \left(\frac{\iota'_{T-2}}{T-2} \right) I\end{array} \right] N(0, \mathcal{V}_{LS})
+	\end{equation}
+  where $K_{LW}^\gamma$ denotes the first row of $K_{LW}$ (i.e.\ the row corresponding to $\gamma$) and also define $\widehat{\tau}$ and $\widehat{\delta}$ and fix the rest of the notation to be general.
+\end{thm}
 
+\begin{proof}
 define $Z'(x) = \left(Z(x_1), \hdots, Z(x_n)\right)$, see Equation \ref{eq:Zx}, and expand the quantity $n^{-1/2}(\Delta y -X_L\widehat{\beta}_{LW})$ as follows:
 $$n^{-1/2}(\Delta y -X_L\widehat{\beta}_{LW}) = \left[\begin{array}{cc} -n^{-1} Z'(x)X_L \widehat{K}_{LW}& I \end{array} \right]n^{-1/2} Z'_{LS}\Delta v$$
 Now, by the Lindeberg-Feller Central Limit Theorem (c.f.\ Equation \ref{eq:dynpan1}) we have
@@ -183,12 +196,10 @@ It follows from above that
 \begin{equation}
 	\widetilde{\tau} \overset{d}{\rightarrow} \tau + \left(\frac{\iota'_{T-2}}{T-2} \right)\left[ \begin{array}{cc} \Psi & I\end{array}\right] N(0, \mathcal{V}_{LS})
 \end{equation}
-As describe above for the general GMM case, asymptotically unbiased estimators of $\tau$ and $\delta$ require a bias correction to provide asymptotically unbiased estimators of the quantities $\tau^2$, $\delta^2$ and $\tau\delta$ needed to estimate AMSE. 
+\end{proof}
+As described above for the general GMM case, asymptotically unbiased estimators of $\tau$ and $\delta$ require a bias correction to provide asymptotically unbiased estimators of the quantities $\tau^2$, $\delta^2$ and $\tau\delta$ needed to estimate AMSE. 
 To carry out this correction, we use the joint distribution of the bias parameter estimators:
-	\begin{equation}
-	 \left[\begin{array}{c} \widehat{\delta} \\ \widetilde{\tau}  \end{array} \right] \overset{d}{\rightarrow} \left[\begin{array}{c} \widehat{\delta} \\ \widetilde{\tau}  \end{array} \right]  + \left[\begin{array}{cc} K_{LW}^\gamma&0 \\ \left(\frac{\iota'_{T-2}}{T-2} \right) \Psi&  \left(\frac{\iota'_{T-2}}{T-2} \right) I\end{array} \right] N(0, \mathcal{V}_{LS})
-	\end{equation}
-where $K_{LW}^\gamma$ denotes the first row of $K_{LW}$ (i.e.\ the row corresponding to $\gamma$).
+\begin{cor}[Asymptotically Unbiased Estimators]
 Asymptotically unbiased estimators of $\delta^2$, $\tau^2$ and $\tau\delta$ are given by
 \begin{eqnarray}
 	\delta^2 \colon &&\widehat{\delta}^2 - \widehat{\sigma}_\delta^2\\
@@ -197,6 +208,10 @@ Asymptotically unbiased estimators of $\delta^2$, $\tau^2$ and $\tau\delta$ are 
 \end{eqnarray}
 where $\widehat{\sigma}_\delta^2$, $\widehat{\sigma}_\tau^2$ and $\widehat{\sigma}_{\tau\delta}$ are consistent estimators of the elements of
 $$\left[\begin{array}{cc} K_{LW}^\gamma&0 \\ \left(\frac{\iota'_{T-2}}{T-2} \right) \Psi&  \left(\frac{\iota'_{T-2}}{T-2} \right) I\end{array} \right] \mathcal{V}_{LS}  \left[\begin{array}{cc} K_{LW}^\gamma&0 \\ \left(\frac{\iota'_{T-2}}{T-2} \right) \Psi&  \left(\frac{\iota'_{T-2}}{T-2} \right) I\end{array} \right]'$$
+\end{cor}
+
+\todo[inline]{Also need to explain about the derivatives needed when we want to apply the GFIC to the estimator for the long-run effect}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
