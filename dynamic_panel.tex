@@ -171,8 +171,40 @@ The following result gives the joint limiting behavior of $\widehat{\delta}$ and
 
 \begin{thm}[Joint Limit Distribution of $\widehat{\delta}$ and $\widehat{\tau}$]
   Under the conditions of Theorem \ref{thm:limitDpanel},
-  \[\left[\begin{array}{c} \widehat{\delta} \\ \widehat{\tau}  \end{array} \right] \overset{d}{\rightarrow} \left[\begin{array}{c} \delta \\ \tau  \end{array} \right]  + \Psi N(0, \Pi\,\mathcal{V}(k,\text{S})\,\Pi')\]
-  where $\widehat{\delta} = \sqrt{n}[ \mathbf{e}_k' \,\widehat{\beta}(k,\text{P})]$, $\mathbf{e}_k = (\mathbf{0}_{k-1}', 1, 0)'$,  $\widehat{\tau}$ is as defined in Equation \ref{eq:DpanelTau},
+  \[
+    \left[
+      \begin{array}{c} 
+        \widehat{\delta} - \delta \\ \widehat{\tau} - \tau 
+      \end{array} 
+    \right] \overset{d}{\rightarrow} \Psi N\left(0, \Pi\,\mathcal{V}\left(k,\text{S}\right)\,\Pi'\right)
+  \]
+  where $\widehat{\delta} = \sqrt{n}[ \mathbf{e}_k' \,\widehat{\beta}(k,\text{P})]$, $\mathbf{e}_k = (\mathbf{0}_{k-1}', 1, 0)'$,  $\widehat{\tau}$ is as defined in Equation \ref{eq:DpanelTau}, 
+\[
+  \Psi = \left[
+  \begin{array}{cc}
+    \displaystyle\left( \frac{\boldsymbol{\iota}'_{T-k-1}}{T-k-1} \right)  \left\{ \boldsymbol{\xi}' Q(k,\text{P}) \otimes \boldsymbol{\iota}'_{T-k-1} \right\}& \displaystyle \left(\frac{\boldsymbol{\iota}_{T-k-1}}{T-k-1}\right) \\ 
+    \mathbf{e}_k' Q(k,\text{P}) & \mathbf{0}'_{T-k-1}
+  \end{array}
+\right],
+\]
+  $\boldsymbol{\xi}' = E\left\{ x_{it} \left[
+    \begin{array}{cccc}
+      L \Delta y_{it} & \cdots & L^k \Delta y_{it} & \Delta x_{it}
+  \end{array} \right]\right\}$,
+  the variance matrix $\mathcal{V}(k,\text{S})$ is as defined in Theorem \ref{thm:limitDpanel}, the permutation matrix $\Pi = \left[
+  \begin{array}{cc}
+    \Pi_1' & \Pi_2'
+  \end{array}
+\right]'$ with $\Pi_1 = I_{T-k-1} \otimes \left[
+\begin{array}{cc}
+  I_{k+1} & \mathbf{0}_{k+1}
+\end{array}
+\right]$ and $\Pi_2 = I_{T-k-1}\otimes \left[
+\begin{array}{cc}
+  \mathbf{0}_{k+1}' & 1
+\end{array}
+\right]$,
+  $\boldsymbol{\iota}_{d}$ is a $d$-vector of ones and $I_d$ the $(d\times d)$ identity matrix.
 \end{thm}
 
 \begin{proof}
