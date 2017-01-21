@@ -170,6 +170,7 @@ The following result gives the joint limiting behavior of $\widehat{\delta}$ and
 \todo[inline]{Should mention that the following result is slightly different from the general theorem given above since we impose the structure of the panel dataset to get a pooled estimator of $\tau$ which brings in the time averages.}
 
 \begin{thm}[Joint Limit Distribution of $\widehat{\delta}$ and $\widehat{\tau}$]
+  \label{thm:DpanelJoint}
   Under the conditions of Theorem \ref{thm:limitDpanel},
   \[
     \left[
@@ -207,62 +208,6 @@ The following result gives the joint limiting behavior of $\widehat{\delta}$ and
   $\boldsymbol{\iota}_{d}$ is a $d$-vector of ones and $I_d$ the $(d\times d)$ identity matrix.
 \end{thm}
 
-\begin{proof}
-  Expanding $\widehat{\beta}(k,\text{P})$ from Equation \ref{eq:DpanelEstimators} and using $\Delta \mathbf{y} = W(k) \beta_n + \Delta \mathbf{v}$, 
-  \begin{align*}
-    n^{-1/2}X'\left[ \Delta \mathbf{y} - W(k)\widehat{\beta}(k,\text{P})  \right] 
-    %&= n^{-1/2}X'\left\{ \left[W(k) \beta_n + \Delta \mathbf{v}\right] - W(k) \left[ \beta_n + \widehat{Q}(k,\text{P}) n^{-1} Z'(k,\text{P})\Delta \mathbf{v} \right] \right\} \\
-    &= n^{-1/2}X'\left[ \Delta \mathbf{v}  - W(k)\, \widehat{Q}(k,\text{P}) \, n^{-1} Z'(k,\text{P})\Delta \mathbf{v}\right] \\
-    %&= n^{-1/2}X'\Delta \mathbf{v}  - n^{-1}X'W(k)\,\widehat{Q}(k,\text{P})\left[ n^{-1/2} Z'(k,\text{P})\Delta \mathbf{v}\right]\\
-    &= \left[
-    \begin{array}{cc}
-      -n^{-1} X'W(k) \, \widehat{Q}(k,\text{P}) & I_{T-k-1}
-    \end{array}
-  \right] 
-  \left[
-  \begin{array}{c}
-    n^{-1/2}Z'(k,\text{P}) \Delta \mathbf{v} \\
-    n^{-1/2} X' \Delta \mathbf{v}
-  \end{array}
-\right].
-  \end{align*}
-  Similarly, expanding $\widehat{\beta}(k,\text{P})$ from Equation \ref{eq:DpanelEstimators},
-  \[
-    \sqrt{n}\left[ \widehat{\beta}(k,\text{P}) \right] = \left[
-    \begin{array}{ccc}
-      \mathbf{0}_{k-1} & \delta & 0
-    \end{array}
-  \right] + \widehat{Q}(k,\text{P}) n^{-1/2}Z'(k,\text{P}) \Delta \mathbf{v}
-  \]
-  and since $\widehat{\delta}$ is $\sqrt{n}$ times the $k$\textsuperscript{th} element of $\widehat{\beta}(k,\text{P})$ and the $k$\textsuperscript{th} element $\beta$ is zero, we have
-  \[
-    \widehat{\delta} = \delta + \left[
-    \begin{array}{ccc}
-    \mathbf{0}'_{k-1} & 1 & 0 
-    \end{array}
-  \right] \widehat{Q}(k,\text{P}) n^{-1/2} Z'(k,\text{P})\Delta \mathbf{v}.
-  \]
-  By a law of large numbers $\widehat{Q}(k,\text{P}) \rightarrow_p Q(k,\text{P})$ and $n^{-1}X'W(k) \rightarrow_p \boldsymbol{\xi}' \otimes \boldsymbol{\iota}_{T-k-1}$, hence 
-  \[
-    \left[
-    \begin{array}{c}
-      \widehat{\delta} - \delta \\ \widehat{\tau}
-    \end{array}
-  \right] = \Psi
-  \left[
-  \begin{array}{c}
-    n^{-1/2}Z'(k,\text{P}) \Delta \mathbf{v} \\
-    n^{-1/2} X' \Delta \mathbf{v}
-  \end{array}
-\right] + o_p(1).
-  \]
-  The result follows, after some algebra, by applying the Lindeberg-Feller central limit theorem jointly to $n^{-1/2}Z'(k,\text{P})\Delta\mathbf{v}$ and $n^{-1/2}X'\Delta \mathbf{v}$ and noting that the permutation matrix $\Pi$ maps the vector $[n^{-1/2}Z'(k,\text{S})\Delta \mathbf{v}]$ to the vector $\left[
-  \begin{array}{cc}
-    \left\{n^{-1/2} Z'(k,P)\Delta \mathbf{v}\right\}' &
-    \left\{n^{-1/2} X'\Delta \mathbf{v}\right\}' 
-  \end{array}
-\right]'.$
-\end{proof}
 
 As described above for the general GMM case, asymptotically unbiased estimators of $\tau$ and $\delta$ require a bias correction to provide asymptotically unbiased estimators of the quantities $\tau^2$, $\delta^2$ and $\tau\delta$ needed to estimate AMSE. 
 To carry out this correction, we use the joint distribution of the bias parameter estimators:
