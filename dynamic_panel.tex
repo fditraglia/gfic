@@ -236,14 +236,40 @@ is consistent for $\xi'$.
 We now have all the quantities needed to construct the GFIC for $\mu_{SR}$, the short-run effect of $x$ on $y$.
 Since $\mu_{SR} = \theta$, we can read off the AMSE expression for this parameter directly from Theorem \ref{thm:limitDpanel}.
 For the long-run effect $\mu_{LR}$, however, we need to formally apply the Delta-method and account for the fact that the true value of $\gamma_k$ is $\delta/\sqrt{n}$.
-Expressed as a function of the underlying model parameters, the limiting value of $\mu_{LR}$ is
+Expressed as a function $\varphi$ of the underlying model parameters, 
 \[
-  \mu_{LR}^{0} = \varphi(\beta) =  \varphi(\theta, \boldsymbol{\gamma}_r, 0) = \frac{\theta}{1 - \boldsymbol{\iota}_{r}' \boldsymbol{\gamma}_r}
+  \mu_{LR} = \varphi(\theta, \boldsymbol{\gamma}_r, \gamma_k) = \frac{\theta}{1 - \boldsymbol{\iota}_r' \boldsymbol{\gamma}_r - \gamma_k}
 \]
-while the true value, which changes with sample size, is
+and the derivatives of $\varphi$ are
 \[
-  \mu_{LR}^{n} = \varphi(\beta_n) =  \varphi(\theta, \boldsymbol{\gamma}_r, \delta/\sqrt{n}) = \frac{\theta}{1 - \boldsymbol{\iota}_{r}' \boldsymbol{\gamma}_r - \delta/\sqrt{n}}.
+  \nabla \varphi(\theta, \boldsymbol{\gamma}_r, \gamma_k)' = \left[
+  \begin{array}{ccc}
+    \displaystyle\frac{\partial \varphi}{\partial \theta} & 
+    \displaystyle\frac{\partial \varphi}{\partial \boldsymbol{\gamma}_r'} &
+    \displaystyle\frac{\partial \varphi}{\partial \gamma_k} 
+  \end{array}
+\right] = 
+\left( \frac{1}{1 - \boldsymbol{\iota}_r' \boldsymbol{\gamma}_r - \gamma_k} \right) \left[
+\begin{array}{ccc}
+  1 & \boldsymbol{\iota}_r \theta & \theta 
+\end{array}
+\right].
 \]
+Using this notation, the limiting value of $\mu_{LR}$ is $\mu_{LR}^{0} =  \varphi(\theta, \boldsymbol{\gamma}_r, 0)$
+while the true value is
+$\mu_{LR}^{n} = \varphi(\theta, \boldsymbol{\gamma}_r, \delta/\sqrt{n})$.
+Similarly, the limiting value of derivative of $\nabla\varphi$ is 
+\[
+  \nabla \varphi_0 = \nabla \varphi(\theta, \boldsymbol{\gamma}_r, 0)' = 
+\left( \frac{1}{1 - \boldsymbol{\iota}_r' \boldsymbol{\gamma}_k} \right) \left[
+\begin{array}{ccc}
+  1 & \boldsymbol{\iota}_r \theta & \theta 
+\end{array}
+\right]
+\]
+which we can consistently estimate by plugging in the estimates from $\widehat{\beta}(k, \text{P})$.
+
+
 
 \begin{cor}[Asymptotic Distribution of $\mu_{LR}$ Estimators]
 
