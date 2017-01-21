@@ -165,7 +165,6 @@ To construct an asymptotically unbiased estimator of $\tau$, we use the residual
 \end{equation}
 where $X' = [X_1 \cdots X_n]$ and $X_i = \mbox{diag}\left\{ x_{it} \right\}_{t = k + 2}^{T}$.
 The following result gives the joint limiting behavior of $\widehat{\delta}$ and $\widehat{\tau}$, which we will use to construct the GFIC.
-\todo[inline]{Add a sentence talking about why we take the time average in our definition of $\tau$.}
 
 \begin{thm}[Joint Limit Distribution of $\widehat{\delta}$ and $\widehat{\tau}$]
   \label{thm:DpanelJoint}
@@ -206,47 +205,39 @@ The following result gives the joint limiting behavior of $\widehat{\delta}$ and
   $\boldsymbol{\iota}_{d}$ is a $d$-vector of ones and $I_d$ the $(d\times d)$ identity matrix.
 \end{thm}
 
-\todo[inline]{Needs to be re-written from here down. Explain how to estimate $\xi$ and explain about the quantities needed for the different target parameters.}
+To provide asymptotically unbiased estimators of the quantities $\tau^2$, $\delta^2$ and $\tau\delta$ that appear in the AMSE expressions for our estimators, we apply a bias correction to the asymptotically unbiased estimators of $\delta$ and $\tau$ from \ref{thm:DpanelJoint}.
 
-As described above for the general GMM case, asymptotically unbiased estimators of $\tau$ and $\delta$ require a bias correction to provide asymptotically unbiased estimators of the quantities $\tau^2$, $\delta^2$ and $\tau\delta$ needed to estimate AMSE. 
-To carry out this correction, we use the joint distribution of the bias parameter estimators:
-\begin{cor}[Asymptotically Unbiased Estimators]
-Asymptotically unbiased estimators of $\delta^2$, $\tau^2$ and $\tau\delta$ are given by
-\begin{eqnarray}
-	\delta^2 \colon &&\widehat{\delta}^2 - \widehat{\sigma}_\delta^2\\
-	\tau^2 \colon &&\widetilde{\tau}^2 - \widehat{\sigma}_\tau^2\\
-	\tau \delta \colon && \widetilde{\tau}\widehat{\delta} - \widehat{\sigma}_{\tau\delta}
-\end{eqnarray}
-where $\widehat{\sigma}_\delta^2$, $\widehat{\sigma}_\tau^2$ and $\widehat{\sigma}_{\tau\delta}$ are consistent estimators of the elements of
-$$\left[\begin{array}{cc} K_{LW}^\gamma&0 \\ \left(\frac{\iota'_{T-2}}{T-2} \right) \Psi&  \left(\frac{\iota'_{T-2}}{T-2} \right) I\end{array} \right] \mathcal{V}_{LS}  \left[\begin{array}{cc} K_{LW}^\gamma&0 \\ \left(\frac{\iota'_{T-2}}{T-2} \right) \Psi&  \left(\frac{\iota'_{T-2}}{T-2} \right) I\end{array} \right]'$$
+\begin{cor}
+  Let $\widehat{\Psi}$ be a consistent estimator of $\Psi$, defined in Theorem \ref{thm:DpanelJoint}, and $\widehat{\mathcal{V}}(k,\text{S})$ be a consistent estimator of $\mathcal{V}(k,\text{S})$, defined in Theorem \ref{thm:limitDpanel}.
+  Then, the elements of  
+  \[
+    \left[
+    \begin{array}{cc}
+      \widehat{\delta}^2 & \widehat{\delta} \widehat{\tau} \\
+      \widehat{\tau} \widehat{\delta} & \widehat{\tau}^2
+    \end{array}
+  \right] - \widehat{\Psi}\, \Pi \, \widehat{V}(k,\text{S}) \, \Pi' \, \widehat{\Psi}'
+  \]
+  provide asymptotically unbiased estimators of of $\delta^2$, $\tau^2$ and $\tau\delta$, where $\Pi$ is the permutation matrix defined in Theorem \ref{thm:DpanelJoint}.
 \end{cor}
 
-\todo[inline]{Also need to explain about the derivatives needed when we want to apply the GFIC to the estimator for the long-run effect}
+We have already discussed consistent estimation of $\widehat{\mathcal{V}}(k,\text{S})$.
+Since $\Pi$ is a known permutation matrix, it remains only to propose a consistent estimator of $\Psi$. 
+The matrix $\Psi$, in turn, depends only on $Q(k,\text{P})$, and $\boldsymbol{\xi}'$.
+The sample analogue $\widehat{Q}(k,\text{P})$ is a consistent for $\widehat{Q}(k,\text{P})$, as mentioned above, and
+\begin{equation}
+  \widehat{\boldsymbol{\xi}}' = \frac{1}{n(T - k - 1)} \sum_{t = k+2}^T \sum_{i=1}^n x_{it}\left[
+  \begin{array}{cccc}
+    L \Delta y_{it} & \cdots & L^{k} \Delta y_{it} & \Delta x_{it}
+  \end{array}
+\right]
+\end{equation}
+is consistent for $\xi'$.
+We now have all the quantities needed to construct the GFIC for $\mu_{SR}$, the short-run effect of $x$ on $y$.
+Since $\mu_{SR} = \theta$, we can read off the AMSE expression for this parameter directly from Theorem \ref{thm:limitDpanel}.
+For the long-run effect $\mu_{LR}$, however, we need to formally apply the Delta-method.
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\subsection*{(b) Estimators for Short-run Effect}
-
-
-Suppose we are interested in short-run effect of $x_{it}$ on $y_{it}$, i.e. $\beta$.  Then  by $\Delta-$method,
-
-	\begin{eqnarray}
- 			\sqrt{n} (\widehat{\beta}_{LW}-\beta) &\overset{d}{\rightarrow}& N\left(0,\quad \left[\begin{array}{ccc} 0& 0& 
-1 \end{array}\right] K_{LW}\mathcal{V}_{LW} K_{LW}' \left[\begin{array}{l} 0\\ 0\\ 
-1 \end{array}\right]  \right)
-	\end{eqnarray}
-and
-\begin{eqnarray}
- 	\sqrt{n}(\widehat{\beta}_{W}-\beta) &\overset{d}{\rightarrow}&\left[\begin{array}{cc} 0& 1 \end{array}\right]
- 	K_W  \left[\delta \left[\begin{array}{l} \psi_0\\ 
-\psi_1 \end{array}\right]  \otimes \iota_{T-2} + N\left(0, \mathcal{V}_W\right) \right].
-	\end{eqnarray}
-	
-%	We can choose between $\widehat{\beta}_{LW}$ and $\widehat{\beta}_W$ comparing their AMSE.
-	
-\subsection*{(c) Estimators for Long-run Effect}
-\vspace{0.1in}
 
 	Suppose we are interested in long-run effect which is expressed as $h(\theta) = h(\alpha_1, \alpha_2, \beta) = \frac{\beta}{1-\alpha_1-\alpha_2}$ and $h_w(\theta) = \frac{\beta}{1-\alpha_1}$. Note that $h'(\theta) = \left[\begin{array}{ccc} \frac{\beta}{(1-\alpha_1-\alpha_2)^2}& \frac{\beta}{(1-\alpha_1-\alpha_2)^2} & \frac{1}{1-\alpha_1-\alpha_2}\end{array}\right]_{\alpha_2=0} =\left[\begin{array}{ccc} \frac{\beta}{(1-\alpha_1)^2}& \frac{\beta}{(1-\alpha_1)^2} & \frac{1}{1-\alpha_1}\end{array}\right] $. Also, $h_w'(\theta) = \left[\begin{array}{ccc} \frac{\beta}{(1-\alpha_1-\alpha_2)^2}& \frac{1}{1-\alpha_1-\alpha_2}\end{array}\right]_{\alpha_2=0} =\left[\begin{array}{ccc} \frac{\beta}{(1-\alpha_1)^2}& \frac{1}{1-\alpha_1}\end{array}\right] $. From $\Delta-$method, we can get
 	
