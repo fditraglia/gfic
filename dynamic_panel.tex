@@ -11,7 +11,7 @@ For simplicity, and without loss of generality, we suppose that there are no exo
 The unobserved error $\eta_i$ is a correlated individual effect: $\sigma_{x\eta}\equiv \mathbb{E}\left[ x_{it}\eta_i \right]$ may not equal zero. 
 The endogenous regressor $x_{it}$ is assumed to be predetermined but not necessarily strictly exogenous: $\mathbb{E}[x_{it} v_{is}]=0$ for all $s \geq t$ but may be nonzero for $s < t$.  
 We assume throughout that $y_{it}$ is stationary, which requires both $x_{it}$ and $u_{it}$ to be stationary and $|\boldsymbol{\gamma}| < 1$ where $\boldsymbol{\gamma} = (\gamma_1, \dots, \gamma_k)'$.
-Our goal is to estimate a given one of the following two target parameters with minimum MSE: 
+Our goal is to estimate one of the following two target parameters with minimum MSE: 
 \begin{equation}
   \mu_{\text{SR}} \equiv \theta, \quad \mu_{\text{LR}} \equiv \frac{\theta}{1- (\gamma_1 + \cdots + \gamma_k)}.
   \label{eq:paneltarget}
@@ -52,7 +52,8 @@ For simplicity and to avoid many instruments problems -- see e.g.\ \cite{Roodman
 \right]
 \label{eq:Zdpanel}
 \end{align}
-similar to \cite{AndersonHsiao}.\footnote{Modulo a change in notation, one could just as easily proceed using the instrument sets suggested by \cite{ArellanoBond}.}
+similar to \cite{AndersonHsiao}.
+Modulo a change in notation, one could just as easily proceed using the instrument sets suggested by \cite{ArellanoBond}.
 Throughout this discussion we use $\ell$ as a placeholder for the lag length used in estimation.
 If $\ell = 0$, $\mathbf{z}'_{it}(0,\text{P}) = x_{it-1}$ and $\mathbf{z}'_{it}(0,\text{S}) = (x_{it-1}, x_{it})$.
 Given these instrument sets, we have $(\ell + 1)\times (T -\ell - 1)$ moment conditions if $x$ is assumed to be predetermined versus $(\ell + 2)\times (T - \ell - 1)$ if it is assumed to be strictly exogenous, corresponding to the instrument matrices
@@ -76,7 +77,7 @@ where the superscript ``+'' indicates the inclusion of an additional time period
 Define $\Delta \mathbf{x}_i$, $\Delta \mathbf{x}_{i}^{+}$, $\Delta \mathbf{v}_i$, and $\Delta \mathbf{v}_{i}^{+}$ analogously.
 Next, define $L^k\Delta \mathbf{y}_i^{+} = [\Delta y_{i1}, \Delta y_{i2}, \cdots, \Delta y_{iT-k}]'$ where $L^k$ denotes the element-wise application of the $k$\textsuperscript{th} order lag operator.
 Note that the first element of $L^k\Delta \mathbf{y}_{i}^{+}$ is unobserved since $\Delta y_{i1} = y_{i1} - y_{i0}$ but $t=1$ is the first time period.
-Now we define the matrices of regressors for the two specifications: $\ell = k$ and $\ell = r$:
+Now we define the matrices of regressors for the two specifications: 
 \begin{align*}
   W_i^{+'}(r) &= \left[
   \begin{array}{ccccc}
@@ -103,7 +104,7 @@ Using the shorthand $\widehat{Q} \equiv n[W' Z(Z'Z)^{-1} Z'W]^{-1}W'Z(Z'Z)^{-1}$
   \label{eq:DpanelEstimators}
 \end{align}
 where $(\cdot)$ is either $\text{P}$ or $\text{S}$ depending on which instrument set is used and $r = k-1$, one lag fewer than the true lag length $k$.
-The following result describes the limit distribution of $\widehat{\beta}(k,\text{P})$, $\widehat{\beta}(k,\text{S})$, $\widehat{\beta}(r,\text{P})$, and $\widehat{\beta}(r,\text{P})$ which we will use to construct the GFIC.
+The following result describes the limit distribution of $\widehat{\beta}(k,\text{P})$, $\widehat{\beta}(k,\text{S})$, $\widehat{\beta}(r,\text{P})$, and $\widehat{\beta}(r,\text{S})$ which we will use to construct the GFIC.
 
 \begin{thm}[Limit Distributions for Dynamic Panel Estimators]
   \label{thm:limitDpanel}
@@ -141,11 +142,11 @@ The following result describes the limit distribution of $\widehat{\beta}(k,\tex
 \end{array}
 \right]\right) + \mbox{N}\left( \mathbf{0}, \mathcal{V}\left(r,\text{S}\right) \right)\right]
   \end{align*}
-  where $k = r - 1$, $\beta' = (\gamma_1, \hdots, \gamma_{r}, 0, \theta)$, $\beta_r' = (\gamma_1, \hdots, \gamma_{r}, \theta)$, $\mathcal{V}(k,\cdot) = \mbox{Var}\left[ Z_i(k,\cdot) \Delta \mathbf{v}_i  \right]$, $\mathcal{V}(r,\cdot) = \mbox{Var}\left[ Z_i(r,\cdot) \Delta \mathbf{v}^{+}_i  \right]$, $\widehat{Q}(\ell,\cdot) \rightarrow_p Q(\ell,\cdot)$, $\boldsymbol{\psi}_{\text{P}} = E[\textbf{z}_{it}(r,\text{P}) \Delta y_{it -k}]$, $\psi_{\text{S}} = E[x_{it} \Delta y_{it-k}]$, and $\boldsymbol{\iota}_{d}$ denotes a $d$-vector of ones.
+  where $k = r - 1$, $\beta' = (\gamma_1, \hdots, \gamma_{r}, 0, \theta)$, $\beta_r' = (\gamma_1, \hdots, \gamma_{r}, \theta)$, $\mathcal{V}(k,\cdot) = \mbox{Var}\left[ Z_i(k,\cdot) \Delta \mathbf{v}_i  \right]$, $\mathcal{V}(r,\cdot) = \mbox{Var}\left[ Z_i(r,\cdot) \Delta \mathbf{v}^{+}_i  \right]$, $\widehat{Q}(\ell,\cdot) \rightarrow_p Q(\ell,\cdot)$, $\boldsymbol{\psi}_{\text{P}} = E[\textbf{z}_{it}(r,\text{P}) \Delta y_{it -k}]$, $\psi_{\text{S}} = E[x_{it} \Delta y_{it-k}]$, $\mathbf{z}_{it}(\ell,\cdot)$ is as in Equation \ref{eq:Zdpanel}, $Z_i(\ell, \cdot)= \mbox{diag}\{\mathbf{z}_{it}'(\ell, \cdot)\}_{t=\ell+2}^T$ and $\boldsymbol{\iota}_{d}$ denotes a $d$-vector of ones.
 \end{thm}
 
 To operationalize the GFIC, we need to provide appropriate estimators of all quantities that appear in Theorem \ref{thm:limitDpanel}.
-To estimate ${Q}(k,\text{P})$, ${Q}(k,\text{S})$, ${Q}(k,\text{P})$, and ${Q}(r,\text{S})$ we employ the usual sample analogues $\widehat{Q}(\cdot,\cdot)$ given above, which remain consistent under local mis-specification.
+To estimate ${Q}(k,\text{P})$, ${Q}(k,\text{S})$, ${Q}(r,\text{P})$, and ${Q}(r,\text{S})$ we employ the usual sample analogues $\widehat{Q}(\cdot,\cdot)$ given above, which remain consistent under local mis-specification.
 There are many consistent estimators for the variance matrices $\mathcal{V}(k,\text{P})$, $\mathcal{V}(k,\text{S})$, $\mathcal{V}(r,\text{P})$, $\mathcal{V}(r,\text{S})$ under local mis-specification.
 In our simulations and empirical example below, we employ the usual heteroskedasticity-consistent, panel-robust variance matrix estimator.
 Because $E[\mathbf{z}_{it}(\ell,\text{S})\Delta v_{it}]\neq 0$, we center our estimators of $\mathcal{V}(\ell, \text{S})$ by subtracting the sample analogue of this expectation when calculating the sample variance.
