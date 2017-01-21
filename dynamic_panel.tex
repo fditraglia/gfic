@@ -160,61 +160,90 @@ The only remaining quantities we need to construct the GFIC involve the bias par
 We can read off an asymptotically unbiased estimator of $\delta$ directly from Theorem \ref{thm:limitDpanel}, namely $\widehat{\delta} = \sqrt{n}\; \widehat{\gamma}_k(k,\text{P})$ the estimator of $\gamma_k$ based on the instrument set that assumes only that $x$ is pre-determined rather than strictly exogenous.
 To construct an asymptotically unbiased estimator of $\tau$, we use the residuals from the specification that uses \emph{both} the correct moment conditions and the correct lag specification, specifically
 \begin{equation}
+  \label{eq:DpanelTau}
   \widehat{\tau} = \left( \frac{\boldsymbol{\iota}_{T-k-1}'}{T - k - 1} \right) n^{-1/2} X' \left[\Delta \mathbf{y} - W(k)\widehat{\beta}(k,\text{P})  \right]
 \end{equation}
 where $X' = [X_1 \cdots X_n]$ and $X_i = \mbox{diag}\left\{ x_{it} \right\}_{t = k + 2}^{T}$.
 The following result gives the joint limiting behavior of $\widehat{\delta}$ and $\widehat{\tau}$, which we will use to construct the GFIC.
 
 
-\todo[inline]{Need to fix things a bit from here down}
+\todo[inline]{Need to fix things a bit from here down. Should mention that the following result is slightly different from the general theorem given above since we impose the structure of the panel dataset to get a pooled estimator of $\tau$ which brings in the time averages.}
 
 \begin{thm}[Joint Limit Distribution of $\widehat{\delta}$ and $\widehat{\tau}$]
-  Under blah blah blah assumptions.
-	\begin{equation}
-	 \left[\begin{array}{c} \widehat{\delta} \\ \widehat{\tau}  \end{array} \right] \overset{d}{\rightarrow} \left[\begin{array}{c} \delta \\ \tau  \end{array} \right]  + \left[\begin{array}{cc} K_{LW}^\gamma&0 \\ \left(\frac{\iota'_{T-2}}{T-2} \right) \Psi&  \left(\frac{\iota'_{T-2}}{T-2} \right) I\end{array} \right] N(0, \mathcal{V}_{LS})
-	\end{equation}
-  where $K_{LW}^\gamma$ denotes the first row of $K_{LW}$ (i.e.\ the row corresponding to $\gamma$) and also define $\widehat{\tau}$ and $\widehat{\delta}$ and fix the rest of the notation to be general.
+  Under the conditions of Theorem \ref{thm:limitDpanel},
+  \[\left[\begin{array}{c} \widehat{\delta} \\ \widehat{\tau}  \end{array} \right] \overset{d}{\rightarrow} \left[\begin{array}{c} \delta \\ \tau  \end{array} \right]  + \Psi N(0, \Pi\,\mathcal{V}(k,\text{S})\,\Pi')\]
+  where $\widehat{\delta} = \sqrt{n}[ \mathbf{e}_k' \,\widehat{\beta}(k,\text{P})]$, $\mathbf{e}_k = (\mathbf{0}_{k-1}', 1, 0)'$,  $\widehat{\tau}$ is as defined in Equation \ref{eq:DpanelTau},
 \end{thm}
 
 \begin{proof}
   Expanding $\widehat{\beta}(k,\text{P})$ from Equation \ref{eq:DpanelEstimators} and using $\Delta \mathbf{y} = W(k) \beta_n + \Delta \mathbf{v}$, 
   \begin{align*}
-    n^{-1/2}X'\left[ \Delta \mathbf{y} - W(k)\widehat{\beta}(k,\text{P})  \right] &= n^{-1/2}X'\left\{ \left[W(k) \beta_n + \Delta \mathbf{v}\right] - W(k) \left[ \beta_n + \widehat{Q}(k,\text{P}) n^{-1} Z'(k,\text{P})\Delta \mathbf{v} \right] \right\} \\
+    n^{-1/2}X'\left[ \Delta \mathbf{y} - W(k)\widehat{\beta}(k,\text{P})  \right] 
+    %&= n^{-1/2}X'\left\{ \left[W(k) \beta_n + \Delta \mathbf{v}\right] - W(k) \left[ \beta_n + \widehat{Q}(k,\text{P}) n^{-1} Z'(k,\text{P})\Delta \mathbf{v} \right] \right\} \\
     &= n^{-1/2}X'\left[ \Delta \mathbf{v}  - W(k)\, \widehat{Q}(k,\text{P}) \, n^{-1} Z'(k,\text{P})\Delta \mathbf{v}\right] \\
-    &= n^{-1/2}X'\Delta \mathbf{v}  - n^{-1}X'W(k)\,\widehat{Q}(k,\text{P})\left[ n^{-1/2} Z'(k,\text{P})\Delta \mathbf{v}\right]\\
+    %&= n^{-1/2}X'\Delta \mathbf{v}  - n^{-1}X'W(k)\,\widehat{Q}(k,\text{P})\left[ n^{-1/2} Z'(k,\text{P})\Delta \mathbf{v}\right]\\
     &= \left[
     \begin{array}{cc}
-      -n^{-1} X'W(k) \, \widehat{Q}(k,\text{P}) & I
+      -n^{-1} X'W(k) \, \widehat{Q}(k,\text{P}) & I_{T-k-1}
     \end{array}
-  \right] n^{-1/2} Z'(k,\text{S}) \Delta \mathbf{v}
+  \right] 
+  \left[
+  \begin{array}{c}
+    n^{-1/2}Z'(k,\text{P}) \Delta \mathbf{v} \\
+    n^{-1/2} X' \Delta \mathbf{v}
+  \end{array}
+\right].
   \end{align*}
-
-
-define $Z'(x) = \left(Z(x_1), \hdots, Z(x_n)\right)$, see Equation \ref{eq:Zx}, and expand the quantity $n^{-1/2}(\Delta y -X_L\widehat{\beta}_{LW})$ as follows:
-$$n^{-1/2}(\Delta y -X_L\widehat{\beta}_{LW}) = \left[\begin{array}{cc} -n^{-1} Z'(x)X_L \widehat{K}_{LW}& I \end{array} \right]n^{-1/2} Z'_{LS}\Delta v$$
-Now, by the Lindeberg-Feller Central Limit Theorem (c.f.\ Equation \ref{eq:dynpan1}) we have
-$$n^{-1/2} Z'_{LS}\Delta v \overset{d}{\rightarrow}\left[\begin{array}{c}0_2\\ \tau \end{array}\right]\otimes \iota_{T-2} + N\left(0, \mathcal{V}_{LS}\right)$$
-and by a Law of Large Numbers,
-	$$n^{-1}Z'(x)X_L \overset{p}{\rightarrow} E\left[\begin{array}{cc} x_{it}\Delta y_{it-1} & x_{it}\Delta x_{it}\end{array} \right]\otimes \iota_{T-2}$$
-where the expectations are taken with respect to the limiting DGP. 
-Thus,
-	\begin{equation}
-		n^{-1/2}(\Delta y -X_L\widehat{\beta}_{LW}) \overset{d}{\rightarrow} \tau \otimes \iota_{T-2} + \left[ \begin{array}{cc} \Psi & I\end{array}\right] N(0, \mathcal{V}_{LS})
-	\end{equation}
-where
-\begin{equation}
-	\Psi = -E\left[\begin{array}{cc} x_{it}\Delta y_{it-1} & x_{it}\Delta x_{it}\end{array} \right]\otimes \iota_{T-2} K_{LW}
-\end{equation}
-Using stationarity to gain efficiency we take the time average
-\begin{equation}
-\widetilde{\tau} =  \left(\frac{\iota'_{T-2}}{T-2} \right)n^{-1/2} Z'(x)(\Delta y - X_L \widehat{\beta}_{LW})
-\end{equation}
-as our estimator of $\tau$. 
-It follows from above that
-\begin{equation}
-	\widetilde{\tau} \overset{d}{\rightarrow} \tau + \left(\frac{\iota'_{T-2}}{T-2} \right)\left[ \begin{array}{cc} \Psi & I\end{array}\right] N(0, \mathcal{V}_{LS})
-\end{equation}
+  Similarly, expanding $\widehat{\beta}(k,\text{P})$ from Equation \ref{eq:DpanelEstimators},
+  \[
+    \sqrt{n}\left[ \widehat{\beta}(k,\text{P}) \right] = \left[
+    \begin{array}{ccc}
+      \mathbf{0}_{k-1} & \delta & 0
+    \end{array}
+  \right] + \widehat{Q}(k,\text{P}) n^{-1/2}Z'(k,\text{P}) \Delta \mathbf{v}
+  \]
+  and since $\widehat{\delta}$ is $\sqrt{n}$ times the $k$\textsuperscript{th} element of $\widehat{\beta}(k,\text{P})$ and the $k$\textsuperscript{th} element $\beta$ is zero, we have
+  \[
+    \widehat{\delta} = \delta + \left[
+    \begin{array}{ccc}
+    \mathbf{0}'_{k-1} & 1 & 0 
+    \end{array}
+  \right] \widehat{Q}(k,\text{P}) n^{-1/2} Z'(k,\text{P})\Delta \mathbf{v}.
+  \]
+  Now, by a law of large numbers $\widehat{Q}(k,\text{P}) \rightarrow_p Q(k,\text{P})$ and $n^{-1}X'W(k) \rightarrow_p \boldsymbol{\xi}' \otimes \boldsymbol{\iota}_{T-k-1}$ where 
+  \[
+    \boldsymbol{\xi}' = E\left\{ x_{it} \left[
+    \begin{array}{ccccc}
+      L \Delta y_{it} & L^2 \Delta y_{it} & \cdots & L^k \Delta y_{it} & \Delta x_{it}
+  \end{array}
+\right]\right\} 
+  \]
+  so it follows that
+  \[
+    \left[
+    \begin{array}{c}
+      \widehat{\delta} - \delta \\ \widehat{\tau}
+    \end{array}
+  \right] = \Psi
+  \left[
+  \begin{array}{c}
+    n^{-1/2}Z'(k,\text{P}) \Delta \mathbf{v} \\
+    n^{-1/2} X' \Delta \mathbf{v}
+  \end{array}
+\right] + o_p(1)
+  \]
+  where $\mathbf{e}_k = (\mathbf{0}_{k-1}', 1, 0)'$ is the $k$\textsuperscript{th} standard basis vector in $(k+1)$-dimensional space,  and 
+\[
+  \Psi = \left[
+  \begin{array}{cc}
+    \displaystyle\left( \frac{\boldsymbol{\iota}'_{T-k-1}}{T-k-1} \right)  \left\{ \boldsymbol{\xi}' Q(k,\text{P}) \otimes \boldsymbol{\iota}'_{T-k-1} \right\}& \displaystyle \left(\frac{\boldsymbol{\iota}_{T-k-1}}{T-k-1}\right) \\ 
+    \mathbf{e}_k' Q(k,\text{P}) & \mathbf{0}'_{T-k-1}
+  \end{array}
+\right].
+\]
+The result follows, after some algebra, by applying the Lindeberg-Feller central limit theorem jointly to $n^{-1/2}Z'(k,\text{P})\Delta\mathbf{v}$ and $n^{-1/2}X'\Delta \mathbf{v}$.
 \end{proof}
+
 As described above for the general GMM case, asymptotically unbiased estimators of $\tau$ and $\delta$ require a bias correction to provide asymptotically unbiased estimators of the quantities $\tau^2$, $\delta^2$ and $\tau\delta$ needed to estimate AMSE. 
 To carry out this correction, we use the joint distribution of the bias parameter estimators:
 \begin{cor}[Asymptotically Unbiased Estimators]
