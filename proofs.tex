@@ -1,4 +1,7 @@
 %!TEX root = main.tex
+\singlespacing
+\small
+
 \subsection*{Results from Section \ref{sec:asymp}}
 
 \begin{proof}[Proof of Theorem \ref{thm:asymp}]
@@ -111,6 +114,62 @@ The result follows, after some algebra, by applying the Lindeberg-Feller central
 \end{proof}
 
 
+\begin{proof}
+  Expanding $\widehat{\beta}(k,\text{P})$ from Equation \ref{eq:DpanelEstimators} and using $\Delta \mathbf{y} = W(k) \beta_n + \Delta \mathbf{v}$, 
+  \begin{align*}
+    n^{-1/2}X'\left[ \Delta \mathbf{y} - W(k)\widehat{\beta}(k,\text{P})  \right] 
+    %&= n^{-1/2}X'\left\{ \left[W(k) \beta_n + \Delta \mathbf{v}\right] - W(k) \left[ \beta_n + \widehat{Q}(k,\text{P}) n^{-1} Z'(k,\text{P})\Delta \mathbf{v} \right] \right\} \\
+    &= n^{-1/2}X'\left[ \Delta \mathbf{v}  - W(k)\, \widehat{Q}(k,\text{P}) \, n^{-1} Z'(k,\text{P})\Delta \mathbf{v}\right] \\
+    %&= n^{-1/2}X'\Delta \mathbf{v}  - n^{-1}X'W(k)\,\widehat{Q}(k,\text{P})\left[ n^{-1/2} Z'(k,\text{P})\Delta \mathbf{v}\right]\\
+    &= \left[
+    \begin{array}{cc}
+      -n^{-1} X'W(k) \, \widehat{Q}(k,\text{P}) & I_{T-k-1}
+    \end{array}
+  \right] 
+  \left[
+  \begin{array}{c}
+    n^{-1/2}Z'(k,\text{P}) \Delta \mathbf{v} \\
+    n^{-1/2} X' \Delta \mathbf{v}
+  \end{array}
+\right].
+  \end{align*}
+  Similarly, expanding $\widehat{\beta}(k,\text{P})$ from Equation \ref{eq:DpanelEstimators},
+  \[
+    \sqrt{n}\left[ \widehat{\beta}(k,\text{P}) \right] = \left[
+    \begin{array}{ccc}
+      \mathbf{0}_{k-1} & \delta & 0
+    \end{array}
+  \right] + \widehat{Q}(k,\text{P}) n^{-1/2}Z'(k,\text{P}) \Delta \mathbf{v}
+  \]
+  and since $\widehat{\delta}$ is $\sqrt{n}$ times the $k$\textsuperscript{th} element of $\widehat{\beta}(k,\text{P})$ and the $k$\textsuperscript{th} element $\beta$ is zero, we have
+  \[
+    \widehat{\delta} = \delta + \left[
+    \begin{array}{ccc}
+    \mathbf{0}'_{k-1} & 1 & 0 
+    \end{array}
+  \right] \widehat{Q}(k,\text{P}) n^{-1/2} Z'(k,\text{P})\Delta \mathbf{v}.
+  \]
+  By a law of large numbers $\widehat{Q}(k,\text{P}) \rightarrow_p Q(k,\text{P})$ and $n^{-1}X'W(k) \rightarrow_p \boldsymbol{\xi}' \otimes \boldsymbol{\iota}_{T-k-1}$, hence 
+  \[
+    \left[
+    \begin{array}{c}
+      \widehat{\delta} - \delta \\ \widehat{\tau}
+    \end{array}
+  \right] = \Psi
+  \left[
+  \begin{array}{c}
+    n^{-1/2}Z'(k,\text{P}) \Delta \mathbf{v} \\
+    n^{-1/2} X' \Delta \mathbf{v}
+  \end{array}
+\right] + o_p(1).
+  \]
+  The result follows, after some algebra, by applying the Lindeberg-Feller central limit theorem jointly to $n^{-1/2}Z'(k,\text{P})\Delta\mathbf{v}$ and $n^{-1/2}X'\Delta \mathbf{v}$ and noting that the permutation matrix $\Pi$ maps the vector $[n^{-1/2}Z'(k,\text{S})\Delta \mathbf{v}]$ to the vector $\left[
+  \begin{array}{cc}
+    \left\{n^{-1/2} Z'(k,P)\Delta \mathbf{v}\right\}' &
+    \left\{n^{-1/2} X'\Delta \mathbf{v}\right\}' 
+  \end{array}
+\right]'.$
+\end{proof}
 
 
 

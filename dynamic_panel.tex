@@ -167,7 +167,7 @@ where $X' = [X_1 \cdots X_n]$ and $X_i = \mbox{diag}\left\{ x_{it} \right\}_{t =
 The following result gives the joint limiting behavior of $\widehat{\delta}$ and $\widehat{\tau}$, which we will use to construct the GFIC.
 
 
-\todo[inline]{Need to fix things a bit from here down. Should mention that the following result is slightly different from the general theorem given above since we impose the structure of the panel dataset to get a pooled estimator of $\tau$ which brings in the time averages.}
+\todo[inline]{Should mention that the following result is slightly different from the general theorem given above since we impose the structure of the panel dataset to get a pooled estimator of $\tau$ which brings in the time averages.}
 
 \begin{thm}[Joint Limit Distribution of $\widehat{\delta}$ and $\widehat{\tau}$]
   Under the conditions of Theorem \ref{thm:limitDpanel},
@@ -176,7 +176,7 @@ The following result gives the joint limiting behavior of $\widehat{\delta}$ and
       \begin{array}{c} 
         \widehat{\delta} - \delta \\ \widehat{\tau} - \tau 
       \end{array} 
-    \right] \overset{d}{\rightarrow} \Psi N\left(0, \Pi\,\mathcal{V}\left(k,\text{S}\right)\,\Pi'\right)
+    \right] \overset{d}{\rightarrow} \Psi \mbox{N}\left(\mathbf{0}, \Pi\,\mathcal{V}\left(k,\text{S}\right)\,\Pi'\right)
   \]
   where $\widehat{\delta} = \sqrt{n}[ \mathbf{e}_k' \,\widehat{\beta}(k,\text{P})]$, $\mathbf{e}_k = (\mathbf{0}_{k-1}', 1, 0)'$,  $\widehat{\tau}$ is as defined in Equation \ref{eq:DpanelTau}, 
 \[
@@ -242,15 +242,7 @@ The following result gives the joint limiting behavior of $\widehat{\delta}$ and
     \end{array}
   \right] \widehat{Q}(k,\text{P}) n^{-1/2} Z'(k,\text{P})\Delta \mathbf{v}.
   \]
-  Now, by a law of large numbers $\widehat{Q}(k,\text{P}) \rightarrow_p Q(k,\text{P})$ and $n^{-1}X'W(k) \rightarrow_p \boldsymbol{\xi}' \otimes \boldsymbol{\iota}_{T-k-1}$ where 
-  \[
-    \boldsymbol{\xi}' = E\left\{ x_{it} \left[
-    \begin{array}{ccccc}
-      L \Delta y_{it} & L^2 \Delta y_{it} & \cdots & L^k \Delta y_{it} & \Delta x_{it}
-  \end{array}
-\right]\right\} 
-  \]
-  so it follows that
+  By a law of large numbers $\widehat{Q}(k,\text{P}) \rightarrow_p Q(k,\text{P})$ and $n^{-1}X'W(k) \rightarrow_p \boldsymbol{\xi}' \otimes \boldsymbol{\iota}_{T-k-1}$, hence 
   \[
     \left[
     \begin{array}{c}
@@ -262,18 +254,14 @@ The following result gives the joint limiting behavior of $\widehat{\delta}$ and
     n^{-1/2}Z'(k,\text{P}) \Delta \mathbf{v} \\
     n^{-1/2} X' \Delta \mathbf{v}
   \end{array}
-\right] + o_p(1)
+\right] + o_p(1).
   \]
-  where $\mathbf{e}_k = (\mathbf{0}_{k-1}', 1, 0)'$ is the $k$\textsuperscript{th} standard basis vector in $(k+1)$-dimensional space,  and 
-\[
-  \Psi = \left[
+  The result follows, after some algebra, by applying the Lindeberg-Feller central limit theorem jointly to $n^{-1/2}Z'(k,\text{P})\Delta\mathbf{v}$ and $n^{-1/2}X'\Delta \mathbf{v}$ and noting that the permutation matrix $\Pi$ maps the vector $[n^{-1/2}Z'(k,\text{S})\Delta \mathbf{v}]$ to the vector $\left[
   \begin{array}{cc}
-    \displaystyle\left( \frac{\boldsymbol{\iota}'_{T-k-1}}{T-k-1} \right)  \left\{ \boldsymbol{\xi}' Q(k,\text{P}) \otimes \boldsymbol{\iota}'_{T-k-1} \right\}& \displaystyle \left(\frac{\boldsymbol{\iota}_{T-k-1}}{T-k-1}\right) \\ 
-    \mathbf{e}_k' Q(k,\text{P}) & \mathbf{0}'_{T-k-1}
+    \left\{n^{-1/2} Z'(k,P)\Delta \mathbf{v}\right\}' &
+    \left\{n^{-1/2} X'\Delta \mathbf{v}\right\}' 
   \end{array}
-\right].
-\]
-The result follows, after some algebra, by applying the Lindeberg-Feller central limit theorem jointly to $n^{-1/2}Z'(k,\text{P})\Delta\mathbf{v}$ and $n^{-1/2}X'\Delta \mathbf{v}$.
+\right]'.$
 \end{proof}
 
 As described above for the general GMM case, asymptotically unbiased estimators of $\tau$ and $\delta$ require a bias correction to provide asymptotically unbiased estimators of the quantities $\tau^2$, $\delta^2$ and $\tau\delta$ needed to estimate AMSE. 
