@@ -106,7 +106,7 @@ E\left[\begin{array}{cc}
   This proof is standard, so we provide only a sketch.
 Expanding, 
 \begin{align*}
-  \sqrt{n}\left[\widehat{\beta}(k,\cdot) - \beta\right] &=(\mathbf{0}', \delta, 0)' + \widehat{Q}(k,\cdot)\left[ n^{-1/2}Z'(k,\cdot)\Delta \mathbf{v}\right]\\
+  \sqrt{n}\left[\widehat{\beta}(k,\cdot) - \beta\right] &=(0, \mathbf{0}_{k-1}', \delta)' + \widehat{Q}(k,\cdot)\left[ n^{-1/2}Z'(k,\cdot)\Delta \mathbf{v}\right]\\
   \sqrt{n}\left[\widehat{\beta}(r,\cdot) - \beta_{r}\right] &=  \widehat{Q}(r,\cdot)\left\{ \delta \left[n^{-1}Z'(r,\cdot) L^{k}\Delta \mathbf{y}^+\right] + \left[n^{-1/2}Z'(r,\cdot)\Delta \mathbf{v}^{+}\right] \right\}
 \end{align*}
 The result follows, after some algebra, by applying the Lindeberg-Feller central limit theorem to $n^{-1/2}Z'(k,\cdot)\Delta \mathbf{v}$ and $n^{-1/2}Z'(r,\cdot)\Delta \mathbf{v}^{+}$ and an appropriate law of large numbers to $n^{-1} Z'(r,\cdot)L^k \Delta \mathbf{y}^{+}$, where $(\cdot)$ is either $\text{P}$ or $\text{S}$ depending on the instrument set used.
@@ -114,7 +114,7 @@ The result follows, after some algebra, by applying the Lindeberg-Feller central
 
 
 \begin{proof}[Proof of Theorem \ref{thm:DpanelJoint}]
-  Expanding $\widehat{\beta}(k,\text{P})$ from Equation \ref{eq:DpanelEstimators} and using $\Delta \mathbf{y} = W(k) \beta_n + \Delta \mathbf{v}$, 
+  Expanding $\widehat{\beta}(k,\text{P})$ from Equation \ref{eq:DpanelEstimators} 
   \begin{align*}
     n^{-1/2}X'\left[ \Delta \mathbf{y} - W(k)\widehat{\beta}(k,\text{P})  \right] 
     %&= n^{-1/2}X'\left\{ \left[W(k) \beta_n + \Delta \mathbf{v}\right] - W(k) \left[ \beta_n + \widehat{Q}(k,\text{P}) n^{-1} Z'(k,\text{P})\Delta \mathbf{v} \right] \right\} \\
@@ -130,13 +130,14 @@ The result follows, after some algebra, by applying the Lindeberg-Feller central
     n^{-1/2}Z'(k,\text{P}) \Delta \mathbf{v} \\
     n^{-1/2} X' \Delta \mathbf{v}
   \end{array}
-\right].
+\right]
   \end{align*}
+  using $\Delta \mathbf{y} = W(k) \beta_n + \Delta \mathbf{v}$. 
   Similarly, expanding $\widehat{\beta}(k,\text{P})$ from Equation \ref{eq:DpanelEstimators},
   \[
     \sqrt{n}\left[ \widehat{\beta}(k,\text{P}) \right] = \left[
     \begin{array}{ccc}
-      \mathbf{0}_{k-1} & \delta & 0
+      0 & \mathbf{0}_{k-1} & \delta  
     \end{array}
   \right] + \widehat{Q}(k,\text{P}) n^{-1/2}Z'(k,\text{P}) \Delta \mathbf{v}
   \]
@@ -144,7 +145,7 @@ The result follows, after some algebra, by applying the Lindeberg-Feller central
   \[
     \widehat{\delta} = \delta + \left[
     \begin{array}{ccc}
-    \mathbf{0}'_{k-1} & 1 & 0 
+    0 & \mathbf{0}'_{k-1} & 1  
     \end{array}
   \right] \widehat{Q}(k,\text{P}) n^{-1/2} Z'(k,\text{P})\Delta \mathbf{v}.
   \]

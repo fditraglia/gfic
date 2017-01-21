@@ -3,7 +3,7 @@
 \label{sec:panel}
 We now specialize the GFIC to a dynamic panel model of the form 
 \begin{equation}
-  y_{it} = \gamma_1 y_{it-1} + \cdots + \gamma_k y_{it-k} + \theta x_{it} + \eta_i + v_{it}
+  y_{it} = \theta x_{it} + \gamma_1 y_{it-1} + \cdots + \gamma_k y_{it-k} + \eta_i + v_{it}
   \label{eq:truepanel}
 \end{equation}
 where $i = 1, \hdots, n$ indexes individuals and $t=1, \hdots, T$  indexes time periods. 
@@ -35,7 +35,7 @@ At the same time, unless $\gamma_{r+1} = \cdots = \gamma_k = 0$, failing to incl
 To eliminate the individual effects $\eta_i$ we work in first differences.
 Defining $\Delta$ in the usual way, so that $\Delta y_{it} = y_{it} - y_{it-1}$ and so on, we can write Equation \ref{eq:truepanel} as
 \begin{align}
-  \Delta y_{it} = \gamma_1 \Delta y_{it-1} + \cdots + \gamma_k \Delta y_{it-k} + \theta \Delta x_{it} + \Delta v_{it}.
+  \Delta y_{it} = \theta \Delta x_{it} + \gamma_1 \Delta y_{it-1} + \cdots + \gamma_k \Delta y_{it-k}  + \Delta v_{it}.
   \label{eq:truepaneldiff}
 \end{align}
 For simplicity and to avoid many instruments problems -- see e.g.\ \cite{Roodman} -- we focus here on estimation using the instrument sets
@@ -67,8 +67,8 @@ In the examples and simulations described below we consider two-stage least squa
 For simplicity, we select between two lag length specifications: one of which is correct, $\ell = k$, and one of includes one lag too few: $\ell = r$ where $r = k-1$.
 Accordingly, we make coefficient associated with the $k$\textsuperscript{th} lag local to zero.
 Let $\boldsymbol{\gamma}' = (\gamma_1, \cdots, \gamma_{k-1}, \gamma_{k})$ denote the full vector of lag coefficients that $\boldsymbol{\gamma}_{r} = (\gamma_1, \cdots, \gamma_{r})$ the first $r = k-1$ lag coefficients.
-Then, the true parameter vector is $\beta_n = (\boldsymbol{\gamma}'_{r}, \delta/\sqrt{n}, \theta)'$ which becomes, in the limit, $\beta = (\boldsymbol{\gamma}'_r, 0, \theta)'$.
-To indicate the subvector of $\beta$ that excludes the $k$\textsuperscript{th} lag coefficient, let $\beta_{r} = (\boldsymbol{\gamma}_r', \theta)'$.
+Then, the true parameter vector is $\beta_n = (\theta, \boldsymbol{\gamma}'_{r}, \delta/\sqrt{n})'$ which becomes, in the limit, $\beta = (\theta, \boldsymbol{\gamma}'_r, 0)'$.
+To indicate the subvector of $\beta$ that excludes the $k$\textsuperscript{th} lag coefficient, let $\beta_{r} = (\theta, \boldsymbol{\gamma}_r')'$.
 
 Because the two lag specifications we consider use different time periods in estimation, we require some additional notation to make this clear. 
 First let
@@ -81,12 +81,12 @@ Now we define the matrices of regressors for the two specifications:
 \begin{align*}
   W_i^{+'}(r) &= \left[
   \begin{array}{ccccc}
-    L \Delta \mathbf{y}_i^{+} &  L^2 \Delta \mathbf{y}_i^{+} & \cdots & L^{k-1}\Delta \mathbf{y}_i^{+} & \Delta \mathbf{x}_i^+
+    \Delta \mathbf{x}_i^+ & L \Delta \mathbf{y}_i^{+} &  L^2 \Delta \mathbf{y}_i^{+} & \cdots & L^{k-1}\Delta \mathbf{y}_i^{+} 
   \end{array}
 \right]\\
   W_i'(k) &= \left[
   \begin{array}{cccccc}
-    L \Delta \mathbf{y}_i &  L^2 \Delta \mathbf{y}_i & \cdots & L^{k-1}\Delta \mathbf{y}_i & L^k\Delta \mathbf{y}_i & \Delta \mathbf{x}_i
+    \Delta \mathbf{x}_i & L \Delta \mathbf{y}_i &  L^2 \Delta \mathbf{y}_i & \cdots & L^{k-1}\Delta \mathbf{y}_i & L^k\Delta \mathbf{y}_i 
   \end{array}
 \right].
 \end{align*}
@@ -115,14 +115,14 @@ The following result describes the limit distribution of $\widehat{\beta}(k,\tex
     \sqrt{n}\left[ \widehat{\beta}(k,\text{P})-\beta \right] &\rightarrow^d 
     \left[
     \begin{array}{ccc}
-    \mathbf{0}_{k-1}'& \delta & 0
+    0 & \mathbf{0}_{k-1}'& \delta 
     \end{array}
   \right]' + 
     Q\left(k,\text{P} \right) \mbox{N}\left(\mathbf{0}, \mathcal{V}(k,\text{P})\right)  \\
     \sqrt{n}\left[ \widehat{\beta}(k,\text{S})-\beta \right] &\rightarrow^d 
     \left[
     \begin{array}{ccc}
-    \mathbf{0}_{k-1}'& \delta & 0
+    0 & \mathbf{0}_{k-1}'& \delta
     \end{array}
   \right]' + 
      Q\left(k,\text{S} \right) \left\{ \boldsymbol{\iota}_{T-(k +1)} \otimes \left[
@@ -142,7 +142,7 @@ The following result describes the limit distribution of $\widehat{\beta}(k,\tex
 \end{array}
 \right]\right) + \mbox{N}\left( \mathbf{0}, \mathcal{V}\left(r,\text{S}\right) \right)\right]
   \end{align*}
-  where $k = r - 1$, $\beta' = (\gamma_1, \hdots, \gamma_{r}, 0, \theta)$, $\beta_r' = (\gamma_1, \hdots, \gamma_{r}, \theta)$, $\mathcal{V}(k,\cdot) = \mbox{Var}\left[ Z_i(k,\cdot) \Delta \mathbf{v}_i  \right]$, $\mathcal{V}(r,\cdot) = \mbox{Var}\left[ Z_i(r,\cdot) \Delta \mathbf{v}^{+}_i  \right]$, $\widehat{Q}(\ell,\cdot) \rightarrow_p Q(\ell,\cdot)$, $\boldsymbol{\psi}_{\text{P}} = E[\textbf{z}_{it}(r,\text{P}) \Delta y_{it -k}]$, $\psi_{\text{S}} = E[x_{it} \Delta y_{it-k}]$, $\mathbf{z}_{it}(\ell,\cdot)$ is as in Equation \ref{eq:Zdpanel}, $Z_i(\ell, \cdot)= \mbox{diag}\{\mathbf{z}_{it}'(\ell, \cdot)\}_{t=\ell+2}^T$ and $\boldsymbol{\iota}_{d}$ denotes a $d$-vector of ones.
+  where $k = r - 1$, $\beta' = (\theta, \gamma_1, \hdots, \gamma_{r}, 0)$, $\beta_r' = (\theta, \gamma_1, \hdots, \gamma_{r})$, $\mathcal{V}(k,\cdot) = \mbox{Var}\left[ Z_i(k,\cdot) \Delta \mathbf{v}_i  \right]$, $\mathcal{V}(r,\cdot) = \mbox{Var}\left[ Z_i(r,\cdot) \Delta \mathbf{v}^{+}_i  \right]$, $\widehat{Q}(\ell,\cdot) \rightarrow_p Q(\ell,\cdot)$, $\boldsymbol{\psi}_{\text{P}} = E[\textbf{z}_{it}(r,\text{P}) \Delta y_{it -k}]$, $\psi_{\text{S}} = E[x_{it} \Delta y_{it-k}]$, $\mathbf{z}_{it}(\ell,\cdot)$ is as in Equation \ref{eq:Zdpanel}, $Z_i(\ell, \cdot)= \mbox{diag}\{\mathbf{z}_{it}'(\ell, \cdot)\}_{t=\ell+2}^T$ and $\boldsymbol{\iota}_{d}$ denotes a $d$-vector of ones.
 \end{thm}
 
 To operationalize the GFIC, we need to provide appropriate estimators of all quantities that appear in Theorem \ref{thm:limitDpanel}.
@@ -176,7 +176,7 @@ The following result gives the joint limiting behavior of $\widehat{\delta}$ and
       \end{array} 
     \right] \overset{d}{\rightarrow} \Psi \mbox{N}\left(\mathbf{0}, \Pi\,\mathcal{V}\left(k,\text{S}\right)\,\Pi'\right)
   \]
-  where $\widehat{\delta} = \sqrt{n}[ \mathbf{e}_k' \,\widehat{\beta}(k,\text{P})]$, $\mathbf{e}_k = (\mathbf{0}_{k-1}', 1, 0)'$,  $\widehat{\tau}$ is as defined in Equation \ref{eq:DpanelTau}, 
+  where $\widehat{\delta} = \sqrt{n}[ \mathbf{e}_k' \,\widehat{\beta}(k,\text{P})]$, $\mathbf{e}_k = (0, \mathbf{0}_{k-1}', 1)'$,  $\widehat{\tau}$ is as defined in Equation \ref{eq:DpanelTau}, 
 \[
   \Psi = \left[
   \begin{array}{cc}
@@ -224,11 +224,11 @@ To provide asymptotically unbiased estimators of the quantities $\tau^2$, $\delt
 We have already discussed consistent estimation of $\widehat{\mathcal{V}}(k,\text{S})$.
 Since $\Pi$ is a known permutation matrix, it remains only to propose a consistent estimator of $\Psi$. 
 The matrix $\Psi$, in turn, depends only on $Q(k,\text{P})$, and $\boldsymbol{\xi}'$.
-The sample analogue $\widehat{Q}(k,\text{P})$ is a consistent for $\widehat{Q}(k,\text{P})$, as mentioned above, and
+The sample analogue $\widehat{Q}(k,\text{P})$ is a consistent estimator for $\widehat{Q}(k,\text{P})$, as mentioned above, and
 \begin{equation}
   \widehat{\boldsymbol{\xi}}' = \frac{1}{n(T - k - 1)} \sum_{t = k+2}^T \sum_{i=1}^n x_{it}\left[
   \begin{array}{cccc}
-    L \Delta y_{it} & \cdots & L^{k} \Delta y_{it} & \Delta x_{it}
+    \Delta x_{it} & L \Delta y_{it} & \cdots & L^{k} \Delta y_{it} 
   \end{array}
 \right]
 \end{equation}
@@ -238,16 +238,16 @@ Since $\mu_{SR} = \theta$, we can read off the AMSE expression for this paramete
 For the long-run effect $\mu_{LR}$, however, we need to formally apply the Delta-method and account for the fact that the true value of $\gamma_k$ is $\delta/\sqrt{n}$.
 Expressed as a function of the underlying model parameters, the limiting value of $\mu_{LR}$ is
 \[
-  \mu_{LR}^{0} = \varphi(\beta) =  \varphi(\boldsymbol{\gamma}_r, 0, \theta) = \frac{\theta}{1 - \boldsymbol{\iota}_{r}' \boldsymbol{\gamma}_r}
+  \mu_{LR}^{0} = \varphi(\beta) =  \varphi(\theta, \boldsymbol{\gamma}_r, 0) = \frac{\theta}{1 - \boldsymbol{\iota}_{r}' \boldsymbol{\gamma}_r}
 \]
 while the true value, which changes with sample size, is
 \[
-  \mu_{LR}^{n} = \varphi(\beta_n) =  \varphi(\boldsymbol{\gamma}_r, \delta/\sqrt{n}, \theta) = \frac{\theta}{1 - \boldsymbol{\iota}_{r}' \boldsymbol{\gamma}_r - \delta/\sqrt{n}}.
+  \mu_{LR}^{n} = \varphi(\beta_n) =  \varphi(\theta, \boldsymbol{\gamma}_r, \delta/\sqrt{n}) = \frac{\theta}{1 - \boldsymbol{\iota}_{r}' \boldsymbol{\gamma}_r - \delta/\sqrt{n}}.
 \]
 
-\begin{thm}[Asymptotic Distribution of $\mu_{LR}$ Estimators]
+\begin{cor}[Asymptotic Distribution of $\mu_{LR}$ Estimators]
 
-\end{thm}
+\end{cor}
 
 \todo[inline]{Fix from here down. Should probably encapsulate the result within a Corollary.}
 
