@@ -61,7 +61,7 @@ Given these instrument sets, we have $(\ell + 1)\times (T -\ell - 1)$ moment con
 To abstract for a moment from the model selection decision, suppose that we estimate a model with the true lag length: $\ell = k$.
 The only difference between the P and S sets of moment conditions is that the latter adds over-identifying information in the form of $E[x_{it}\Delta v_{it}]$.
 If $x$ is strictly exogenous, this expectation equals zero, but if $x$ is only predetermined, then $E[x_{it}\Delta v_{it}] = -E[x_{it}v_{it-1}] \neq 0$ so the over-identifying moment condition is invalid.
-Given the instrument sets that we consider, this is the only violation of strict exogeneity that is relevant for our moment selection so we take $-E[x_{it}v_{it-1}] = \tau/\sqrt{n}$.
+Given the instrument sets that we consider, this is the only violation of strict exogeneity that is relevant for our moment selection so we take $E[x_{it}v_{it-1}] = -\tau/\sqrt{n}$.
 
 In the examples and simulations described below we consider two-stage least squares (TSLS) estimation of $\mu_{SR}$ and $\mu_{LR}$ using the instruments defined in Equation \ref{eq:Zdpanel}. 
 For simplicity, we select between two lag length specifications: one of which is correct, $\ell = k$, and one of includes one lag too few: $\ell = r$ where $r = k-1$.
@@ -165,9 +165,7 @@ To construct an asymptotically unbiased estimator of $\tau$, we use the residual
 \end{equation}
 where $X' = [X_1 \cdots X_n]$ and $X_i = \mbox{diag}\left\{ x_{it} \right\}_{t = k + 2}^{T}$.
 The following result gives the joint limiting behavior of $\widehat{\delta}$ and $\widehat{\tau}$, which we will use to construct the GFIC.
-
-
-\todo[inline]{Should mention that the following result is slightly different from the general theorem given above since we impose the structure of the panel dataset to get a pooled estimator of $\tau$ which brings in the time averages.}
+\todo[inline]{Add a sentence talking about why we take the time average in our definition of $\tau$.}
 
 \begin{thm}[Joint Limit Distribution of $\widehat{\delta}$ and $\widehat{\tau}$]
   \label{thm:DpanelJoint}
@@ -208,6 +206,7 @@ The following result gives the joint limiting behavior of $\widehat{\delta}$ and
   $\boldsymbol{\iota}_{d}$ is a $d$-vector of ones and $I_d$ the $(d\times d)$ identity matrix.
 \end{thm}
 
+\todo[inline]{Needs to be re-written from here down. Explain how to estimate $\xi$ and explain about the quantities needed for the different target parameters.}
 
 As described above for the general GMM case, asymptotically unbiased estimators of $\tau$ and $\delta$ require a bias correction to provide asymptotically unbiased estimators of the quantities $\tau^2$, $\delta^2$ and $\tau\delta$ needed to estimate AMSE. 
 To carry out this correction, we use the joint distribution of the bias parameter estimators:
