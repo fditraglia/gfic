@@ -235,7 +235,19 @@ The sample analogue $\widehat{Q}(k,\text{P})$ is a consistent for $\widehat{Q}(k
 is consistent for $\xi'$.
 We now have all the quantities needed to construct the GFIC for $\mu_{SR}$, the short-run effect of $x$ on $y$.
 Since $\mu_{SR} = \theta$, we can read off the AMSE expression for this parameter directly from Theorem \ref{thm:limitDpanel}.
-For the long-run effect $\mu_{LR}$, however, we need to formally apply the Delta-method.
+For the long-run effect $\mu_{LR}$, however, we need to formally apply the Delta-method and account for the fact that the true value of $\gamma_k$ is $\delta/\sqrt{n}$.
+Expressed as a function of the underlying model parameters, the limiting value of $\mu_{LR}$ is
+\[
+  \mu_{LR}^{0} = \varphi(\beta) =  \varphi(\boldsymbol{\gamma}_r, 0, \theta) = \frac{\theta}{1 - \boldsymbol{\iota}_{r}' \boldsymbol{\gamma}_r}
+\]
+while the true value, which changes with sample size, is
+\[
+  \mu_{LR}^{n} = \varphi(\beta_n) =  \varphi(\boldsymbol{\gamma}_r, \delta/\sqrt{n}, \theta) = \frac{\theta}{1 - \boldsymbol{\iota}_{r}' \boldsymbol{\gamma}_r - \delta/\sqrt{n}}.
+\]
+
+\begin{thm}[Asymptotic Distribution of $\mu_{LR}$ Estimators]
+
+\end{thm}
 
 \todo[inline]{Fix from here down. Should probably encapsulate the result within a Corollary.}
 
