@@ -251,7 +251,7 @@ and the derivatives of $\varphi$ are
 \right] = 
 \left( \frac{1}{1 - \boldsymbol{\iota}_r' \boldsymbol{\gamma}_r - \gamma_k} \right) \left[
 \begin{array}{ccc}
-  1 & \boldsymbol{\iota}_r \theta & \theta 
+  1 & \theta \,\boldsymbol{\iota}_r' & \theta 
 \end{array}
 \right].
 \]
@@ -261,50 +261,60 @@ $\mu_{LR}^{n} = \varphi(\theta, \boldsymbol{\gamma}_r, \delta/\sqrt{n})$.
 Similarly, the limiting value of derivative of $\nabla\varphi$ is 
 \[
   \nabla \varphi_0 = \nabla \varphi(\theta, \boldsymbol{\gamma}_r, 0)' = 
-\left( \frac{1}{1 - \boldsymbol{\iota}_r' \boldsymbol{\gamma}_k} \right) \left[
+\left( \frac{1}{1 - \boldsymbol{\iota}_r' \boldsymbol{\gamma}_r} \right) \left[
 \begin{array}{ccc}
-  1 & \boldsymbol{\iota}_r \theta & \theta 
+  1 & \theta \, \boldsymbol{\iota}_r' & \theta 
 \end{array}
 \right]
 \]
 which we can consistently estimate by plugging in the estimates from $\widehat{\beta}(k, \text{P})$.
+The following corollary collects the remaining limit results that we need to implement the GFIC for $\mu_{LR}$.  
 
-
-
-\begin{cor}[Asymptotic Distribution of $\mu_{LR}$ Estimators]
-
+\begin{cor}[Limit Distribution for $\widehat{\mu}_{LR}$]
+  Under the conditions of Theorem \ref{thm:limitDpanel}
+  \begin{align*}
+    \sqrt{n}\left[ \widehat{\mu}_{LR}(k,\text{P})-\mu_{LR}^n \right] &\rightarrow^d 
+    \left[
+    \begin{array}{cc}
+      1 & \theta \,\boldsymbol{\iota}_k' 
+    \end{array}
+  \right] 
+  \left[ \frac{Q(k, \text{P})}{1 - \boldsymbol{\iota}_r' \boldsymbol{\gamma}_r} \right] 
+  \mbox{N}\left(\mathbf{0}, \mathcal{V}(k,\text{P})\right)  \\
+    \sqrt{n}\left[ \widehat{\mu}_{LR}(k,\text{S})-\mu_{LR}^n \right] &\rightarrow^d 
+    \left[
+    \begin{array}{cc}
+      1 & \theta \,\boldsymbol{\iota}_k' 
+    \end{array}
+  \right] 
+  \left[ \frac{Q(k, \text{S})}{1 - \boldsymbol{\iota}_r' \boldsymbol{\gamma}_r} \right] 
+     \left\{ \boldsymbol{\iota}_{T-(k +1)} \otimes \left[
+    \begin{array}{c}
+      \mathbf{0}_{k+1} \\ \tau
+    \end{array}
+  \right] + \mbox{N}\left(\mathbf{0}, \mathcal{V}(k,\text{S})\right)\right\}\\
+  \sqrt{n}\left[ \widehat{\mu}_{LR}(r,\text{P})- \mu_{LR}^n \right] &\rightarrow^d 
+    \left[
+    \begin{array}{cc}
+      1 & \theta \,\boldsymbol{\iota}_r' 
+    \end{array}
+  \right] 
+  \left[ \frac{Q(r, \text{P})}{1 - \boldsymbol{\iota}_r' \boldsymbol{\gamma}_r} \right] 
+  \left[\boldsymbol{\iota}_{T-k} \otimes \delta \boldsymbol{\psi}_{\text{P}} + \mbox{N}\left(\mathbf{0}, \mathcal{V}(r,\text{P}) \right) \right] - \frac{\delta \theta}{1 - \boldsymbol{\iota}_{r}' \boldsymbol{\gamma}_r}\\
+  \sqrt{n}\left[ \widehat{\mu}_{LR}(r,\text{S})- \mu_{LR}^n\right] &\rightarrow^d 
+    \left[
+    \begin{array}{cc}
+      1 & \theta \,\boldsymbol{\iota}_r' 
+    \end{array}
+  \right] 
+  \left[ \frac{Q(r, \text{S})}{1 - \boldsymbol{\iota}_r' \boldsymbol{\gamma}_r} \right] 
+  \left\{\boldsymbol{\iota}_{T-k} \otimes 
+    \left[
+  \begin{array}{c}
+    \delta\boldsymbol{\psi}_{\text{P}} \\ \delta(\psi_{\text{S}} + \tau)
+\end{array}
+\right] + \mbox{N}\left( \mathbf{0}, \mathcal{V}\left(r,\text{S}\right) \right)\right\} 
+- \frac{\delta \theta}{1 - \boldsymbol{\iota}_{r}' \boldsymbol{\gamma}_r}.
+  \end{align*}
 \end{cor}
 
-\todo[inline]{Fix from here down. Should probably encapsulate the result within a Corollary.}
-
-	Suppose we are interested in long-run effect which is expressed as $h(\theta) = h(\alpha_1, \alpha_2, \beta) = \frac{\beta}{1-\alpha_1-\alpha_2}$ and $h_w(\theta) = \frac{\beta}{1-\alpha_1}$. Note that $h'(\theta) = \left[\begin{array}{ccc} \frac{\beta}{(1-\alpha_1-\alpha_2)^2}& \frac{\beta}{(1-\alpha_1-\alpha_2)^2} & \frac{1}{1-\alpha_1-\alpha_2}\end{array}\right]_{\alpha_2=0} =\left[\begin{array}{ccc} \frac{\beta}{(1-\alpha_1)^2}& \frac{\beta}{(1-\alpha_1)^2} & \frac{1}{1-\alpha_1}\end{array}\right] $. Also, $h_w'(\theta) = \left[\begin{array}{ccc} \frac{\beta}{(1-\alpha_1-\alpha_2)^2}& \frac{1}{1-\alpha_1-\alpha_2}\end{array}\right]_{\alpha_2=0} =\left[\begin{array}{ccc} \frac{\beta}{(1-\alpha_1)^2}& \frac{1}{1-\alpha_1}\end{array}\right] $. From $\Delta-$method, we can get
-	
-	\begin{eqnarray}
- 			\sqrt{n} (h(\widehat{\theta}_{LW})-h(\theta)) &\overset{d}{\rightarrow}&  			N\left(0,\,\, h'(\theta)K_{LW}\mathcal{V}_{LW}K_{LW}'h'(\theta) \right)
-	\end{eqnarray}
-	
-	
-and
-\begin{eqnarray}
- 	\sqrt{n}(h_w(\widehat{\theta}_{W})-h_w(\theta)) &\overset{d}{\rightarrow}&
- h_w'(\theta)	K_W  \left[\delta \left[\begin{array}{l} \psi_0\\ 
-\psi_1 \end{array}\right]  \otimes \iota_{T-2} + N\left(0, \mathcal{V}_W\right) \right].
-	\end{eqnarray}
-
-	
-	Consider centering expression (31) to $h(\theta_n)$ where $\alpha_2 = \frac{\delta}{\sqrt{n}}$. Using Taylor expansion,
-	
-	\[
-h(\theta_n) = h(\theta) + \bigtriangledown_{\alpha_2} h(\bar{\theta})'\frac{\delta}{\sqrt{n}}.		
-	\]	
-	
-	Hence, we have
-	\begin{eqnarray}
- 			\sqrt{n} (h(\widehat{\theta}_{LW})-h(\theta_n)) &\overset{d}{\rightarrow}&  			N\left(0,\,\, h'(\theta)K_{LW}\mathcal{V}_{LW}K_{LW}'h'(\theta) \right) -\bigtriangledown_{\alpha_2} h(\theta)'\delta 
-	\end{eqnarray}
-	
-	We can use $\widehat{\delta} = \sqrt{n}\,\, \widehat{\alpha}_{2, LW}$ which is asymptotically unbiased estimator of $\delta$.	
-\begin{eqnarray}
- 			\widehat{\delta} &\overset{d}{\rightarrow}& \delta + (0, 1, 0)K_{LW} \mathcal{V}_{LW} K_{LW}'(0, 1, 0)'	  			
-	\end{eqnarray}	
-	
