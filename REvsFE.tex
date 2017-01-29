@@ -78,27 +78,20 @@ where $\eta^2 = E[\mathbf{x}_i'\Omega^{-1}\mathbf{x}_i]$, $c = E[\mathbf{x}_i' Q
 
 
 
-We see from Theorem \ref{thm:REvsFE} that 
-\begin{eqnarray}
-  AMSE(\widehat{\beta}_{RE}) &=& c^2 \tau^2 + \eta^2 \\
-  \label{eq:REAMSE}
-  AMSE(\widehat{\beta}_{FE}) &=& c^2\sigma^2 + \eta^2  
-  \label{eq:FEAMSE}
-\end{eqnarray}
-and $\widehat{\tau}^2 - \sigma^2$ provides an asymptotically unbiased estimator of $\tau$.
+We see from Theorem \ref{thm:REvsFE} that $AMSE(\widehat{\beta}_{RE}) = c^2 \tau^2 + \eta^2$, $AMSE(\widehat{\beta}_{FE}) = c^2\sigma^2 + \eta^2$, and $\widehat{\tau}^2 - \sigma^2$ provides an asymptotically unbiased estimator of $\tau$.
 Thus, substituting $\widehat{\tau}^2 - \sigma^2$ for $\tau$ and rearranging the preceding AMSE expressions, the GFIC tells us that we should select the random effects estimator whenever $|\widehat{\tau}|\leq \sqrt{2} \sigma$.
 To implement this rule in practice, we construct a consistent estimator of $\sigma^2$, for which we require estimators of $\sigma_{\alpha}^2, \sigma_{\varepsilon}^2$ and $\sigma_{v}^2 = Var(\alpha_i + \varepsilon_{it})$.
-We estimate these from the following residuals
-\begin{align*}
-\widehat{\epsilon}_{it}& = (y_{it} -\bar{y}_i) - (x_{it} - \bar{x}_i) \widehat{\beta}_{FE}\\
-\widehat{v}_{it} &= y_{it} - x_{it} \widehat{\beta}_{OLS}
-\end{align*} 
-where $\widehat{\beta}_{OLS}$ denotes the \emph{pooled} OLS estimator of $\beta$, leading to the following variance estimators: 
-\begin{align*}
-\widehat{\sigma}_\epsilon^2 &= \frac{1}{N(T-1)-1} \sum_{i=1}^N \sum_{t=1}^T \widehat{\epsilon}_{it}^2\\
-\widehat{\sigma}_v^2 &= \frac{1}{NT-1} \sum_{i=1}^N \sum_{t=1}^T \widehat{v}_{it}^2\\
-\widehat{\sigma}_\alpha^2 &= \widehat{\sigma}_v^2 - \widehat{\sigma}_\epsilon^2.
-\end{align*}
+We estimate these from the residuals
+\[
+\widehat{\epsilon}_{it} = (y_{it} -\bar{y}_i) - (x_{it} - \bar{x}_i) \widehat{\beta}_{FE}; \quad
+\widehat{v}_{it} = y_{it} - x_{it} \widehat{\beta}_{OLS}
+\]
+where $\widehat{\beta}_{OLS}$ denotes the \emph{pooled} OLS estimator of $\beta$, leading to the variance estimators 
+\[
+\widehat{\sigma}_\alpha^2 = \widehat{\sigma}_v^2 - \widehat{\sigma}_\epsilon^2; \quad
+\widehat{\sigma}_\epsilon^2 = \frac{1}{N(T-1)-1} \sum_{i=1}^N \sum_{t=1}^T \widehat{\epsilon}_{it}^2; \quad
+\widehat{\sigma}_v^2 = \frac{1}{NT-1} \sum_{i=1}^N \sum_{t=1}^T \widehat{v}_{it}^2
+\]
 
 Selection, of course, is a somewhat crude procedure: it is essentially an average that uses all-or-nothing weights.
 As a consequence, relatively small changes to the data could produce discontinuous changes in the weights, leading to a procedure with a high variance.
