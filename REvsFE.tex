@@ -86,7 +86,7 @@ We see from Theorem \ref{thm:REvsFE} that
   \label{eq:FEAMSE}
 \end{eqnarray}
 and $\widehat{\tau}^2 - \sigma^2$ provides an asymptotically unbiased estimator of $\tau$.
-Thus, substituting $\widehat{\tau} - \sigma^2$ for $\tau$ and rearranging the preceding AMSE expressions, the GFIC tells us that we should select the random effects estimator whenever $|\widehat{\tau}|\leq \sqrt{2} \sigma$.
+Thus, substituting $\widehat{\tau}^2 - \sigma^2$ for $\tau$ and rearranging the preceding AMSE expressions, the GFIC tells us that we should select the random effects estimator whenever $|\widehat{\tau}|\leq \sqrt{2} \sigma$.
 To implement this rule in practice, we construct a consistent estimator of $\sigma^2$, for which we require estimators of $\sigma_{\alpha}^2, \sigma_{\varepsilon}^2$ and $\sigma_{v}^2 = Var(\alpha_i + \varepsilon_{it})$.
 We estimate these from the following residuals
 \begin{align*}

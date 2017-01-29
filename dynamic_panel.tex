@@ -64,7 +64,7 @@ If $x$ is strictly exogenous, this expectation equals zero, but if $x$ is only p
 Given the instrument sets that we consider, this is the only violation of strict exogeneity that is relevant for our moment selection so we take $E[x_{it}v_{it-1}] = -\tau/\sqrt{n}$.
 
 In the examples and simulations described below we consider two-stage least squares (TSLS) estimation of $\mu_{SR}$ and $\mu_{LR}$ using the instruments defined in Equation \ref{eq:Zdpanel}. 
-For simplicity, we select between two lag length specifications: one of which is correct, $\ell = k$, and one of includes one lag too few: $\ell = r$ where $r = k-1$.
+For simplicity, we select between two lag length specifications: the first is correct, $\ell = k$, and the second includes one lag too few: $\ell = r$ where $r = k-1$.
 Accordingly, we make coefficient associated with the $k$\textsuperscript{th} lag local to zero.
 Let $\boldsymbol{\gamma}' = (\gamma_1, \cdots, \gamma_{k-1}, \gamma_{k})$ denote the full vector of lag coefficients that $\boldsymbol{\gamma}_{r} = (\gamma_1, \cdots, \gamma_{r})$ the first $r = k-1$ lag coefficients.
 Then, the true parameter vector is $\beta_n = (\theta, \boldsymbol{\gamma}'_{r}, \delta/\sqrt{n})'$ which becomes, in the limit, $\beta = (\theta, \boldsymbol{\gamma}'_r, 0)'$.
@@ -187,8 +187,7 @@ The following result gives the joint limiting behavior of $\widehat{\delta}$ and
 \]
   $\boldsymbol{\xi}' = E\left\{ x_{it} \left[
     \begin{array}{cccc}
-      L \Delta y_{it} & \cdots & L^k \Delta y_{it} & \Delta x_{it}
-  \end{array} \right]\right\}$,
+       \Delta x_{it} & L \Delta y_{it} & \cdots & L^k \Delta y_{it}   \end{array} \right]\right\}$,
   the variance matrix $\mathcal{V}(k,\text{S})$ is as defined in Theorem \ref{thm:limitDpanel}, the permutation matrix $\Pi = \left[
   \begin{array}{cc}
     \Pi_1' & \Pi_2'
@@ -205,7 +204,7 @@ The following result gives the joint limiting behavior of $\widehat{\delta}$ and
   $\boldsymbol{\iota}_{d}$ is a $d$-vector of ones and $I_d$ the $(d\times d)$ identity matrix.
 \end{thm}
 
-To provide asymptotically unbiased estimators of the quantities $\tau^2$, $\delta^2$ and $\tau\delta$ that appear in the AMSE expressions for our estimators, we apply a bias correction to the asymptotically unbiased estimators of $\delta$ and $\tau$ from \ref{thm:DpanelJoint}.
+To provide asymptotically unbiased estimators of the quantities $\tau^2$, $\delta^2$ and $\tau\delta$ that appear in the AMSE expressions for our estimators, we apply a bias correction to the asymptotically unbiased estimators of $\delta$ and $\tau$ from Theorem \ref{thm:DpanelJoint}.
 
 \begin{cor}
   Let $\widehat{\Psi}$ be a consistent estimator of $\Psi$, defined in Theorem \ref{thm:DpanelJoint}, and $\widehat{\mathcal{V}}(k,\text{S})$ be a consistent estimator of $\mathcal{V}(k,\text{S})$, defined in Theorem \ref{thm:limitDpanel}.
@@ -224,7 +223,7 @@ To provide asymptotically unbiased estimators of the quantities $\tau^2$, $\delt
 We have already discussed consistent estimation of $\widehat{\mathcal{V}}(k,\text{S})$.
 Since $\Pi$ is a known permutation matrix, it remains only to propose a consistent estimator of $\Psi$. 
 The matrix $\Psi$, in turn, depends only on $Q(k,\text{P})$, and $\boldsymbol{\xi}'$.
-The sample analogue $\widehat{Q}(k,\text{P})$ is a consistent estimator for $\widehat{Q}(k,\text{P})$, as mentioned above, and
+The sample analogue $\widehat{Q}(k,\text{P})$ is a consistent estimator for $Q(k,\text{P})$, as mentioned above, and
 \begin{equation}
   \widehat{\boldsymbol{\xi}}' = \frac{1}{n(T - k - 1)} \sum_{t = k+2}^T \sum_{i=1}^n x_{it}\left[
   \begin{array}{cccc}
@@ -249,72 +248,65 @@ and the derivatives of $\varphi$ are
     \displaystyle\frac{\partial \varphi}{\partial \gamma_k} 
   \end{array}
 \right] = 
-\left( \frac{1}{1 - \boldsymbol{\iota}_r' \boldsymbol{\gamma}_r - \gamma_k} \right) \left[
+\left( \frac{1}{1 - \boldsymbol{\iota}_r' \boldsymbol{\gamma}_r - \gamma_k} \right)^2 \left[
 \begin{array}{ccc}
-  1 & \theta \,\boldsymbol{\iota}_r' & \theta 
+  \left( 1 - \boldsymbol{\iota}_r' \boldsymbol{\gamma}_r - \gamma_k \right) & \theta \,\boldsymbol{\iota}_r' & \theta 
 \end{array}
 \right].
 \]
 Using this notation, the limiting value of $\mu_{LR}$ is $\mu_{LR}^{0} =  \varphi(\theta, \boldsymbol{\gamma}_r, 0)$
 while the true value is
 $\mu_{LR}^{n} = \varphi(\theta, \boldsymbol{\gamma}_r, \delta/\sqrt{n})$.
-Similarly, the limiting value of derivative of $\nabla\varphi$ is 
-\[
-  \nabla \varphi_0 = \nabla \varphi(\theta, \boldsymbol{\gamma}_r, 0)' = 
-\left( \frac{1}{1 - \boldsymbol{\iota}_r' \boldsymbol{\gamma}_r} \right) \left[
-\begin{array}{ccc}
-  1 & \theta \, \boldsymbol{\iota}_r' & \theta 
-\end{array}
-\right]
-\]
-which we can consistently estimate by plugging in the estimates from $\widehat{\beta}(k, \text{P})$.
-The following corollary collects the remaining limit results that we need to implement the GFIC for $\mu_{LR}$.  
+Similarly, the limiting value of $\nabla\varphi$ is $\nabla \varphi_0 = \nabla \varphi(\theta, \boldsymbol{\gamma}_r, 0)'$, obtained by sputting zero in place of $\gamma_r$. 
+We estimate this quantity consistently by plugging in the estimates from $\widehat{\beta}(k, \text{P})$.
 
-\begin{cor}[Limit Distribution for $\widehat{\mu}_{LR}$]
-  Under the conditions of Theorem \ref{thm:limitDpanel}
-  \begin{align*}
-    \sqrt{n}\left[ \widehat{\mu}_{LR}(k,\text{P})-\mu_{LR}^n \right] &\rightarrow^d 
-    \left[
-    \begin{array}{cc}
-      1 & \theta \,\boldsymbol{\iota}_k' 
-    \end{array}
-  \right] 
-  \left[ \frac{Q(k, \text{P})}{1 - \boldsymbol{\iota}_r' \boldsymbol{\gamma}_r} \right] 
-  \mbox{N}\left(\mathbf{0}, \mathcal{V}(k,\text{P})\right)  \\
-    \sqrt{n}\left[ \widehat{\mu}_{LR}(k,\text{S})-\mu_{LR}^n \right] &\rightarrow^d 
-    \left[
-    \begin{array}{cc}
-      1 & \theta \,\boldsymbol{\iota}_k' 
-    \end{array}
-  \right] 
-  \left[ \frac{Q(k, \text{S})}{1 - \boldsymbol{\iota}_r' \boldsymbol{\gamma}_r} \right] 
-     \left\{ \boldsymbol{\iota}_{T-(k +1)} \otimes \left[
-    \begin{array}{c}
-      \mathbf{0}_{k+1} \\ \tau
-    \end{array}
-  \right] + \mbox{N}\left(\mathbf{0}, \mathcal{V}(k,\text{S})\right)\right\}\\
-  \sqrt{n}\left[ \widehat{\mu}_{LR}(r,\text{P})- \mu_{LR}^n \right] &\rightarrow^d 
-    \left[
-    \begin{array}{cc}
-      1 & \theta \,\boldsymbol{\iota}_r' 
-    \end{array}
-  \right] 
-  \left[ \frac{Q(r, \text{P})}{1 - \boldsymbol{\iota}_r' \boldsymbol{\gamma}_r} \right] 
-  \left[\boldsymbol{\iota}_{T-k} \otimes \delta \boldsymbol{\psi}_{\text{P}} + \mbox{N}\left(\mathbf{0}, \mathcal{V}(r,\text{P}) \right) \right] - \frac{\delta \theta}{1 - \boldsymbol{\iota}_{r}' \boldsymbol{\gamma}_r}\\
-  \sqrt{n}\left[ \widehat{\mu}_{LR}(r,\text{S})- \mu_{LR}^n\right] &\rightarrow^d 
-    \left[
-    \begin{array}{cc}
-      1 & \theta \,\boldsymbol{\iota}_r' 
-    \end{array}
-  \right] 
-  \left[ \frac{Q(r, \text{S})}{1 - \boldsymbol{\iota}_r' \boldsymbol{\gamma}_r} \right] 
-  \left\{\boldsymbol{\iota}_{T-k} \otimes 
-    \left[
-  \begin{array}{c}
-    \delta\boldsymbol{\psi}_{\text{P}} \\ \delta(\psi_{\text{S}} + \tau)
-\end{array}
-\right] + \mbox{N}\left( \mathbf{0}, \mathcal{V}\left(r,\text{S}\right) \right)\right\} 
-- \frac{\delta \theta}{1 - \boldsymbol{\iota}_{r}' \boldsymbol{\gamma}_r}.
-  \end{align*}
-\end{cor}
+%The following corollary collects the remaining limit results that we need to implement the GFIC for $\mu_{LR}$.  
+
+%\begin{cor}[Limit Distribution for $\widehat{\mu}_{LR}$]
+%  Under the conditions of Theorem \ref{thm:limitDpanel}
+%  \begin{align*}
+%    \sqrt{n}\left[ \widehat{\mu}_{LR}(k,\text{P})-\mu_{LR}^n \right] &\rightarrow^d 
+%    \left[
+%    \begin{array}{cc}
+%      1 & \theta \,\boldsymbol{\iota}_k' 
+%    \end{array}
+%  \right] 
+%  \left[ \frac{Q(k, \text{P})}{1 - \boldsymbol{\iota}_r' \boldsymbol{\gamma}_r} \right] 
+%  \mbox{N}\left(\mathbf{0}, \mathcal{V}(k,\text{P})\right)  \\
+%    \sqrt{n}\left[ \widehat{\mu}_{LR}(k,\text{S})-\mu_{LR}^n \right] &\rightarrow^d 
+%    \left[
+%    \begin{array}{cc}
+%      1 & \theta \,\boldsymbol{\iota}_k' 
+%    \end{array}
+%  \right] 
+%  \left[ \frac{Q(k, \text{S})}{1 - \boldsymbol{\iota}_r' \boldsymbol{\gamma}_r} \right] 
+%     \left\{ \boldsymbol{\iota}_{T-(k +1)} \otimes \left[
+%    \begin{array}{c}
+%      \mathbf{0}_{k+1} \\ \tau
+%    \end{array}
+%  \right] + \mbox{N}\left(\mathbf{0}, \mathcal{V}(k,\text{S})\right)\right\}\\
+%  \sqrt{n}\left[ \widehat{\mu}_{LR}(r,\text{P})- \mu_{LR}^n \right] &\rightarrow^d 
+%    \left[
+%    \begin{array}{cc}
+%      1 & \theta \,\boldsymbol{\iota}_r' 
+%    \end{array}
+%  \right] 
+%  \left[ \frac{Q(r, \text{P})}{1 - \boldsymbol{\iota}_r' \boldsymbol{\gamma}_r} \right] 
+%  \left[\boldsymbol{\iota}_{T-k} \otimes \delta \boldsymbol{\psi}_{\text{P}} + \mbox{N}\left(\mathbf{0}, \mathcal{V}(r,\text{P}) \right) \right] - \frac{\delta \theta}{1 - \boldsymbol{\iota}_{r}' \boldsymbol{\gamma}_r}\\
+%  \sqrt{n}\left[ \widehat{\mu}_{LR}(r,\text{S})- \mu_{LR}^n\right] &\rightarrow^d 
+%    \left[
+%    \begin{array}{cc}
+%      1 & \theta \,\boldsymbol{\iota}_r' 
+%    \end{array}
+%  \right] 
+%  \left[ \frac{Q(r, \text{S})}{1 - \boldsymbol{\iota}_r' \boldsymbol{\gamma}_r} \right] 
+%  \left\{\boldsymbol{\iota}_{T-k} \otimes 
+%    \left[
+%  \begin{array}{c}
+%    \delta\boldsymbol{\psi}_{\text{P}} \\ \delta(\psi_{\text{S}} + \tau)
+%\end{array}
+%\right] + \mbox{N}\left( \mathbf{0}, \mathcal{V}\left(r,\text{S}\right) \right)\right\} 
+%- \frac{\delta \theta}{1 - \boldsymbol{\iota}_{r}' \boldsymbol{\gamma}_r}.
+%  \end{align*}
+%\end{cor}
 
