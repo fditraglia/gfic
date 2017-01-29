@@ -1,0 +1,94 @@
+%!TEX root = main.tex
+\documentclass[12pt]{article}
+\usepackage{frankstyle}
+
+\begin{document}
+
+\section{Slope Heterogeneity Example}
+\label{sec:panel}
+We now specialize the GFIC to a model with slope heterogeneity. Our aim is to allow for individual specific coefficient $\beta_i$. The true data generating process is 
+	\begin{equation}
+				y_{it} = (\beta+\eta_i) x_{it} + \epsilon_{it}
+	\end{equation}
+where $i = 1, \hdots, n$ indexes individuals and $t=1, \hdots, T$  indexes time periods. We assume stationarity of $x_{it}$ and $\epsilon_{it}$. The error term $\epsilon_{it}$ is i.i.d over $i$ and $t$ with mean 0 and variance $\sigma_\epsilon^2$. The individual effect $\eta_i$ for slope heterogeneity is i.i.d over $i$ with mean 0 and variance $\sigma_\eta^2$. Homoscedasticity is assumed, that is, $E[\epsilon_{it}^2 | x_{it}] = \sigma_\epsilon^2$ and $E[\eta_i^2 | x_{it}] = \sigma_\eta^2$. Also, $E[\eta_i \epsilon_{it} | x_{it}] = 0$ is assumed. Stacking observations for a given individual over time in the usual way, let $\mathbf{y}_i = (y_{i1}, \ldots, y_{iT})'$ and define $\mathbf{x}_i$ analogously. For simplicity, I consider the case where $\beta \in \mathbb{R}$. First, we can consider the OLS estimator which does not take into account of slope heterogeneity. 
+	\begin{equation}
+\widehat{\beta}_{OLS} = \bigg(\sum_{i=1}^{n} \mathbf{x}_i'  \mathbf{x}_i\bigg)^{-1}\bigg(\sum_{i=1}^{n} \mathbf{x}_i' \mathbf{y}_i   \bigg)	
+	\end{equation}
+	
+If we know for certain that there is no slope heterogeneity, we would prefer to use the OLS estimator. However, when there is slope heterogeneity, the OLS estimator is biased. We can consider the "mean group" estimator given by 
+
+
+	\begin{equation}
+\widehat{\beta}_{MG}  = \frac{1}{n}\sum_{i=1}^n \widehat{\beta}_i 
+= \frac{1}{n} \sum_{i=1}^n \bigg( \mathbf{x}_i'  \mathbf{x}_i\bigg)^{-1}\bigg( \mathbf{x}_i'  \mathbf{y}_i   \bigg)
+\end{equation}
+
+where $\widehat{\beta}_i$ is the OLS estimator using individual $i$'
+s data only. One should use the mean group estimator to achieve unbiasedness when there is slope heterogeneity. However, if the slope heterogeneity is sufficiently small, the OLS estimator could render the lower variance which compensates for its bias.\footnote{Different from the example of fixed effects and random effects, the OLS estimator does not always have lower variance than the mean group estimator.} In this example, the local mis-specification assumption takes the form  
+
+\begin{equation}
+\sum_{t=1}^T E[x_{it}^2 \eta_i] = \frac{\tau}{\sqrt{n}}
+\end{equation}
+
+where $\tau$ is fixed, unknown constant. In the limit, $\tau/\sqrt{n} \rightarrow 0$. However, this term is not zero for any finite sample size unless $\tau =0$. An asymptotically unbiased estimator of $\tau$ for this example is given by
+
+\begin{equation}
+\widehat{\tau} = \frac{1}{\sqrt{n}} \sum_{i=1}^n \mathbf{x}_i' (\mathbf{y}_i - \mathbf{x}_i \widehat{\beta}_{MG})
+\end{equation}
+
+resulting in the following result, from which we will construct the GFIC. 
+
+\begin{thm}[OLS versus Mean Group Limit Distributions]
+\label{thm:OLSvsMG}
+  Under standard regularity conditions,
+\[
+  \left[\begin{array}{c}
+\sqrt{n} (\widehat{\beta}_{OLS} - \beta)\\
+\sqrt{n} (\widehat{\beta}_{MG} - \beta)\\
+\widehat{\tau}
+\end{array}\right] \overset{d}{\rightarrow} N \left( 
+\left[\begin{array}{c}
+c\tau \\
+0  \\
+\tau\\
+\end{array}\right],  
+\,\,A V A' \right)
+\]
+where $c = \big(E[\mathbf{x}_i' \mathbf{x}_i] \big)^{-1}$, 
+\[
+A = \left[\begin{array}{ccc}
+c  & c& 0\\
+0& 0 & 1\\
+1 & 1 & -c^{-1}
+\end{array}\right] \]
+and
+\[
+V = \left[\begin{array}{ccc}
+\sigma_\eta^2 E[\mathbf{x}_i'\mathbf{x}_i\mathbf{x}_i' \mathbf{x}_i]  & 0  & \sigma_\eta^2 E[\mathbf{x}_i' \mathbf{x}_i] \\
+0 & \sigma_\epsilon^2 E[\mathbf{x}_i'\mathbf{x}_i] & \sigma^2\\ 
+\sigma_\eta^2 E[\mathbf{x}_i'\mathbf{x}_i] & \sigma^2 & \sigma_\eta^2 + \sigma_\epsilon^2 E[(\mathbf{x}_i'\mathbf{x}_i)^{-1} ]
+\end{array}\right] \].\\
+\end{thm}
+
+
+We see from Theorem \ref{thm:OLSvsMG} that 
+\begin{eqnarray}
+  AMSE(\widehat{\beta}_{OLS}) &=& c^2 \tau^2 + c^2 \sigma_\eta^2 E[\mathbf{x}_i'\mathbf{x}_i \mathbf{x}_i' \mathbf{x}_i] +  c \sigma_\epsilon^2   \\
+  \label{eq:OLSAMSE}
+  AMSE(\widehat{\beta}_{MG}) &=& \sigma_\eta^2    + \sigma_\epsilon^2 E[(\mathbf{x}_i'\mathbf{x}_i)^{-1}]
+  \label{eq:MGAMSE}.
+\end{eqnarray}
+
+Also, $\widehat{\tau}^2 - \widehat{\sigma}_\tau^2$ provides an asymptotically unbiased estimator of $\tau^2$, where $\widehat{\sigma}_\tau^2$ is the last diagonal element of $AVA'$ above. 
+For the variables in expectation such as $c^{-1} = E[\mathbf{x}_i'\mathbf{x}_i]$, we can use sample mean as the consistent estimator. That is, $\widehat{c^{-1}} =  \frac{1}{n} \sum_{i=1}^n (\mathbf{x}_i'\mathbf{x}_i) $. We also need to construct consistent estimators for $\sigma_\epsilon^2$ and $\sigma_\eta^2$. We use the following estimators:
+\begin{eqnarray}
+\widehat{\sigma}_\epsilon^2 &=& \frac{1}{NT - 1} \sum_{i=1}^N \sum_{t=1}^T (y_{it}-x_{it}\widehat{\beta}_{OLS})^2\\
+\widehat{\sigma}_\eta^2 &=& \frac{S_b}{n-1} -\frac{1}{n} \sum_{i=1}^n \widehat{\sigma}_\epsilon^2 (\mathbf{x}_i'\mathbf{x}_i)^{-1} 
+\end{eqnarray}
+
+where $S_b = \sum_{i=1}^n \widehat{\beta}_i \widehat{\beta}_i' - \frac{1}{n} \sum_{i=1}^n \widehat{\beta}_i \sum_{i=1}^n \widehat{\beta}_i'$. 
+
+
+
+ 
+\end{document}
