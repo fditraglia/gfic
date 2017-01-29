@@ -1,58 +1,45 @@
 %!TEX root = main.tex
-
-\subsection*{Results from Section \ref{sec:asymp}}
-
 \begin{proof}[Proof of Theorem \ref{thm:asymp}]
 By a mean-value expansion around $(\gamma_0,\theta_0)$,
 	$$\sqrt{n}\left(\widehat{\beta}(b,c) - \beta_0^{(b)}\right) = - K(b,c)\Xi_c \sqrt{n} f_n(\gamma_0,\theta_0) + o_p(1)$$
-and by the Lindeberg-Feller central limit theorem,
-	$$\sqrt{n} f_n(\gamma_0,\theta_0) - \sqrt{n}E\left[f(Z_{ni},\gamma_0,\theta_0) \right]\overset{d}{\rightarrow} \left[\begin{array}{c} \mathscr{N}_g\\  \mathscr{N}_h\end{array}\right].$$
+and by the Lindeberg-Feller CLT,
+$\sqrt{n} f_n(\gamma_0,\theta_0) - \sqrt{n}E\left[f(Z_{ni},\gamma_0,\theta_0) \right]\overset{d}{\rightarrow} (\mathscr{N}_g', \mathscr{N}_h')'$. 
 Now, by a mean-value expansion around $\gamma_n$,
-	\begin{eqnarray*}
-		\sqrt{n}E\left[ f(Z_{ni}, \gamma_0, \theta_0) \right] &=& \sqrt{n}E\left[ f(Z_{ni}, \gamma_n,\theta_0) \right] + \sqrt{n}\nabla_{\gamma'}E\left[ f(Z_{ni}, \bar{\gamma},\theta_0) \right] (\gamma_0 -\gamma_n)\\
-			&=&\left[ \begin{array}{c} 0\\ \tau\end{array}\right] - \nabla_{\gamma'}E\left[ f(Z_{ni}, \bar{\gamma},\theta_0) \right] \delta\\
-			&\rightarrow& \left[ \begin{array}{c} 0\\ \tau\end{array}\right] - F_\gamma\delta.
-	\end{eqnarray*}
-Hence,
-	\begin{equation}
-		\sqrt{n}f_n(\gamma_0, \theta_0) \overset{d}{\rightarrow} \left[\begin{array}{c} \mathscr{N}_g\\  \mathscr{N}_h\end{array}\right]+ \left[ \begin{array}{c} 0\\ \tau\end{array}\right] - F_\gamma\delta
-	\end{equation}
-and the result follows by the continuous mapping theorem.
+	\begin{align*}
+		\sqrt{n}E\left[ f(Z_{ni}, \gamma_0, \theta_0) \right] &= \sqrt{n}E\left[ f(Z_{ni}, \gamma_n,\theta_0) \right] + \sqrt{n}\nabla_{\gamma'}E\left[ f(Z_{ni}, \bar{\gamma},\theta_0) \right] (\gamma_0 -\gamma_n)\\
+			&=\left(\left[ \begin{array}{c} 0\\ \tau\end{array}\right] - \nabla_{\gamma'}E\left[ f(Z_{ni}, \bar{\gamma},\theta_0) \right] \delta\right) \rightarrow \left(\left[ \begin{array}{c} 0\\ \tau\end{array}\right] - F_\gamma\delta\right).
+	\end{align*}
+  Hence, $\sqrt{n}f_n(\gamma_0, \theta_0) \overset{d}{\rightarrow} (\mathscr{N}_g', \mathscr{N}_h')' + (0', \tau')' - F_\gamma \delta$.
+  The result follows by the continuous mapping theorem.
 \end{proof}
 
 \begin{proof}[Proof of Corollary \ref{cor:valid}]
+Since $\Xi_c$ picks out only the components corresponding to $g$,
 For the valid estimator,
-	$$\Xi_c \left(\left[\begin{array}{c} \mathscr{N}_g\\  \mathscr{N}_h\end{array}\right]+ \left[ \begin{array}{c} 0\\ \tau\end{array}\right] - F_\gamma\delta\right) =  \mathscr{N}_g - G_\gamma \delta$$
-since $\Xi_c$ picks out only components corresponding to $g$. Thus,
-	$$\sqrt{n}\left( \widehat{\beta}_v - \beta_0 \right) \overset{d}{\rightarrow} -K_v\left(\mathscr{N}_g - G_\gamma \delta\right).$$
-Finally
-	\begin{eqnarray*}
-		K_v G_\gamma \delta&=&  \left(\left[\begin{array}{c}G_\gamma' \\ G_\theta'\end{array}\right] W_{gg} \left[\begin{array}{cc} G_\gamma & G_\theta \end{array}\right] \right) \left[\begin{array}{c}G_\gamma' \\ G_\theta'\end{array}\right]W_{gg} G_\gamma\delta\\ \\
-			&=& \left[\begin{array}{cc} 
+	$$\Xi_c \left(\left[\begin{array}{c} \mathscr{N}_g\\  \mathscr{N}_h\end{array}\right]+ \left[ \begin{array}{c} 0\\ \tau\end{array}\right] - F_\gamma\delta\right) =  \mathscr{N}_g - G_\gamma \delta.$$
+Thus, $\sqrt{n}\left( \widehat{\beta}_v - \beta_0 \right) \overset{d}{\rightarrow} -K_v\left(\mathscr{N}_g - G_\gamma \delta\right)$.
+Finally, by the definition of a matrix inverse,
+	\begin{align*}
+		K_v G_\gamma \delta
+    %&= \left(\left[\begin{array}{c}G_\gamma' \\ G_\theta'\end{array}\right] W_{gg} \left[\begin{array}{cc} G_\gamma & G_\theta \end{array}\right] \right) \left[\begin{array}{c}G_\gamma' \\ G_\theta'\end{array}\right]W_{gg} G_\gamma\delta\\ \\
+			&= \left[\begin{array}{cc} 
 				G_\gamma'W_{gg}G_\gamma & G_\gamma'W_{gg}G_\theta\\
 				G_\theta'W_{gg}G_\gamma & G_\theta'W_{gg}G_\theta
 			\end{array} \right]^{-1}
 			\left[\begin{array}{c}
 				G_\gamma'W_{gg}G_\gamma\\
 				G_\theta'W_{gg}G_\gamma
-			\end{array}\right]\delta =\left[\begin{array}{c} 0\\ \delta\end{array}\right]
-	\end{eqnarray*}
-by the definition of the matrix inverse.
+			\end{array}\right]\delta =\left[\begin{array}{c} 0\\ \delta\end{array}\right].
+	\end{align*}
 \end{proof}
 
 
-\subsection*{Results from Section \ref{sec:GFIC}}
-
 \begin{proof}[Proof of Corollary \ref{cor:mulimit}]
-   By a mean-value expansion around $\gamma_0$,
-	\begin{eqnarray*}
-		\mu_n  &=& \varphi(\gamma_0,\theta_0)+ \nabla_\gamma \varphi(\bar{\gamma},\theta_0)'(\gamma_n - \gamma_0)\\
-			&=& \mu_0 + \nabla_\gamma \varphi(\bar{\gamma},\theta_0)' \delta/\sqrt{n}
-	\end{eqnarray*}
-for some $\bar{\gamma}$ between $\gamma_0$ and $\gamma_n = \gamma_0 +\delta/\sqrt{n}$. Hence,
-	$$\sqrt{n}(\mu_n - \mu_0) = \nabla_\gamma \varphi(\bar{\gamma},\theta_0)' \delta \rightarrow \nabla_\gamma \varphi(\gamma_0,\theta_0)' \delta $$
-The result follows since
-$$\sqrt{n}\left(\widehat{\mu}(b,c) - \mu_n \right)  = \sqrt{n}\left( \widehat{\mu}(b,c) - \mu_0 \right) - \sqrt{n}\left(\mu_n - \mu_0\right).$$
+For some $\bar{\gamma}$ between $\gamma_0$ and $\gamma_n = \gamma_0 +\delta/\sqrt{n}$. 
+		\[\mu_n  = \varphi(\gamma_0,\theta_0)+ \nabla_\gamma \varphi(\bar{\gamma},\theta_0)'(\gamma_n - \gamma_0) = \mu_0 + \nabla_\gamma \varphi(\bar{\gamma},\theta_0)' \delta/\sqrt{n}\]
+by a mean-value expansion.
+Hence, $\sqrt{n}(\mu_n - \mu_0) = \nabla_\gamma \varphi(\bar{\gamma},\theta_0)' \delta \rightarrow \nabla_\gamma \varphi(\gamma_0,\theta_0)' \delta$.
+The result follows since $\sqrt{n}\left(\widehat{\mu}(b,c) - \mu_n \right)  = \sqrt{n}\left( \widehat{\mu}(b,c) - \mu_0 \right) - \sqrt{n}\left(\mu_n - \mu_0\right)$.
 \end{proof}
 
 
@@ -68,24 +55,26 @@ The result follows from Corollaries \ref{cor:valid} and \ref{cor:mulimit} since,
 
 \begin{proof}[Proof of Lemma \ref{lem:tauhatasymp}]
 By a mean-value expansion around $\beta_0 = ( \gamma_0', \theta_0')'$,
-	$$\sqrt{n}h_n\left(\widehat{\beta}_v \right) = \sqrt{n}h_n(\beta_0) + H \sqrt{n} \left(\widehat{\beta}_v - \beta_0\right) + o_p(1).$$
+\[
+  \sqrt{n}h_n\left(\widehat{\beta}_v \right) = \sqrt{n}h_n(\beta_0) + H \sqrt{n} \left(\widehat{\beta}_v - \beta_0\right) + o_p(1).
+\]
 Now, since
-	$$\sqrt{n}f_n(\gamma_0,\theta_0) \overset{d}{\rightarrow} \left[\begin{array}{c} \mathscr{N}_g\\  \mathscr{N}_h\end{array}\right]+ \left[ \begin{array}{c} 0\\ \tau\end{array}\right] - \left[\begin{array}{c}G_\gamma\\ H_\gamma \end{array}\right]\delta$$
-we have
-	$$\sqrt{n}h_n(\gamma_0,\theta_0)\overset{d}{\rightarrow} \mathscr{N}_h + \tau - H_\gamma \delta.$$
+\[
+  \sqrt{n}f_n(\gamma_0,\theta_0) \overset{d}{\rightarrow} \left[\begin{array}{c} \mathscr{N}_g\\  \mathscr{N}_h\end{array}\right]+ \left[ \begin{array}{c} 0\\ \tau\end{array}\right] - \left[\begin{array}{c}G_\gamma\\ H_\gamma \end{array}\right]\delta
+\]
+we have $\sqrt{n}h_n(\gamma_0,\theta_0)\overset{d}{\rightarrow} \mathscr{N}_h + \tau - H_\gamma \delta$.
 Substituting, 
-	\begin{eqnarray*}
-		\sqrt{n}h_n(\widehat{\beta}_v) &\overset{d}{\rightarrow}&  \mathscr{N}_h + \tau - H_\gamma \delta+ H\left( -K_v \mathscr{N}_g + \left[\begin{array}{c} 0 \\ \delta \end{array} \right]\right)\\ 
-			&=& \mathscr{N}_h + \tau - H_\gamma \delta - HK_v \mathscr{N}_g + \left[ \begin{array}{cc} H_\theta & H_\gamma \end{array}\right] \left[\begin{array}{c} 0 \\ \delta \end{array} \right]\\
-			&=& \mathscr{N}_h  + \tau - H_\gamma \delta - HK_v \mathscr{N}_g  + H_\gamma \delta\\
-			&=& \tau - HK_v \mathscr{N}_g + \mathscr{N}_h
-	\end{eqnarray*}
-as claimed.
+	\begin{align*}
+		\sqrt{n}h_n(\widehat{\beta}_v) &\overset{d}{\rightarrow}  \mathscr{N}_h + \tau - H_\gamma \delta+ H\left( -K_v \mathscr{N}_g + \left[\begin{array}{c} 0 \\ \delta \end{array} \right]\right)
+			%&= \mathscr{N}_h + \tau - H_\gamma \delta - HK_v \mathscr{N}_g + \left[ \begin{array}{cc} H_\theta & H_\gamma \end{array}\right] \left[\begin{array}{c} 0 \\ \delta \end{array} \right]\\
+			%&= \mathscr{N}_h  + \tau - H_\gamma \delta - HK_v \mathscr{N}_g  + H_\gamma \delta\\
+			= \tau - HK_v \mathscr{N}_g + \mathscr{N}_h.
+	\end{align*}
 \end{proof}
 
 \begin{proof}[Proof of Corollary \ref{cor:biasestimators}]
-Define
-	$$\left[\begin{array}{c} U\\ V \end{array}\right]=\left[\begin{array}{c}\delta\\ \tau\end{array} \right] +\Psi\left[\begin{array}{c}\mathscr{N}_g \\ \mathscr{N}_h \end{array}\right].$$
+  Define $(U', V')' = (\delta', \tau')' + \Psi (\mathscr{N}_g', \mathscr{N}_h)'$. 
+	%$$\left[\begin{array}{c} U\\ V \end{array}\right]=\left[\begin{array}{c}\delta\\ \tau\end{array} \right] +\Psi\left[\begin{array}{c}\mathscr{N}_g \\ \mathscr{N}_h \end{array}\right].$$
 By the Continuous Mapping Theorem and Theorem \ref{thm:jointbias},
 	$$\left[\begin{array}{c} \widehat{\delta} \\ \widehat{\tau} \end{array}\right]\left[\begin{array}{cc} \widehat{\delta}' & \widehat{\tau}'\end{array} \right] \overset{d}{\rightarrow} \left[\begin{array}{c} U\\V \end{array}\right]\left[\begin{array}{cc}U' & V'\end{array} \right] $$
 The result follows since
@@ -101,45 +90,32 @@ E\left[\begin{array}{cc}
 \end{proof}
 
 \begin{proof}[Proof of Theorem \ref{thm:REvsFE}]
-By expanding, we have 
-\begin{align*}
-&\sqrt{n} (\widehat{\beta}_{FE} - \beta) = A_n^{-1} \bigg ( n^{-1/2} \sum_{i=1}^n \mathbf{x}_i' Q \mathbf{v}_i  \bigg) \\
-&\sqrt{n} (\widehat{\beta}_{RE} - \beta) = B_n \bigg (n^{-1/2} \sum_{i=1}^n \mathbf{x}_i' \widehat{\Omega}^{-1} \mathbf{v}_i  \bigg) \\
-& \widehat{\tau} = \begin{bmatrix}
-1 & \frac{-(T\widehat{\sigma}_\alpha^2 + \widehat{\sigma}_\epsilon^2)}{A_n B_n} 
-\end{bmatrix} \begin{bmatrix}
-n^{-1/2}(T\widehat{\sigma}_\alpha^2 + \widehat{\sigma}_\epsilon^2)\sum_{i=1}^n \mathbf{x}_i' \widehat{\Omega}^{-1} \mathbf{v}_i\\
-n^{-1/2}\sum_{i=1}^n \mathbf{x}_i' Q \mathbf{v}_i
-\end{bmatrix}
-\end{align*}
-
-where $A_n = \frac{1}{n} \sum_{i=1}^n \mathbf{x}_i' Q \mathbf{x}_i$ and $B_n = \big( \frac{1}{n} \sum_{i=1}^n \mathbf{x}_i' \widehat{\Omega}^{-1} \mathbf{x}_i \big)^{-1} $. The result follows, after some algebra, by applying the Lindeberg-Feller central limit theorem jointly to $n^{-1/2} \sum_{i=1}^n \mathbf{x}_i'Q\mathbf{v}_i$ and $n^{-1/2}\sum_{i=1}^n \mathbf{x}_i' \Omega^{-1} \mathbf{v}_i$. We also use that $\widehat{\Omega}$ is consistent estimator for $\Omega$ from an appropriate law of large numbers. Then, the joint distribution of $\widehat{\beta}_{RE}, \widehat{\beta}_{FE}$ and $\widehat{\tau}$ is derived to be
-
+  This proof is standard so we provide only a sketch.
+  First, let 
+  $A_n = (n^{-1}\sum_{i=1}^n \mathbf{x}_i' \widehat{\Omega}^{-1}\mathbf{x}_i)$, $B_n = (n^{-1} \sum_{i=1}^n \mathbf{x}_i' Q\mathbf{x}_i)$, and $C_n = T\widehat{\sigma}_\alpha^2 + \widehat{\sigma}_\varepsilon^2$.
+  Now, expanding $\widehat{\beta}_{FE}$, $\mathbf{\beta}_{RE}$, and $\widehat{\tau}$ and re-arranging
 \[
- \begin{bmatrix}
+  \left[
+  \begin{array}{c}
 \sqrt{n} (\widehat{\beta}_{RE} - \beta)\\
 \sqrt{n} (\widehat{\beta}_{FE} - \beta)\\
 \widehat{\tau}
-\end{bmatrix} \rightarrow_d  \begin{bmatrix}
-\frac{B}{T\sigma_\alpha^2 + \sigma_\epsilon^2} & 0 \\
-0 & A^{-1} \\
-1 & \frac{-(T\sigma_\alpha^2 + \sigma_\epsilon^2)}{AB}\\
-\end{bmatrix} \bigg(\begin{bmatrix}
-\tau\\
-0
-\end{bmatrix}   + M  \bigg)\\
+  \end{array}
+\right] = 
+\left[
+\begin{array}{cc}
+  A_n^{-1} & 0 \\
+  0 & B_n^{-1} \\
+  C_n & -C_nA_n^{-1}B_n^{-1}
+\end{array}
+\right] \left[
+\begin{array}{c}
+  n^{-1/2} \sum_{i=1}^n \mathbf{x}_i' \widehat{\Omega} \mathbf{v}_i\\ 
+  n^{-1/2} \sum_{i=1}^n \mathbf{x}_i' Q\mathbf{v}_i
+\end{array}
+\right].
 \]
-
-
-where $ A = E[\mathbf{x}_i' Q \mathbf{x}_i], B=E[\mathbf{x_i}' \Omega^{-1} \mathbf{x}_i]^{-1}$, and  $M \sim N(0, \widetilde{V}),$ with
-
-\[
-\widetilde{V} =  \begin{bmatrix}
-(T\sigma_\alpha^2 + \sigma_\epsilon^2)^2 E[\mathbf{x}_i' \Omega^{-1} \mathbf{x}_i] & (T\sigma_\alpha^2 + \sigma_\epsilon^2) E[\mathbf{x}_i' Q \mathbf{x}_i] \\
- (T\sigma_\alpha^2 + \sigma_\epsilon^2) E[\mathbf{x}_i' Q \mathbf{x}_i] & \sigma_\epsilon^2 E[\mathbf{x}_i' Q \mathbf{x}_i]
-\end{bmatrix}. \\
-\]
-
+The result follows by applying a law of large numbers to $A_n, B_n, C_n$, and $\widehat{\Omega}$ and the Lindeberg-Feller CLT jointly to $n^{-1/2} \sum_{i=1}^n \mathbf{x}_i'Q\mathbf{v}_i$ and $n^{-1/2}\sum_{i=1}^n \mathbf{x}_i' \Omega^{-1} \mathbf{v}_i$. 
 \end{proof}
 
 \begin{proof}[Proof of Theorem \ref{thm:limitDpanel}.]
@@ -149,7 +125,7 @@ Expanding,
   \sqrt{n}\left[\widehat{\beta}(k,\cdot) - \beta\right] &=(0, \mathbf{0}_{k-1}', \delta)' + \widehat{Q}(k,\cdot)\left[ n^{-1/2}Z'(k,\cdot)\Delta \mathbf{v}\right]\\
   \sqrt{n}\left[\widehat{\beta}(r,\cdot) - \beta_{r}\right] &=  \widehat{Q}(r,\cdot)\left\{ \delta \left[n^{-1}Z'(r,\cdot) L^{k}\Delta \mathbf{y}^+\right] + \left[n^{-1/2}Z'(r,\cdot)\Delta \mathbf{v}^{+}\right] \right\}
 \end{align*}
-The result follows, after some algebra, by applying the Lindeberg-Feller central limit theorem to $n^{-1/2}Z'(k,\cdot)\Delta \mathbf{v}$ and $n^{-1/2}Z'(r,\cdot)\Delta \mathbf{v}^{+}$ and an appropriate law of large numbers to $n^{-1} Z'(r,\cdot)L^k \Delta \mathbf{y}^{+}$, where $(\cdot)$ is either $\text{P}$ or $\text{S}$ depending on the instrument set used.
+The result follows, after some algebra, by applying the Lindeberg-Feller CLT to $n^{-1/2}Z'(k,\cdot)\Delta \mathbf{v}$ and $n^{-1/2}Z'(r,\cdot)\Delta \mathbf{v}^{+}$ and an appropriate law of large numbers to $n^{-1} Z'(r,\cdot)L^k \Delta \mathbf{y}^{+}$, where $(\cdot)$ is either $\text{P}$ or $\text{S}$ depending on the instrument set used.
 \end{proof}
 
 
@@ -203,7 +179,7 @@ The result follows, after some algebra, by applying the Lindeberg-Feller central
   \end{array}
 \right] + o_p(1).
   \]
-  The result follows, after some algebra, by applying the Lindeberg-Feller central limit theorem jointly to $n^{-1/2}Z'(k,\text{P})\Delta\mathbf{v}$ and $n^{-1/2}X'\Delta \mathbf{v}$ and noting that the permutation matrix $\Pi$ maps the vector $[n^{-1/2}Z'(k,\text{S})\Delta \mathbf{v}]$ to the vector $\left[
+  The result follows, after some algebra, by applying the Lindeberg-Feller CLT jointly to $n^{-1/2}Z'(k,\text{P})\Delta\mathbf{v}$ and $n^{-1/2}X'\Delta \mathbf{v}$ and noting that the permutation matrix $\Pi$ maps the vector $[n^{-1/2}Z'(k,\text{S})\Delta \mathbf{v}]$ to the vector $\left[
   \begin{array}{cc}
     \left\{n^{-1/2} Z'(k,P)\Delta \mathbf{v}\right\}' &
     \left\{n^{-1/2} X'\Delta \mathbf{v}\right\}' 
