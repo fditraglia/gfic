@@ -1,0 +1,199 @@
+\documentclass[11pt]{article}
+
+\textwidth 16.5cm
+\evensidemargin 0mm
+\oddsidemargin0mm
+\topmargin-18mm
+\textheight 23.0cm
+
+%----------------------------------------------------------------------------------------------------------
+% PACKAGES
+%----------------------------------------------------------------------------------------------------------
+%\usepackage{epsfig}
+%\usepackage{draftwatermark}
+\usepackage{everypage}
+\usepackage{lscape}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{setspace}
+\usepackage[stable]{footmisc}
+\doublespacing
+%\usepackage[bottom]{footmisc}
+\usepackage{float}
+\usepackage{longtable}
+\usepackage[center,bf]{caption}
+\usepackage[debug,citecolor=blue]{hyperref}
+\usepackage{theorem}
+\usepackage[toc,page,title,titletoc,header]{appendix}
+\usepackage{tikz}                                             % you only need this when using TikZ graphics
+%\usepackage{pdfsync}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage[final]{pdfpages}
+%\usepackage{epsfig}
+%\usepackage{3parttable}
+%\usepackage{dcolumn}
+\DeclareGraphicsExtensions{.png, .pdf, .jpg, .mps, .ps, .pdf, .eps}
+\usepackage{pdfpages}
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{rotating}
+\usepackage{multirow}
+\usepackage{placeins}
+
+\usepackage{bbm}
+
+\graphicspath{{./figuras/}}
+
+%----------------------------------------------------------------------------------------------------------
+% BIBLIOGRAPHY
+%----------------------------------------------------------------------------------------------------------
+\usepackage{natbib}
+%{\bibliographystyle{econometrica}
+\renewcommand{\cite}{\citet}
+
+%--------
+%%WATER MARK
+%\SetWatermarkFontSize{1cm}
+%\SetWatermarkScale{2}
+%\SetWatermarkLightness{.9}
+%\SetWatermarkText{Preliminary Draft}
+
+%--------
+
+%%%%%%%%% NEW COMMAND MACRO %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\re}[1]{\smallskip\textsf{\textbf{Respuesta}} \begin{sf}\\
+#1 \end{sf} \bigskip}
+\newcommand{\pr}[2]{\frac{\partial #1}{\partial #2}}
+
+\newcommand{\notorth}{\ensuremath{\perp\!\!\!\!\!\!\diagup\!\!\!\!\!\!\perp}}%
+\newcommand{\orth}{\ensuremath{\perp\!\!\!\perp}}%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\input{ee.sty}
+
+\setcounter{MaxMatrixCols}{10}
+
+\newtheorem{example}{Example}[section]
+\newtheorem{assume}{Assumption}
+\newtheorem{proposition}{Proposition}[section]
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{corollary}{Corollary}[section]
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{definition}{Definition}[section]
+\setcounter{section}{0}
+\makeindex
+
+\newcommand{\notindep}{\ensuremath{\perp\!\!\!\!\!\!\diagup\!\!\!\!\!\!\perp}}
+\newcommand{\indep}{\ensuremath{\perp\!\!\!\perp}}
+\newcommand{\Perp}{\perp \! \! \! \perp}
+
+\newcommand{\prob}{\mathbb{P}}
+\newcommand{\expec}{\mathbb{E}}
+
+
+\def\inprobHIGH{\,{\buildrel p \over \longrightarrow}\,} 
+\def\inprob{\,{\inprobHIGH}\,} 
+
+\def\indistHIGH{\,{\buildrel d \over \longrightarrow}\,} 
+\def\indist{\,{\indistHIGH}\,} 
+
+%----------------------------------------------------------------------------------------------------------
+% HYPER-REFERENCES CONFIGURATION - PDF
+%----------------------------------------------------------------------------------------------------------
+
+\hypersetup{
+  colorlinks=true,linkcolor=blue,citecolor=black, filecolor=magenta,
+citebordercolor=yellow,
+  linkbordercolor = magenta,
+  pdftitle={SGL},
+  pdfauthor={Rojas},
+  pdfcreator={\LaTeX\ with package \flqq hyperref\frqq using Textmate},
+  pdfsubject={achievement},
+  pdfkeywords={achievement}
+}
+
+\usepackage{psfrag}
+\usepackage{afterpage}
+\usepackage{subfigure}
+\usepackage{setspace}
+\usepackage{fancyhdr}
+
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+
+\setlength\parindent{0pt}
+
+\begin{document}
+%\title{\LARGE Problem Set 7}
+%\author{Minsu Chang}
+%\date{\small{\today}}
+
+
+ %\maketitle \thispagestyle{empty}
+
+\doublespacing
+
+%\setcounter{page}{0}
+
+
+\section*{Typos}
+
+I put how we should change after the arrow $\rightarrow$. 
+
+\begin{itemize}
+\item p.6 1st paragraph last sentence: concerning the triangular array Assumption 2.1. $\rightarrow$ triangular array in Assumption 2.1. 
+\item p.6 right below Assumption 2.2.: $E[f(Z_i, \gamma_0, \theta_0))]=0$ $\rightarrow$ $E[f(Z_i, \gamma_0, \theta_0)] = 0$
+\item p.7 footnote 2: Assumption 2.2. of ?. needs to be complete.
+\item p.8 right before Theorem 2.1.: The key results is $\rightarrow$ result is
+\item p.10 equation (13) $\phi_0'$ $\rightarrow$ $\varphi_0'$
+\item p.10 footnote 3: see ? Section 3.3. needs to be complete.
+\item p.14 section 5.1. first sentence: in which the the GFIC $\rightarrow$ in which the GFIC 
+\item p.15 right after equation (22): $\iota\iota'$ $\rightarrow$ $\iota_T \iota_T'$
+\item p.16 right after the expression for $\sigma^2$: unbiased estimator of $\tau$. Thus, substituting $\widehat{\tau}-\sigma^2$ for $\tau$ $\rightarrow$ unbiased estimator of $\tau^2$. Thus substituting $\widehat{\tau}^2-\sigma^2$ for $\tau^2$. 
+\item p.16 with the expressions for variance estimators $\widehat{\sigma}_\epsilon^2$ and $\widehat{\sigma}_v^2$, we should change $N$ with $n$. 
+\item p.16 last part: $\omega^{*} = [...]$ $\rightarrow$ $\omega^{*} = [...]^{-1}$. Also, the sentence right after this expression should be: where we take the maximum over $\widehat{\tau}^2 - \widehat{\sigma}^2$ and zero...
+\item p.22 last part of section 5.2.: by sputting zero in place of $\rightarrow$ by putting zero in place of
+\item p.38 in Proof of Corollary 3.5. $(N_g', N_h)'$ $\rightarrow$ $(N_g', N_h')'$
+\item p.39 in Proof of Theorem 5.1. The expressions should be changed into parts written in red below:\\
+Now expanding $\widehat{\beta}_{FE}, \textcolor{red}{\widehat{\beta}_{RE}},$ and $\widehat{\tau}$ and re-arranging
+\[\begin{bmatrix}
+\sqrt{n}(\widehat{\beta}_{RE} - \beta)\\
+\sqrt{n}(\widehat{\beta}_{FE}-\beta)\\
+\widehat{\tau}
+\end{bmatrix} =\begin{bmatrix}
+A_n^{-1} & 0\\
+0 & B_n^{-1} \\
+C_n & -C_n \textcolor{red}{A_n}B_n^{-1}
+\end{bmatrix}\begin{bmatrix}
+n^{-1/2}\sum_{i=1}^n \mathbf{x}_i' \textcolor{red}{\widehat{\Omega}^{-1}} \mathbf{v}_i\\
+n^{-1/2}\sum_{i=1}^n \mathbf{x}_i'Q \mathbf{v}_i
+\end{bmatrix} 
+\]
+\end{itemize}
+
+\newpage
+\textcolor{red}{*** So far, the sections I've checked: Intro, 2, 3, 5.1., 5.2., 6.1., 6.2., (6.2.1.) and proofs.}
+
+\section*{References Change}
+
+The following summarizes the changes made in GFIC\_refs\_Minsu.bib file.
+
+\begin{itemize}
+\item Arellano, M., Bond, S., 1991: The review of economic studies $\rightarrow$ The Review of Economic Studies
+\item Behl, P., Claeskens, G., Dette, H., March 2012: working paper $\rightarrow$ published in Statistica Sinica (2014)
+\item Claeskens, G., Croux, C., Jo, 2006: Author name incomplete,  Johan Van Kerckhoven added.
+\item DiTraglia, F. J., 2016: volume 192 $\rightarrow$ volume 195
+\item Hall, A. R., Peixe, F. P., 2003: Article title and page corrected.
+\item Hansen, B. E., 2015: working paper $\rightarrow$ published in Journal of Econometrics (2016)
+\item Hong, H., Preston, B., Shum, M., 2003: Article title corrected.
+\item Lai, T. L., Small, D. S., Liu, J., 2008: Author name and journal name corrected.
+\item Newey, W. K., Smith, R. J., 2004: Article title corrected.
+\item Skouras, S., November 2001: working paper $\rightarrow$ published in Journal of Econometrics (2007)
+\item Smith, R. J., July 1992. $\rightarrow$ remove July to be consistent with other references.
+\end{itemize}
+
+
+\end{document}
