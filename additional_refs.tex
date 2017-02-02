@@ -1,0 +1,165 @@
+\documentclass[11pt]{article}
+
+\textwidth 16.5cm
+\evensidemargin 0mm
+\oddsidemargin0mm
+\topmargin-18mm
+\textheight 23.0cm
+
+%----------------------------------------------------------------------------------------------------------
+% PACKAGES
+%----------------------------------------------------------------------------------------------------------
+%\usepackage{epsfig}
+%\usepackage{draftwatermark}
+\usepackage{everypage}
+\usepackage{lscape}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{setspace}
+\usepackage[stable]{footmisc}
+\doublespacing
+%\usepackage[bottom]{footmisc}
+\usepackage{float}
+\usepackage{longtable}
+\usepackage[center,bf]{caption}
+\usepackage[debug,citecolor=blue]{hyperref}
+\usepackage{theorem}
+\usepackage[toc,page,title,titletoc,header]{appendix}
+\usepackage{tikz}                                             % you only need this when using TikZ graphics
+%\usepackage{pdfsync}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage[final]{pdfpages}
+%\usepackage{epsfig}
+%\usepackage{3parttable}
+%\usepackage{dcolumn}
+\DeclareGraphicsExtensions{.png, .pdf, .jpg, .mps, .ps, .pdf, .eps}
+\usepackage{pdfpages}
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{rotating}
+\usepackage{multirow}
+\usepackage{placeins}
+
+\usepackage{bbm}
+
+\graphicspath{{./figuras/}}
+
+%----------------------------------------------------------------------------------------------------------
+% BIBLIOGRAPHY
+%----------------------------------------------------------------------------------------------------------
+\usepackage{natbib}
+%{\bibliographystyle{econometrica}
+\renewcommand{\cite}{\citet}
+
+%--------
+%%WATER MARK
+%\SetWatermarkFontSize{1cm}
+%\SetWatermarkScale{2}
+%\SetWatermarkLightness{.9}
+%\SetWatermarkText{Preliminary Draft}
+
+%--------
+
+%%%%%%%%% NEW COMMAND MACRO %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\re}[1]{\smallskip\textsf{\textbf{Respuesta}} \begin{sf}\\
+#1 \end{sf} \bigskip}
+\newcommand{\pr}[2]{\frac{\partial #1}{\partial #2}}
+
+\newcommand{\notorth}{\ensuremath{\perp\!\!\!\!\!\!\diagup\!\!\!\!\!\!\perp}}%
+\newcommand{\orth}{\ensuremath{\perp\!\!\!\perp}}%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\input{ee.sty}
+
+\setcounter{MaxMatrixCols}{10}
+
+\newtheorem{example}{Example}[section]
+\newtheorem{assume}{Assumption}
+\newtheorem{proposition}{Proposition}[section]
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{corollary}{Corollary}[section]
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{definition}{Definition}[section]
+\setcounter{section}{0}
+\makeindex
+
+\newcommand{\notindep}{\ensuremath{\perp\!\!\!\!\!\!\diagup\!\!\!\!\!\!\perp}}
+\newcommand{\indep}{\ensuremath{\perp\!\!\!\perp}}
+\newcommand{\Perp}{\perp \! \! \! \perp}
+
+\newcommand{\prob}{\mathbb{P}}
+\newcommand{\expec}{\mathbb{E}}
+
+
+\def\inprobHIGH{\,{\buildrel p \over \longrightarrow}\,} 
+\def\inprob{\,{\inprobHIGH}\,} 
+
+\def\indistHIGH{\,{\buildrel d \over \longrightarrow}\,} 
+\def\indist{\,{\indistHIGH}\,} 
+
+%----------------------------------------------------------------------------------------------------------
+% HYPER-REFERENCES CONFIGURATION - PDF
+%----------------------------------------------------------------------------------------------------------
+
+\hypersetup{
+  colorlinks=true,linkcolor=blue,citecolor=black, filecolor=magenta,
+citebordercolor=yellow,
+  linkbordercolor = magenta,
+  pdftitle={SGL},
+  pdfauthor={Rojas},
+  pdfcreator={\LaTeX\ with package \flqq hyperref\frqq using Textmate},
+  pdfsubject={achievement},
+  pdfkeywords={achievement}
+}
+
+\usepackage{psfrag}
+\usepackage{afterpage}
+\usepackage{subfigure}
+\usepackage{setspace}
+\usepackage{fancyhdr}
+
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+
+\setlength\parindent{0pt}
+
+\begin{document}
+%\title{\LARGE Problem Set 7}
+%\author{Minsu Chang}
+%\date{\small{\today}}
+
+
+ %\maketitle \thispagestyle{empty}
+
+\doublespacing
+
+%\setcounter{page}{0}
+
+
+\section*{Additional References}
+
+\begin{itemize}
+\item From FMSC paper, the references in red are added to to the GFIC paper:
+\begin{itemize}
+\item "Although Hall and Peixe (2003) and \textcolor{red}{Cheng and Liao (2013)} do consider relevance,  their aim is to avoid including redundant moment conditions after consistently eliminating invalid ones.  Some other papers that propose choosing, or combining, instruments to minimize MSE include \textcolor{red}{Donald and Newey (2001), Donald et al. (2009)}, and \textcolor{red}{Kuersteiner and Okui (2010)}.  Unlike the FMSC, however, these papers consider the higher-order bias that arises from including many valid instruments...
+\item "The  framework  within  which  I  study  moment  averaging  is  related  to  the  frequentist model average estimators of Hjort and Claeskens (2003).  Two other papers that consider weighting estimators based on different moment conditions are \textcolor{red}{Xiao (2010)} and \textcolor{red}{Chen et al.
+(2009)}. Whereas these papers combine estimators computed using valid moment conditions to achieve a minimum variance estimator, I combine estimators computed using potentially invalid conditions with the aim of reducing estimator AMSE." 
+\end{itemize}
+\item Mean-group estimation references:
+\begin{itemize}
+\item \textcolor{red}{Pesaran and Smith (1995)}: Pooling estimator gives inconsistent estimates where as MG estimator produces consistent estimates of the average of the parameters from dynamic heterogeneous panels.
+\item \textcolor{red}{Pesaran et al. (1999)}: They propose an intermediate procedure, the pooled mean group (PMG), which imposes identical long-run coefficients but allows short-run coefficients to differ across groups. (\textcolor{blue}{*** Not sure whether we need to include this reference...})
+\item \textcolor{red}{Swamy (1970)}: This paper assumes that the coefficient vector is distributed across units with the same mean and the same variance-covariance matrix. This random coefficient regression model is the setup that we consider in Section 8. (Also, how to construct consistent estimators for $\sigma_\epsilon^2, \sigma_\eta^2$ is following Swamy (1970)).
+\item \textcolor{red}{Pesaran and Yamagata (2008)}: This paper proposes a standardized test of slope homogeneity for panel data models where the cross section dimension could be large relative to the time series dimension. (\textcolor{blue}{*** Not sure whether we need to include this reference...})
+\end{itemize}
+\item Empirical example references:
+\begin{itemize}
+\item \textcolor{red}{Baltagi et al. (2000)}
+\end{itemize}
+\end{itemize}
+
+
+\end{document}
