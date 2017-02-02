@@ -69,7 +69,7 @@ make_tex_tabular <- function(char_mat) {
 
 make_table_header <- function(names_vec) {
   first_part <- paste0('\\begin{tabular}{', 
-                       paste0(rep('cccc', 6), collapse = '|'),  
+                       paste0(rep('cccc', length(names_vec) + 1), collapse = '|'),  
                        '} \n \\hline \\hline \n')
   second_part <- paste0('\\multicolumn{4}{c}{', c('', names_vec), '}',
                         collapse = '&')

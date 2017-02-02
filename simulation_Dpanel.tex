@@ -164,91 +164,38 @@ As they grow it performs slightly worse, but only by a small amount.
 
 
 \begin{table}[!tbp]
-\begin{center}
-\begin{tabular}{lrrrr}
-\hline\hline
-\multicolumn{1}{l}{Average}&\multicolumn{2}{c}{$N = 250$}&\multicolumn{2}{c}{$N = 500$}\\
-&\multicolumn{1}{c}{$T=4$}&\multicolumn{1}{c}{$T=5$}&\multicolumn{1}{c}{$T=4$}&\multicolumn{1}{c}{$T=5$}\tabularnewline
-\hline
-LW&19&10&13& 7\tabularnewline
-LS&30&44&54&79\tabularnewline
-W&24&34&46&64\tabularnewline
-S&31&50&64&94\tabularnewline
-\hline
-GFIC&17&13&15&10\tabularnewline
-Downward J-test (10\%)&32&45&55&74\tabularnewline
-Downward J-test (5\%)&31&47&57&79\tabularnewline
-GMM-BIC&32&48&62&87\tabularnewline
-GMM-HQ&32&46&57&77\tabularnewline
-GMM-AIC&31&39&47&57\tabularnewline
-\hline\\ \\ 
-
-\hline\hline
-\multicolumn{1}{l}{Worst-Case}&\multicolumn{2}{c}{$N = 250$}&\multicolumn{2}{c}{$N = 500$}\\
-&\multicolumn{1}{c}{$T=4$}&\multicolumn{1}{c}{$T=5$}&\multicolumn{1}{c}{$T=4$}&\multicolumn{1}{c}{$T=5$}\tabularnewline
-\hline
-LW& 0& 0&  0&  0\tabularnewline
-LS&42&81& 94&154\tabularnewline
-W&49&88&105&158\tabularnewline
-S&48&92&107&171\tabularnewline
-\hline
-GFIC& 3& 8&  6& 11\tabularnewline
-Downward J-test (10\%)&43&78& 91&140\tabularnewline
-Downward J-test (5\%)&45&83& 98&153\tabularnewline
-GMM-BIC&48&89&106&168\tabularnewline
-GMM-HQ&46&85&102&154\tabularnewline
-GMM-AIC&39&68& 81&118\tabularnewline
-\hline
-
-\end{tabular}
-\end{center}
-\caption{Average and Worst-case RMSE Relative to Oracle (\% points)}
+  \centering
+\caption{This is where the old table used to be!}
 \label{tab:rel}
 \end{table}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{table}[!tbp]
-\begin{center}
-\begin{tabular}{lrrrr}
-\hline\hline
-\multicolumn{1}{l}{Average}&\multicolumn{2}{c}{$N = 250$}&\multicolumn{2}{c}{$N = 500$}\\
-&\multicolumn{1}{c}{$T=4$}&\multicolumn{1}{c}{$T=5$}&\multicolumn{1}{c}{$T=4$}&\multicolumn{1}{c}{$T=5$}\tabularnewline
-\hline
-LW&0.073&0.057&0.051&0.040\tabularnewline
-LS&0.079&0.074&0.070&0.066\tabularnewline
-W&0.075&0.069&0.066&0.061\tabularnewline
-S&0.080&0.077&0.074&0.072\tabularnewline
-\hline
-GFIC&0.071&0.058&0.052&0.041\tabularnewline
-Downward J-test (10\%)&0.080&0.074&0.070&0.065\tabularnewline
-Downward J-test (5\%)&0.080&0.075&0.071&0.067\tabularnewline
-GMM-BIC&0.080&0.076&0.073&0.069\tabularnewline
-GMM-HQ&0.080&0.075&0.071&0.066\tabularnewline
-GMM-AIC&0.080&0.071&0.066&0.058\tabularnewline
-\hline\\ \\
-
-\hline\hline
-\multicolumn{1}{l}{Worst-Case}&\multicolumn{2}{c}{$N = 250$}&\multicolumn{2}{c}{$N = 500$}\\
-&\multicolumn{1}{c}{$T=4$}&\multicolumn{1}{c}{$T=5$}&\multicolumn{1}{c}{$T=4$}&\multicolumn{1}{c}{$T=5$}\tabularnewline
-\hline
-LW&0.084&0.064&0.059&0.045\tabularnewline
-LS&0.120&0.116&0.115&0.113\tabularnewline
-W&0.125&0.120&0.122&0.115\tabularnewline
-S&0.125&0.123&0.122&0.121\tabularnewline
-\hline
-GFIC&0.087&0.069&0.063&0.049\tabularnewline
-Downward J-test (10\%)&0.120&0.114&0.113&0.107\tabularnewline
-Downward J-test (5\%)&0.122&0.117&0.117&0.113\tabularnewline
-GMM-BIC&0.125&0.121&0.122&0.119\tabularnewline
-GMM-HQ&0.123&0.118&0.120&0.113\tabularnewline
-GMM-AIC&0.117&0.107&0.107&0.097\tabularnewline
-\hline
-\end{tabular}
-\end{center}
-\caption{Average and Worst-case RMSE.}
+  \centering
+\caption{This is where the old table used to be!}
 \label{tab:rmse}
 \end{table}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{sidewaystable}
+  \footnotesize
+  \centering
+  \input{./simulations/DynamicPanel/results/Dpanel_RMSE_GFIC_vs_fixed_spec.tex}
+  
+  \vspace{2em}
+
+  \input{./simulations/DynamicPanel/results/Dpanel_RMSE_GFIC_vs_alternatives_main.tex}
+  \caption{RMSE values multiplied by 1000}
+\end{sidewaystable}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{sidewaystable}
+  \footnotesize
+  \centering
+  \input{./simulations/DynamicPanel/results/Dpanel_RMSE_GFIC_vs_alternatives_append.tex}
+  \caption{RMSE values multiplied by 1000}
+\end{sidewaystable}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
