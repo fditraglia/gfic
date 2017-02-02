@@ -5,7 +5,7 @@
 
 \subsection{Random Effects versus Fixed Effects Example}
 \label{sec:REvsFE}
-In this section we consider a simple example in which the the GFIC is used to choose between and average over alternative assumptions about individual heterogeneity: Random Effects versus Fixed Effects.
+In this section we consider a simple example in which the GFIC is used to choose between and average over alternative assumptions about individual heterogeneity: Random Effects versus Fixed Effects.
 For simplicity we consider the homoskedastic case and assume that any strictly exogenous regressors, including a constant term, have been ``projected out'' so we may treat all random variables as mean zero.
 To avoid triple subscripts in the notation, we further suppress the dependence of random variables on the cross-section dimension $n$ except within statements of theorems.
 Suppose that
@@ -36,7 +36,7 @@ Although its variance is higher than that of the GLS estimator, the ``fixed effe
   \widehat{\beta}_{FE} = \left(\sum_{i=1}^{n} \mathbf{x}_i' Q \mathbf{x}_i\bigg)^{-1}\bigg(\sum_{i=1}^{n} \mathbf{x}_i' Q\mathbf{y}_i   \right),
   \label{eq:FEdef}
 \end{equation}
-where $Q=I_T - \boldsymbol{\iota}\boldsymbol{\iota}'/T$, remains unbiased even when $x_{it}$ is correlated with $\alpha_i$. 
+where $Q=I_T - \boldsymbol{\iota}_T\boldsymbol{\iota}_T'/T$, remains unbiased even when $x_{it}$ is correlated with $\alpha_i$. 
 
 The conventional wisdom holds that one should use the fixed effects estimator whenever $Cov(x_{it},\alpha_i)\neq 0$.
 If the correlation between the regressor of interest and the individual effect is \emph{sufficiently small}, however, the lower variance of the random effects estimator could more than compensate for its bias in a mean-squared error sense.
@@ -64,7 +64,7 @@ leading to the following result, from which we will construct the GFIC for this 
 \sqrt{n} (\widehat{\beta}_{RE} - \beta)\\
 \sqrt{n} (\widehat{\beta}_{FE} - \beta)\\
 \widehat{\tau}
-\end{array}\right] \overset{d}{\rightarrow} N \left( 
+\end{array}\right] \overset{d}{\rightarrow}  \left( 
 \left[\begin{array}{c}
 c\tau \\
 0  \\
@@ -82,7 +82,7 @@ where $\eta^2 = E[\mathbf{x}_i'\Omega^{-1}\mathbf{x}_i]$, $c = E[\mathbf{x}_i' Q
 
 
 
-We see from Theorem \ref{thm:REvsFE} that $AMSE(\widehat{\beta}_{RE}) = c^2 \tau^2 + \eta^2$, $AMSE(\widehat{\beta}_{FE}) = c^2\sigma^2 + \eta^2$, and $\widehat{\tau}^2 - \sigma^2$ provides an asymptotically unbiased estimator of $\tau$.
+We see from Theorem \ref{thm:REvsFE} that $AMSE(\widehat{\beta}_{RE}) = c^2 \tau^2 + \eta^2$, $AMSE(\widehat{\beta}_{FE}) = c^2\sigma^2 + \eta^2$, and $\widehat{\tau}^2 - \sigma^2$ provides an asymptotically unbiased estimator of $\tau^2$.
 Thus, substituting $\widehat{\tau}^2 - \sigma^2$ for $\tau$ and rearranging the preceding AMSE expressions, the GFIC tells us that we should select the random effects estimator whenever $|\widehat{\tau}|\leq \sqrt{2} \sigma$.
 To implement this rule in practice, we construct a consistent estimator of $\sigma^2$, for which we require estimators of $\sigma_{\alpha}^2, \sigma_{\varepsilon}^2$ and $\sigma_{v}^2 = Var(\alpha_i + \varepsilon_{it})$.
 We estimate these from the residuals
@@ -93,8 +93,8 @@ We estimate these from the residuals
 where $\widehat{\beta}_{OLS}$ denotes the \emph{pooled} OLS estimator of $\beta$, leading to the variance estimators 
 \[
 \widehat{\sigma}_\alpha^2 = \widehat{\sigma}_v^2 - \widehat{\sigma}_\epsilon^2; \quad
-\widehat{\sigma}_\epsilon^2 = \frac{1}{N(T-1)-1} \sum_{i=1}^N \sum_{t=1}^T \widehat{\epsilon}_{it}^2; \quad
-\widehat{\sigma}_v^2 = \frac{1}{NT-1} \sum_{i=1}^N \sum_{t=1}^T \widehat{v}_{it}^2
+\widehat{\sigma}_\epsilon^2 = \frac{1}{n(T-1)-1} \sum_{i=1}^n \sum_{t=1}^T \widehat{\epsilon}_{it}^2; \quad
+\widehat{\sigma}_v^2 = \frac{1}{nT-1} \sum_{i=1}^n \sum_{t=1}^T \widehat{v}_{it}^2
 \]
 
 Selection, of course, is a somewhat crude procedure: it is essentially an average that uses all-or-nothing weights.
@@ -105,6 +105,6 @@ and for $\omega \in [0,1]$ \emph{optimize} the choice of $\omega$ to minimize AM
 From Theorem \ref{thm:REvsFE} we see that the AMSE-minimizing value of $\omega$ is $\omega^* = (1 + \tau^2/\sigma^2)^{-1}$.
 Substituting our asymptotically unbiased estimator of $\tau^2$ and our consistent estimator $\widehat{\sigma}^2$ of $\sigma^2$, we propose the following plug-in estimator of $\omega^*$ 
 \begin{equation*}
-  \omega^* = \left[ 1 + \frac{ \max\left\{  \widehat{\tau}^2 - \widehat{\sigma}^2, 0\right\}}{\widehat{\sigma}^2} \right]
+  \omega^* = \left[ 1 + \frac{ \max\left\{  \widehat{\tau}^2 - \widehat{\sigma}^2, 0\right\}}{\widehat{\sigma}^2} \right]^{-1}
 \end{equation*}
-where we take the maximum over $\widehat{\tau}$ and zero to ensure that $\widehat{\omega}^*$ is between zero and one. 
+where we take the maximum over $\widehat{\tau} - \widehat{\sigma}^2$ and zero so that $\widehat{\omega}^*$ is between zero and one. 

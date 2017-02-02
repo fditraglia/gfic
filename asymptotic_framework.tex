@@ -1,5 +1,6 @@
 %!TEX root = main.tex
 \section{Notation and Asymptotic Framework}
+\todo[inline]{After Minsu adds the high-level sufficient conditions, put them into a numbered assumption and update the theorems etc to refer to them}
 \label{sec:asymp}
 Let $f(\cdot, \cdot)$ be a $(p+q)$-vector of moment functions of a random vector $Z$ and an $(r+s)$-dimensional parameter vector $\beta$.
 To represent moment selection, we partition the moment functions according to $f(\cdot,\cdot) = \left(g(\cdot, \cdot)', h(\cdot, \cdot)'\right)'$ where $g(\cdot, \cdot)$ and $h(\cdot, \cdot)$ are $p$- and $q$-vectors.
@@ -30,12 +31,12 @@ Similarly, for any fixed sample size $n$, the expectation of $h$ evaluated at th
 Thus, under Assumption \ref{assump:local}, only estimators that use moment conditions from $g$ to estimate the full parameter vector $\beta$ are correctly specified. 
 In the limit, however, \emph{every} estimator is correctly specified, regardless of which elements of $\gamma$ it restricts and which elements of $h$ it includes. 
 The purpose of local mis-specification is to ensure that squared asymptotic bias is of the same order as asymptotic variance: Assumption \ref{assump:local} is a device rather than literal description of real-world data. 
-To simplify the proofs we make the following further assumption concerning the triangular array Assumption \ref{assump:local}, although it is not strictly necessary.
+To simplify the proofs we make the following further assumption concerning the triangular array from Assumption \ref{assump:local}, although it is not strictly necessary.
 \begin{assump}
 \label{assump:add}
 $\{Z_{ni}\colon 1\leq i \leq n, n =1, 2, \hdots\}$ is $iid$ over $i$ for fixed $n$.
 \end{assump}
-Note that, by Assumptions \ref{assump:local}--\ref{assump:add}, the limiting random variable $Z_i$ satisfies the population moment condition $E[f\left(Z_i,\gamma_0, \theta_0\right) )]=0$. 
+Note that, by Assumptions \ref{assump:local}--\ref{assump:add}, the limiting random variable $Z_i$ satisfies the population moment condition $E[f\left(Z_i,\gamma_0, \theta_0\right)]=0$. 
 Since the $Z_i$ are assumed to have a common marginal law, we will use the shorthand $Z$ for $Z_i$ throughout.
 
 
@@ -76,7 +77,9 @@ For estimation based on $g$ alone to be possible, we require $p \geq r+s$.
 This is assumed throughout.
 
 
-Because Assumption \ref{assump:local} ensures that they are correctly specified in the limit, \emph{all} candidate specifications $(b,c)\in \mathcal{BC}$ provide consistent estimators of $\theta_0$ under standard, high level regularity conditions.\footnote{The required high-level sufficient conditions are essentially identical to Assumption 2.2 of \cite{DiTraglia2012}.} Essential differences arise, however, when we consider their respective asymptotic distributions. 
+Because Assumption \ref{assump:local} ensures that they are correctly specified in the limit, \emph{all} candidate specifications $(b,c)\in \mathcal{BC}$ provide consistent estimators of $\theta_0$ under standard, high level regularity conditions.
+\todo[inline]{Add high-level sufficient conditions! These should be an explicit assumption.}
+Essential differences arise, however, when we consider their respective asymptotic distributions. 
 Let
 		\begin{equation}F  =  \left[\begin{array}{cc}  \nabla_{\gamma'}g\left(Z,\gamma_0, \theta_0\right) &   \nabla_{\theta'}g\left(Z,\gamma_0, \theta_0\right) \\
  \nabla_{\gamma'}h\left(Z,\gamma_0, \theta_0\right)  &   \nabla_{\theta'}h\left(Z,\gamma_0, \theta_0\right)  
@@ -96,7 +99,7 @@ Notice that each of these expressions involves the limiting random variable $Z$ 
 Thus, the corresponding expectations are taken with respect to a distribution for which all moment conditions have expectation zero  evaluated at $(\gamma_0,\theta_0)$.
 Finally, let $F(b,c) = \Xi_c F \Xi_b'$ and similarly define $\Omega_c = \Xi_c \Omega \Xi_c'$ and $W_c = \Xi_c W \Xi_c'$ where $W$ is the positive definite probability limit of $\widetilde{W}$. 
 Under Assumption \ref{assump:local}, both $\delta$ and $\tau$ induce a bias term in the limiting distribution of $\sqrt{n}\left(\widehat{\beta}(b,c) - \beta_0^{(b)}\right)$. 
-The key results is as follows.
+The key result is as follows.
 \begin{thm}[Asymptotic Distribution]
 \label{thm:asymp}
 Under Assumptions \ref{assump:local}--\ref{assump:add} and standard regularity conditions,

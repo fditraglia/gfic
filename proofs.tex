@@ -73,7 +73,7 @@ Substituting,
 \end{proof}
 
 \begin{proof}[Proof of Corollary \ref{cor:biasestimators}]
-  Define $(U', V')' = (\delta', \tau')' + \Psi (\mathscr{N}_g', \mathscr{N}_h)'$. 
+  Define $(U', V')' = (\delta', \tau')' + \Psi (\mathscr{N}_g', \mathscr{N}_h')'$. 
 	%$$\left[\begin{array}{c} U\\ V \end{array}\right]=\left[\begin{array}{c}\delta\\ \tau\end{array} \right] +\Psi\left[\begin{array}{c}\mathscr{N}_g \\ \mathscr{N}_h \end{array}\right].$$
 By the Continuous Mapping Theorem and Theorem \ref{thm:jointbias},
 	$$\left[\begin{array}{c} \widehat{\delta} \\ \widehat{\tau} \end{array}\right]\left[\begin{array}{cc} \widehat{\delta}' & \widehat{\tau}'\end{array} \right] \overset{d}{\rightarrow} \left[\begin{array}{c} U\\V \end{array}\right]\left[\begin{array}{cc}U' & V'\end{array} \right] $$
@@ -106,11 +106,11 @@ E\left[\begin{array}{cc}
 \begin{array}{cc}
   A_n^{-1} & 0 \\
   0 & B_n^{-1} \\
-  C_n & -C_nA_n^{-1}B_n^{-1}
+  C_n & -C_nA_nB_n^{-1}
 \end{array}
 \right] \left[
 \begin{array}{c}
-  n^{-1/2} \sum_{i=1}^n \mathbf{x}_i' \widehat{\Omega} \mathbf{v}_i\\ 
+  n^{-1/2} \sum_{i=1}^n \mathbf{x}_i' \widehat{\Omega}^{-1} \mathbf{v}_i\\ 
   n^{-1/2} \sum_{i=1}^n \mathbf{x}_i' Q\mathbf{v}_i
 \end{array}
 \right].
