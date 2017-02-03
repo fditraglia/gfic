@@ -1,0 +1,157 @@
+\documentclass[11pt]{article}
+
+\textwidth 16.5cm
+\evensidemargin 0mm
+\oddsidemargin0mm
+\topmargin-18mm
+\textheight 23.0cm
+
+%----------------------------------------------------------------------------------------------------------
+% PACKAGES
+%----------------------------------------------------------------------------------------------------------
+%\usepackage{epsfig}
+%\usepackage{draftwatermark}
+\usepackage{everypage}
+\usepackage{lscape}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{setspace}
+\usepackage[stable]{footmisc}
+\doublespacing
+%\usepackage[bottom]{footmisc}
+\usepackage{float}
+\usepackage{longtable}
+\usepackage[center,bf]{caption}
+\usepackage[debug,citecolor=blue]{hyperref}
+\usepackage{theorem}
+\usepackage[toc,page,title,titletoc,header]{appendix}
+\usepackage{tikz}                                             % you only need this when using TikZ graphics
+%\usepackage{pdfsync}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage[final]{pdfpages}
+%\usepackage{epsfig}
+%\usepackage{3parttable}
+%\usepackage{dcolumn}
+\DeclareGraphicsExtensions{.png, .pdf, .jpg, .mps, .ps, .pdf, .eps}
+\usepackage{pdfpages}
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{rotating}
+\usepackage{multirow}
+\usepackage{placeins}
+
+\usepackage{bbm}
+
+\graphicspath{{./figuras/}}
+
+%----------------------------------------------------------------------------------------------------------
+% BIBLIOGRAPHY
+%----------------------------------------------------------------------------------------------------------
+\usepackage{natbib}
+%{\bibliographystyle{econometrica}
+\renewcommand{\cite}{\citet}
+
+%--------
+%%WATER MARK
+%\SetWatermarkFontSize{1cm}
+%\SetWatermarkScale{2}
+%\SetWatermarkLightness{.9}
+%\SetWatermarkText{Preliminary Draft}
+
+%--------
+
+%%%%%%%%% NEW COMMAND MACRO %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\re}[1]{\smallskip\textsf{\textbf{Respuesta}} \begin{sf}\\
+#1 \end{sf} \bigskip}
+\newcommand{\pr}[2]{\frac{\partial #1}{\partial #2}}
+
+\newcommand{\notorth}{\ensuremath{\perp\!\!\!\!\!\!\diagup\!\!\!\!\!\!\perp}}%
+\newcommand{\orth}{\ensuremath{\perp\!\!\!\perp}}%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\input{ee.sty}
+
+\setcounter{MaxMatrixCols}{10}
+
+\newtheorem{example}{Example}[section]
+\newtheorem{assume}{Assumption}
+\newtheorem{proposition}{Proposition}[section]
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{corollary}{Corollary}[section]
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{definition}{Definition}[section]
+\setcounter{section}{0}
+\makeindex
+
+\newcommand{\notindep}{\ensuremath{\perp\!\!\!\!\!\!\diagup\!\!\!\!\!\!\perp}}
+\newcommand{\indep}{\ensuremath{\perp\!\!\!\perp}}
+\newcommand{\Perp}{\perp \! \! \! \perp}
+
+\newcommand{\prob}{\mathbb{P}}
+\newcommand{\expec}{\mathbb{E}}
+
+
+\def\inprobHIGH{\,{\buildrel p \over \longrightarrow}\,} 
+\def\inprob{\,{\inprobHIGH}\,} 
+
+\def\indistHIGH{\,{\buildrel d \over \longrightarrow}\,} 
+\def\indist{\,{\indistHIGH}\,} 
+
+%----------------------------------------------------------------------------------------------------------
+% HYPER-REFERENCES CONFIGURATION - PDF
+%----------------------------------------------------------------------------------------------------------
+
+\hypersetup{
+  colorlinks=true,linkcolor=blue,citecolor=black, filecolor=magenta,
+citebordercolor=yellow,
+  linkbordercolor = magenta,
+  pdftitle={SGL},
+  pdfauthor={Rojas},
+  pdfcreator={\LaTeX\ with package \flqq hyperref\frqq using Textmate},
+  pdfsubject={achievement},
+  pdfkeywords={achievement}
+}
+
+\usepackage{psfrag}
+\usepackage{afterpage}
+\usepackage{subfigure}
+\usepackage{setspace}
+\usepackage{fancyhdr}
+
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+
+\setlength\parindent{0pt}
+
+\begin{document}
+%\title{\LARGE Problem Set 7}
+%\author{Minsu Chang}
+%\date{\small{\today}}
+
+
+ %\maketitle \thispagestyle{empty}
+
+\doublespacing
+
+%\setcounter{page}{0}
+
+
+\section*{High Level Sufficient Conditions}
+
+\begin{itemize}
+\item[(a)] $\beta_0$ lies in the interior of $\Theta$, a compact set
+\item[(b)] $\widetilde{W} \rightarrow_{p} W$, a positive definite matrix
+\item[(c)] $\Xi_c \widetilde{W} \Xi_c' \Xi_c E[f(Z, \beta)] = 0$ if and only if $\beta = \beta_0$
+\item[(d)] $E[f(Z,\beta)]$ is continuous on $\Theta$
+\item[(e)] $sup_{\beta\in \Theta} ||f_n(\beta) - E[f(Z,\beta)]||\rightarrow_p 0$
+\item[(f)] $f$ is Z-almost surely differentiable in an open neighborhood $\mathcal{B}$ of $\beta_0$
+\item[(g)] $sup_{\beta \in \Theta} ||\nabla_{\beta} f_n(\beta) - F(\beta)|| \rightarrow_p 0 $
+\item[(h)] $\sqrt{n} f_n(\beta_0) - \sqrt{n} E[f(Z, \beta_0)] \rightarrow_d M $ where $M \sim N_{p+q} (0, \Omega)$ 
+\item[(i)] $F(b,c)' W_c F(b,c)$ is invertible, where $W_c = \Xi_c W \Xi_c'$
+\end{itemize}
+
+
+\end{document}
