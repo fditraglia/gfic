@@ -3,16 +3,23 @@
 \todo[inline]{This section needs to be tightened up and clarified. It's not very clear what the point of it is and why this example is interesting. There are also no references.}
 
 \label{sec:slopeHet}
-We now consider a simple panel model with heterogeneous effects, namely
+Suppose we wish to estimate the \emph{average} effect $\beta$ of a regressor $x$ in a panel setting where this effect may vary by individual.
+One idea is to simply ignore the heterogeneity and fit a pooled model.
+A pooled estimator will generally be quite precise, but depending on the nature and extent of heterogeneity could show a serious bias.
+Another idea is to apply the \emph{mean group estimator} by running separate time-series regressions for each individual and averaging the result over the cross-section.\todo{citation needed!}
+This approach is robust to heterogeneity but may yield an imprecise estimator, particularly in panels with a short time dimension.
+To see how the GFIC navigates this tradeoff, consider the following DGP:
 	\begin{align}
 				y_{it} &= \beta_i x_{it} + \epsilon_{it}\\
         \beta_i &= \beta + \eta_i, \quad \eta_i \sim \mbox{iid} (0, \sigma_\eta^2)
 	\end{align}
 where $i = 1, \hdots, n$ indexes individuals and $t=1, \hdots, T$ indexes time periods.
 As above we assume without loss of generality that all random variables are mean zero and any exogenous controls have been projected out.
-To simplify the exposition we further assume that $\epsilon_{it}$ is iid over both $i$ and $t$ with variance $\sigma_\epsilon^2$. 
+For purposes of this example, we assume that $\epsilon_{it}$ is iid over both $i$ and $t$ with variance $\sigma_\epsilon^2$ and that both error terms are homoskedastic: $E[\epsilon_{it}^2 | x_{it}] = \sigma_\epsilon^2$ and $E[\eta_i^2 | x_{it}] = \sigma_\eta^2$, and $E[\eta_i \epsilon_{it} | x_{it}] = 0$.
+Neither homoskedasticity nor time-independent errors are actually needed to apply the GFIC, but these assumptions simplify the exposition.
 
-The individual effect $\eta_i$ for slope heterogeneity is i.i.d over $i$ with mean 0 and variance $\sigma_\eta^2$. Homoscedasticity is assumed, that is, $E[\epsilon_{it}^2 | x_{it}] = \sigma_\epsilon^2$ and $E[\eta_i^2 | x_{it}] = \sigma_\eta^2$. Also, $E[\eta_i \epsilon_{it} | x_{it}] = 0$ is assumed. Stacking observations for a given individual over time in the usual way, let $\mathbf{y}_i = (y_{i1}, \ldots, y_{iT})'$ and define $\mathbf{x}_i$ analogously. For simplicity, I consider the case where $\beta \in \mathbb{R}$. First, we can consider the OLS estimator which does not take into account of slope heterogeneity. 
+
+Stacking observations for a given individual over time in the usual way, let $\mathbf{y}_i = (y_{i1}, \ldots, y_{iT})'$ and define $\mathbf{x}_i$ analogously. For simplicity, I consider the case where $\beta \in \mathbb{R}$. First, we can consider the OLS estimator which does not take into account of slope heterogeneity. 
 	\begin{equation}
 \widehat{\beta}_{OLS} = \bigg(\sum_{i=1}^{n} \mathbf{x}_i'  \mathbf{x}_i\bigg)^{-1}\bigg(\sum_{i=1}^{n} \mathbf{x}_i' \mathbf{y}_i   \bigg)	
 	\end{equation}
