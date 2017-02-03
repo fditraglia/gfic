@@ -1,9 +1,7 @@
 %!TEX root = main.tex
 \subsection{Slope Heterogeneity Example}
-\todo[inline]{This section needs to be tightened up and clarified. It's not very clear what the point of it is and why this example is interesting. There are also no references.}
-
 \label{sec:slopeHet}
-Suppose we wish to estimate the \emph{average} effect $\beta$ of a regressor $x$ in a panel setting where this effect may vary by individual.
+Suppose we wish to estimate the average effect $\beta$ of a regressor $x$ in a panel setting where this effect may vary by individual: say $\beta_i \sim \mbox{iid}$ over $i$.
 One idea is to simply ignore the heterogeneity and fit a pooled model.
 A pooled estimator will generally be quite precise, but depending on the nature and extent of heterogeneity could show a serious bias.
 Another idea is to apply the \emph{mean group estimator} by running separate time-series regressions for each individual and averaging the result over the cross-section.\todo{citation needed!}
@@ -14,26 +12,33 @@ To see how the GFIC navigates this tradeoff, consider the following DGP:
         \beta_i &= \beta + \eta_i, \quad \eta_i \sim \mbox{iid} (0, \sigma_\eta^2)
 	\end{align}
 where $i = 1, \hdots, n$ indexes individuals and $t=1, \hdots, T$ indexes time periods.
-As above we assume without loss of generality that all random variables are mean zero and any exogenous controls have been projected out.
-For purposes of this example, we assume that $\epsilon_{it}$ is iid over both $i$ and $t$ with variance $\sigma_\epsilon^2$ and that both error terms are homoskedastic: $E[\epsilon_{it}^2 | x_{it}] = \sigma_\epsilon^2$ and $E[\eta_i^2 | x_{it}] = \sigma_\eta^2$, and $E[\eta_i \epsilon_{it} | x_{it}] = 0$.
-Neither homoskedasticity nor time-independent errors are actually needed to apply the GFIC, but these assumptions simplify the exposition.
+As in the preceding examples, assume without loss of generality that all random variables are mean zero and any exogenous controls have been projected out.
+For the purposes of this example, assume further that $\epsilon_{it}$ is iid over both $i$ and $t$ with variance $\sigma_\epsilon^2$ and that both error terms are homoskedastic: $E[\epsilon_{it}^2 | x_{it}] = \sigma_\epsilon^2$ and $E[\eta_i^2 | x_{it}] = \sigma_\eta^2$, and $E[\eta_i \epsilon_{it} | x_{it}] = 0$.
+Neither homoskedasticity nor time-independent errors are required to apply the GFIC, but these assumptions simplify the exposition.  
+We place no assumptions on the joint distribution of $x_{it}$ and $\eta_i$.
 
-
-Stacking observations for a given individual over time in the usual way, let $\mathbf{y}_i = (y_{i1}, \ldots, y_{iT})'$ and define $\mathbf{x}_i$ analogously. For simplicity, I consider the case where $\beta \in \mathbb{R}$. First, we can consider the OLS estimator which does not take into account of slope heterogeneity. 
+Stacking observations over time in the usual way, let $\mathbf{y}_i = (y_{i1}, \ldots, y_{iT})'$ and define $\mathbf{x}_i$ analogously. 
+We consider two estimators: pooled OLS
 	\begin{equation}
 \widehat{\beta}_{OLS} = \bigg(\sum_{i=1}^{n} \mathbf{x}_i'  \mathbf{x}_i\bigg)^{-1}\bigg(\sum_{i=1}^{n} \mathbf{x}_i' \mathbf{y}_i   \bigg)	
 	\end{equation}
-	
-If we know for certain that there is no slope heterogeneity, we would prefer to use the OLS estimator. However, when there is slope heterogeneity, the OLS estimator is biased. We can consider the "mean group" estimator given by 
-
-
+and the mean-group estimator
 	\begin{equation}
 \widehat{\beta}_{MG}  = \frac{1}{n}\sum_{i=1}^n \widehat{\beta}_i 
-= \frac{1}{n} \sum_{i=1}^n \bigg( \mathbf{x}_i'  \mathbf{x}_i\bigg)^{-1}\bigg( \mathbf{x}_i'  \mathbf{y}_i   \bigg)
+= \frac{1}{n} \sum_{i=1}^n \left( \mathbf{x}_i'  \mathbf{x}_i\right)^{-1}\left( \mathbf{x}_i'  \mathbf{y}_i   \right)
 \end{equation}
+where $\widehat{\beta}_i$ denotes the OLS estimator calculated using observations for individual $i$ only. 
+If we knew with certainty that there was no slope heterogeneity, we could clearly prefer $\widehat{\beta}_{OLS}$ as it is both unbiased and has the lower variance.
+In the presence of heterogeneity, however, the situation is more complicated.
+If $E[x_{it}^2 \eta_i]\neq 0$ then $\widehat{\beta}_{OLS}$ will show a bias whereas $\widehat{\beta}_{MG}$ will not.
+We might expect that $\widehat{\beta}_{OLS}$ would still have the lower variance under heterogeneity, but this need not be the case.
+It is possible to construct examples in which $\widehat{\beta}_{MG}$ is unbiased \emph{and} has a lower variance than $\widehat{\beta}_{MG}$.
+Whether or not this is the case depends on the length $T$ of the time dimension, the variance $\sigma_{\eta}^2$ of the individual slope components, and the distribution of $\mathbf{x}_i$.
 
-where $\widehat{\beta}_i$ is the OLS estimator using individual $i$'
-s data only. One should use the mean group estimator to achieve unbiasedness when there is slope heterogeneity. However, if the slope heterogeneity is sufficiently small, the OLS estimator could render the lower variance which compensates for its bias.\footnote{Different from the example of fixed effects and random effects, the OLS estimator does not always have lower variance than the mean group estimator.} In this example, the local mis-specification assumption takes the form  
+\todo[inline]{Update from here down!}
+
+
+f.s data only. One should use the mean group estimator to achieve unbiasedness when there is slope heterogeneity. However, if the slope heterogeneity is sufficiently small, the OLS estimator could render the lower variance which compensates for its bias.\footnote{Different from the example of fixed effects and random effects, the OLS estimator does not always have lower variance than the mean group estimator.} In this example, the local mis-specification assumption takes the form  
 
 \begin{equation}
 \sum_{t=1}^T E[x_{it}^2 \eta_i] = \frac{\tau}{\sqrt{n}}
