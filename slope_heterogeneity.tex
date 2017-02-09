@@ -30,29 +30,23 @@ and the mean-group estimator
 where $\widehat{\beta}_i$ denotes the OLS estimator calculated using observations for individual $i$ only. 
 If we knew with certainty that there was no slope heterogeneity, we could clearly prefer $\widehat{\beta}_{OLS}$ as it is both unbiased and has the lower variance.
 In the presence of heterogeneity, however, the situation is more complicated.
-If $E[x_{it}^2 \eta_i]\neq 0$ then $\widehat{\beta}_{OLS}$ will show a bias whereas $\widehat{\beta}_{MG}$ will not.
-We might expect that $\widehat{\beta}_{OLS}$ would still have the lower variance under heterogeneity, but this need not be the case.
-It is possible to construct examples in which $\widehat{\beta}_{MG}$ is unbiased \emph{and} has a lower variance than $\widehat{\beta}_{MG}$.
-Whether or not this is the case depends on the length $T$ of the time dimension, the variance $\sigma_{\eta}^2$ of the individual slope components, and the distribution of $\mathbf{x}_i$.
-
-\todo[inline]{Update from here down!}
-
-
-f.s data only. One should use the mean group estimator to achieve unbiasedness when there is slope heterogeneity. However, if the slope heterogeneity is sufficiently small, the OLS estimator could render the lower variance which compensates for its bias.\footnote{Different from the example of fixed effects and random effects, the OLS estimator does not always have lower variance than the mean group estimator.} In this example, the local mis-specification assumption takes the form  
-
+If $E[x_{it}^2 \eta_i]\neq 0$ for at least one time period $t$ then $\widehat{\beta}_{OLS}$ will show a bias whereas $\widehat{\beta}_{MG}$ will not.
+To encode this idea within the local mis-specification framework, we take
 \begin{equation}
 \sum_{t=1}^T E[x_{it}^2 \eta_i] = \frac{\tau}{\sqrt{n}}
 \end{equation}
+so that, for any fixed $n$ the OLS estimator a bias unless $\tau = 0$ but this bias disappears in the limit as $n \rightarrow \infty$.
+Turning our attention from bias to variance, we might might expect that $\widehat{\beta}_{OLS}$ would remain the more precise estimator in the presence of heterogeneity.
+In fact, however, this need not be the case: it is possible to construct examples in which $\widehat{\beta}_{MG}$ has a \emph{lower} variance than $\widehat{\beta}_{MG}$.
+Whether or not this is the case depends on the length $T$ of the time dimension, the variance $\sigma_{\eta}^2$ of individual slope components, and the distribution of $\mathbf{x}_i$.
 
-where $\tau$ is fixed, unknown constant. In the limit, $\tau/\sqrt{n} \rightarrow 0$. However, this term is not zero for any finite sample size unless $\tau =0$. An asymptotically unbiased estimator of $\tau$ for this example is given by
-
+To construct the GFIC for this example, we estimate the bias parameter $\tau$ by substituting the mean group estimator into the OLS moment condition, namely
 \begin{equation}
-\widehat{\tau} = \frac{1}{\sqrt{n}} \sum_{i=1}^n \mathbf{x}_i' (\mathbf{y}_i - \mathbf{x}_i \widehat{\beta}_{MG})
+\widehat{\tau} = \frac{1}{\sqrt{n}} \sum_{i=1}^n \mathbf{x}_i' (\mathbf{y}_i - \mathbf{x}_i \widehat{\beta}_{MG}).
 \end{equation}
-
-resulting in the following result, from which we will construct the GFIC. 
-
-\begin{thm}[OLS versus Mean Group Limit Distributions]
+The key result needed to apply the GFIC in this this example gives the joint limiting distribution of $\widehat{\tau}$, the mean-group estimator, and the OLS estimator.
+\todo[inline]{Edit from here down}
+\begin{thm}
 \label{thm:OLSvsMG}
   Under standard regularity conditions,
 \[
