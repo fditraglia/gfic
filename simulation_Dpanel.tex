@@ -97,7 +97,7 @@ When there are large MAD differences between $\mbox{L1}$ and $\mbox{L2}$, howeve
 
 \subsubsection{Simultaneous Model and Moment Selection for the Short-run Effect}
 \label{sec:Dpanel_sim_SR}
-We now consider a larger-scale simulation that simultaneously selects over lag specification and endogeneity assumptions. 
+We now consider a more complicated simulation experiment that simultaneously selects over lag specification and endogeneity assumptions. 
 In this simulation our target parameter is the short-run effect of $x$ on $y$, as in our empirical example below and the true model contains one lag.
 Specifically, 
 \[
@@ -107,7 +107,6 @@ where $i = 1, \dots, n$ and $t = 1, \dots, T$ and the regressor, individual effe
 Our model selection decision example is whether to set $\gamma = 0$ and estimate a specification wihout the lagged dependent variable, while our moment selection decision is whether use only the instrument set $\mathbf{z}_{it}(\ell,\text{P})$, 
 which assumes that $x$ is predetermined, or the instrument set $\mathbf{z}_{it}(\ell,\text{S})$ which assumes that it is strictly exogenous.
 Both instrument sets are defined in Equation \ref{eq:Zdpanel}.
-
 We consider four specifications, each estimated by TSLS using the expressions from section \ref{sec:Dpanel}.
 The correct specification, $\text{LP}$, estimates both $\gamma$ and $\theta$ using only the ``predetermined'' instrument set.
 In contrast, $\text{LS}$ estimates both parameters using the ``strict exogeneity'' instrument set.
@@ -148,7 +147,23 @@ In practice, of course, we do not know the values of $\gamma$, $\rho$, $\theta$,
 Instead, we consider using the GFIC to select between the four specifications.
 Clearly there are gains to be had from estimating a mis-specified model in certain situations.
 The questions remains, can the GFIC identify them?
-To provide a basis for comparison, we consider a number of other selection procedures. 
+Because it is an efficient rather than consistent selection criterion, the GFIC remains random, even in the limit.
+This means that can never outperform the ``oracle'' estimator that uses whichever specification gives the lowest finite-sample RMSE in figure \ref{fig:best}.
+Moreover, because our target parameter is a scalar, Stein-type results do not apply: the post-GFIC estimator cannot provide a uniform improvement over the true specification $\text{LP}$.
+Nevertheless, the post-GFIC estimator can provide a substantial improvement over $\text{LP}$ when $\rho_{xv}$ and $\gamma$ are relatively small relative to sample size, as shown in Figure \ref{fig:GFIC_rel_LP} and in the two leftmost panes of the top panel in Table \ref{tab:Dpanel_RMSE}.
+This is precisely the situation for which the GFIC is intended: a setting in which we have reason to suspect that mis-specification is fairly mild.
+Moreover, in situations where $\text{LP}$ has a substantially lower RMSE than the other estimators, the post GFIC-estimator's performance is generally quite similar.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{figure}
+\centering
+\includegraphics[scale = 0.8]{./simulations/DynamicPanel/results/Dpanel_GFIC_RMSE_rel_LP}
+\caption{RMSE of the post-GFIC estimator relative to that of the true specification ($\text{LP}$) in the dynamic panel simulation experiment from Section \ref{sec:Dpanel_sim_SR}.}
+\label{fig:GFIC_rel_LP}
+\end{figure}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+To provide a basis for comparison, we now consider results for a number of alternative selection procedures. 
 The first is a ``Downward J-test,'' which is intended to approximate what applied researchers may do in practice when faced with a model and moment selection decision such as this one.
 The Downward J-test selects the \emph{most restrictive} specification that is not rejected by the over-identifying restrictions test at a fixed significance level $\alpha$:
 \begin{enumerate}
@@ -159,107 +174,28 @@ The Downward J-test selects the \emph{most restrictive} specification that is no
 \end{enumerate}
 This procedure is, of course, somewhat \emph{ad hoc} because the significance threshold $\alpha$ is chosen arbitrarily rather than with a view towards some kind of selection optimality. 
 We also consider the GMM model and moment selection criteria of \cite{AndrewsLu}: 
-	\begin{eqnarray*}
-	 \mbox{GMM-BIC} && J - (|c| - |b|) \log{n}\\
-	 \mbox{GMM-AIC}&& J - 2(|c| - |b|)\\ 
-	 \mbox{GMM-HQ} && J - 2.01 (|c| - |b|)  \log{\log{n}}
-	\end{eqnarray*}
+	\begin{align*}
+	 \mbox{GMM-BIC} &= J - (|c| - |b|) \log{n}\\
+	 \mbox{GMM-AIC}&= J - 2(|c| - |b|)\\ 
+	 \mbox{GMM-HQ} &= J - 2.01 (|c| - |b|)  \log{\log{n}}
+	\end{align*}
 where $|b|$ is the number of parameters estimated, and $|c|$ the number of moment conditions used. 
 Under certain assumptions, it can be shown that both the GMM-BIC and GMM-HQ are consistent: they select the maximal correctly specified estimator with probability approaching one in the limit. 
 To implement these criteria, we calculate the J-test based on the optimal, two-step GMM estimator with a panel robust, heteroscedasticity-consistent, centered covariance matrix estimator for each specification.
-
 To compare selection procedures we use the same simulation grid as above, namely $\gamma$ and $\sigma_{xv}$, namely $\gamma, \sigma_{xv} \in \{0, 0.005, 0.01, \hdots, 0.195, 0.20\}$.  
 Again, each point on the simulation grid is calculated from 2000 simulation replications. 
 
 \todo[inline]{Update from here down!}
 
-Tables \ref{tab:rel} and \ref{tab:rmse} compare the performance of GFIC selection against each of the fixed specifications LW, LS, W, and S as well as the Downward J-test and the GMM moment and model selection criteria of \cite{AndrewsLu}. 
-Table \ref{tab:rmse} gives average and maximum, i.e.\ worst-case, RMSE over the parameter space for $\gamma, \sigma_{xv}$ while Table \ref{tab:rel} gives \emph{relative} RMSE comparisons. Specifically, the values in the panel ``Average'' of Table \ref{tab:rel} tell how much larger, in percentage points, the average RMSE of a given estimator or selection procedure is than that of the pointwise oracle. 
+Tables ??? and ??? compare the performance of GFIC selection against each of the fixed specifications LP, LS, P, and S as well as the Downward J-test and the GMM moment and model selection criteria of \cite{AndrewsLu}. 
+Table ??? gives average and maximum, i.e.\ worst-case, RMSE over the parameter space for $\gamma, \rho_{xv}$ while Table ??? gives \emph{relative} RMSE comparisons. Specifically, the values in the panel ``Average'' of Table ??? tell how much larger, in percentage points, the average RMSE of a given estimator or selection procedure is than that of the pointwise oracle. 
 The pointwise oracle is the infeasible procedure that uses the true minimum RMSE estimator at each point on the parameter grid. 
-In contrast, the values in the panel ``Worst-Case'' of Table \ref{tab:rel} tell how much larger, in percentage points, the maximum RMSE of a given estimator or selection procedure is than that of the fixed specification LW. 
-Over this parameter grid, LW is the minimax estimator.
+In contrast, the values in the panel ``Worst-Case'' of Table ??? tell how much larger, in percentage points, the maximum RMSE of a given estimator or selection procedure is than that of the fixed specification LP. 
+Over this parameter grid, LP is the minimax estimator.
 
 Compared both to the fixed specifications and the other selection procedures, the GFIC performs well. 
 In particular, it has a substantially lower average and worst-case RMSE than any of the other selection procedures.
-Compared to simply using the correct specification, LW, the GFIC also performs relatively well. 
-When $T$ and $N$ are small, the GFIC outperforms LW in average RMSE. 
+Compared to simply using the correct specification, LP, the GFIC also performs relatively well. 
+When $T$ and $N$ are small, the GFIC outperforms LP in average RMSE. 
 As they grow it performs slightly worse, but only by a small amount.
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{figure}
-\centering
-\includegraphics[scale = 0.8]{./simulations/DynamicPanel/results/Dpanel_GFIC_RMSE_rel_oracle}
-\caption{GFIC RMSE relative to Oracle}
-\end{figure}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{figure}
-\centering
-\includegraphics[scale = 0.8]{./simulations/DynamicPanel/results/Dpanel_GFIC_RMSE_rel_LP}
-\caption{GFIC RMSE relative to LP}
-\end{figure}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{figure}
-\centering
-\includegraphics[scale = 0.8]{./simulations/DynamicPanel/results/Dpanel_GFIC_RMSE_rel_AIC}
-\caption{GFIC RMSE relative to AIC}
-\end{figure}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{figure}
-\centering
-\includegraphics[scale = 0.8]{./simulations/DynamicPanel/results/Dpanel_GFIC_RMSE_rel_BIC}
-\caption{GFIC RMSE relative to BIC}
-\end{figure}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{figure}
-\centering
-\includegraphics[scale = 0.8]{./simulations/DynamicPanel/results/Dpanel_GFIC_RMSE_rel_J5}
-\caption{GFIC RMSE relative to J5}
-\end{figure}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{figure}
-\centering
-\includegraphics[scale = 0.8]{./simulations/DynamicPanel/results/Dpanel_GFIC_RMSE_rel_J10}
-\caption{GFIC RMSE relative to J10}
-\end{figure}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{figure}
-\centering
-\includegraphics[scale = 0.8]{./simulations/DynamicPanel/results/Dpanel_GFIC_RMSE_rel_HQ}
-\caption{GFIC RMSE relative to HQ}
-\end{figure}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{figure}
-\centering
-\caption{Here's where the old figure used to be!}
-\label{fig:advantage}
-\end{figure}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-
-\begin{table}[!tbp]
-  \centering
-\caption{This is where the old table used to be!}
-\label{tab:rel}
-\end{table}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\begin{table}[!tbp]
-  \centering
-\caption{This is where the old table used to be!}
-\label{tab:rmse}
-\end{table}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{sidewaystable}
-  \footnotesize
-  \centering
-  \input{./simulations/DynamicPanel/results/Dpanel_RMSE_GFIC_vs_alternatives_append.tex}
-  \caption{RMSE values multiplied by 1000}
-\end{sidewaystable}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 
