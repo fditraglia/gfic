@@ -184,18 +184,13 @@ Under certain assumptions, it can be shown that both the GMM-BIC and GMM-HQ are 
 To implement these criteria, we calculate the J-test based on the optimal, two-step GMM estimator with a panel robust, heteroscedasticity-consistent, centered covariance matrix estimator for each specification.
 To compare selection procedures we use the same simulation grid as above, namely $\gamma$ and $\sigma_{xv}$, namely $\gamma, \sigma_{xv} \in \{0, 0.005, 0.01, \hdots, 0.195, 0.20\}$.  
 Again, each point on the simulation grid is calculated from 2000 simulation replications. 
-
-\todo[inline]{Update from here down!}
-
-Tables ??? and ??? compare the performance of GFIC selection against each of the fixed specifications LP, LS, P, and S as well as the Downward J-test and the GMM moment and model selection criteria of \cite{AndrewsLu}. 
-Table ??? gives average and maximum, i.e.\ worst-case, RMSE over the parameter space for $\gamma, \rho_{xv}$ while Table ??? gives \emph{relative} RMSE comparisons. Specifically, the values in the panel ``Average'' of Table ??? tell how much larger, in percentage points, the average RMSE of a given estimator or selection procedure is than that of the pointwise oracle. 
-The pointwise oracle is the infeasible procedure that uses the true minimum RMSE estimator at each point on the parameter grid. 
-In contrast, the values in the panel ``Worst-Case'' of Table ??? tell how much larger, in percentage points, the maximum RMSE of a given estimator or selection procedure is than that of the fixed specification LP. 
-Over this parameter grid, LP is the minimax estimator.
-
-Compared both to the fixed specifications and the other selection procedures, the GFIC performs well. 
-In particular, it has a substantially lower average and worst-case RMSE than any of the other selection procedures.
-Compared to simply using the correct specification, LP, the GFIC also performs relatively well. 
-When $T$ and $N$ are small, the GFIC outperforms LP in average RMSE. 
-As they grow it performs slightly worse, but only by a small amount.
+The bottom panel of Table \ref{tab:Dpanel_RMSE} presents results for these alternative selection procedures.
+Figures comparing the GFIC against each alternative in turn appear in Appendix \ref{sec:simulation_supplement}.
+There is no clear winner in point-wise RMSE comparisons between the GFIC and its competitors. 
+A substantial difference between the GFIC and its competitors emerges, however, when we examine worst-case RMSE.
+Here the GFIC clearly dominates, providing the lowest worst-case RMSE across all configurations of $T$ and $n$.
+The differences are particularly stark for larger sample sizes.
+For example, when $T=5$ and $n=500$ the worst-case RMSE of GFIC is approximately half that of its nearest competitor: GMM-AIC.
+The consistent criteria, GMM-BIC and GMM-HQ, perform particularly poorly in terms of worst-case RMSE.
+This is unsurprising given that the worst-case risk of any consistent selection criteria diverges as sample size increases.\footnote{See, e.g., \cite{LeebPoetscher2008}.}
 
