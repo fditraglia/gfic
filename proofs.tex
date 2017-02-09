@@ -1,8 +1,9 @@
 %!TEX root = main.tex
+\section{Proofs}
 \begin{proof}[Proof of Theorem \ref{thm:asymp}]
 By a mean-value expansion around $(\gamma_0,\theta_0)$,
 	$$\sqrt{n}\left(\widehat{\beta}(b,c) - \beta_0^{(b)}\right) = - K(b,c)\Xi_c \sqrt{n} f_n(\gamma_0,\theta_0) + o_p(1)$$
-and by the Lindeberg-Feller CLT,
+  and by assumption \ref{assump:high-level},
 $\sqrt{n} f_n(\gamma_0,\theta_0) - \sqrt{n}E\left[f(Z_{ni},\gamma_0,\theta_0) \right]\overset{d}{\rightarrow} (\mathscr{N}_g', \mathscr{N}_h')'$. 
 Now, by a mean-value expansion around $\gamma_n$,
 	\begin{align*}

@@ -38,18 +38,18 @@ In this design, $\gamma$ controls the correlation between $x_{it}$ and the indiv
 Larger values of $\gamma$ correspond to larger violations of the assumption underlying the random effects estimator, increasing its bias.
 Larger values of $\rho$, on the other hand, decrease the amount of variation within individuals, thus \emph{increasing} the variance of the fixed effects estimator. 
 Figures \ref{fig:REvsFE_T2} and \ref{fig:REvsFE_T5} present the RMSE under this simulation design of the random effects GLS estimator and the fixed effects estimator along with those of the post-GFIC and averaging estimators described above in Section \ref{sec:REvsFE} over a grid of values for $T$, $\gamma$, $\rho$, and sample size $N$.
-All calculations are based on 10,000 simulation replications.\footnote{When $T=5$, setting $\rho = 0.3$ violates positive definiteness so we take $\rho=0.4$ as our smallest value in this case.} In the interest of space, we present only results for $\sigma_{\varepsilon}^2 = 2.5$ and our ``coarse'' parameter grid for $\rho$ here. 
-Additional simulation results are available upon request.
+All calculations are based on 10,000 simulation replications.\footnote{When $T=5$, setting $\rho = 0.3$ violates positive definiteness so we take $\rho=0.4$ as our smallest value in this case.} In the interest of space, we present only results for $\sigma_{\varepsilon}^2 = 2.5$ and a coarse parameter grid for $\rho$ here. 
+Additional results are available upon request.
  
 
-\begin{figure}[h]
+\begin{figure}[htbp]
   \centering
   \input{./REvsFE/SimPlots/T=2/RMSE_coarse_rho_relative_all_v2_5.tex}
   \caption{Random vs.\ Fixed effects example: $T=2, \sigma_{\varepsilon}^2 = 2.5$}
   \label{fig:REvsFE_T2}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}[htbp]
   \centering
   \input{./REvsFE/SimPlots/T=5/RMSE_coarse_rho_relative_all_v2_5.tex}
   \caption{Random vs.\ Fixed effects example: $T=5, \sigma_{\varepsilon}^2 = 2.5$}

@@ -32,9 +32,9 @@ coarse <- subset(results, (g %in% g_coarse) & (r %in% r_coarse))
 # i.e. 1000 * RMSE
 make_R_table <- function(col) {
   tab <- xtabs(1000 * round(col, 3) ~ g + r + ni + nt, coarse)
-  names(dimnames(tab)) <- c('$\\gamma$', '$\\rho$', '$N$', '$T$')
+  names(dimnames(tab)) <- c('$\\gamma$', '$\\rho_{xv}$', '$N$', '$T$')
   tab <- ftable(tab, row.vars = c('$T$', '$N$', '$\\gamma$'), 
-                col.vars = c('$\\rho$'))
+                col.vars = c('$\\rho_{xv}$'))
   tab <- format(tab, justify = 'none', trim = FALSE)
   tab <- apply(tab, 1:2, gsub, pattern = '\"', replacement = '')
   tab <- apply(tab, 1:2, gsub, pattern = ' ', replacement = '')
@@ -89,16 +89,17 @@ table1 <- make_tex_table(c('GFIC', 'LP', 'LS', 'P', 'S'),
                          cbind(GFIC, LP[,-c(1:4)], LS[,-c(1:4)], P[,-c(1:4)],
                                S[,-c(1:4)]))
 
-table2 <- make_tex_table(c('Oracle', 'GFIC', 'J-test 5\\%', 'GMM-BIC', 'GMM-AIC'),
-                         cbind(oracle, GFIC[,-c(1:4)], J5[,-c(1:4)], 
-                               BIC[,-c(1:4)], AIC[,-c(1:4)]))
+table2 <- make_tex_table(c('J-test 5\\%', 'J-test 10\\%', 'GMM-BIC', 'GMM-AIC',
+                           'GMM-HQ'),
+                         cbind(J5, J10[,-c(1:4)], BIC[,-c(1:4)], 
+                               AIC[,-c(1:4)], HQ[,-c(1:4)]))
 
-table3 <- make_tex_table(c('Oracle', 'GFIC', 'J-test 10\\%', 'GMM-HQ'),
-                         cbind(oracle, GFIC[,-c(1:4)], J10[,-c(1:4)], 
-                               HQ[,-c(1:4)]))
+#table3 <- make_tex_table(c('Oracle', 'GFIC', 'J-test 10\\%', 'GMM-HQ'),
+#                         cbind(oracle, GFIC[,-c(1:4)], J10[,-c(1:4)], 
+#                               HQ[,-c(1:4)]))
 
 #-------------------------- Clean up
 cat(table1, file = 'Dpanel_RMSE_GFIC_vs_fixed_spec.tex')
 cat(table2, file = 'Dpanel_RMSE_GFIC_vs_alternatives_main.tex')
-cat(table3, file = 'Dpanel_RMSE_GFIC_vs_alternatives_append.tex')
+#cat(table3, file = 'Dpanel_RMSE_GFIC_vs_alternatives_append.tex')
 rm(list = ls())
