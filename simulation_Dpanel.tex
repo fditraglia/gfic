@@ -88,7 +88,7 @@ The columns of Table \ref{tab:MAD_SRvsLR} labeled $\mbox{L1}$ and $\mbox{L2}$ gi
 Notice that throughout the table $\gamma_2 \neq 0$ so that $\mbox{L1}$ is \emph{mis-specified}.
 Nonetheless, $\mbox{L1}$ yields lower MAD estimators of both the short-run and long-run effects when $\gamma_2$ is sufficiently small and the difference can be substantial.
 When $\gamma_2 = 0.2$, for example, MAD for is 0.582 for the long-run effect estimator based on $\mbox{L1}$ versus 0.801 for that based on $\mbox{L2}$.
-Note moreover that point at which $\gamma_2$ becomes large enough for $\mbox{L2}$ to be preferred depends on which effect we seek to estimate.
+Note moreover that the point at which $\gamma_2$ becomes large enough for $\mbox{L2}$ to be preferred depends on which effect we seek to estimate.
 When $\gamma_2$ equals 0.15 or 0.16, $\mbox{L1}$ gives a lower MAD for the short-run effect while $\mbox{L2}$ gives a lower MAD for the long-run effect.
 Because it chooses between $\mbox{L1}$ and $\mbox{L2}$ and is subject to random model selection errors, the GFIC can never outperform the oracle estimator that uses $\mbox{L1}$ when it is optimal in terms of MAD and $\mbox{L2}$ otherwise.
 Instead, the GFIC represents a compromise between two extremes: its MAD is never as large as that of the worst specification and never as small as that of the best specification.
@@ -96,26 +96,94 @@ When there are large MAD differences between $\mbox{L1}$ and $\mbox{L2}$, howeve
 
 
 \subsubsection{Simultaneous Model and Moment Selection for the Short-run Effect}
-\todo[inline]{This needs to be cleaned up. Introduce it by saying something like: now a more substantial simulation that focuses on the short-run effect as in our empirical example below. Also need to add the new tables and figures that I made.}
+\label{sec:Dpanel_sim_SR}
+We now consider a larger-scale simulation that simultaneously selects over lag specification and endogeneity assumptions. 
+In this simulation our target parameter is the short-run effect of $x$ on $y$, as in our empirical example below and the true model contains one lag.
+Specifically, 
+\[
+  y_{it} = \theta x_{it} + \gamma y_{it-1}  + \eta_i + v_{it}
+\]
+where $i = 1, \dots, n$ and $t = 1, \dots, T$ and the regressor, individual effect and error term are generated according to Equation \ref{eq:covar}.
+Our model selection decision example is whether to set $\gamma = 0$ and estimate a specification wihout the lagged dependent variable, while our moment selection decision is whether use only the instrument set $\mathbf{z}_{it}(\ell,\text{P})$, 
+which assumes that $x$ is predetermined, or the instrument set $\mathbf{z}_{it}(\ell,\text{S})$ which assumes that it is strictly exogenous.
+Both instrument sets are defined in Equation \ref{eq:Zdpanel}.
 
-In the simulation we take $\theta = 0.5$, $\sigma_{x\eta}=0.2$ and vary $\gamma$, $\sigma_{xv}$, $T$ and $N$ over a grid.
-Each grid point is based on 2000 simulation replications.
+We consider four specifications, each estimated by TSLS using the expressions from section \ref{sec:Dpanel}.
+The correct specification, $\text{LP}$, estimates both $\gamma$ and $\theta$ using only the ``predetermined'' instrument set.
+In contrast, $\text{LS}$ estimates both parameters using the ``strict exogeneity'' instrument set.
+The specifications $\text{P}$ and $\text{S}$ set $\gamma=0$ and estimate only $\gamma$, using the predetermined and strictly exogenous instrument sets, respectively.
+Our simulation design sets $\theta = 0.5$, $\sigma_{x\eta}=0.2$ and varies  $\gamma$, $\sigma_{xv}$, $T$ and $n$ over a grid.
+Specifically, we take $\gamma, \sigma_{xv} \in \{0, 0.005, 0.01, \hdots, 0.195, 0.2\}$, $n \in \{250,500\}$, $T \in \{4,5\}$.\footnote{Setting $T$ no smaller than 4 ensures that MSE exists for all four estimators: the finite sample moments of the TSLS estimator only exist up to the order of over-identification.}
+Values at each grid point are computed based on 2000 simulation replications.
 
-The first question is how the finite sample MSE of the 2SLS estimators of $\theta$ based on specifications LW, LS, W, and S (see Section \ref{sec:Dpanel}) changes with $\gamma$ and $\sigma_{xv}$. 
-Figures \ref{fig:best} and \ref{fig:advantage} present RMSE comparisons for these four estimators over a simulation grid with $\gamma, \sigma_{xv} \in \{0, 0.005, 0.01, \hdots, 0.195, 0.2\}$, $N \in \{250,500\}$, $T \in \{4,5\}$.\footnote{Taking $T$ no smaller than 4 ensures that MSE exists for all four estimators: the finite sample moments of the 2SLS estimator only exist up to the order of over-identification.} 
-For each point in the parameter space, the color in Figure \ref{fig:best} indicates the estimator of $\theta$ with the \emph{lowest} finite sample RMSE. 
-The saturation of the color indicates the relative difference in RMSE of the best estimator at that point measured against the second-best estimator: darker indicates a larger advantage; lighter indicates a smaller advantage. 
-While Figure  \ref{fig:best} indicates \emph{which} estimator is best, Figure \ref{fig:advantage} indicates how much of an advantage in RMSE can be gained over the correct specification, LW. 
-These plots indicate that, provided $\gamma$ and $\sigma_{xv}$ are not too large, there are potentially large gains to be had by intentionally using an incorrectly specified estimator. 
-The question remains, can the GFIC identify such situations?
+The first question is how the finite sample RMSE of the four \emph{fixed} specifications varies with $\gamma$, $\sigma_{xv}$, $T$ and $n$.
+Figure \ref{fig:best} colors each region of the parameter space according to which of the estimators of $\theta$ -- $\text{LP}$, $\text{LS}$, $\text{P}$ or $\text{S}$ -- yields the lowest finite-sample RMSE.
+The saturation of a color indicates the relative difference in RMSE of the best estimator at that point measured against the second-best estimator: darker indicates a larger advantage; lighter indicates a smaller advantage. 
+From the figure and table we see that there are potentially large gains to be had by intentionally using a mis-specified estimator.
+Indeed, the correct specification $\text{LP}$, depicted in orange, is only optimal when both $\rho_{xv}$ and $\gamma$ are fairly large relative to sample size.
+When $T=4$ and $n=250$, for example, $\gamma$ and $\rho_{xv}$ must both exceed 0.10 before $\text{LP}$ has the lowest RMSE.
+Moreover, the advantage of the mis-specified estimators can be substantial, as seen from the top panel of Table \ref{tab:Dpanel_RMSE}, which presents RMSE values multiplied by 1000 for ease of reading.\footnote{In the interest of space Table \ref{tab:Dpanel_RMSE} uses a coarser simulation grid than Figure \ref{fig:best}. Tables of RMSE values over the full simulation grid are available upon request.}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{figure}
+\begin{figure}[htbp]
 \centering
 \includegraphics[scale = 0.8]{./simulations/DynamicPanel/results/Dpanel_oracle}
-\caption{ Minimum RMSE Specification at each combination of parameter values. Shading gives RMSE relative to second best specification.}
+\caption{Minimum RMSE specification at each combination of parameter values for the simulation experiment from Section \ref{sec:Dpanel_sim_SR}. Color saturation at a given grid point indicates RMSE relative to second best specification.}
 \label{fig:best}
 \end{figure}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{sidewaystable}[htpb]
+  \footnotesize
+  \centering
+  \input{./simulations/DynamicPanel/results/Dpanel_RMSE_GFIC_vs_fixed_spec.tex}
+
+  \vspace{2em}
+  \input{./simulations/DynamicPanel/results/Dpanel_RMSE_GFIC_vs_alternatives_main.tex}
+  \caption{RMSE values multiplied by 1000 for the simulation experiment from Section \ref{sec:Dpanel_sim_SR}.}
+  \label{tab:Dpanel_RMSE}
+\end{sidewaystable}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+In practice, of course, we do not know the values of $\gamma$, $\rho$, $\theta$, or the other parameters of the DGP so this comparison of finite-sample RMSE values is infeasible.
+Instead, we consider using the GFIC to select between the four specifications.
+Clearly there are gains to be had from estimating a mis-specified model in certain situations.
+The questions remains, can the GFIC identify them?
+To provide a basis for comparison, we consider a number of other selection procedures. 
+The first is a ``Downward J-test,'' which is intended to approximate what applied researchers may do in practice when faced with a model and moment selection decision such as this one.
+The Downward J-test selects the \emph{most restrictive} specification that is not rejected by the over-identifying restrictions test at a fixed significance level $\alpha$:
+\begin{enumerate}
+\item Use $\text{S}$ unless the J-test rejects it. 
+\item If $\text{S}$ is rejected, use $\text{P}$ unless the J-test rejects it. 
+\item If $\text{P}$ is rejected, use $\text{LS}$ unless the J-test rejects it. 
+\item Only use $\text{LW}$ if all others specifications are rejected.
+\end{enumerate}
+This procedure is, of course, somewhat \emph{ad hoc} because the significance threshold $\alpha$ is chosen arbitrarily rather than with a view towards some kind of selection optimality. 
+We also consider the GMM model and moment selection criteria of \cite{AndrewsLu}: 
+	\begin{eqnarray*}
+	 \mbox{GMM-BIC} && J - (|c| - |b|) \log{n}\\
+	 \mbox{GMM-AIC}&& J - 2(|c| - |b|)\\ 
+	 \mbox{GMM-HQ} && J - 2.01 (|c| - |b|)  \log{\log{n}}
+	\end{eqnarray*}
+where $|b|$ is the number of parameters estimated, and $|c|$ the number of moment conditions used. 
+Under certain assumptions, it can be shown that both the GMM-BIC and GMM-HQ are consistent: they select the maximal correctly specified estimator with probability approaching one in the limit. 
+To implement these criteria, we calculate the J-test based on the optimal, two-step GMM estimator with a panel robust, heteroscedasticity-consistent, centered covariance matrix estimator for each specification.
+
+To compare selection procedures we use the same simulation grid as above, namely $\gamma$ and $\sigma_{xv}$, namely $\gamma, \sigma_{xv} \in \{0, 0.005, 0.01, \hdots, 0.195, 0.20\}$.  
+Again, each point on the simulation grid is calculated from 2000 simulation replications. 
+
+\todo[inline]{Update from here down!}
+
+Tables \ref{tab:rel} and \ref{tab:rmse} compare the performance of GFIC selection against each of the fixed specifications LW, LS, W, and S as well as the Downward J-test and the GMM moment and model selection criteria of \cite{AndrewsLu}. 
+Table \ref{tab:rmse} gives average and maximum, i.e.\ worst-case, RMSE over the parameter space for $\gamma, \sigma_{xv}$ while Table \ref{tab:rel} gives \emph{relative} RMSE comparisons. Specifically, the values in the panel ``Average'' of Table \ref{tab:rel} tell how much larger, in percentage points, the average RMSE of a given estimator or selection procedure is than that of the pointwise oracle. 
+The pointwise oracle is the infeasible procedure that uses the true minimum RMSE estimator at each point on the parameter grid. 
+In contrast, the values in the panel ``Worst-Case'' of Table \ref{tab:rel} tell how much larger, in percentage points, the maximum RMSE of a given estimator or selection procedure is than that of the fixed specification LW. 
+Over this parameter grid, LW is the minimax estimator.
+
+Compared both to the fixed specifications and the other selection procedures, the GFIC performs well. 
+In particular, it has a substantially lower average and worst-case RMSE than any of the other selection procedures.
+Compared to simply using the correct specification, LW, the GFIC also performs relatively well. 
+When $T$ and $N$ are small, the GFIC outperforms LW in average RMSE. 
+As they grow it performs slightly worse, but only by a small amount.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{figure}
 \centering
@@ -169,40 +237,6 @@ The question remains, can the GFIC identify such situations?
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-To provide a basis for comparison, we consider a number of other selection procedures. 
-The first is a ``na\"{i}ve'' Downard J-test. 
-To implement this procedure, we select the \emph{most restrictive} specification that is not rejected by the over-identifying restrictions test at a fixed significance level, either 5\% or 10\%. 
-Specifically, we proceed as follows:
-\begin{enumerate}
-\item Use S unless the J-test rejects it. 
-\item If S  is rejected, use W unless the J-test rejects it. 
-\item If W is rejected, use LS unless the J-test rejects it. 
-\item Only use LW if all others specifications are rejected.
-\end{enumerate}
-This procedure is ``na\"{i}ve'' because the significance thresholds are chosed arbitrarily rather than with a view towards some kind of selection optimality. 
-We also consider the GMM model and moment selection criteria of \cite{AndrewsLu}: 
-	\begin{eqnarray*}
-	 \mbox{GMM-BIC} && J - (|c| - |b|) \log{n}\\
-	 \mbox{GMM-AIC}&& J - 2(|c| - |b|)\\ 
-	 \mbox{GMM-HQ} && J - 2.01 (|c| - |b|)  \log{\log{n}}
-	\end{eqnarray*}
-where $|b|$ is the number of parameters estimated, and $|c|$ the number of moment conditions used. 
-Under certain assumptions, it can be shown that both the GMM-BIC and GMM-HQ are consistent: they select the maximal correctly specified estimator with probability approaching one in the limit. 
-To implement these criteria, we calculate the J-test based on the optimal, two-step GMM estimator with a panel robust, heteroscedasticity-consistent, centered covariance matrix estimator for each specification.
-
-To compare selection procedures we use the same simulation grid as above, namely $\gamma$ and $\sigma_{xv}$, namely $\gamma, \sigma_{xv} \in \{0, 0.005, 0.01, \hdots, 0.195, 0.20\}$.  
-Again, each point on the simulation grid is calculated from 2000 simulation replications. 
-Tables \ref{tab:rel} and \ref{tab:rmse} compare the performance of GFIC selection against each of the fixed specifications LW, LS, W, and S as well as the Downward J-test and the GMM moment and model selection criteria of \cite{AndrewsLu}. 
-Table \ref{tab:rmse} gives average and maximum, i.e.\ worst-case, RMSE over the parameter space for $\gamma, \sigma_{xv}$ while Table \ref{tab:rel} gives \emph{relative} RMSE comparisons. Specifically, the values in the panel ``Average'' of Table \ref{tab:rel} tell how much larger, in percentage points, the average RMSE of a given estimator or selection procedure is than that of the pointwise oracle. 
-The pointwise oracle is the infeasible procedure that uses the true minimum RMSE estimator at each point on the parameter grid. 
-In contrast, the values in the panel ``Worst-Case'' of Table \ref{tab:rel} tell how much larger, in percentage points, the maximum RMSE of a given estimator or selection procedure is than that of the fixed specification LW. 
-Over this parameter grid, LW is the minimax estimator.
-
-Compared both to the fixed specifications and the other selection procedures, the GFIC performs well. 
-In particular, it has a substantially lower average and worst-case RMSE than any of the other selection procedures.
-Compared to simply using the correct specification, LW, the GFIC also performs relatively well. 
-When $T$ and $N$ are small, the GFIC outperforms LW in average RMSE. 
-As they grow it performs slightly worse, but only by a small amount.
 
 
 \begin{table}[!tbp]
@@ -218,18 +252,6 @@ As they grow it performs slightly worse, but only by a small amount.
 \caption{This is where the old table used to be!}
 \label{tab:rmse}
 \end{table}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{sidewaystable}
-  \footnotesize
-  \centering
-  \input{./simulations/DynamicPanel/results/Dpanel_RMSE_GFIC_vs_fixed_spec.tex}
-  
-  \vspace{2em}
-
-  \input{./simulations/DynamicPanel/results/Dpanel_RMSE_GFIC_vs_alternatives_main.tex}
-  \caption{RMSE values multiplied by 1000}
-\end{sidewaystable}
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{sidewaystable}
   \footnotesize
