@@ -13,14 +13,14 @@ The precise form of the local mis-specification, over parameter restrictions and
 
 \begin{assump}[Local Mis-specification]
 \label{assump:local}
-Let $\{Z_{ni}\colon 1\leq i \leq n, n =1, 2, \hdots\}$ be a triangular array of random vectors defined on a probability space $(\Upsilon, \mathcal{F},P)$ satisfying
+Let $\{Z_{ni}\colon 1\leq i \leq n, n =1, 2, \hdots\}$ be an iid triangular array of random vectors defined on a probability space $(\Upsilon, \mathcal{F},P)$ satisfying
 	\begin{enumerate}[(a)]
-		\item $E[g(Z_{ni}, \gamma_n,\theta_0)]=0$
-		\item $E[h\left( Z_{ni}, \gamma_n, \theta_0\right)] = \tau_n$
+    \item $E[g(Z_{ni}, \gamma_n,\theta_0)]=0$, with $\gamma_n = \gamma_0 + n^{-1/2} \delta$
+    \item $E[h\left( Z_{ni}, \gamma_n, \theta_0\right)] = \tau_n$, with $\tau_n = n^{-1/2} \tau$
 		\item $\{f(Z_{ni}, \gamma_n, \theta_0)\colon 1\leq i \leq n, n = 1, 2, \hdots \}$ is uniformly integrable, and 
-		\item $Z_{ni}\overset{d}{\rightarrow} Z_i$, where the $Z_i$ are identically distributed.
+		\item $Z_{ni}\overset{d}{\rightarrow} Z_i$.
 	\end{enumerate}
-	where $\gamma_n = \gamma_0 + n^{-1/2}\delta$ with $\delta$ an unknown $r$-vector of constants and $\tau_n = n^{-1/2}\tau$ with $\tau$ an unknown $q$-vector of constants.
+	where $\gamma_0$ is a (known) $r$-vector of parameter restrictions, $\delta$ an unknown $r$-vector of constants, and $\tau$ an unknown $q$-vector of constants.
 \end{assump}
 
 Under Assumption \ref{assump:local}, the true parameter vector $\beta_n = \left(\gamma_n', \theta_0' \right)'$, changes with sample size but converges to $\beta_0 = \left(\gamma_0', \theta_0'\right)'$ as $n\rightarrow \infty$. 
@@ -30,15 +30,9 @@ Similarly, for any fixed sample size $n$, the expectation of $h$ evaluated at th
 Thus, under Assumption \ref{assump:local}, only estimators that use moment conditions from $g$ to estimate the full parameter vector $\beta$ are correctly specified. 
 In the limit, however, \emph{every} estimator is correctly specified, regardless of which elements of $\gamma$ it restricts and which elements of $h$ it includes. 
 The purpose of local mis-specification is to ensure that squared asymptotic bias is of the same order as asymptotic variance: Assumption \ref{assump:local} is a device rather than literal description of real-world data. 
-To simplify the proofs we make the following further assumption concerning the triangular array from Assumption \ref{assump:local}, although it is not strictly necessary.
-\todo[inline]{This shouldn't be a separate assumption. Just include it in the preceding one.}
-\begin{assump}
-\label{assump:add}
-$\{Z_{ni}\colon 1\leq i \leq n, n =1, 2, \hdots\}$ is $iid$ over $i$ for fixed $n$.
-\end{assump}
-Note that, by Assumptions \ref{assump:local}--\ref{assump:add}, the limiting random variable $Z_i$ satisfies the population moment condition $E[f\left(Z_i,\gamma_0, \theta_0\right)]=0$. 
+Note that, by Assumption \ref{assump:local}, the limiting random variable $Z_i$ satisfies the population moment condition $E[f\left(Z_i,\gamma_0, \theta_0\right)]=0$. 
 Since the $Z_i$ are assumed to have a common marginal law, we will use the shorthand $Z$ for $Z_i$ throughout.
-
+For simplicity, and because it is the case for all examples we consider below, we assume that the triangular array from Assumption \ref{assump:local} is iid, although this is not strictly necessary.
 
 Before defining the estimators under consideration, we require some further notation. Let $b$ be a \emph{model selection vector}, an $r$-vector of ones and zeros indicating which elements of $\gamma$ we have chosen to estimate. 
 When $b = 1_r$, where $1_m$ represents an $m$-vector of ones, we estimate both $\theta$ and the full vector $\gamma$. 
@@ -75,28 +69,7 @@ A particularly important special case is the estimator using only the moment con
 Because it is correctly specified both for finite $n$ and in the limit, the valid estimator contains the information we use to identify $\tau$ and $\delta$, and thus carry out moment and model selection. 
 For estimation based on $g$ alone to be possible, we require $p \geq r+s$. 
 This is assumed throughout.
-
-
-Because Assumption \ref{assump:local} ensures that they are correctly specified in the limit, \emph{all} candidate specifications $(b,c)\in \mathcal{BC}$ provide consistent estimators of $\theta_0$ under standard, high level regularity conditions.
-\todo[inline]{Clean this assumption up and add references to it in the right places}
-\begin{assump}[High-level Regularity Conditions]
-    \mbox{}
-\begin{itemize}
-\item[(a)] $\beta_0$ lies in the interior of $\Theta$, a compact set
-\item[(b)] $\widetilde{W} \rightarrow_{p} W$, a positive definite matrix
-\item[(c)] $\Xi_c \widetilde{W} \Xi_c' \Xi_c E[f(Z, \beta)] = 0$ if and only if $\beta = \beta_0$
-\item[(d)] $E[f(Z,\beta)]$ is continuous on $\Theta$
-\item[(e)] $sup_{\beta\in \Theta} ||f_n(\beta) - E[f(Z,\beta)]||\rightarrow_p 0$
-\item[(f)] $f$ is Z-almost surely differentiable in an open neighborhood $\mathcal{B}$ of $\beta_0$
-\item[(g)] $sup_{\beta \in \Theta} ||\nabla_{\beta} f_n(\beta) - F(\beta)|| \rightarrow_p 0 $
-\item[(h)] $\sqrt{n}f_n(\beta_0) \rightarrow_d \mathscr{N} + \left[
-  \begin{array}{c}
-    0 \\ \tau
-  \end{array}
-\right]$
-\item[(i)] $F(b,c)' W_c F(b,c)$ is invertible, where $W_c = \Xi_c W \Xi_c'$
-\end{itemize}
-\end{assump}
+Because Assumption \ref{assump:local} ensures that they are correctly specified in the limit, \emph{all} candidate specifications $(b,c)\in \mathcal{BC}$ provide consistent estimators of $\theta_0$ under standard, high level regularity conditions (see Assumption \ref{assump:high-level}).
 Essential differences arise, however, when we consider their respective asymptotic distributions. 
 Let
 		\begin{equation}F  =  \left[\begin{array}{cc}  \nabla_{\gamma'}g\left(Z,\gamma_0, \theta_0\right) &   \nabla_{\theta'}g\left(Z,\gamma_0, \theta_0\right) \\
@@ -118,16 +91,28 @@ Thus, the corresponding expectations are taken with respect to a distribution fo
 Finally, let $F(b,c) = \Xi_c F \Xi_b'$ and similarly define $\Omega_c = \Xi_c \Omega \Xi_c'$ and $W_c = \Xi_c W \Xi_c'$ where $W$ is the positive definite probability limit of $\widetilde{W}$. 
 Under Assumption \ref{assump:local}, both $\delta$ and $\tau$ induce a bias term in the limiting distribution of $\sqrt{n}\left(\widehat{\beta}(b,c) - \beta_0^{(b)}\right)$. 
 The key result is as follows.
+\begin{assump}[High-level Regularity Conditions]
+  \label{assump:high-level}
+    \mbox{}
+\begin{itemize}
+\item[(a)] $\beta_0$ lies in the interior of $\Theta$, a compact set
+\item[(b)] $\widetilde{W} \rightarrow_{p} W$, a positive definite matrix
+\item[(c)] $\widetilde{W}_c \Xi_c E[f(Z, \beta)] = 0$ if and only if $\beta = \beta_0$, where $W_c = \Xi_c W \Xi_c'$
+\item[(d)] $E[f(Z,\beta)]$ is continuous on $\Theta$
+\item[(e)] $sup_{\beta\in \Theta} ||f_n(\beta) - E[f(Z,\beta)]||\rightarrow_p 0$
+\item[(f)] $f$ is Z-almost surely differentiable in an open neighborhood $\mathcal{B}$ of $\beta_0$
+\item[(g)] $sup_{\beta \in \Theta} ||\nabla_{\beta} f_n(\beta) - F(\beta)|| \rightarrow_p 0 $
+\item[(h)] $\sqrt{n}f_n(\beta_0) - \sqrt{n}E[f(Z,\beta_0)] \rightarrow_d \mathscr{N}$ where $\mathscr{N} \sim N_{p+q}(0,\Omega)$
+\item[(i)] $F(b,c)' W_c F(b,c)$ is invertible, where $W_c = \Xi_c W \Xi_c'$
+\end{itemize}
+\end{assump}
 \begin{thm}[Asymptotic Distribution]
 \label{thm:asymp}
-Under Assumptions \ref{assump:local}--\ref{assump:add} and standard regularity conditions,
+Under Assumptions \ref{assump:local}--\ref{assump:high-level}
 		\begin{equation}
 		\sqrt{n}\left(\widehat{\beta}(b,c) - \beta_0^{(b)}\right) \overset{d}{\rightarrow} - K(b,c)\Xi_c \left(\mathscr{N}+ \left[ \begin{array}{c} 0\\ \tau\end{array}\right] - F_\gamma\delta\right)
 	\end{equation}
-where $\beta_0^{(b)'} = (\theta_0, \gamma_0^{(b)})$,
-	\begin{equation}
-		K(b,c) = \left[F(b,c)'W_c F(b,c)\right]^{-1} F(b,c)' W_c 
-	\end{equation}
+where $\beta_0^{(b)'} = (\theta_0, \gamma_0^{(b)})$, $K(b,c) = \left[F(b,c)'W_c F(b,c)\right]^{-1} F(b,c)' W_c$
 and
 	\begin{equation}
 		\mathscr{N} = \left[\begin{array}{c} \mathscr{N}_g\\  \mathscr{N}_h\end{array}\right]\sim \mbox{N}\left(\left[\begin{array}{c} 0\\ 0\end{array}\right] , \left[ \begin{array}{cc}\Omega_{gg} & \Omega_{gh}\\ \Omega_{hg}& \Omega_{hh} \end{array} \right]\right).
@@ -137,7 +122,7 @@ Because it employs the correct specification, the valid estimator of $\theta$ sh
 Moreover, the valid estimator of $\gamma$ has an asymptotic distribution that is centered around $\delta$, suggesting an estimator of this bias parameter.
 \begin{cor}[Asymptotic Distribution of Valid Estimator]
 \label{cor:valid}
-Under Assumptions \ref{assump:local}--\ref{assump:add} and standard regularity conditions,
+Under Assumptions \ref{assump:local}--\ref{assump:high-level}
 		$$\sqrt{n}\left( \widehat{\beta}_v - \beta_0 \right) = \sqrt{n}\left(\begin{array}{c} \widehat{\theta}_v - \theta_0\\ \widehat{\gamma}_v - \gamma_0\end{array} \right) \overset{d}{\rightarrow}  \left[\begin{array}{c} 0\\ \delta\end{array}\right] -K_v \mathscr{N}_g$$
 where $K_v = \left[G'W_{gg}G\right]^{-1}G'W_{gg}$ and $W_{gg} = \mbox{plim }\widetilde{W}_{gg}$.
 \end{cor}
