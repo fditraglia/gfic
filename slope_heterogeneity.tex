@@ -30,25 +30,19 @@ and the mean-group estimator
 where $\widehat{\beta}_i$ denotes the OLS estimator calculated using observations for individual $i$ only. 
 If we knew with certainty that there was no slope heterogeneity, we could clearly prefer $\widehat{\beta}_{OLS}$ as it is both unbiased and has the lower variance.
 In the presence of heterogeneity, however, the situation is more complicated.
-If $E[x_{it}^2 \eta_i]\neq 0$ for at least one time period $t$ then $\widehat{\beta}_{OLS}$ will show a bias whereas $\widehat{\beta}_{MG}$ will not.
-To encode this idea within the local mis-specification framework, we take
-\begin{equation}
-\sum_{t=1}^T E[x_{it}^2 \eta_i] = \frac{\tau}{\sqrt{n}}
-\end{equation}
-so that, for any fixed $n$ the OLS estimator a bias unless $\tau = 0$ but this bias disappears in the limit as $n \rightarrow \infty$.
+If $E[\mathbf{x}_i' \mathbf{x}_i \eta_i]\neq 0$ then $\widehat{\beta}_{OLS}$ will show a bias whereas $\widehat{\beta}_{MG}$ will not.
+To encode this idea within the local mis-specification framework, we take $E[\mathbf{x}_i'\mathbf{x}_i \eta_i] = \tau/\sqrt{n}$ so that, for any fixed $n$ the OLS estimator a bias unless $\tau = 0$ but this bias disappears in the limit.
 Turning our attention from bias to variance, we might might expect that $\widehat{\beta}_{OLS}$ would remain the more precise estimator in the presence of heterogeneity.
 In fact, however, this need not be the case: it is possible to construct examples in which $\widehat{\beta}_{MG}$ has a \emph{lower} variance than $\widehat{\beta}_{MG}$.
 Whether or not this is the case depends on the length $T$ of the time dimension, the variance $\sigma_{\eta}^2$ of individual slope components, and the distribution of $\mathbf{x}_i$.
-
 To construct the GFIC for this example, we estimate the bias parameter $\tau$ by substituting the mean group estimator into the OLS moment condition, namely
 \begin{equation}
 \widehat{\tau} = \frac{1}{\sqrt{n}} \sum_{i=1}^n \mathbf{x}_i' (\mathbf{y}_i - \mathbf{x}_i \widehat{\beta}_{MG}).
 \end{equation}
 The key result needed to apply the GFIC in this this example gives the joint limiting distribution of $\widehat{\tau}$, the mean-group estimator, and the OLS estimator.
-\todo[inline]{Edit from here down}
 \begin{thm}
 \label{thm:OLSvsMG}
-  Under standard regularity conditions,
+  Under ??? and standard regularity conditions, 
 \[
   \left[\begin{array}{c}
 \sqrt{n} (\widehat{\beta}_{OLS} - \beta)\\
@@ -56,64 +50,48 @@ The key result needed to apply the GFIC in this this example gives the joint lim
 \widehat{\tau}
 \end{array}\right] \overset{d}{\rightarrow} N \left( 
 \left[\begin{array}{c}
-c\tau \\
+\tau/\kappa \\
 0  \\
 \tau\\
 \end{array}\right],  
-\,\,A V A' \right)
+\left[
+\begin{array}{ccc}
+  \displaystyle\left(\frac{\lambda^2 + \kappa^2}{\kappa^2}\right)\sigma_\eta^2 + \frac{\sigma_\varepsilon^2}{\kappa} & \displaystyle \sigma_\eta^2 + \frac{\sigma_\varepsilon^2}{\kappa} &\displaystyle\left(\frac{\lambda^2}{\kappa}\right)\sigma_\eta^2  \\
+  & \sigma_{\eta}^2 + \zeta \sigma_\varepsilon^2 & \sigma_{\varepsilon}^2 (1 - \kappa\zeta) \\
+   &  & \lambda^2 \sigma_\eta^2 + \kappa(\zeta - 1) \sigma_\varepsilon^2 
+\end{array}
+\right]\right)
 \]
-where $c = \big(E[\mathbf{x}_i' \mathbf{x}_i] \big)^{-1}$, 
-\[
-A = \left[\begin{array}{ccc}
-c  & c& 0\\
-0& 0 & 1\\
-1 & 1 & -c^{-1}
-\end{array}\right] \]
-and
-\[
-V = \left[\begin{array}{ccc}
-\sigma_\eta^2 E[\mathbf{x}_i'\mathbf{x}_i\mathbf{x}_i' \mathbf{x}_i]  & 0  & \sigma_\eta^2 E[\mathbf{x}_i' \mathbf{x}_i] \\
-0 & \sigma_\epsilon^2 E[\mathbf{x}_i'\mathbf{x}_i] & \sigma^2\\ 
-\sigma_\eta^2 E[\mathbf{x}_i'\mathbf{x}_i] & \sigma^2 & \sigma_\eta^2 + \sigma_\epsilon^2 E[(\mathbf{x}_i'\mathbf{x}_i)^{-1} ]
-\end{array}\right] \].\\
+where $\kappa = E[\mathbf{x}_i' \mathbf{x}_i]$, $\lambda^2 = Var\left( \mathbf{x}_i'\mathbf{x}_i \right)$, $\zeta = E\left[ \left( \mathbf{x}_i' \mathbf{x}_i \right)^{-1} \right]$.  
 \end{thm}
 
 
-\begin{proof}
-By expanding, we have 
+\begin{proof}[Proof of Theorem \ref{thm:OLSvsMG}]
+Expanding the definitions of the OLS and mean-group estimators, 
 \begin{align*}
-\sqrt{n} (\widehat{\beta}_{OLS} - \beta) & =  \left[\bigg(\frac{1}{n}\sum_{i=1}^{n} \mathbf{x}_i'  \mathbf{x}_i\bigg)^{-1}, \,\, \bigg(\frac{1}{n}\sum_{i=1}^{n} \mathbf{x}_i'  \mathbf{x}_i\bigg)^{-1} \right] \begin{bmatrix}
+  \sqrt{n} (\widehat{\beta}_{OLS} - \beta) &=  \left[\begin{array}{cc}
+    \left(n^{-1}\sum_{i=1}^{n} \mathbf{x}_i'  \mathbf{x}_i\right)^{-1} & \left(n^{-1}\sum_{i=1}^{n} \mathbf{x}_i'  \mathbf{x}_i\right)^{-1}\end{array} \right] 
+  \left[\begin{array}{c} 
 n^{-1/2}\sum_{i=1}^{n} \mathbf{x}_i'\mathbf{x}_i\mathbf{\eta}_i   \\
 n^{-1/2}\sum_{i=1}^{n} \mathbf{x}_i'\mathbf{\epsilon}_i   
-\end{bmatrix} \\
-\sqrt{n} (\widehat{\beta}_{MG} - \beta)  &= n^{-1/2} \sum_{i=1}^n \eta_i + n^{-1/2} \sum_{i=1}^n (\mathbf{x}_i'\mathbf{x}_i)^{-1} \mathbf{x}_i'\epsilon_i \\
-\widehat{\tau}  &=  \begin{bmatrix}
-1 & 1& -\frac{1}{n}\sum_{i=1}^n \mathbf{x}_i'\mathbf{x}_i
-\end{bmatrix} \begin{bmatrix}
+\end{array}\right]\\
+\sqrt{n} (\widehat{\beta}_{MG} - \beta)  &=  n^{-1/2} \sum_{i=1}^n \left[\eta_i + (\mathbf{x}_i'\mathbf{x}_i)^{-1} \mathbf{x}_i'\epsilon_i\right]
+\end{align*}
+and proceeding similarly for $\widehat{\tau}$,
+\[
+\widehat{\tau}  =  
+\left[
+  \begin{array}{ccc}
+  1 & 1& -n^{-1}\sum_{i=1}^n \mathbf{x}_i'\mathbf{x}_i
+\end{array}\right] 
+\left[\begin{array}{c}
 n^{-1/2} \sum_{i=1}^n \mathbf{x}_i'\mathbf{x}_i \eta_i \\
 n^{-1/2} \sum_{i=1}^n \mathbf{x}_i'\epsilon_i\\
-n^{-1/2} \sum_{i=1}^n \eta_i + n^{-1/2} \sum_{i=1}^n (\mathbf{x}_i'\mathbf{x}_i)^{-1} \mathbf{x}_i'\epsilon_i 
-\end{bmatrix}
-\end{align*}
-
-The result follows, after some algebra, by applying the Lindeberg-Feller central limit theorem jointly to $n^{-1/2}\sum_{i=1}^{n} \mathbf{x}_i'\mathbf{x}_i\mathbf{\eta}_i $, $n^{-1/2}\sum_{i=1}^{n} \mathbf{x}_i'\mathbf{\epsilon}_i$, and $n^{-1/2} \sum_{i=1}^n \eta_i + n^{-1/2} \sum_{i=1}^n (\mathbf{x}_i'\mathbf{x}_i)^{-1} \mathbf{x}_i'\epsilon_i $. Then the joint distribution of $\widehat{\beta}_{OLS}, \widehat{\beta}_{MG}$ and $\widehat{\tau}$ is derived to be 
-\[
- \begin{bmatrix}
-\sqrt{n} (\widehat{\beta}_{OLS} - \beta)\\
-\sqrt{n} (\widehat{\beta}_{MG} - \beta)\\
-\widehat{\tau}
-\end{bmatrix} \rightarrow_d  \begin{bmatrix}
-c & c & 0\\
-0 &0 & 1\\
-1 & 1& -c^{-1}
-\end{bmatrix} \bigg(\begin{bmatrix}
-\tau\\
-0\\
-0
-\end{bmatrix}   + M  \bigg)\\
+n^{-1/2} \sum_{i=1}^n \left\{ \eta_i + (\mathbf{x}_i'\mathbf{x}_i)^{-1} \mathbf{x}_i'\epsilon_i\right\} 
+\end{array}
+\right].
 \]
-
-where $c = (E[\mathbf{x}_i' \mathbf{x}_i])^{-1}$ and $M \sim N(0, V)$.
+The result follows, after some algebra, by a LLN and the Lindeberg-Feller CLT.
 \end{proof}
 
 We see from Theorem \ref{thm:OLSvsMG} that 
