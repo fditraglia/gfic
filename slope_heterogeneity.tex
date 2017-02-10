@@ -4,17 +4,17 @@
 Suppose we wish to estimate the average effect $\beta$ of a regressor $x$ in a panel setting where this effect may vary by individual: say $\beta_i \sim \mbox{iid}$ over $i$.
 One idea is to simply ignore the heterogeneity and fit a pooled model.
 A pooled estimator will generally be quite precise, but depending on the nature and extent of heterogeneity could show a serious bias.
-Another idea is to apply the \emph{mean group estimator} by running separate time-series regressions for each individual and averaging the result over the cross-section.\todo{citation needed!}
+Another idea is to apply the \emph{mean group estimator} by running separate time-series regressions for each individual and averaging the result over the cross-section \citep{Swamy1970,PesaranSmith1995,PesaranEtAl1999}.
 This approach is robust to heterogeneity but may yield an imprecise estimator, particularly in panels with a short time dimension.
 To see how the GFIC navigates this tradeoff, consider the following DGP:
 	\begin{align}
 				y_{it} &= \beta_i x_{it} + \epsilon_{it}\\
         \beta_i &= \beta + \eta_i, \quad \eta_i \sim \mbox{iid} (0, \sigma_\eta^2)
 	\end{align}
-where $i = 1, \hdots, n$ indexes individuals and $t=1, \hdots, T$ indexes time periods.
-As in the preceding examples, assume without loss of generality that all random variables are mean zero and any exogenous controls have been projected out.
+  where $x_{it}$ is uncorrelated with $\varepsilon_{it}$ but is \emph{not} assumed to be independent of $\eta_i$. 
+As in the preceding examples $i = 1, \hdots, n$ indexes individuals, $t=1, \hdots, T$ indexes time periods, and we assume without loss of generality that all random variables are mean zero and any exogenous controls have been projected out.
 For the purposes of this example, assume further that $\epsilon_{it}$ is iid over both $i$ and $t$ with variance $\sigma_\epsilon^2$ and that both error terms are homoskedastic: $E[\epsilon_{it}^2 | x_{it}] = \sigma_\epsilon^2$ and $E[\eta_i^2 | x_{it}] = \sigma_\eta^2$, and $E[\eta_i \epsilon_{it} | x_{it}] = 0$.
-Neither homoskedasticity nor time-independent errors are required to apply the GFIC, but these assumptions simplify the exposition.  
+Neither homoskedasticity nor time-independent errors are required to apply the GFIC to this example, but these assumptions simplify the exposition.  
 We place no assumptions on the joint distribution of $x_{it}$ and $\eta_i$.
 
 Stacking observations over time in the usual way, let $\mathbf{y}_i = (y_{i1}, \ldots, y_{iT})'$ and define $\mathbf{x}_i$ analogously. 
@@ -33,16 +33,16 @@ In the presence of heterogeneity, however, the situation is more complicated.
 If $E[\mathbf{x}_i' \mathbf{x}_i \eta_i]\neq 0$ then $\widehat{\beta}_{OLS}$ will show a bias whereas $\widehat{\beta}_{MG}$ will not.
 To encode this idea within the local mis-specification framework, we take $E[\mathbf{x}_i'\mathbf{x}_i \eta_i] = \tau/\sqrt{n}$ so that, for any fixed $n$ the OLS estimator a bias unless $\tau = 0$ but this bias disappears in the limit.
 Turning our attention from bias to variance, we might might expect that $\widehat{\beta}_{OLS}$ would remain the more precise estimator in the presence of heterogeneity.
-In fact, however, this need not be the case: it is possible to construct examples in which $\widehat{\beta}_{MG}$ has a \emph{lower} variance than $\widehat{\beta}_{MG}$.
-Whether or not this is the case depends on the length $T$ of the time dimension, the variance $\sigma_{\eta}^2$ of individual slope components, and the distribution of $\mathbf{x}_i$.
-To construct the GFIC for this example, we estimate the bias parameter $\tau$ by substituting the mean group estimator into the OLS moment condition, namely
+In fact, however, this need not be the case: as we show below $\widehat{\beta}_{MG}$ will have a \emph{lower} variance than $\widehat{\beta}_{OLS}$ if $\sigma_{\eta}^2$ is sufficiently large.
+To construct the GFIC for this example, we estimate the bias parameter $\tau$ by substituting the mean group estimator into the OLS moment condition:
 \begin{equation}
 \widehat{\tau} = \frac{1}{\sqrt{n}} \sum_{i=1}^n \mathbf{x}_i' (\mathbf{y}_i - \mathbf{x}_i \widehat{\beta}_{MG}).
 \end{equation}
 The key result needed to apply the GFIC in this this example gives the joint limiting distribution of $\widehat{\tau}$, the mean-group estimator, and the OLS estimator.
-\begin{thm}
+\begin{thm}[Limit Distribution of OLS and Mean-Group Estimators]
 \label{thm:OLSvsMG}
-  Under ??? and standard regularity conditions, 
+Let $\left( \mathbf{x}_{ni},\eta_{ni}, \boldsymbol{\varepsilon}_{ni} \right)$ be an iid triangular array of random variables such that $E[\mathbf{x}_{ni}'\boldsymbol{\varepsilon}_{ni}] =0$, $Var(\boldsymbol{\varepsilon}_{ni}|\mathbf{x}_{ni}) \rightarrow \sigma_{\varepsilon}^2 I_T$, $Var(\eta_{ni}|\mathbf{x}_{ni}) \rightarrow \sigma_{\eta}^2$, $E[\eta_{ni} \boldsymbol{\varepsilon}_{ni}|\mathbf{x}_{ni}] \rightarrow 0$, and $E[\mathbf{x}_{ni}'\mathbf{x}_{ni}\eta_{ni}] = \tau/\sqrt{n}$.
+Then, under standard regularity conditions, 
 \[
   \left[\begin{array}{c}
 \sqrt{n} (\widehat{\beta}_{OLS} - \beta)\\
@@ -62,38 +62,20 @@ The key result needed to apply the GFIC in this this example gives the joint lim
 \end{array}
 \right]\right)
 \]
-where $\kappa = E[\mathbf{x}_i' \mathbf{x}_i]$, $\lambda^2 = Var\left( \mathbf{x}_i'\mathbf{x}_i \right)$, $\zeta = E\left[ \left( \mathbf{x}_i' \mathbf{x}_i \right)^{-1} \right]$.  
+where $\kappa = E[\mathbf{x}_i' \mathbf{x}_i]$, $\lambda^2 = Var\left( \mathbf{x}_i'\mathbf{x}_i \right)$, and $\zeta = E\left[ \left( \mathbf{x}_i' \mathbf{x}_i \right)^{-1} \right]$.  
 \end{thm}
 
+As mentioned above, the OLS estimator need not have a lower variance that the mean-group estimator.
+This fact follows as a straightforward corollary of Theorem \ref{thm:OLSvsMG}.
 
-\begin{proof}[Proof of Theorem \ref{thm:OLSvsMG}]
-Expanding the definitions of the OLS and mean-group estimators, 
-\begin{align*}
-  \sqrt{n} (\widehat{\beta}_{OLS} - \beta) &=  \left[\begin{array}{cc}
-    \left(n^{-1}\sum_{i=1}^{n} \mathbf{x}_i'  \mathbf{x}_i\right)^{-1} & \left(n^{-1}\sum_{i=1}^{n} \mathbf{x}_i'  \mathbf{x}_i\right)^{-1}\end{array} \right] 
-  \left[\begin{array}{c} 
-n^{-1/2}\sum_{i=1}^{n} \mathbf{x}_i'\mathbf{x}_i\mathbf{\eta}_i   \\
-n^{-1/2}\sum_{i=1}^{n} \mathbf{x}_i'\mathbf{\epsilon}_i   
-\end{array}\right]\\
-\sqrt{n} (\widehat{\beta}_{MG} - \beta)  &=  n^{-1/2} \sum_{i=1}^n \left[\eta_i + (\mathbf{x}_i'\mathbf{x}_i)^{-1} \mathbf{x}_i'\epsilon_i\right]
-\end{align*}
-and proceeding similarly for $\widehat{\tau}$,
-\[
-\widehat{\tau}  =  
-\left[
-  \begin{array}{ccc}
-  1 & 1& -n^{-1}\sum_{i=1}^n \mathbf{x}_i'\mathbf{x}_i
-\end{array}\right] 
-\left[\begin{array}{c}
-n^{-1/2} \sum_{i=1}^n \mathbf{x}_i'\mathbf{x}_i \eta_i \\
-n^{-1/2} \sum_{i=1}^n \mathbf{x}_i'\epsilon_i\\
-n^{-1/2} \sum_{i=1}^n \left\{ \eta_i + (\mathbf{x}_i'\mathbf{x}_i)^{-1} \mathbf{x}_i'\epsilon_i\right\} 
-\end{array}
-\right].
-\]
-The result follows, after some algebra, by a LLN and the Lindeberg-Feller CLT.
-\end{proof}
+\begin{cor}
+  Under the conditions of Theorem \ref{thm:OLSvsMG}, the asymptotic variance of the OLS estimator is lower than that of the mean-group estimator if and only if $\lambda^2\sigma_\eta^2 < \sigma_\varepsilon^2(\kappa^2\zeta - \kappa)$, 
+where $\kappa = E[\mathbf{x}_i' \mathbf{x}_i]$, $\lambda^2 = Var\left( \mathbf{x}_i'\mathbf{x}_i \right)$, and $\zeta = E\left[ \left( \mathbf{x}_i' \mathbf{x}_i \right)^{-1} \right]$.  
+\end{cor}
 
+Note, as a special case of the preceding, that the OLS is guaranteed to have the lower asymptotic variance when $\sigma_{\eta}^2 = 0$ since $E[\mathbf{x}_i'\mathbf{x}]^{-1} < E[(\mathbf{x}_i'\mathbf{x}_i)^{-1}]$ by Jensen's inequality.
+
+\todo[inline]{Update from here down}
 We see from Theorem \ref{thm:OLSvsMG} that 
 \begin{eqnarray}
   AMSE(\widehat{\beta}_{OLS}) &=& c^2 \tau^2 + c^2 \sigma_\eta^2 E[\mathbf{x}_i'\mathbf{x}_i \mathbf{x}_i' \mathbf{x}_i] +  c \sigma_\epsilon^2   \\
