@@ -1,0 +1,173 @@
+\documentclass[11pt]{article}
+
+\textwidth 16.5cm
+\evensidemargin 0mm
+\oddsidemargin0mm
+\topmargin-18mm
+\textheight 23.0cm
+
+%----------------------------------------------------------------------------------------------------------
+% PACKAGES
+%----------------------------------------------------------------------------------------------------------
+%\usepackage{epsfig}
+%\usepackage{draftwatermark}
+\usepackage{everypage}
+\usepackage{lscape}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{setspace}
+\usepackage[stable]{footmisc}
+\doublespacing
+%\usepackage[bottom]{footmisc}
+\usepackage{float}
+\usepackage{longtable}
+\usepackage[center,bf]{caption}
+\usepackage[debug,citecolor=blue]{hyperref}
+\usepackage{theorem}
+\usepackage[toc,page,title,titletoc,header]{appendix}
+\usepackage{tikz}                                             % you only need this when using TikZ graphics
+%\usepackage{pdfsync}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage[final]{pdfpages}
+%\usepackage{epsfig}
+%\usepackage{3parttable}
+%\usepackage{dcolumn}
+\DeclareGraphicsExtensions{.png, .pdf, .jpg, .mps, .ps, .pdf, .eps}
+\usepackage{pdfpages}
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{rotating}
+\usepackage{multirow}
+\usepackage{placeins}
+
+\usepackage{bbm}
+
+\graphicspath{{./figuras/}}
+
+%----------------------------------------------------------------------------------------------------------
+% BIBLIOGRAPHY
+%----------------------------------------------------------------------------------------------------------
+\usepackage{natbib}
+%{\bibliographystyle{econometrica}
+\renewcommand{\cite}{\citet}
+
+%--------
+%%WATER MARK
+%\SetWatermarkFontSize{1cm}
+%\SetWatermarkScale{2}
+%\SetWatermarkLightness{.9}
+%\SetWatermarkText{Preliminary Draft}
+
+%--------
+
+%%%%%%%%% NEW COMMAND MACRO %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\re}[1]{\smallskip\textsf{\textbf{Respuesta}} \begin{sf}\\
+#1 \end{sf} \bigskip}
+\newcommand{\pr}[2]{\frac{\partial #1}{\partial #2}}
+
+\newcommand{\notorth}{\ensuremath{\perp\!\!\!\!\!\!\diagup\!\!\!\!\!\!\perp}}%
+\newcommand{\orth}{\ensuremath{\perp\!\!\!\perp}}%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\input{ee.sty}
+
+\setcounter{MaxMatrixCols}{10}
+
+\newtheorem{example}{Example}[section]
+\newtheorem{assume}{Assumption}
+\newtheorem{proposition}{Proposition}[section]
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{corollary}{Corollary}[section]
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{definition}{Definition}[section]
+\setcounter{section}{0}
+\makeindex
+
+\newcommand{\notindep}{\ensuremath{\perp\!\!\!\!\!\!\diagup\!\!\!\!\!\!\perp}}
+\newcommand{\indep}{\ensuremath{\perp\!\!\!\perp}}
+\newcommand{\Perp}{\perp \! \! \! \perp}
+
+\newcommand{\prob}{\mathbb{P}}
+\newcommand{\expec}{\mathbb{E}}
+
+
+\def\inprobHIGH{\,{\buildrel p \over \longrightarrow}\,} 
+\def\inprob{\,{\inprobHIGH}\,} 
+
+\def\indistHIGH{\,{\buildrel d \over \longrightarrow}\,} 
+\def\indist{\,{\indistHIGH}\,} 
+
+%----------------------------------------------------------------------------------------------------------
+% HYPER-REFERENCES CONFIGURATION - PDF
+%----------------------------------------------------------------------------------------------------------
+
+\hypersetup{
+  colorlinks=true,linkcolor=blue,citecolor=black, filecolor=magenta,
+citebordercolor=yellow,
+  linkbordercolor = magenta,
+  pdftitle={SGL},
+  pdfauthor={Rojas},
+  pdfcreator={\LaTeX\ with package \flqq hyperref\frqq using Textmate},
+  pdfsubject={achievement},
+  pdfkeywords={achievement}
+}
+
+\usepackage{psfrag}
+\usepackage{afterpage}
+\usepackage{subfigure}
+\usepackage{setspace}
+\usepackage{fancyhdr}
+
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+
+\setlength\parindent{0pt}
+
+\begin{document}
+%\title{\LARGE Problem Set 7}
+%\author{Minsu Chang}
+%\date{\small{\today}}
+
+
+ %\maketitle \thispagestyle{empty}
+
+\doublespacing
+
+%\setcounter{page}{0}
+
+
+\section*{Typos}
+
+I put how we should change after the arrow $\rightarrow$. 
+
+\begin{itemize}
+\item In Corollary 3.5. 
+\[
+\widehat{B} = \begin{bmatrix}
+\widehat{\tau} \widehat{\tau}' & \widehat{\tau} \widehat{\delta}'\\
+\widehat{\delta}' \widehat{\tau}  & \widehat{\delta} \widehat{\delta}'
+\end{bmatrix} - \widehat{\Psi} \widehat{\Omega} \widehat{\Psi}', \textcolor{red}{B=} \begin{bmatrix}
+\tau \tau' & \tau \delta'\\
+\delta \tau' & \delta \delta'
+\end{bmatrix} 
+\]
+\item p.29 last sentence: MAD for is 0.582 for the long-run ... $\rightarrow$ MAD is 0.582 for the long-run...
+\item p.31 first sentence: whether use $\rightarrow$ whether to use
+\item p.31 line 6 in the last paragraph: This means that can never outperform... $\rightarrow$ This means that GFIC can never outperform...
+\end{itemize}
+
+\section*{Variance-Covariance matrix in Theorem 5.4.}
+\vspace{0.2in}
+\[
+\begin{bmatrix}
+c^2 \sigma_\eta^2 E[\mathbf{x}_i'\mathbf{x}_i \mathbf{x}_i' \mathbf{x}_i] + c \sigma_\epsilon^2, & \sigma_\eta^2 + c \sigma_\epsilon^2,   & c\sigma_\eta^2 E[\mathbf{x}_i' \mathbf{x}_i \mathbf{x}_i' \mathbf{x}_i] - c^{-1}\sigma_\eta^2  \\
+\sigma_\eta^2 + c\sigma_\epsilon^2, & \sigma_\eta^2 + \sigma_\epsilon^2 E\big[  (\mathbf{x}_i' \mathbf{x}_i)^{-1} \big], & \sigma_\epsilon^2 - \sigma_\epsilon^2 E\big[(\mathbf{x}_i' \mathbf{x}_i)^{-1} \big] c^{-1}\\
+ c \sigma_\eta^2 E[\mathbf{x}_i' \mathbf{x}_i \mathbf{x}_i' \mathbf{x}_i] - c^{-1}\sigma_\eta
+^2 , & \sigma_\epsilon^2 - \sigma_\epsilon^2 E\big[(\mathbf{x}_i' \mathbf{x}_i)^{-1} \big] c^{-1}, & \sigma_\eta^2 E[\mathbf{x}_i' \mathbf{x}_i \mathbf{x}_i' \mathbf{x}_i]- c^{-2}\sigma_\eta^2  - c^{-1} \sigma_\epsilon^2 + c^{-2} \sigma_\epsilon^2 E\big[(\mathbf{x}_i' \mathbf{x}_i)^{-1}\big]
+\end{bmatrix}
+\]
+
+\end{document}
