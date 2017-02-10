@@ -104,7 +104,7 @@ Specifically,
   y_{it} = \theta x_{it} + \gamma y_{it-1}  + \eta_i + v_{it}
 \]
 where $i = 1, \dots, n$ and $t = 1, \dots, T$ and the regressor, individual effect and error term are generated according to Equation \ref{eq:covar}.
-Our model selection decision example is whether to set $\gamma = 0$ and estimate a specification wihout the lagged dependent variable, while our moment selection decision is whether use only the instrument set $\mathbf{z}_{it}(\ell,\text{P})$, 
+Our model selection decision example is whether to set $\gamma = 0$ and estimate a specification wihout the lagged dependent variable, while our moment selection decision is whether to use only the instrument set $\mathbf{z}_{it}(\ell,\text{P})$, 
 which assumes that $x$ is predetermined, or the instrument set $\mathbf{z}_{it}(\ell,\text{S})$ which assumes that it is strictly exogenous.
 Both instrument sets are defined in Equation \ref{eq:Zdpanel}.
 We consider four specifications, each estimated by TSLS using the expressions from section \ref{sec:Dpanel}.
@@ -148,7 +148,7 @@ Instead, we consider using the GFIC to select between the four specifications.
 Clearly there are gains to be had from estimating a mis-specified model in certain situations.
 The questions remains, can the GFIC identify them?
 Because it is an efficient rather than consistent selection criterion, the GFIC remains random, even in the limit.
-This means that can never outperform the ``oracle'' estimator that uses whichever specification gives the lowest finite-sample RMSE in figure \ref{fig:best}.
+This means that the GFIC can never outperform the ``oracle'' estimator that uses whichever specification gives the lowest finite-sample RMSE in figure \ref{fig:best}.
 Moreover, because our target parameter is a scalar, Stein-type results do not apply: the post-GFIC estimator cannot provide a uniform improvement over the true specification $\text{LP}$.
 Nevertheless, the post-GFIC estimator can provide a substantial improvement over $\text{LP}$ when $\rho_{xv}$ and $\gamma$ are relatively small relative to sample size, as shown in Figure \ref{fig:GFIC_rel_LP} and in the two leftmost panes of the top panel in Table \ref{tab:Dpanel_RMSE}.
 This is precisely the situation for which the GFIC is intended: a setting in which we have reason to suspect that mis-specification is fairly mild.
