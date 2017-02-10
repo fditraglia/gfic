@@ -196,9 +196,9 @@ Expanding the definitions of the OLS and mean-group estimators,
     \left(n^{-1}\sum_{i=1}^{n} \mathbf{x}_i'  \mathbf{x}_i\right)^{-1} & \left(n^{-1}\sum_{i=1}^{n} \mathbf{x}_i'  \mathbf{x}_i\right)^{-1}\end{array} \right] 
   \left[\begin{array}{c} 
 n^{-1/2}\sum_{i=1}^{n} \mathbf{x}_i'\mathbf{x}_i\mathbf{\eta}_i   \\
-n^{-1/2}\sum_{i=1}^{n} \mathbf{x}_i'\mathbf{\epsilon}_i   
+n^{-1/2}\sum_{i=1}^{n} \mathbf{x}_i'\mathbf{\varepsilon}_i   
 \end{array}\right]\\
-\sqrt{n} (\widehat{\beta}_{MG} - \beta)  &=  n^{-1/2} \sum_{i=1}^n \left[\eta_i + (\mathbf{x}_i'\mathbf{x}_i)^{-1} \mathbf{x}_i'\epsilon_i\right]
+\sqrt{n} (\widehat{\beta}_{MG} - \beta)  &=  n^{-1/2} \sum_{i=1}^n \left[\eta_i + (\mathbf{x}_i'\mathbf{x}_i)^{-1} \mathbf{x}_i'\varepsilon_i\right]
 \end{align*}
 and proceeding similarly for $\widehat{\tau}$,
 \[
@@ -209,8 +209,8 @@ and proceeding similarly for $\widehat{\tau}$,
 \end{array}\right] 
 \left[\begin{array}{c}
 n^{-1/2} \sum_{i=1}^n \mathbf{x}_i'\mathbf{x}_i \eta_i \\
-n^{-1/2} \sum_{i=1}^n \mathbf{x}_i'\epsilon_i\\
-n^{-1/2} \sum_{i=1}^n \left\{ \eta_i + (\mathbf{x}_i'\mathbf{x}_i)^{-1} \mathbf{x}_i'\epsilon_i\right\} 
+n^{-1/2} \sum_{i=1}^n \mathbf{x}_i'\varepsilon_i\\
+n^{-1/2} \sum_{i=1}^n \left\{ \eta_i + (\mathbf{x}_i'\mathbf{x}_i)^{-1} \mathbf{x}_i'\varepsilon_i\right\} 
 \end{array}
 \right].
 \]
