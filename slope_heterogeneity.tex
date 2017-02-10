@@ -83,8 +83,7 @@ The following estimators are consistent under the assumptions of Theorem \ref{th
   \widehat{\lambda^2} &= \frac{1}{n-1}\sum_{i=1}^n (\mathbf{x}_i'\mathbf{x}_i - \widehat{\kappa})^2  &
 \widehat{\sigma}_\epsilon^2 &= \frac{1}{nT - 1} \sum_{i=1}^N \sum_{t=1}^T (y_{it}-x_{it}\widehat{\beta}_{OLS})^2\\
 \widehat{\sigma}_\eta^2 &= \frac{S_b}{n-1} -\frac{1}{n} \sum_{i=1}^n \widehat{\sigma}_\epsilon^2 (\mathbf{x}_i'\mathbf{x}_i)^{-1} & 
-S_b &= \sum_{i=1}^n \widehat{\beta}_i \widehat{\beta}_i' - \frac{1}{n} \sum_{i=1}^n \widehat{\beta}_i \sum_{i=1}^n \widehat{\beta}_i'
+S_b &= \sum_{i=1}^n \widehat{\beta}_i^2 - \left(\frac{1}{n} \sum_{i=1}^n \widehat{\beta}_i\right)^2 
 \end{align*}
-
 If the estimated asymptotic variance of the OLS is lower than that of the mean-group estimator, then there is no need to estimate AMSE: we should simply use the mean-group estimator.
 If this is not the case, then we construct the GFIC using the asymptotically unbiased estimator $\widehat{\tau}^2 - \widehat{\sigma}_\tau^2$ of $\tau^2$, where $\widehat{\sigma}_\tau^2 = \widehat{\lambda}^2 \widehat{\sigma}^2_{\eta} + \widehat{\kappa}(\widehat{\zeta} - 1) \widehat{\sigma}_{\varepsilon}^2$ is a consistent estimator of the asymptotic variance of $\widehat{\tau}$.
