@@ -4,6 +4,7 @@
 We now evaluate the performance of the GFIC in a number of simulation experiments based on the Examples form Section \ref{sec:examples}.
 
 \subsection{Fixed vs.\ Random Effects Example}
+\label{sec:REvsFEsim}
 We employ a simulation design similar to that used by \cite{GuggenbergerRE}, namely
 \begin{equation*}
   y_{it} = 0.5 x_{it} + \alpha_i + \varepsilon_{it}
@@ -37,26 +38,21 @@ independently of $\left( \varepsilon_{i1}, \dots, \varepsilon_{iT} \right)' \sim
 In this design, $\gamma$ controls the correlation between $x_{it}$ and the individual effects $\alpha_i$, while $\rho$ controls the persistence of $x_{it}$ over time.
 Larger values of $\gamma$ correspond to larger violations of the assumption underlying the random effects estimator, increasing its bias.
 Larger values of $\rho$, on the other hand, decrease the amount of variation within individuals, thus \emph{increasing} the variance of the fixed effects estimator. 
-Figures \ref{fig:REvsFE_T2} and \ref{fig:REvsFE_T5} present the RMSE under this simulation design of the random effects GLS estimator and the fixed effects estimator along with those of the post-GFIC and averaging estimators described above in Section \ref{sec:REvsFE} over a grid of values for $T$, $\gamma$, $\rho$, and sample size $N$.
-All calculations are based on 10,000 simulation replications.\footnote{When $T=5$, setting $\rho = 0.3$ violates positive definiteness so we take $\rho=0.4$ as our smallest value in this case.} In the interest of space, we present only results for $\sigma_{\varepsilon}^2 = 2.5$ and a coarse parameter grid for $\rho$ here. 
+Figures \ref{fig:REvsFE_T2} presents RMSE values for the random effects GLS estimator and fixed effects estimator along with those for the post-GFIC and averaging estimators described above in Section \ref{sec:REvsFE} over a grid of values for $\gamma$, $\rho$ and $n$ with $T=2$.
+Results for $T=5$ appear in Figure \ref{fig:REvsFE_T5} of Appendix \ref{sec:simulation_supplement}.
+All calculations are based on 10,000 simulation replications.
+In the interest of space, we present only results for $\sigma_{\varepsilon}^2 = 2.5$ and a coarse parameter grid for $\rho$ here. 
 Additional results are available upon request.
  
 
 \begin{figure}[htbp]
   \centering
   \input{./REvsFE/SimPlots/T=2/RMSE_coarse_rho_relative_all_v2_5.tex}
-  \caption{Random vs.\ Fixed effects example: $T=2, \sigma_{\varepsilon}^2 = 2.5$}
+  \caption{RMSE values for the Random vs.\ Fixed effects simulation example from Section \ref{sec:REvsFEsim} with $T=2$ and  $\sigma_{\varepsilon}^2 = 2.5$. Results are based on 10,000 simulation replications.}
   \label{fig:REvsFE_T2}
 \end{figure}
 
-\begin{figure}[htbp]
-  \centering
-  \input{./REvsFE/SimPlots/T=5/RMSE_coarse_rho_relative_all_v2_5.tex}
-  \caption{Random vs.\ Fixed effects example: $T=5, \sigma_{\varepsilon}^2 = 2.5$}
-  \label{fig:REvsFE_T5}
-\end{figure}
-
-We see from Figures \ref{fig:REvsFE_T2} and \ref{fig:REvsFE_T5} that, regardless of the configuration of the other parameter values, there is always a range of values for $\gamma$ for which the random effects estimator has a smaller RMSE than the fixed effects estimator.
+We see from Figure \ref{fig:REvsFE_T2} that, regardless of the configuration of the other parameter values, there is always a range of values for $\gamma$ for which the random effects estimator has a smaller RMSE than the fixed effects estimator.
 The width of this range increases as either the number of individuals $N$ or number of time periods $T$ decrease.
 It also increases as the persistence $\rho$ of $x_{it}$ increases.
 Indeed, when $N$ and $T$ are relatively small and $\rho$ is relatively large, the individual effects $\alpha_{i}$ can be \emph{strongly} correlated with $x_{it}$ and still result in a random effects estimator with a lower RMSE than the fixed effects estimator. 
@@ -66,4 +62,5 @@ When $\gamma$ is not too large it can yield a substantially lower RMSE than the 
 The gains are particularly substantial when $x_{it}$ is relatively persistent and $T$ relatively small, as is common in micro-panel datasets.
 The averaging estimator performs even better, providing a nearly uniform improvement over the post-GFIC estimator.
 Only at very large values of $\gamma$ does it yield a higher RMSE, and these are points in the parameter space where the fixed effects, post-GFIC and averaging estimators are for all intents and purposes identical in RMSE.
-
+Results for $T=5$ are qualitatively similar.
+See Figure \ref{fig:REvsFE_T5} of Appendix \ref{sec:simulation_supplement} for details.

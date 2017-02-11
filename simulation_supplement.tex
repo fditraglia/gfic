@@ -1,6 +1,15 @@
 %!TEX root = main.tex
 \section{Supplementary Simulation Results}
 \label{sec:simulation_supplement}
+
+Note that in the RE vs FE simulation when $T=5$, setting $\rho = 0.3$ violates positive definiteness so we take $\rho=0.4$ as our smallest value in this case.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{figure}[htbp]
+  \centering
+  \input{./REvsFE/SimPlots/T=5/RMSE_coarse_rho_relative_all_v2_5.tex}
+  \caption{Random vs.\ Fixed effects example: $T=5, \sigma_{\varepsilon}^2 = 2.5$}
+  \label{fig:REvsFE_T5}
+\end{figure}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{figure}
 \centering
@@ -40,4 +49,3 @@
 \end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
