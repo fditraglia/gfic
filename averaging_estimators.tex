@@ -1,27 +1,53 @@
 %!TEX root = main.tex
 \section{Averaging and Post-Selection Inference}
+\label{sec:avg}
+
+
+
+
+
+\begin{alg}[2-Step CI]
+\mbox{}
+\begin{enumerate}
+  \item Construct a $(1-\delta)\times 100\%$ confidence region $\mathscr{T}$ for $\tau$ using Theorem ???. 
+  \item For each $\tau^* \in \mathscr{T}$ carry out Algorithm ???, yielding a $(1 - \alpha)\times 100\%$ confidence interval $\left[\widehat{a}(\tau^*),\widehat{b}(\tau^*)\right]$ for $\Lambda(\tau^*)$.  
+	\item Set $\displaystyle \widehat{a}_{min}=\min_{\tau^* \in \mathscr{T}} \widehat{a}(\tau^*)$ and $\displaystyle \widehat{b}_{max}= \max_{\tau^* \in \mathscr{T}} \widehat{b}(\tau^*)$. 
+	\item Construct the interval 
+    $ \widehat{\mbox{CI}}_{2}=\left[ \widehat{\mu} - \widehat{b}_{max}/\sqrt{n}, \quad \widehat{\mu} - \widehat{a}_{min}/\sqrt{n} \right]$
+\end{enumerate}
+\end{alg}
+
+
+\begin{thm}[2-Step CI]
+\label{thm:sim}
+Let $\widehat{\Psi}$, $\widehat{\Omega}$, $\widehat{\theta}$, $\widehat{K}_S$, $\widehat{\varphi}_S$ be consistent estimators of $\Psi$, $\Omega$, $\theta_0$, $K_S$, $\varphi_S$ and define 
+$\Delta_n(\widehat{\tau},\tau^*) = \left(\widehat{\tau} - \tau^*\right)' (\widehat{\Psi}\widehat{\Omega}\widehat{\Psi}')^{-1} \left(\widehat{\tau} - \tau^*\right)$ 
+and 
+$\mathscr{T}(\widehat{\tau},\delta) = \left\{\tau^* \colon  \Delta_n(\widehat{\tau},\tau^*) \leq \chi^2_q(\delta)\right\}$
+where $\chi^2_q(\delta)$ denotes the $1-\delta$ quantile of a $\chi^2$ distribution with $q$ degrees of freedom.
+Then, the interval $\mbox{CI}_{2}$ defined in Algorithm ??? has asymptotic coverage probability no less than $1-(\alpha + \delta)$ as $J,n\rightarrow \infty$.
+\end{thm}
+
+
+
 \todo[inline]{Re-vamp this section a bit. Say that the main focus of the paper is selection but we also extend the inference results of DiTraglia 2016. Add proof of the main result. Format this section similarly to the earlier paper.}
 
-\label{sec:avg}
 While we are primarily concerned in this paper with the mean-squared error performance of our proposed selection techniques, it is important to have tools for carrying out valid inference post-selection.
 To this end, we now show how to extend the results from Section 4 of \cite{DiTraglia2012} to the more general setting considered in this paper, one that allows for simultaneous model and moment selection.\footnote{Because the conceptual issues are largely the same as in the case where one considers only moment selection, we direct the reader to \cite{DiTraglia2012} for more discussion.}
 Consider an estimator of the form 
 	$$\widehat{\mu} = \sum_{(b,c) \in \mathcal{BC}} \widehat{\omega}(b,c) \widehat{\mu}(b,c)$$
   where $\widehat{\mu}$ denotes the target parameter under the moment conditions and parameter restrictions indexed by $(b,c)$, $\mathcal{BC}$ denotes the full set of candidate specifications, and $\widehat{\omega}(b,c)$ denotes a collection of data-dependent weights satisfying the following assumption.
-\begin{assump}[Data-Dependent Weights] Let $\widehat{\omega}(b,c)$ be a function of the data $Z_{n1}, \hdots, Z_{nn}$ and $(b,c)$ satisfying
+\begin{assump}[Conditions on the Weights]\mbox{}
 	\begin{enumerate}[(a)] 
-		\item $\sum_{(b,c) \in \mathcal{BC}} \widehat{\omega}(b,c) = 1$
-		\item $\widehat{\omega}(b,c) \overset{d}{\rightarrow} \psi(\mathscr{N}, \delta, \tau|b,c)$ jointly for all $(b,c) \in \mathcal{BC}$ where $\psi$ is a function of the normal random vector $\mathscr{N}$, the bias parameters $\delta$ and $\tau$, and consistently estimable quantities only.
+		\item $\sum_{(b,c) \in \mathcal{BC}} \widehat{\omega}(b,c) = 1$, almost surely
+    \item For each $(b,c) \in \mathcal{BC}$, $\widehat{\omega}(b,c) \overset{d}{\rightarrow} \psi(\mathscr{N}, \delta, \tau|b,c)$,  a function of $\mathscr{N}$, $\delta$, $\tau$, and consistently estimable constants with at most countably many discontinuities.
 	\end{enumerate}
 \label{assump:weight}
 \end{assump}
 
-Assumption \ref{assump:weight} is quite weak, covering a broad range of examples, including genuine averaging estimators, post-GFIC estimators, and pre-test estimators based on the J-statistic.
-Under this assumption, we can characterize the limit distribution of $\widehat{\mu}$ as follows.
-
 \begin{cor}[Limit Distribution of Averaging Estimators]
-Let $\widehat{\omega}(b,c)$ be a set of weights satisfying Assumption \ref{assump:weight}. Then, under the hypotheses of Theorem \ref{thm:asymp},  
-	$$\sqrt{n}\left(\widehat{\mu} - \mu_n\right) \overset{d}{\rightarrow} \Lambda(\tau,\delta)$$
+  Under Assumption \ref{assump:weight} and the hypotheses of Theorem \ref{thm:asymp},  
+	$\sqrt{n}\left(\widehat{\mu} - \mu_n\right) \overset{d}{\rightarrow} \Lambda(\tau,\delta)$
 where
 	\begin{equation}
 		\Lambda(\tau,\delta) = -\nabla_\beta\varphi_0' \sum_{(b,c) \in \mathcal{BC}} \psi(\mathscr{N},\delta, \tau|b,c) \left\{\Xi_b' K(b,c) \Xi_c \mathscr{N} + M(b,c)  \left[\begin{array}{c}\delta \\ \tau \end{array} \right]\right\}
@@ -31,12 +57,36 @@ Note that the limit distribution from the preceding corollary is highly non-norm
 To tabulate this distribution for the purposes of inference, we will in general need to resort to simulation.
 If $\tau$ and $\delta$ were known, the story would end here.
 We could simply substitute consistent estimators of $K$ and $M$, and then repeatedly draw $\mathscr{N} \sim N(0, \widehat{\Omega})$, where $\widehat{\Omega}$ is a consistent estimator of $\Omega$, and thus tabulate the distribution of $\Lambda$ to arbitrary precision. 
+\begin{alg}[Simulation-based Confidence Interval for $\widehat{\mu}$ given $\tau, \delta$]
+\mbox{}
+		\begin{enumerate}
+    \item Generate $J$ independent draws $\mathscr{N}_j \sim N(0, \widehat{\Omega})$
+			\item Set $\Lambda_j(\tau,\delta)= -\nabla_\beta\widehat{\varphi}_0' \sum_{(b,c) \in \mathcal{BC}} \widehat{\psi}(\mathscr{N}_j,\delta, \tau|b,c) \left\{\Xi_b' \widehat{K}(b,c) \Xi_c \mathscr{N}_j + \widehat{M}(b,c)  \left[\begin{array}{c}\delta \\ \tau \end{array} \right]\right\}$
+			\item Using the $\Lambda_j(\delta, \tau)$, find $\widehat{a}(\delta,\tau)$, $\widehat{b}(\delta, \tau)$ so that
+		$P\left\{ \widehat{a}(\delta,\tau) \leq\Lambda(\delta,\tau)\leq \widehat{b}(\delta,\tau) \right\} = 1 - \alpha$.
+  \item Define the interval $\mbox{CI}_{sim}(\delta,\tau|\alpha)=\left[ \widehat{\mu} - \widehat{b}_{max}(\delta, \tau)/\sqrt{n}, \quad \widehat{\mu} - \widehat{a}_{min}(\delta, \tau)/\sqrt{n} \right]$.
+		\end{enumerate}
+\end{alg}
+
+\todo[inline]{I haven't defined what $\widehat{\psi}$ is yet\dots}
+
 Unfortunately, no consistent estimators of $\tau$ or $\delta$ exist: all we have at our disposal are asymptotically unbiased estimators.
-Simply plugging in these estimators $\widehat{\tau}$ and $\widehat{\delta}$ and proceeding with the simulation is not guaranteed to lead to valid confidence intervals.\footnote{Although it does not work in general, in particular examples this plug-in procedure may perform well. For more discussion of this point, see Section 4.4 of \cite{DiTraglia2012}.}
+Simply plugging in these estimators $\widehat{\tau}$ and $\widehat{\delta}$ and proceeding with the simulation is not guaranteed to lead to valid confidence intervals.\footnote{Although it does not work in general, in particular examples this plug-in procedure may perform well. For more discussion of this point, see Section 4.4 of \cite{DiTraglia2016}.}
+
+\begin{alg}[1-Step CI] 
+  \label{alg:1step}
+Carry out of Algorithm ??? with $\tau$ set equal to the estimator $\widehat{\tau}$ from Theorem ???, yielding 
+$ \widehat{\mbox{CI}}_{1}=\left[ \widehat{\mu} - \widehat{b}(\widehat{\tau})/\sqrt{n}, \quad \widehat{\mu} - \widehat{a}(\widehat{\tau})/\sqrt{n} \right]$.
+\end{alg}
+
+The 1-Step interval defined in Algorithm \ref{alg:1step} is conceptually simple, easy to compute, and can perform well in practice, as I explore below.
+But as it fails to account for sampling uncertainty in $\widehat{\tau}$,  it does \emph{not} necessarily yield asymptotically valid inference for $\mu$.
+Fully valid inference requires the addition of a second step to the algorithm and comes at a cost: conservative rather than exact inference.
+In particular, the following procedure is guaranteed to yield an interval with asymptotic coverage probability of \emph{at least} $(1-\alpha-\delta)\times 100\%$.
+
 In contrast, the following two-step procedure, is guaranteed to yield confidence intervals with asymptotic coverage probability \emph{no less than} $1-(\alpha_1 + \alpha_2)$.
 
 \begin{alg}[Simulation-based Confidence Interval for $\widehat{\mu}$]
-\label{alg:conf}
 \mbox{}
 \begin{enumerate}
 	\item Construct $ R(\alpha_1)$, a $(1-\alpha_1)\times 100\%$ joint confidence region for $(\delta,\tau)$ 
@@ -60,5 +110,5 @@ In contrast, the following two-step procedure, is guaranteed to yield confidence
 \begin{thm}[Simulation-based Confidence Interval for $\widehat{\mu}$]
 \label{pro:sim}
 Let $\nabla_{\beta}\widehat{\varphi}_0$, $\widehat{\psi}(\cdot|b,c)$, $\widehat{K}(b,c)$ and $\widehat{M}(b,c)$ be consistent estimators of $\nabla_\beta \varphi$, $\psi(\cdot|b,c)$, $K(b,c)$ and $M(b,c)$ and let $R(\alpha_1)$ be a $(1-\alpha_1)\times 100\%$ joint confidence region for $(\delta,\tau)$ constructed from Theorem \ref{thm:jointbias}.
-Then the interval $CI_{sim}$ defined in Algorithm \ref{alg:conf} has asymptotic coverage probability no less than $1-\left( \alpha_1 + \alpha_2 \right)$ as $J,n\rightarrow \infty$. 
+Then the interval $CI_{sim}$ defined in Algorithm ??? has asymptotic coverage probability no less than $1-\left( \alpha_1 + \alpha_2 \right)$ as $J,n\rightarrow \infty$. 
 \end{thm}
