@@ -33,13 +33,21 @@ Furthermore, they instrument $\Delta \ln C_{i,t-1}$ by the lagged values of exog
 \begin{table}[h!]\centering
  \caption{The Estimates of Price Elasticity (Shortened data, 1975 - 1985, T=11)}
 \begin{tabular}{l c c c c }\hline\hline 
- & LW   &      LS   &       W   &      S\\
+ "Truncated"& LW   &      LS   &       W   &      S\\
 \hline
-$\theta$ & \textcolor{blue}{-0.304} & -0.259 &  -0.380 &  -0.280\\
+$\theta$ & \textcolor{blue}{-0.30} & -0.26 &  -0.38 &  -0.28\\
 \hline
-GFIC value &0.0553 & 2.2200 & 0.2664 &  4.3398\\
-Bias$^2$ & 0.0 & 2.2137 & 0.2202 & 4.3348\\
-Variance & 0.0553 & 0.0063 & 0.0462 & 0.0050\\ 
+GFIC value &0.06 & 2.22 & 0.27 &  4.34\\
+Bias$^2$ & 0 & 2.21 & 0.22 & 4.33\\
+Variance & 0.06 & 0.01 & 0.05 & 0.01\\ 
+\hline
+ "Plain" & LW   &      LS   &       W   &      S\\
+\hline
+$\theta$ & \textcolor{blue}{-0.30} & -0.26 &  -0.38 &  -0.28\\
+\hline
+GFIC value &0.06 & 2.22 & 0.27 &  4.34\\
+Bias$^2$ & 0 & 2.21 & 0.22 & 4.33\\
+Variance & 0.06 & 0.01 & 0.05 & 0.01\\ 
 \hline
 \hline
 \end{tabular}
@@ -49,14 +57,25 @@ Variance & 0.0553 & 0.0063 & 0.0462 & 0.0050\\
 
 \begin{table}[h!]\centering
  \caption{The Estimates of Price Elasticity (Shortened data, 1975 - 1980, T=6)}
-\begin{tabular}{l c c c c }\hline\hline 
- & LW   &      LS   &       W   &      S\\
+\begin{tabular}{l c c c c }\hline\hline
+%\multicolumn{5}{c}{"Truncated GFIC"}\\
+%\hline 
+"Truncated" & LW   &      LS   &       W   &      S\\
 \hline
-$\theta$ & -0.677 & \textcolor{blue}{ -0.317} &  -0.284 &  -0.366\\
+$\theta$ & -0.68 & \textcolor{blue}{ -0.32} &  -0.28 &  -0.37\\
 \hline
-GFIC value &0.158 & 0.022 & 1.172& 3.097\\
-Bias$^2$ & 0.0 & 0.0 & 1.1004 & 3.0834\\
-Variance &0.1582 & 0.0221 & 0.0720 & 0.0134\\ 
+GFIC value &0.16 & 0.02 & 1.17 & 3.10\\
+Bias$^2$ & 0 & 0 & 1.10 & 3.08\\
+Variance &0.16 & 0.02 & 0.07 & 0.01\\ 
+\hline
+"Plain" & LW   &      LS   &       W   &      S\\
+\hline
+$\theta$ & -0.68 & \textcolor{blue}{ -0.32} &  -0.28 &  -0.37\\
+\hline
+GFIC value &0.16 & -4.18 & 1.17 & 0.07\\
+Bias$^2$ & 0 & -4.20 & 1.10 & 0.05\\
+Variance &0.16 & 0.02 & 0.07 & 0.01\\ 
+
 \hline
 \hline
 \end{tabular}
@@ -66,7 +85,7 @@ Variance &0.1582 & 0.0221 & 0.0720 & 0.0134\\
 \subsection{The Impact of Credit on Village Economies}
 \label{sec:townsend}
 
-Kaboski and Townsend (2012???) study the effect of Thailand's "Million Baht Village Fund" program. 
+Kaboski and Townsend (2012, The Impact of Credit on Village Economies, AEJ Applied Economics) study the effect of Thailand's "Million Baht Village Fund" program. 
 This program is among the largest scale government microfinance initiatives in the world. 
 Implemented as surprise policy initiative, the same amount of fund was given to each village which gave the transfers a plausible degree of exogeneity.
 The treatment variable is the level of short-term village fund credit, and the response variable is the new short-term credit level (as in Table 3 of Kaboski and Townsend (2012)). 
@@ -85,9 +104,9 @@ OLS assumes the slope homogeneity for the treatment variable whereas MG estimati
 \hline
 \hline
 & (1) OLS & (2) MG\\ \hline
-treatment variable  &  11439.74 & 8878.47\\
-(standard error) & (1295.43) &  (1037.33)\\
-(clustered standard error) & (3357.61)& (3132.51)\\
+treatment variable  &  11.44 & 8.88\\
+(standard error) & (1.30) &  (1.04)\\
+(clustered standard error) & (3.34)& (3.10)\\
 \hline
 \hline
 \end{tabular}
@@ -131,9 +150,11 @@ From the asymptotic distribution of $\widehat{\delta}$, we obtain $\widehat{\del
 \begin{tabular}{l  c c  }
 \hline
 \hline
-& (1) OLS & (2) MG\\ \hline
-FMSC &  3631705090 & 1076057\\
-
+"Truncated"& (1) OLS & (2) MG\\ 
+FMSC &  3631.71 & 1.08\\
+\hline
+"Plain"& (1) OLS & (2) MG\\ 
+FMSC &  3631.71 & 1.08\\
 \hline
 \hline
 \end{tabular}
