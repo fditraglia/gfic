@@ -31,7 +31,7 @@ where $\widehat{\beta}_i$ denotes the OLS estimator calculated using observation
 If we knew with certainty that there was no slope heterogeneity, we could clearly prefer $\widehat{\beta}_{OLS}$ as it is both unbiased and has the lower variance.
 In the presence of heterogeneity, however, the situation is more complicated.
 If $E[\mathbf{x}_i' \mathbf{x}_i \eta_i]\neq 0$ then $\widehat{\beta}_{OLS}$ will show a bias whereas $\widehat{\beta}_{MG}$ will not.
-To encode this idea within the local mis-specification framework, we take $E[\mathbf{x}_i'\mathbf{x}_i \eta_i] = \tau/\sqrt{n}$ so that, for any fixed $n$ the OLS estimator a bias unless $\tau = 0$ but this bias disappears in the limit.
+To encode this idea within the local mis-specification framework, we take $E[\mathbf{x}_i'\mathbf{x}_i \eta_i] = \tau/\sqrt{n}$ so that, for any fixed $n$ the OLS estimator is biased unless $\tau = 0$ but this bias disappears in the limit.
 Turning our attention from bias to variance, we might expect that $\widehat{\beta}_{OLS}$ would remain the more precise estimator in the presence of heterogeneity.
 In fact, however, this need not be the case: as we show below $\widehat{\beta}_{MG}$ will have a \emph{lower} variance than $\widehat{\beta}_{OLS}$ if $\sigma_{\eta}^2$ is sufficiently large.
 To construct the GFIC for this example, we estimate the bias parameter $\tau$ by substituting the mean group estimator into the OLS moment condition:
@@ -58,14 +58,14 @@ Then, under standard regularity conditions,
 \begin{array}{ccc}
   \displaystyle\left(\frac{\lambda^2 + \kappa^2}{\kappa^2}\right)\sigma_\eta^2 + \frac{\sigma_\varepsilon^2}{\kappa} & \displaystyle \sigma_\eta^2 + \frac{\sigma_\varepsilon^2}{\kappa} &\displaystyle\left(\frac{\lambda^2}{\kappa}\right)\sigma_\eta^2  \\
   & \sigma_{\eta}^2 + \zeta \sigma_\varepsilon^2 & \sigma_{\varepsilon}^2 (1 - \kappa\zeta) \\
-   &  & \lambda^2 \sigma_\eta^2 + \kappa(\zeta - 1) \sigma_\varepsilon^2 
+   &  & \lambda^2 \sigma_\eta^2 + \kappa(\kappa\zeta - 1) \sigma_\varepsilon^2 
 \end{array}
 \right]\right)
 \]
 where $\kappa = E[\mathbf{x}_i' \mathbf{x}_i]$, $\lambda^2 = Var\left( \mathbf{x}_i'\mathbf{x}_i \right)$, and $\zeta = E\left[ \left( \mathbf{x}_i' \mathbf{x}_i \right)^{-1} \right]$.  
 \end{thm}
 
-As mentioned above, the OLS estimator need not have a lower variance that the mean-group estimator if $\sigma_{\eta}^2$ is sufficiently large.
+As mentioned above, the OLS estimator need not have a lower variance than the mean-group estimator if $\sigma_{\eta}^2$ is sufficiently large.
 This fact follows as a corollary of Theorem \ref{thm:OLSvsMG}.
 
 \begin{cor}
@@ -75,15 +75,15 @@ where $\kappa = E[\mathbf{x}_i' \mathbf{x}_i]$, $\lambda^2 = Var\left( \mathbf{x
 
 Note, as a special case of the preceding, that the OLS estimator is guaranteed to have the lower asymptotic variance when $\sigma_{\eta}^2 = 0$ since $E[\mathbf{x}_i'\mathbf{x}]^{-1} < E[(\mathbf{x}_i'\mathbf{x}_i)^{-1}]$ by Jensen's inequality.
 To apply the GFIC in this example, we first need to determine whether the OLS estimator has the smaller asymptotic variance.
-This requires us to estimate the quantities $\lambda^2, \kappa$, and $\zeta$ from Theorem \ref{thm:OLSvsMG} along with $\sigma_{\eta}^2$ and $\sigma_{\varepsilon}$.
+This requires us to estimate the quantities $\lambda^2, \kappa$, and $\zeta$ from Theorem \ref{thm:OLSvsMG} along with $\sigma_{\eta}^2$ and $\sigma_{\varepsilon}^2$.
 The following estimators are consistent under the assumptions of Theorem \ref{thm:OLSvsMG}:
 \begin{align*}
   \widehat{\kappa} &= \frac{1}{n}\sum_{i=1}^n \mathbf{x}_i'\mathbf{x}_i &
   \widehat{\zeta} &= \frac{1}{n}\sum_{i=1}^n (\mathbf{x}_i'\mathbf{x}_i)^{-1} \\
   \widehat{\lambda^2} &= \frac{1}{n-1}\sum_{i=1}^n (\mathbf{x}_i'\mathbf{x}_i - \widehat{\kappa})^2  &
-\widehat{\sigma}_\epsilon^2 &= \frac{1}{nT - 1} \sum_{i=1}^N \sum_{t=1}^T (y_{it}-x_{it}\widehat{\beta}_{OLS})^2\\
+\widehat{\sigma}_\epsilon^2 &= \frac{1}{nT - 1} \sum_{i=1}^n \sum_{t=1}^T (y_{it}-x_{it}\widehat{\beta}_{OLS})^2\\
 \widehat{\sigma}_\eta^2 &= \frac{S_b}{n-1} -\frac{1}{n} \sum_{i=1}^n \widehat{\sigma}_\epsilon^2 (\mathbf{x}_i'\mathbf{x}_i)^{-1} & 
-S_b &= \sum_{i=1}^n \widehat{\beta}_i^2 - \left(\frac{1}{n} \sum_{i=1}^n \widehat{\beta}_i\right)^2 
+S_b &= \sum_{i=1}^n \widehat{\beta}_i^2 - n\left(\frac{1}{n} \sum_{i=1}^n \widehat{\beta}_i\right)^2 
 \end{align*}
-If the estimated asymptotic variance of the OLS is lower than that of the mean-group estimator, then there is no need to estimate AMSE: we should simply use the mean-group estimator.
-If this is not the case, then we construct the GFIC using the asymptotically unbiased estimator $\widehat{\tau}^2 - \widehat{\sigma}_\tau^2$ of $\tau^2$, where $\widehat{\sigma}_\tau^2 = \widehat{\lambda}^2 \widehat{\sigma}^2_{\eta} + \widehat{\kappa}(\widehat{\zeta} - 1) \widehat{\sigma}_{\varepsilon}^2$ is a consistent estimator of the asymptotic variance of $\widehat{\tau}$.
+If the estimated asymptotic variance of the mean-group estimator is lower than that of the OLS estimator, then there is no need to estimate AMSE: we should simply use the mean-group estimator.
+If this is not the case, then we construct the GFIC using the asymptotically unbiased estimator $\widehat{\tau}^2 - \widehat{\sigma}_\tau^2$ of $\tau^2$, where $\widehat{\sigma}_\tau^2 = \widehat{\lambda}^2 \widehat{\sigma}^2_{\eta} + \widehat{\kappa}(\widehat{\kappa}\widehat{\zeta} - 1) \widehat{\sigma}_{\varepsilon}^2$ is a consistent estimator of the asymptotic variance of $\widehat{\tau}$.
