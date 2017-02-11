@@ -65,3 +65,78 @@ Variance &0.1582 & 0.0221 & 0.0720 & 0.0134\\
 
 \subsection{The Impact of Credit on Village Economies}
 \label{sec:townsend}
+
+Kaboski and Townsend (2012???) study the effect of Thailand's "Million Baht Village Fund" program. 
+This program is among the largest scale government microfinance initiatives in the world. 
+Implemented as surprise policy initiative, the same amount of fund was given to each village which gave the transfers a plausible degree of exogeneity.
+The treatment variable is the level of short-term village fund credit, and the response variable is the new short-term credit level (as in Table 3 of Kaboski and Townsend (2012)). 
+I use the balanced panel for 7 years of the treated, which results in 466 households. 
+I control for the household-specific fixed effects to deal with time-invariant heterogeneity.\footnote{I do not include all the independent variables as in the specification of Table 3. When conducting OLS estimation given a household, the controls such as number of adult males (females), years of schooling of head tend to be invariant for 7 years. The household fixed effect can capture all the time-invariant characteristics of household. The baseline OLS result in Table 3 of Kaboski and Townsend (2012) shows the treatment effect 12800 (standard deviation 1300) which is quite close to 11439.74 in Table 1 above.} 
+The following regression is used:    
+\[
+\text{New short-term credit}_{it} = \alpha_i + \beta_i \cdot \text{Short-term village fund credit}_{it} + \epsilon_{it}
+\]
+The purpose of this section is to apply GFIC between the Ordinary Least Squares (OLS) and the Mean Group (MG) estimators. 
+OLS assumes the slope homogeneity for the treatment variable whereas MG estimation allows for heterogeneous treatment effects $\beta_i = \beta + \eta_i$.  
+    
+\begin{table}[htbp]\centering
+\caption{The Impact of Village Fund Credit}
+\begin{tabular}{l  c c  }
+\hline
+\hline
+& (1) OLS & (2) MG\\ \hline
+treatment variable  &  11439.74 & 8878.47\\
+(standard error) & (1295.43) &  (1037.33)\\
+(clustered standard error) & (3357.61)& (3132.51)\\
+\hline
+\hline
+\end{tabular}
+\end{table}
+
+For both OLS and MG specification, the treatment effect is positive and significant. However, the magnitude of treatment effect is quite dissimilar. I compute not only the standard error from the standard formula, but also the clustered standard error. The village-year clustering is considered as in Kaboski and Townsend (2012), while assuming homoskedasticity within each cluster. Suppose that there are $G$ clusters and denote $Q = I_T - \frac{1}{T} \iota_T \iota_T'$ with $\iota_T$ being vector of 1's. To specify, the robust clustered variance for OLS estimator is
+\[
+\big ( X'QX\big)^{-1} \big( \sum_{g=1}^{G} \sigma_{\eta,g}^2 \mathbf{x}_g'Q_g\mathbf{x}_g \mathbf{x}_g'Q_g \mathbf{x}_g \big) \big ( X'QX\big)^{-1} + \big ( X'QX\big)^{-1} \big( \sum_{g=1}^{G} \sigma_{\epsilon,g}^2 \mathbf{x}_g'Q_g \mathbf{x}_g \big) \big ( X'QX\big)^{-1}
+\]
+and the robust clustered variance for MG estimator is
+\[
+  \sum_{g=1}^{G} \sigma_{\eta,g}^2  +  \bigg [ \sum_{g=1}^{G} \sigma_{\epsilon,g}^2\big( \mathbf{x}_g'Q_g \mathbf{x}_g \big)^{-1} \bigg ].
+\]
+
+We can compute the consistent estimator for $\sigma_{\epsilon,g}^2$ as
+\[
+\widehat{\sigma}_{\epsilon,g}^2 = \frac{\mathbf{y}_g'M_{Q_g\mathbf{x}_g}\mathbf{y}_g}{N_gT-1}
+\]
+
+where $N_g$ is the number of households within a cluster. Also, we can compute the consistent estimator for $\sigma_{\eta,g}^2$ to be
+
+\[
+\widehat{\sigma}_{\eta,g}^2 = \frac{S_{b,g}}{G-1} - \frac{1}{G} \sum_{g=1}^G \widehat{\sigma}_{\epsilon,g}^2 \big(\mathbf{x}_g' Q_g \mathbf{x}_g \big)^{-1}
+\]
+
+where $S_{b,g} = \sum_{g=1}^G \widehat{\beta}_g \widehat{\beta}_g' - \frac{1}{G} \sum_{g=1}^G \widehat{\beta}_g \sum_{g=1}^G \widehat{\beta}_g'$.
+There are 55 clusters in total and it turns out that the clustered standard errors are bigger than the standard error without clustering. 
+If there exists slope heterogeneity, the OLS estimator would be biased. 
+Since the standard errors for the MG estimator is already smaller than the OLS estimator, there is no additional trade-off to be concerned between bias and variance. 
+However, if there is the case where the MG estimation has higher variance, we need to consider the trade-off between bias and variance. 
+The bias $\big(E[\mathbf{x}_iQ\mathbf{x}_i]\big)^{-1}\delta$ can be computed using the asymptotic distribution of $\delta = \sqrt{N}\sum_{t=1}^T E[(x_{it}-\bar{x}_i)^2\eta_i]$ under the local misspecification, whose asymptotically unbiased estimator is 
+
+\[
+\widehat{\delta} = \frac{1}{\sqrt{N}} \sum_{i=1}^N \mathbf{x}_i'Q(\mathbf{y}_i - \mathbf{x}_i \widehat{\beta}_{MG})
+\]
+
+From the asymptotic distribution of $\widehat{\delta}$, we obtain $\widehat{\delta} \rightarrow_d N\big(\delta , \Omega_\delta\big)$ where $\Omega_\delta = \sigma_\eta^2 E[\mathbf{x}_i'Q \mathbf{x}_i \mathbf{x}_i'Q\mathbf{x}_i] - \sigma_\eta^2 \big(E[\mathbf{x}_i'Q\mathbf{x}_i]\big)^2 - \sigma_\epsilon^2 E[\mathbf{x}_i'Q\mathbf{x}_i] + \sigma_\epsilon^2 \big(E[\mathbf{x}_i'Q\mathbf{x}_i]\big)^2 E\big((\mathbf{x}_i'Q\mathbf{x}_i)^{-1}\big)$. We can construct the consistent estimator $\widehat{\Omega}_\delta$ using the sample means, $\widehat{\sigma}_\epsilon^2,$ and $\widehat{\sigma}_\eta^2$. The asymptotically unbiased estimator for $\delta^2$ is $\widehat{\delta}^2 - \widehat{\Omega}_\delta$. The FMSC, which is the asymptotically unbiased estimator of AMSE, for each estimator is as follows:
+
+\begin{table}[htbp]\centering
+\caption{The FMSC for the Estimators}
+\begin{tabular}{l  c c  }
+\hline
+\hline
+& (1) OLS & (2) MG\\ \hline
+FMSC &  3631705090 & 1076057\\
+
+\hline
+\hline
+\end{tabular}
+\end{table}
+
+
