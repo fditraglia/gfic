@@ -113,7 +113,7 @@ In contrast, $\text{LS}$ estimates both parameters using the ``strict exogeneity
 The specifications $\text{P}$ and $\text{S}$ set $\gamma=0$ and estimate only $\gamma$, using the predetermined and strictly exogenous instrument sets, respectively.
 Our simulation design sets $\theta = 0.5$, $\sigma_{x\eta}=0.2$ and varies  $\gamma$, $\sigma_{xv}$, $T$ and $n$ over a grid.
 Specifically, we take $\gamma, \sigma_{xv} \in \{0, 0.005, 0.01, \hdots, 0.195, 0.2\}$, $n \in \{250,500\}$, $T \in \{4,5\}$.\footnote{Setting $T$ no smaller than 4 ensures that MSE exists for all four estimators: the finite sample moments of the TSLS estimator only exist up to the order of over-identification.}
-Values at each grid point are computed based on 2000 simulation replications.
+All values are computed based on 2000 simulation replications.
 
 The first question is how the finite sample RMSE of the four \emph{fixed} specifications varies with $\gamma$, $\sigma_{xv}$, $T$ and $n$.
 Figure \ref{fig:best} colors each region of the parameter space according to which of the estimators of $\theta$ -- $\text{LP}$, $\text{LS}$, $\text{P}$ or $\text{S}$ -- yields the lowest finite-sample RMSE.
@@ -152,7 +152,7 @@ This means that the GFIC can never outperform the ``oracle'' estimator that uses
 Moreover, because our target parameter is a scalar, Stein-type results do not apply: the post-GFIC estimator cannot provide a uniform improvement over the true specification $\text{LP}$.
 Nevertheless, the post-GFIC estimator can provide a substantial improvement over $\text{LP}$ when $\rho_{xv}$ and $\gamma$ are relatively small relative to sample size, as shown in Figure \ref{fig:GFIC_rel_LP} and in the two leftmost panes of the top panel in Table \ref{tab:Dpanel_RMSE}.
 This is precisely the situation for which the GFIC is intended: a setting in which we have reason to suspect that mis-specification is fairly mild.
-Moreover, in situations where $\text{LP}$ has a substantially lower RMSE than the other estimators, the post GFIC-estimator's performance is generally quite similar.
+Moreover, in situations where $\text{LP}$ has a substantially lower RMSE than the other estimators, the post GFIC-estimator's performance is comparable.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{figure}
@@ -165,13 +165,9 @@ Moreover, in situations where $\text{LP}$ has a substantially lower RMSE than th
 
 To provide a basis for comparison, we now consider results for a number of alternative selection procedures. 
 The first is a ``Downward J-test,'' which is intended to approximate what applied researchers may do in practice when faced with a model and moment selection decision such as this one.
-The Downward J-test selects the \emph{most restrictive} specification that is not rejected by the over-identifying restrictions test at a fixed significance level $\alpha \in \left\{ 0.05, 0.1 \right\}$:
-\begin{enumerate}
-\item Use $\text{S}$ unless the J-test rejects it. 
-\item If $\text{S}$ is rejected, use $\text{P}$ unless the J-test rejects it. 
-\item If $\text{P}$ is rejected, use $\text{LS}$ unless the J-test rejects it. 
-\item Only use $\text{LW}$ if all others specifications are rejected.
-\end{enumerate}
+The Downward J-test selects the \emph{most restrictive} specification that is not rejected by a J-test test with significance level $\alpha \in \left\{ 0.05, 0.1 \right\}$.
+We test the specifications $\left\{\text{S}, \text{P}, \text{LS}, \text{LP}\right\}$ \emph{in order} and report the first that is \emph{not rejected}.
+This means that we only report $\text{LP}$ if all the other specifications have been rejected.
 This procedure is, of course, somewhat \emph{ad hoc} because the significance threshold $\alpha$ is chosen arbitrarily rather than with a view towards some kind of selection optimality. 
 We also consider the GMM model and moment selection criteria of \cite{AndrewsLu}: 
 	\begin{align*}
