@@ -3,14 +3,34 @@
 \label{sec:avg}
 
 While we are primarily concerned in this paper with the mean-squared error performance of our proposed selection techniques, it is important to have tools for carrying out  inference post-selection.
-To this end, we now show how to extend the results from Section 4 of \cite{DiTraglia2016} to the more general setting considered in this paper, one that allows for simultaneous model and moment selection.
-The GFIC is an efficient rather than consistent selection criterion: rather than attempting to select the correct specification with probability approaching one in the limit, it aims to\dots
+In this section we present results that can be used to carry out valid inference for a range of model averaging and post-selection estimators, including the GFIC.
+Because the conceptual issues are largely the same regardless of whether one considers moment selection, model selection, or both, we direct the reader to \cite{DiTraglia2016} Section 4 and the references contained therein for a more detailed discussion of inference post-selection.
+
+The GFIC is an efficient rather than consistent selection criterion: it aims to estimate a particular target parameter with minimum AMSE rather than selecting the correct specification with probability approaching one in the limit.
+As pointed out by \cite{Yang2005}, among others, there is an unavoidable trade-off between consistent selection and desirable risk properties.
+
+As such, it remains random \emph{even in the limit}.
+We can see this from Equation \ref{eq:GFIC} in Section \ref{sec:GFIC} and Corollary \ref{cor:biasestimators}.
+While the quantities $\nabla_\beta \widehat{\varphi}_0$, $\widehat{K}(b,c)$, and $\widehat{\Omega}_c$ are consistent estimators of their population counterparts, $\widehat{B}$ is only an asymptotically unbiased estimator of $B$ and thus has a limiting distribution.
+In particular $\widehat{B} \rightarrow_d \mathscr{B}(\mathscr{N}, \delta, \tau)$ where
+\begin{equation}
+  \mathscr{B}(\mathscr{N}, \delta, \tau) = 
+  \left(\left[
+  \begin{array}{c}
+    \delta \\ \tau
+  \end{array}
+\right] + \Psi \mathscr{N}\right)
+  \left(\left[
+  \begin{array}{c}
+    \delta \\ \tau
+  \end{array}
+\right] + \Psi \mathscr{N}\right)' - \Psi \Omega \Psi
+\end{equation}
+
  
-Need to say something about how $\widehat{B}$ is the reason why the GFIC is not a consistent criterion and how we're going to use a limit theory that accommodates this.
 
 \todo[inline]{Finish this thought!}
 
-Because the conceptual issues are largely the same as in the case where one considers only moment selection, we direct the reader to \cite{DiTraglia2016} for more discussion of inference post-selection.
 
 Consider an estimator of the form 
 	$$\widehat{\mu} = \sum_{(b,c) \in \mathcal{BC}} \widehat{\omega}(b,c) \widehat{\mu}(b,c)$$
@@ -36,48 +56,44 @@ where
 Note that the limit distribution from the preceding corollary is highly non-normal: it is a \emph{randomly} weighted average of a normal random vector, $\mathscr{N}$.
 To tabulate this distribution for the purposes of inference, we will in general need to resort to simulation.
 If $\tau$ and $\delta$ were known, the story would end here.
-We could simply substitute consistent estimators of $K$ and $M$, and then repeatedly draw $\mathscr{N} \sim N(0, \widehat{\Omega})$, where $\widehat{\Omega}$ is a consistent estimator of $\Omega$, and thus tabulate the distribution of $\Lambda$ to arbitrary precision, as explained in the following.
+In this case we could simply substitute consistent estimators of $K$ and $M$ repeatedly draw $\mathscr{N} \sim N(0, \widehat{\Omega})$, where $\widehat{\Omega}$ is a consistent estimator of $\Omega$, to tabulate the distribution of $\Lambda$ to arbitrary precision as follows.
 
-\begin{alg}[Simulation-based Confidence Interval for $\widehat{\mu}$ given $\tau, \delta$]
+\begin{alg}[Approximating Quantiles of $\Lambda(\tau, \delta)$]
 \mbox{}
 		\begin{enumerate}
     \item Generate $J$ independent draws $\mathscr{N}_j \sim N(0, \widehat{\Omega})$
 			\item Set $\Lambda_j(\delta, \tau)= -\nabla_\beta\widehat{\varphi}_0' \sum_{(b,c) \in \mathcal{BC}} \widehat{\psi}(\mathscr{N}_j,\delta, \tau|b,c) \left\{\Xi_b' \widehat{K}(b,c) \Xi_c \mathscr{N}_j + \widehat{M}(b,c)  \left[\begin{array}{c}\delta \\ \tau \end{array} \right]\right\}$
 			\item Using the $\Lambda_j(\delta, \tau)$, find $\widehat{a}(\delta,\tau)$, $\widehat{b}(\delta, \tau)$ so that
 		$P\left\{ \widehat{a}(\delta,\tau) \leq\Lambda(\delta,\tau)\leq \widehat{b}(\delta,\tau) \right\} = 1 - \alpha$.
-  \item Define the interval $\mbox{CI}_{sim}(\delta,\tau|\alpha)=\left[ \widehat{\mu} - \widehat{b}(\delta, \tau)/\sqrt{n}, \quad \widehat{\mu} - \widehat{a}(\delta, \tau)/\sqrt{n} \right]$.
+  %\item Define the interval $\mbox{CI}_{sim}(\delta,\tau|\alpha)=\left[ \widehat{\mu} - \widehat{b}(\delta, \tau)/\sqrt{n}, \quad \widehat{\mu} - \widehat{a}(\delta, \tau)/\sqrt{n} \right]$.
 		\end{enumerate}
     \label{alg:fixed_tau_delta}
 \end{alg}
 
 Unfortunately, no consistent estimators of $\tau$ or $\delta$ exist: all we have at our disposal are asymptotically unbiased estimators.
-Simply plugging in these estimators $\widehat{\tau}$ and $\widehat{\delta}$ and proceeding with the simulation is not guaranteed to lead to valid confidence intervals.\footnote{Although it does not work in general, in particular examples this plug-in procedure may perform well. For more discussion of this point, see Section 4.4 of \cite{DiTraglia2016}.}
+The following ``1-step'' confidence interval is constructed by substituting these into Algorithm \ref{alg:fixed_tau_delta}.
 
 \begin{alg}[1-Step Confidence Interval] 
   \label{alg:1step}
-  Carry out of Algorithm \ref{alg:fixed_tau_delta} with $\tau$ and $\delta$ set equal to the estimators $\widehat{\tau}$ and $\widehat{\delta}$ from Theorem \ref{thm:jointbias}, yielding 
-  $\mbox{CI}_{1}(\alpha) = \mbox{CI}(\widehat{\delta}, \widehat{\tau}|\alpha)$.
+  Carry out of Algorithm \ref{alg:fixed_tau_delta} with $\tau$ and $\delta$ set equal to the estimators $\widehat{\tau}$ and $\widehat{\delta}$ from Theorem \ref{thm:jointbias} to calculate $\widehat{a}(\widehat{\delta}, \widehat{\tau})$ and $\widehat{b}(\widehat{\delta}, \widehat{\tau})$.
+  Then set $\mbox{CI}_{1}(\alpha) = \left[ \widehat{\mu} - \widehat{b}(\widehat{\delta}, \widehat{\tau})/\sqrt{n}, \quad \widehat{\mu} - \widehat{a}(\widehat{\delta}, \widehat{\tau})/\sqrt{n} \right]$.
 \end{alg}
 
-The 1-Step interval defined in Algorithm \ref{alg:1step} is conceptually simple, easy to compute, and can perform well in practice, as I explore below.
-But as it fails to account for sampling uncertainty in $\widehat{\tau}$,  it does \emph{not} necessarily yield asymptotically valid inference for $\mu$.
+The 1-Step interval defined in Algorithm \ref{alg:1step} is conceptually simple, easy to compute, and can perform well in practice.\footnote{For more discussion on this point, see \cite{DiTraglia2016}.}
+But as it fails to account for sampling uncertainty in $\widehat{\tau}$, $\mbox{CI}_1$ it does \emph{not} necessarily yield asymptotically valid inference for $\mu$.
 Fully valid inference requires the addition of a second step to the algorithm and comes at a cost: conservative rather than exact inference.
-In particular, the following procedure is guaranteed to yield an interval with asymptotic coverage probability of \emph{at least} $(1-\alpha-\delta)\times 100\%$.
-
-In contrast, the following two-step procedure, is guaranteed to yield confidence intervals with asymptotic coverage probability \emph{no less than} $1-(\alpha_1 + \alpha_2)$.
-
+In particular, the following procedure is guaranteed to yield an interval with asymptotic coverage probability of \emph{at least} $(1- \alpha_1 - \alpha_2)\times 100\%$.
 
 \begin{alg}[2-Step Confidence Interval for $\widehat{\mu}$]
 \mbox{}
 \begin{enumerate}
   \item Construct $\mathscr{R}$, a $(1-\alpha_1)\times 100\%$ joint confidence region for $(\delta,\tau)$ using Theorem \ref{thm:jointbias}.
-  \item For each $(\delta^*,\tau^*)\in \mathscr{R}$ carry out steps 1--3 of Algorithm \ref{alg:fixed_tau_delta} with $\alpha = \alpha_2$ yielding a $(1 - \alpha_2) \times 100\%$ confidence interval $\left[ \widehat{a}(\delta^*,\tau^*),\; \widehat{b}(\delta^*,\tau^*) \right]$ for $\Lambda(\delta^*, \tau^*)$. 
+  \item For each $(\delta^*,\tau^*)\in \mathscr{R}$ carry out Algorithm \ref{alg:fixed_tau_delta} with $\alpha = \alpha_2$ yielding a $(1 - \alpha_2) \times 100\%$ confidence interval $\left[ \widehat{a}(\delta^*,\tau^*),\; \widehat{b}(\delta^*,\tau^*) \right]$ for $\Lambda(\delta^*, \tau^*)$. 
   \item Set $\displaystyle \widehat{a}_{min} = \min_{(\delta^*,\tau^*)\in \mathscr{R}} \widehat{a}(\delta^*,\tau^*)$ and $\displaystyle \widehat{b}_{max} = \max_{(\delta^*,\tau^*)\in \mathscr{R}} \widehat{b}(\delta^*, \tau^*)$.
   \item Construct the interval $\mbox{CI}_2(\alpha_1, \alpha_2) = \left[ \widehat{\mu} - \widehat{b}_{max}/\sqrt{n}, \; \widehat{\mu} - \widehat{a}_{min}/\sqrt{n} \right]$.
 \end{enumerate}
 \label{alg:2step}
 \end{alg}
-
 
 \begin{thm}[2-Step Confidence Interval for $\widehat{\mu}$]
 \label{thm:sim}
