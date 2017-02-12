@@ -6,7 +6,7 @@
 \label{sec:cigarettes}
 \todo[inline]{Still need to edit this section, add the reference to Baltagi, etc.}
 
-The empirical example is based on the panel data in Baltagi et al. (2000). The data is suitable to analyze the cigarette demand of 46 American states over 30 years (1963 - 1992). In this section, we consider the model and moment selection problem together. The demand model in Baltagi et al. (2000) is as follows (all prices in real terms): 
+The empirical example is based on the panel data in \cite{BaltagiEtAl2000}. The data is suitable to analyze the cigarette demand of 46 American states over 30 years (1963 - 1992). In this section, we consider the model and moment selection problem together. The demand model in Baltagi et al. (2000) is as follows (all prices in real terms): 
 \[
 \ln C_{it} =  \gamma \ln C_{i,t-1} + \theta \ln P_{it} + \alpha W_{it} + \eta_i +  v_{it}
 \] 
@@ -30,63 +30,106 @@ Furthermore, they instrument $\Delta \ln C_{i,t-1}$ by the lagged values of exog
 \newpage
 
 
-\begin{table}[h!]\centering
- \caption{The Estimates of Price Elasticity (Shortened data, 1975 - 1985, T=11)}
-\begin{tabular}{l c c c c }\hline\hline 
- "Truncated"& LW   &      LS   &       W   &      S\\
-\hline
-$\theta$ & \textcolor{blue}{-0.30} & -0.26 &  -0.38 &  -0.28\\
-\hline
-GFIC value &0.06 & 2.22 & 0.27 &  4.34\\
-Bias$^2$ & 0 & 2.21 & 0.22 & 4.33\\
-Variance & 0.06 & 0.01 & 0.05 & 0.01\\ 
-\hline
- "Plain" & LW   &      LS   &       W   &      S\\
-\hline
-$\theta$ & \textcolor{blue}{-0.30} & -0.26 &  -0.38 &  -0.28\\
-\hline
-GFIC value &0.06 & 2.22 & 0.27 &  4.34\\
-Bias$^2$ & 0 & 2.21 & 0.22 & 4.33\\
-Variance & 0.06 & 0.01 & 0.05 & 0.01\\ 
-\hline
-\hline
-\end{tabular}
+%\begin{table}[h!]\centering
+% \caption{The Estimates of Price Elasticity (Shortened data, 1975 - 1985, T=11)}
+%\begin{tabular}{l c c c c }\hline\hline 
+% "Truncated"& LW   &      LS   &       W   &      S\\
+%\hline
+%$\theta$ & \textcolor{blue}{-0.30} & -0.26 &  -0.38 &  -0.28\\
+%\hline
+%GFIC value &0.06 & 2.22 & 0.27 &  4.34\\
+%Bias$^2$ & 0 & 2.21 & 0.22 & 4.33\\
+%Variance & 0.06 & 0.01 & 0.05 & 0.01\\ 
+%\hline
+% "Plain" & LW   &      LS   &       W   &      S\\
+%\hline
+%$\theta$ & \textcolor{blue}{-0.30} & -0.26 &  -0.38 &  -0.28\\
+%\hline
+%GFIC value &0.06 & 2.22 & 0.27 &  4.34\\
+%Bias$^2$ & 0 & 2.21 & 0.22 & 4.33\\
+%Variance & 0.06 & 0.01 & 0.05 & 0.01\\ 
+%\hline
+%\hline
+%\end{tabular}
+%\end{table}
+%
+%
+%
+%\begin{table}[h!]\centering
+% \caption{The Estimates of Price Elasticity (Shortened data, 1975 - 1980, T=6)}
+%\begin{tabular}{l c c c c }\hline\hline
+%%\multicolumn{5}{c}{"Truncated GFIC"}\\
+%%\hline 
+%"Truncated" & LW   &      LS   &       W   &      S\\
+%\hline
+%$\theta$ & -0.68 & \textcolor{blue}{ -0.32} &  -0.28 &  -0.37\\
+%\hline
+%GFIC value &0.16 & 0.02 & 1.17 & 3.10\\
+%Bias$^2$ & 0 & 0 & 1.10 & 3.08\\
+%Variance &0.16 & 0.02 & 0.07 & 0.01\\ 
+%\hline
+%"Plain" & LW   &      LS   &       W   &      S\\
+%\hline
+%$\theta$ & -0.68 & \textcolor{blue}{ -0.32} &  -0.28 &  -0.37\\
+%\hline
+%GFIC value &0.16 & -4.18 & 1.17 & 0.07\\
+%Bias$^2$ & 0 & -4.20 & 1.10 & 0.05\\
+%Variance &0.16 & 0.02 & 0.07 & 0.01\\ 
+%
+%\hline
+%\hline
+%\end{tabular}
+%\end{table}
+
+\begin{table}[htbp]
+    \begin{subtable}[h]{0.45\textwidth}
+        \centering
+ \caption{1975--1980 ($T=6$)}
+ \label{tab:cigaretteShort}
+      \begin{tabular}{lrrrr}\hline\hline
+          & \multicolumn{1}{c}{$\text{LP}$} & \multicolumn{1}{c}{$\text{LS}$} 
+          & \multicolumn{1}{c}{$\text{P}$} & \multicolumn{1}{c}{$\text{S}$}\\
+          \hline
+          $\widehat{\mu}$ & -0.68 & \textcolor{blue}{\textbf{-0.32}} &  -0.28 &  -0.37\\
+        Var.\ &0.16 & 0.02 & 0.07 & 0.01\\ 
+        Bias$^2$ & \multicolumn{1}{c}{---} & -4.20 & 1.10 & 0.05\\
+        GFIC &0.16 & -4.18 & 1.17 & 0.07\\
+        GFIC+ &0.16 & 0.02 & 1.17 & 3.10\\
+        \hline
+      \end{tabular}
+    \end{subtable}
+    ~
+    \begin{subtable}[h]{0.45\textwidth}
+      \centering
+      \caption{1975--1985 ($T=11$)}
+      \label{tab:cigaretteLong}
+      \begin{tabular}{lrrrr}\hline\hline 
+          & \multicolumn{1}{c}{$\text{LP}$} & \multicolumn{1}{c}{$\text{LS}$} 
+          & \multicolumn{1}{c}{$\text{P}$} & \multicolumn{1}{c}{$\text{S}$}\\
+        \hline
+        $\widehat{\mu}$ & \textcolor{blue}{\textbf{-0.30}} & -0.26 &  $-0.38$ &  -0.28\\
+        Var.\ & 0.06 & 0.01 & 0.05 & 0.01\\ 
+        Bias$^2$ & \multicolumn{1}{c}{---} & 2.21 & 0.22 & 4.33\\
+        GFIC  &0.06 & 2.22 & 0.27 &  4.34\\
+        GFIC+  & 0.06 & 2.22 & 0.27 &  4.34\\
+        \hline
+      \end{tabular}
+    \end{subtable}
+    \caption{Estimates and GFIC values for the price elasticity of demand for cigarettes example from Section \ref{sec:cigarettes} under four alternative specifications. Panel (a) presents results using data from 1975--1980 while Panel (b) presents results using data from 1975--1985. In each panel, the parameter estimate from the GFIC-minimizing specification is given in bold. GFIC+ gives an alternative version of the GFIC in which a negative squared bias estimate is set equal to zero.}
 \end{table}
 
 
 
-\begin{table}[h!]\centering
- \caption{The Estimates of Price Elasticity (Shortened data, 1975 - 1980, T=6)}
-\begin{tabular}{l c c c c }\hline\hline
-%\multicolumn{5}{c}{"Truncated GFIC"}\\
-%\hline 
-"Truncated" & LW   &      LS   &       W   &      S\\
-\hline
-$\theta$ & -0.68 & \textcolor{blue}{ -0.32} &  -0.28 &  -0.37\\
-\hline
-GFIC value &0.16 & 0.02 & 1.17 & 3.10\\
-Bias$^2$ & 0 & 0 & 1.10 & 3.08\\
-Variance &0.16 & 0.02 & 0.07 & 0.01\\ 
-\hline
-"Plain" & LW   &      LS   &       W   &      S\\
-\hline
-$\theta$ & -0.68 & \textcolor{blue}{ -0.32} &  -0.28 &  -0.37\\
-\hline
-GFIC value &0.16 & -4.18 & 1.17 & 0.07\\
-Bias$^2$ & 0 & -4.20 & 1.10 & 0.05\\
-Variance &0.16 & 0.02 & 0.07 & 0.01\\ 
 
-\hline
-\hline
-\end{tabular}
-\end{table}
+
 
 
 \subsection{The Impact of Credit on Village Economies}
 \label{sec:townsend}
+This example is based on data from \cite{Townsend}, who study the effect of Thailand's ``Million Baht Village Fund'' fund. 
 
-Kaboski and Townsend (2012, The Impact of Credit on Village Economies, AEJ Applied Economics) study the effect of Thailand's "Million Baht Village Fund" program. 
-This program is among the largest scale government microfinance initiatives in the world. 
+"Million Baht Village Fund" program, one of the largest scale government-funded microfinance initiatives in the world. 
+
 Implemented as surprise policy initiative, the same amount of fund was given to each village which gave the transfers a plausible degree of exogeneity.
 The treatment variable is the level of short-term village fund credit, and the response variable is the new short-term credit level (as in Table 3 of Kaboski and Townsend (2012)). 
 I use the balanced panel for 7 years of the treated, which results in 466 households. 
@@ -159,5 +202,7 @@ FMSC &  3631.71 & 1.08\\
 \hline
 \end{tabular}
 \end{table}
+
+
 
 
