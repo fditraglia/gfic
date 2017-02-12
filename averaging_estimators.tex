@@ -2,13 +2,21 @@
 \section{Averaging and Post-Selection Inference}
 \label{sec:avg}
 
-\todo[inline]{Re-vamp this section a bit. Say that the main focus of the paper is selection but we also extend the inference results of DiTraglia 2016. Add proof of the main result. Format this section similarly to the earlier paper.}
+While we are primarily concerned in this paper with the mean-squared error performance of our proposed selection techniques, it is important to have tools for carrying out  inference post-selection.
+To this end, we now show how to extend the results from Section 4 of \cite{DiTraglia2016} to the more general setting considered in this paper, one that allows for simultaneous model and moment selection.
+The GFIC is an efficient rather than consistent selection criterion: rather than attempting to select the correct specification with probability approaching one in the limit, it aims to\dots
+ 
+Need to say something about how $\widehat{B}$ is the reason why the GFIC is not a consistent criterion and how we're going to use a limit theory that accommodates this.
 
-While we are primarily concerned in this paper with the mean-squared error performance of our proposed selection techniques, it is important to have tools for carrying out valid inference post-selection.
-To this end, we now show how to extend the results from Section 4 of \cite{DiTraglia2016} to the more general setting considered in this paper, one that allows for simultaneous model and moment selection.\footnote{Because the conceptual issues are largely the same as in the case where one considers only moment selection, we direct the reader to \cite{DiTraglia2016} for more discussion.}
+\todo[inline]{Finish this thought!}
+
+Because the conceptual issues are largely the same as in the case where one considers only moment selection, we direct the reader to \cite{DiTraglia2016} for more discussion of inference post-selection.
+
 Consider an estimator of the form 
 	$$\widehat{\mu} = \sum_{(b,c) \in \mathcal{BC}} \widehat{\omega}(b,c) \widehat{\mu}(b,c)$$
-  where $\widehat{\mu}$ denotes the target parameter under the moment conditions and parameter restrictions indexed by $(b,c)$, $\mathcal{BC}$ denotes the full set of candidate specifications, and $\widehat{\omega}(b,c)$ denotes a collection of data-dependent weights satisfying the following assumption.
+where $\widehat{\mu}(b,c)$ denotes the target parameter under the moment conditions and parameter restrictions indexed by $(b,c)$, $\mathcal{BC}$ denotes the full set of candidate specifications, and $\widehat{\omega}(b,c)$ denotes a collection of data-dependent weights.
+These could be zero-one weights correponding to a moment or model selction criterion, e.g.\ select the estimator of $\mu$ that minimizes GFIC, or genuine model averaging weights.\footnote{For an example that averages over fixed and random effects estimators, see Section \ref{sec:REvsFE}.}
+Imposing some mild restrictions on the weights $\widehat{\omega}$, we can determine the limit distribution of $\mu$ as follows.
 \begin{assump}[Conditions on the Weights]\mbox{}
 	\begin{enumerate}[(a)] 
 		\item $\sum_{(b,c) \in \mathcal{BC}} \widehat{\omega}(b,c) = 1$, almost surely
@@ -28,7 +36,8 @@ where
 Note that the limit distribution from the preceding corollary is highly non-normal: it is a \emph{randomly} weighted average of a normal random vector, $\mathscr{N}$.
 To tabulate this distribution for the purposes of inference, we will in general need to resort to simulation.
 If $\tau$ and $\delta$ were known, the story would end here.
-We could simply substitute consistent estimators of $K$ and $M$, and then repeatedly draw $\mathscr{N} \sim N(0, \widehat{\Omega})$, where $\widehat{\Omega}$ is a consistent estimator of $\Omega$, and thus tabulate the distribution of $\Lambda$ to arbitrary precision. 
+We could simply substitute consistent estimators of $K$ and $M$, and then repeatedly draw $\mathscr{N} \sim N(0, \widehat{\Omega})$, where $\widehat{\Omega}$ is a consistent estimator of $\Omega$, and thus tabulate the distribution of $\Lambda$ to arbitrary precision, as explained in the following.
+
 \begin{alg}[Simulation-based Confidence Interval for $\widehat{\mu}$ given $\tau, \delta$]
 \mbox{}
 		\begin{enumerate}
@@ -40,8 +49,6 @@ We could simply substitute consistent estimators of $K$ and $M$, and then repeat
 		\end{enumerate}
     \label{alg:fixed_tau_delta}
 \end{alg}
-
-\todo[inline]{I haven't defined what $\widehat{\psi}$ is yet\dots}
 
 Unfortunately, no consistent estimators of $\tau$ or $\delta$ exist: all we have at our disposal are asymptotically unbiased estimators.
 Simply plugging in these estimators $\widehat{\tau}$ and $\widehat{\delta}$ and proceeding with the simulation is not guaranteed to lead to valid confidence intervals.\footnote{Although it does not work in general, in particular examples this plug-in procedure may perform well. For more discussion of this point, see Section 4.4 of \cite{DiTraglia2016}.}
