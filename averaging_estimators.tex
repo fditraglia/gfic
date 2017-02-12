@@ -3,13 +3,13 @@
 \label{sec:avg}
 
 While we are primarily concerned in this paper with the mean-squared error performance of our proposed selection techniques, it is important to have tools for carrying out  inference post-selection.
-In this section we present results that can be used to carry out valid inference for a range of model averaging and post-selection estimators, including the GFIC.
-Because the conceptual issues are largely the same regardless of whether one considers moment selection, model selection, or both, we direct the reader to \cite{DiTraglia2016} Section 4 and the references contained therein for a more detailed discussion of inference post-selection.
+In this section we briefly present results that can be used to carry out valid inference for a range of model averaging and post-selection estimators, including the GFIC.
+Because the conceptual issues are largely the same regardless of whether one considers moment selection, model selection, or both simultaneously, we direct the reader to \cite{DiTraglia2016} Section 4 and the references contained therein for a more detailed discussion of inference post-selection.
 
 The GFIC is an efficient rather than consistent selection criterion: it aims to estimate a particular target parameter with minimum AMSE rather than selecting the correct specification with probability approaching one in the limit.
 As pointed out by \cite{Yang2005}, among others, there is an unavoidable trade-off between consistent selection and desirable risk properties.
-
-As such, it remains random \emph{even in the limit}.
+Faced with this dilemma, the GFIC sacrifices consistency in the interest of low AMSE.
+Because it is not a consistent criterion, the GFIC remains random \emph{even in the limit}.
 We can see this from Equation \ref{eq:GFIC} in Section \ref{sec:GFIC} and Corollary \ref{cor:biasestimators}.
 While the quantities $\nabla_\beta \widehat{\varphi}_0$, $\widehat{K}(b,c)$, and $\widehat{\Omega}_c$ are consistent estimators of their population counterparts, $\widehat{B}$ is only an asymptotically unbiased estimator of $B$ and thus has a limiting distribution.
 In particular $\widehat{B} \rightarrow_d \mathscr{B}(\mathscr{N}, \delta, \tau)$ where
@@ -26,13 +26,8 @@ In particular $\widehat{B} \rightarrow_d \mathscr{B}(\mathscr{N}, \delta, \tau)$
   \end{array}
 \right] + \Psi \mathscr{N}\right)' - \Psi \Omega \Psi
 \end{equation}
-
- 
-
-\todo[inline]{Finish this thought!}
-
-
-Consider an estimator of the form 
+Accordingly, to carry out inference post-GFIC, we need a limiting theory that is rich enough to accommodate \emph{randomly-weighted} averages of the candidate estimators $\widehat{\mu}(b,c)$.
+To this end, consider an estimator of the form 
 	$$\widehat{\mu} = \sum_{(b,c) \in \mathcal{BC}} \widehat{\omega}(b,c) \widehat{\mu}(b,c)$$
 where $\widehat{\mu}(b,c)$ denotes the target parameter under the moment conditions and parameter restrictions indexed by $(b,c)$, $\mathcal{BC}$ denotes the full set of candidate specifications, and $\widehat{\omega}(b,c)$ denotes a collection of data-dependent weights.
 These could be zero-one weights correponding to a moment or model selction criterion, e.g.\ select the estimator of $\mu$ that minimizes GFIC, or genuine model averaging weights.\footnote{For an example that averages over fixed and random effects estimators, see Section \ref{sec:REvsFE}.}
