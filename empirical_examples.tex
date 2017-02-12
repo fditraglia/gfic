@@ -141,19 +141,19 @@ The following regression is used:
 The purpose of this section is to apply GFIC between the Ordinary Least Squares (OLS) and the Mean Group (MG) estimators. 
 OLS assumes the slope homogeneity for the treatment variable whereas MG estimation allows for heterogeneous treatment effects $\beta_i = \beta + \eta_i$.  
     
-\begin{table}[htbp]\centering
-\caption{The Impact of Village Fund Credit}
-\begin{tabular}{l  c c  }
-\hline
-\hline
-& (1) OLS & (2) MG\\ \hline
-treatment variable  &  11.44 & 8.88\\
-(standard error) & (1.30) &  (1.04)\\
-(clustered standard error) & (3.34)& (3.10)\\
-\hline
-\hline
-\end{tabular}
-\end{table}
+%\begin{table}[htbp]\centering
+%\caption{The Impact of Village Fund Credit}
+%\begin{tabular}{l  c c  }
+%\hline
+%\hline
+%& (1) OLS & (2) MG\\ \hline
+%treatment variable  &  11.44 & 8.88\\
+%(standard error) & (1.30) &  (1.04)\\
+%(clustered standard error) & (3.34)& (3.10)\\
+%\hline
+%\hline
+%\end{tabular}
+%\end{table}
 
 For both OLS and MG specification, the treatment effect is positive and significant. However, the magnitude of treatment effect is quite dissimilar. I compute not only the standard error from the standard formula, but also the clustered standard error. The village-year clustering is considered as in Kaboski and Townsend (2012), while assuming homoskedasticity within each cluster. Suppose that there are $G$ clusters and denote $Q = I_T - \frac{1}{T} \iota_T \iota_T'$ with $\iota_T$ being vector of 1's. To specify, the robust clustered variance for OLS estimator is
 \[
@@ -188,21 +188,39 @@ The bias $\big(E[\mathbf{x}_iQ\mathbf{x}_i]\big)^{-1}\delta$ can be computed usi
 
 From the asymptotic distribution of $\widehat{\delta}$, we obtain $\widehat{\delta} \rightarrow_d N\big(\delta , \Omega_\delta\big)$ where $\Omega_\delta = \sigma_\eta^2 E[\mathbf{x}_i'Q \mathbf{x}_i \mathbf{x}_i'Q\mathbf{x}_i] - \sigma_\eta^2 \big(E[\mathbf{x}_i'Q\mathbf{x}_i]\big)^2 - \sigma_\epsilon^2 E[\mathbf{x}_i'Q\mathbf{x}_i] + \sigma_\epsilon^2 \big(E[\mathbf{x}_i'Q\mathbf{x}_i]\big)^2 E\big((\mathbf{x}_i'Q\mathbf{x}_i)^{-1}\big)$. We can construct the consistent estimator $\widehat{\Omega}_\delta$ using the sample means, $\widehat{\sigma}_\epsilon^2,$ and $\widehat{\sigma}_\eta^2$. The asymptotically unbiased estimator for $\delta^2$ is $\widehat{\delta}^2 - \widehat{\Omega}_\delta$. The FMSC, which is the asymptotically unbiased estimator of AMSE, for each estimator is as follows:
 
-\begin{table}[htbp]\centering
-\caption{The FMSC for the Estimators}
-\begin{tabular}{l  c c  }
+%\begin{table}[htbp]\centering
+%\caption{The FMSC for the Estimators}
+%\begin{tabular}{l  c c  }
+%\hline
+%\hline
+%"Truncated"& (1) OLS & (2) MG\\ 
+%FMSC &  3631.71 & 1.08\\
+%\hline
+%"Plain"& (1) OLS & (2) MG\\ 
+%FMSC &  3631.71 & 1.08\\
+%\hline
+%\hline
+%\end{tabular}
+%\end{table}
+
+\todo[inline]{Are the standard errors robust? The ones in the paper are. Why are the clustered standard errors so much larger than those from the paper? Is it because they cluster at the village-year level? The units still aren't right: see Table 3 in the paper.}
+
+
+\begin{table}[htbp]
+  \centering
+\begin{tabular}{lrr}
 \hline
 \hline
-"Truncated"& (1) OLS & (2) MG\\ 
-FMSC &  3631.71 & 1.08\\
+& \multicolumn{1}{c}{OLS} & \multicolumn{1}{c}{MG}\\ 
 \hline
-"Plain"& (1) OLS & (2) MG\\ 
-FMSC &  3631.71 & 1.08\\
-\hline
+$\widehat{\mu}$  &  11.44 & 8.88\\
+S.E.\ & 1.30 &  1.04\\
+S.E.\ Clustered & 3.34& 3.10\\
+GFIC &  3632 & 1.08\\
 \hline
 \end{tabular}
+\caption{Estimates and GFIC values for the empirical example from section \ref{sec:townsend}.
+The target parameter $\widehat{\mu}$ is the average effect of short-term village fund credit 
+OLS indicates the pooled ordinary least squares estimator and MG the mean-group estimator.}
+\label{tab:village}
 \end{table}
-
-
-
-
