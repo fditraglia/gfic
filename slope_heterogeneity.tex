@@ -17,16 +17,13 @@ For the purposes of this example, assume further that $\epsilon_{it}$ is iid ove
 Neither homoskedasticity nor time-independent errors are required to apply the GFIC to this example, but these assumptions simplify the exposition.  
 We place no assumptions on the joint distribution of $x_{it}$ and $\eta_i$.
 
-Stacking observations over time in the usual way, let $\mathbf{y}_i = (y_{i1}, \ldots, y_{iT})'$ and define $\mathbf{x}_i$ analogously. 
-We consider two estimators: pooled OLS
-	\begin{equation}
-\widehat{\beta}_{OLS} = \bigg(\sum_{i=1}^{n} \mathbf{x}_i'  \mathbf{x}_i\bigg)^{-1}\bigg(\sum_{i=1}^{n} \mathbf{x}_i' \mathbf{y}_i   \bigg)	
-	\end{equation}
-and the mean-group estimator
-	\begin{equation}
-\widehat{\beta}_{MG}  = \frac{1}{n}\sum_{i=1}^n \widehat{\beta}_i 
+Stacking observations, let $\mathbf{y}_i = (y_{i1}, \ldots, y_{iT})'$ and define $\mathbf{x}_i$ analogously. 
+We consider two estimators: the pooled OLS estimator $\widehat{\beta}_{OLS}$ and the mean-group estimator $\widehat{\beta}_{MG}$
+\begin{align}
+\widehat{\beta}_{OLS} &= \left(\sum_{i=1}^{n} \mathbf{x}_i'  \mathbf{x}_i \right)^{-1}\left(\sum_{i=1}^{n} \mathbf{x}_i' \mathbf{y}_i   \right)\\ 
+\widehat{\beta}_{MG}  &= \frac{1}{n}\sum_{i=1}^n \widehat{\beta}_i 
 = \frac{1}{n} \sum_{i=1}^n \left( \mathbf{x}_i'  \mathbf{x}_i\right)^{-1}\left( \mathbf{x}_i'  \mathbf{y}_i   \right)
-\end{equation}
+\end{align}
 where $\widehat{\beta}_i$ denotes the OLS estimator calculated using observations for individual $i$ only. 
 If we knew with certainty that there was no slope heterogeneity, we could clearly prefer $\widehat{\beta}_{OLS}$ as it is both unbiased and has the lower variance.
 In the presence of heterogeneity, however, the situation is more complicated.
@@ -71,10 +68,19 @@ This fact follows as a corollary of Theorem \ref{thm:OLSvsMG}.
 \begin{cor}
   Under the conditions of Theorem \ref{thm:OLSvsMG}, the asymptotic variance of the OLS estimator is lower than that of the mean-group estimator if and only if $\lambda^2\sigma_\eta^2 < \sigma_\varepsilon^2(\kappa^2\zeta - \kappa)$, 
 where $\kappa = E[\mathbf{x}_i' \mathbf{x}_i]$, $\lambda^2 = Var\left( \mathbf{x}_i'\mathbf{x}_i \right)$, and $\zeta = E\left[ \left( \mathbf{x}_i' \mathbf{x}_i \right)^{-1} \right]$.  
+\label{cor:MG}
 \end{cor}
 
 Note, as a special case of the preceding, that the OLS estimator is guaranteed to have the lower asymptotic variance when $\sigma_{\eta}^2 = 0$ since $E[\mathbf{x}_i'\mathbf{x}]^{-1} < E[(\mathbf{x}_i'\mathbf{x}_i)^{-1}]$ by Jensen's inequality.
-To apply the GFIC in this example, we first need to determine whether the OLS estimator has the smaller asymptotic variance.
+When $\sigma_{\eta}^2 \neq 0$, the situation is in general much more complicated.
+A simple normal example, however, provides some helpful intuition.
+Suppose that for a given individual the observations $x_{it}$ are iid standard normal over $t$.
+Then $\mathbf{x}_i'\mathbf{x}_i \sim \chi^2_T$, so that $\kappa = T$, $\lambda^2 = 2T$ and $\zeta = 1 / (T-2)$, provided of course that $T>2$.
+Substituting these into Corollary \ref{cor:MG}, the OLS estimator will have the lower asymptotic variance whenever $(T-2)\sigma^2_\eta < \sigma_{\varepsilon}^2$.
+All else equal, the shorter the panel, the more likely that OLS will have the lower variance.
+But if $\sigma_{\eta}^2$ is large enough, the length of the panel becomes irrelevant: with enough slope heterogeneity, the mean-group estimator has the advantage both in bias and variance.
+
+To apply the GFIC in practice, we first need to determine whether the OLS estimator has the smaller asymptotic variance.
 This requires us to estimate the quantities $\lambda^2, \kappa$, and $\zeta$ from Theorem \ref{thm:OLSvsMG} along with $\sigma_{\eta}^2$ and $\sigma_{\varepsilon}^2$.
 The following estimators are consistent under the assumptions of Theorem \ref{thm:OLSvsMG}:
 \begin{align*}
