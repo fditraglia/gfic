@@ -42,7 +42,7 @@ Imposing some mild restrictions on the weights $\widehat{\omega}$, we can determ
 
 \begin{cor}[Limit Distribution of Averaging Estimators]
   Under Assumption \ref{assump:weight} and the hypotheses of Theorem \ref{thm:asymp},  
-	$\sqrt{n}\left(\widehat{\mu} - \mu_n\right) \overset{d}{\rightarrow} \Lambda(\tau,\delta)$
+	$\sqrt{n}\left(\widehat{\mu} - \mu_n\right) \overset{d}{\rightarrow} \Lambda(\delta,\tau)$
 where
 	\begin{equation}
 		\Lambda(\delta,\tau) = -\nabla_\beta\varphi_0' \sum_{(b,c) \in \mathcal{BC}} \psi(\mathscr{N},\delta, \tau|b,c) \left\{\Xi_b' K(b,c) \Xi_c \mathscr{N} + M(b,c)  \left[\begin{array}{c}\delta \\ \tau \end{array} \right]\right\}
@@ -53,7 +53,7 @@ To tabulate this distribution for the purposes of inference, we will in general 
 If $\tau$ and $\delta$ were known, the story would end here.
 In this case we could simply substitute consistent estimators of $K$ and $M$ repeatedly draw $\mathscr{N} \sim N(0, \widehat{\Omega})$, where $\widehat{\Omega}$ is a consistent estimator of $\Omega$, to tabulate the distribution of $\Lambda$ to arbitrary precision as follows.
 
-\begin{alg}[Approximating Quantiles of $\Lambda(\tau, \delta)$]
+\begin{alg}[Approximating Quantiles of $\Lambda(\delta,\tau)$]
 \mbox{}
 		\begin{enumerate}
     \item Generate $J$ independent draws $\mathscr{N}_j \sim N(0, \widehat{\Omega})$
@@ -75,7 +75,7 @@ The following ``1-step'' confidence interval is constructed by substituting thes
 \end{alg}
 
 The 1-Step interval defined in Algorithm \ref{alg:1step} is conceptually simple, easy to compute, and can perform well in practice.\footnote{For more discussion on this point, see \cite{DiTraglia2016}.}
-But as it fails to account for sampling uncertainty in $\widehat{\tau}$, $\mbox{CI}_1$ it does \emph{not} necessarily yield asymptotically valid inference for $\mu$.
+But as it fails to account for sampling uncertainty in $\widehat{\tau}$, $\mbox{CI}_1$ does \emph{not} necessarily yield asymptotically valid inference for $\mu$.
 Fully valid inference requires the addition of a second step to the algorithm and comes at a cost: conservative rather than exact inference.
 In particular, the following procedure is guaranteed to yield an interval with asymptotic coverage probability of \emph{at least} $(1- \alpha_1 - \alpha_2)\times 100\%$.
 
