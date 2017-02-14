@@ -2,14 +2,17 @@
 \section{Empirical Example: Demand for Cigarettes}
 \label{sec:cigarettes}
 We now consider an empirical example illustrating the GFIC in the dynamic panel setting introduced in Section \ref{sec:Dpanel}.
-Our data come from \cite{BaltagiEtAl2000} who consider a number of alternative specifications for estimating U.S.\ demand for cigarettes. 
-
-\todo[inline]{Clean up from here down\dots}
-The data is suitable to analyze the cigarette demand of 46 American states over 30 years (1963 - 1992). In this section, we consider the model and moment selection problem together. The demand model in Baltagi et al. (2000) is as follows (all prices in real terms): 
+Out exercise is based on \cite{BaltagiEtAl2000} who consider a number of alternative specifications for estimating the demand for cigarettes using panel data for 46 U.S.\ states between 1963 and 1992. 
+Their baseline specification is
 \[
-\ln C_{it} =  \gamma \ln C_{i,t-1} + \theta \ln P_{it} + \alpha W_{it} + \eta_i +  v_{it}
+  \ln C_{it} =  \gamma \ln C_{i,t-1} + \theta \ln P_{it} + \beta_1 \ln Y_{it} + \beta_2 \ln Pn_{it} + \eta_i + \lambda_t + v_{it}
 \] 
-where $C_{it}$ is per capita sales of cigarettes, $P_{it}$ is the average retail price of a pack of cigarettes, and $\eta_i$ captures state fixed effect. The vector of all the remaining regressors is denoted as $W_{it}$ above. It includes the minimum price of cigarettes in any neighboring state $Pn_{it}$, per capita disposable income $Y_{it}$, and year dummies. After first-differencing, we obtain 
+where $C_{it}$ is the number of packs of cigarettes sold per person aged 16 and above, $P_{it}$ is the real average retail price of a pack of cigarettes, $Y_{it}$ is per capita disposable income, $Pn_{it}$ is the minimum average price of a pack of cigarettes in any state that neighbors state $i$, $\eta_i$ is a state fixed effect, and $\lambda_t$ is a time fixed effect. 
+The lagged dependent variable in this model is meant to capture habit-persistence in cigarette consumption but it is the price elasticity not the habit-persistence \emph{per se} that is of primary interest. 
+
+\cite{BaltagitEtAl2000} consider an exhaustive list of possible estimators for two target parameters: the short-run price elasticity $\theta$ and the long-run price elasticity.
+Here we focus 
+
 \[
 \Delta \ln C_{it} = \gamma \Delta \ln C_{i,t-1} +  \theta \Delta \ln P_{it} +\alpha \Delta W_{it} +  \Delta v_{it}
 \]
@@ -25,96 +28,41 @@ The model selection decision is whether or not to set $\gamma = 0$. The moment s
 \Delta \ln C_{it} = \beta_1 \Delta \ln C_{i,t-1} +  \beta_2 \Delta \ln P_{it} +\beta_3 \Delta \ln Pn_{it} +  \beta_4 \Delta \ln Y_{it} + \Delta v_{it}.
 \]
 Furthermore, they instrument $\Delta \ln C_{i,t-1}$ by the lagged values of exogenous variables $\ln P_{it}, \ln Pn_{it}, \ln Y_{it},$ $\ln P_{i,t-1}, \ln Pn_{i,t-1}, \ln Y_{i,t-1}, \ln P_{i,t-2}, \ln Pn_{i,t-2}, \ln Y_{i,t-2}$. Instead, our specification LW use instrument $\ln C_{i, t-2}$ for $\Delta \ln C_{i,t-1}$ as suggested in Anderson and Hsiao (1982).}
- Both LW and LS include a lagged dependent variable. LW and W designate the letter W for weak exogeneity assumption. Our aim is to use the GFIC to choose between competing 2SLS estimators of $\theta$ on the basis of AMSE. %We can construct all the necessary components as in the previous simulation section.
-\newpage
-
-
-%\begin{table}[h!]\centering
-% \caption{The Estimates of Price Elasticity (Shortened data, 1975 - 1985, T=11)}
-%\begin{tabular}{l c c c c }\hline\hline 
-% "Truncated"& LW   &      LS   &       W   &      S\\
-%\hline
-%$\theta$ & \textcolor{blue}{-0.30} & -0.26 &  -0.38 &  -0.28\\
-%\hline
-%GFIC value &0.06 & 2.22 & 0.27 &  4.34\\
-%Bias$^2$ & 0 & 2.21 & 0.22 & 4.33\\
-%Variance & 0.06 & 0.01 & 0.05 & 0.01\\ 
-%\hline
-% "Plain" & LW   &      LS   &       W   &      S\\
-%\hline
-%$\theta$ & \textcolor{blue}{-0.30} & -0.26 &  -0.38 &  -0.28\\
-%\hline
-%GFIC value &0.06 & 2.22 & 0.27 &  4.34\\
-%Bias$^2$ & 0 & 2.21 & 0.22 & 4.33\\
-%Variance & 0.06 & 0.01 & 0.05 & 0.01\\ 
-%\hline
-%\hline
-%\end{tabular}
-%\end{table}
-%
-%
-%
-%\begin{table}[h!]\centering
-% \caption{The Estimates of Price Elasticity (Shortened data, 1975 - 1980, T=6)}
-%\begin{tabular}{l c c c c }\hline\hline
-%%\multicolumn{5}{c}{"Truncated GFIC"}\\
-%%\hline 
-%"Truncated" & LW   &      LS   &       W   &      S\\
-%\hline
-%$\theta$ & -0.68 & \textcolor{blue}{ -0.32} &  -0.28 &  -0.37\\
-%\hline
-%GFIC value &0.16 & 0.02 & 1.17 & 3.10\\
-%Bias$^2$ & 0 & 0 & 1.10 & 3.08\\
-%Variance &0.16 & 0.02 & 0.07 & 0.01\\ 
-%\hline
-%"Plain" & LW   &      LS   &       W   &      S\\
-%\hline
-%$\theta$ & -0.68 & \textcolor{blue}{ -0.32} &  -0.28 &  -0.37\\
-%\hline
-%GFIC value &0.16 & -4.18 & 1.17 & 0.07\\
-%Bias$^2$ & 0 & -4.20 & 1.10 & 0.05\\
-%Variance &0.16 & 0.02 & 0.07 & 0.01\\ 
-%
-%\hline
-%\hline
-%\end{tabular}
-%\end{table}
+ Both LW and LS include a lagged dependent variable. LW and W designate the letter W for weak exogeneity assumption. Our aim is to use the GFIC to choose between competing 2SLS estimators of $\theta$ on the basis of AMSE. 
 
 \begin{table}[htbp]
+  \centering
     \begin{subtable}[h]{0.45\textwidth}
         \centering
- \caption{1975--1980 ($T=6$)}
- \label{tab:cigaretteShort}
-      \begin{tabular}{lrrrr}\hline\hline
-          & \multicolumn{1}{c}{$\text{LP}$} & \multicolumn{1}{c}{$\text{LS}$} 
+     \caption{1975--1980 ($T=6$)}
+     \begin{tabular}{lrrrr}\hline\hline 
+         & \multicolumn{1}{c}{$\text{LP}$} & \multicolumn{1}{c}{$\text{LS}$} 
           & \multicolumn{1}{c}{$\text{P}$} & \multicolumn{1}{c}{$\text{S}$}\\
-          \hline
-          $\widehat{\mu}$ & -0.68 & \textcolor{blue}{\textbf{-0.32}} &  -0.28 &  -0.37\\
-        Var.\ &0.16 & 0.02 & 0.07 & 0.01\\ 
-        Bias$^2$ & \multicolumn{1}{c}{---} & -4.20 & 1.10 & 0.05\\
-        GFIC &0.16 & -4.18 & 1.17 & 0.07\\
-        GFIC+ &0.16 & 0.02 & 1.17 & 3.10\\
+        \hline
+        $\widehat{\mu}$ & -0.68 & \textcolor{blue}{\textbf{-0.32}} &  -0.28 &  -0.37\\
+        Var.\ & 0.16 &  0.02 & 0.07 & 0.01\\ 
+        Bias$^2$ & \multicolumn{1}{c}{---} & -4.20 & 0.01 & -3.56 \\
+        GFIC  & 0.16 & -4.18 & 0.08  & -3.54  \\
+        GFIC+  & 0.16 &  0.02 & 0.08  & 0.33    \\
         \hline
       \end{tabular}
     \end{subtable}
     ~
     \begin{subtable}[h]{0.45\textwidth}
       \centering
-      \caption{1975--1985 ($T=11$)}
-      \label{tab:cigaretteLong}
-      \begin{tabular}{lrrrr}\hline\hline 
-          & \multicolumn{1}{c}{$\text{LP}$} & \multicolumn{1}{c}{$\text{LS}$} 
+     \caption{1975--1985 ($T=11$)}
+     \begin{tabular}{lrrrr}\hline\hline 
+         & \multicolumn{1}{c}{$\text{LP}$} & \multicolumn{1}{c}{$\text{LS}$} 
           & \multicolumn{1}{c}{$\text{P}$} & \multicolumn{1}{c}{$\text{S}$}\\
         \hline
-        $\widehat{\mu}$ & \textcolor{blue}{\textbf{-0.30}} & -0.26 &  $-0.38$ &  -0.28\\
+        $\widehat{\mu}$ & \textcolor{blue}{\textbf{-0.30}} & -0.26 &  -0.38 &  -0.28\\
         Var.\ & 0.06 & 0.01 & 0.05 & 0.01\\ 
-        Bias$^2$ & \multicolumn{1}{c}{---} & 2.21 & 0.22 & 4.33\\
-        GFIC  &0.06 & 2.22 & 0.27 &  4.34\\
-        GFIC+  & 0.06 & 2.22 & 0.27 &  4.34\\
-        \hline
+        Bias$^2$ & \multicolumn{1}{c}{---} & 2.21 & 0.03 & 1.29\\
+        GFIC  &0.06 & 2.22 & 0.08 &  1.30\\
+        GFIC+  & 0.06 & 2.22 & 0.08  & 1.30  \\
+           \hline
       \end{tabular}
     \end{subtable}
     \caption{Estimates and GFIC values for the price elasticity of demand for cigarettes example from Section \ref{sec:cigarettes} under four alternative specifications. Panel (a) presents results using data from 1975--1980 while Panel (b) presents results using data from 1975--1985. In each panel, the parameter estimate from the GFIC-minimizing specification is given in bold. GFIC+ gives an alternative version of the GFIC in which a negative squared bias estimate is set equal to zero.}
 \end{table}
-
 
