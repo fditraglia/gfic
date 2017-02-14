@@ -39,11 +39,11 @@ This increases the number of time periods available for estimation.
          & \multicolumn{1}{c}{$\text{LP}$} & \multicolumn{1}{c}{$\text{LS}$} 
           & \multicolumn{1}{c}{$\text{P}$} & \multicolumn{1}{c}{$\text{S}$}\\
         \hline
-        $\widehat{\theta}$ & -0.68 & \textcolor{blue}{\textbf{-0.32}} &  -0.28 &  -0.37\\
+        $\widehat{\theta}$ & -0.68 & -0.32 &  -0.28 &  -0.37\\
         Var.\ & 0.16 &  0.02 & 0.07 & 0.01\\ 
         Bias$^2$ & \multicolumn{1}{c}{---} & -4.20 & 0.01 & -3.56 \\
         GFIC  & 0.16 & -4.18 & 0.08  & -3.54  \\
-        GFIC+  & 0.16 &  0.02 & 0.08  & 0.33    \\
+        GFIC+  & 0.16 &  0.02 & 0.08  & 0.01    \\
         \hline
       \end{tabular}
     \end{subtable}
@@ -56,7 +56,7 @@ This increases the number of time periods available for estimation.
          & \multicolumn{1}{c}{$\text{LP}$} & \multicolumn{1}{c}{$\text{LS}$} 
           & \multicolumn{1}{c}{$\text{P}$} & \multicolumn{1}{c}{$\text{S}$}\\
         \hline
-        $\widehat{\theta}$ & \textcolor{blue}{\textbf{-0.30}} & -0.26 &  -0.38 &  -0.28\\
+        $\widehat{\theta}$ & -0.30 & -0.26 &  -0.38 &  -0.28\\
         Var.\ & 0.06 & 0.01 & 0.05 & 0.01\\ 
         Bias$^2$ & \multicolumn{1}{c}{---} & 2.21 & 0.03 & 1.29\\
         GFIC  &0.06 & 2.22 & 0.08 &  1.30\\
@@ -64,7 +64,8 @@ This increases the number of time periods available for estimation.
            \hline
       \end{tabular}
     \end{subtable}
-    \caption{Estimates and GFIC values for the price elasticity of demand for cigarettes example from Section \ref{sec:cigarettes} under four alternative specifications. Panel (a) presents results using data from 1975--1980 while Panel (b) presents results using data from 1975--1985. In each panel, the parameter estimate from the GFIC-minimizing specification is given in bold. GFIC+ gives an alternative version of the GFIC in which a negative squared bias estimate is set equal to zero.}
+    \caption{Estimates and GFIC values for the price elasticity of demand for cigarettes example from Section \ref{sec:cigarettes} under four alternative specifications. Panel (a) presents results using data from 1975--1980 while Panel (b) presents results using data from 1975--1985. 
+GFIC+ gives an alternative version of the GFIC in which a negative squared bias estimate is set equal to zero.}
     \label{tab:cigarettes}
 \end{table}
 
@@ -80,5 +81,17 @@ Unsurprisingly the asymptotic variance decreases with the number of time periods
 Moreover, for a given sample period, the estimators with a large instrument set show a lower asymptotic variance: $\text{LS}$ is more precisely estimated than $\text{LP}$ and $\text{S}$ is more precisely estimated than $\text{P}$.
 
 The third row of each panel gives our estimate of the squared asymptotic bias of the various estimators of $\theta$.
-Note that this is \emph{negative} for $\text{LS}$ and $\text{S}$ in the 1975--1980 sample.
+The $---$ entry for the $\text{LP}$ estimator indicates that the GFIC is constructed under the assumption that this specification has no asymptotic bias.
+Note that the squared bias estimator is \emph{negative} for $\text{LS}$ and $\text{S}$ in the 1975--1980 sample.
+This occurs when the second term in the estimate of the bias matrix $\widehat{B}$ from Corollary \ref{cor:biasestimators}, namely $\widehat{\Psi}\widehat{\Omega}\widehat{\Psi}'$, is larger than the first.
+Accordingly, we consider two alternative ways of constructing the GFIC from the asymptotic variance and squared bias estimates.
+The first, labelled ``GFIC,'' simply adds squared bias and variance.
+The second, labelled ``GFIC+,'' first \emph{truncates} a negative squared bias estimate to zero, and then adds the result to the variance estimate.
+For the 1975--1980 sample period we find no evidence of appreciable bias in any of the three ``suspect'' specifications: $\text{LS}$, $\text{P}$, and $\text{LP}$.
+In contrast, each of these has a substantially small asymptotic variance than $\text{LP}$, so we would select either $\text{LP}$ or $\text{S}$ depending on whether we prefer to use GFIC or GFIC+.\footnote{When GFIC and GFIC+ disagree, we prefer GFIC+ for the same reason that the positive-part Stein estimator is preferred to the ``plain-vanilla'' Stein estimator.}
+In the 1975--1985 sample, the situation changes drastically.
+Over this longer time period, the relative advantage of $\text{LS}$, $\text{P}$ and $\text{S}$ over $\text{LP}$ is asymptotic variance decreases substantially and we find evidence of substantial bias in both the $\text{LS}$ and $\text{S}$ specifications.
+It appears that over these additional time periods, the assumption that $\ln P_{it}$ is strictly exogenous fails.
+Interestingly the difference in GFIC values between $\text{LP}$ and $\text{P}$ in this longer sample is negligible.
+As we saw that $\text{LP}$ had a lower GFIC value than $\text{P}$ in the 1975--1980 sample, it appears that accounting for habit persistence is relatively unimportant in estimating the short-run price elasticity of cigarette demand.
 
