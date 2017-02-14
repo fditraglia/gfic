@@ -1,6 +1,5 @@
 %!TEX root = main.tex
 \section{Asymptotic Framework}
-\todo[inline]{Need to add an identification condition!}
 \label{sec:asymp}
 Let $f(\cdot, \cdot)$ be a $(p+q)$-vector of moment functions of a random vector $Z$ and an $(r+s)$-dimensional parameter vector $\beta$.
 To represent moment selection, we partition the moment functions according to $f(\cdot,\cdot) = \left(g(\cdot, \cdot)', h(\cdot, \cdot)'\right)'$ where $g(\cdot, \cdot)$ and $h(\cdot, \cdot)$ are $p$- and $q$-vectors.
@@ -63,13 +62,21 @@ partitioned conformably to the partition of $f(Z,\beta)$ by $g(Z,\beta)$ and $h(
 	\begin{equation}
     \widehat{\beta}(b,c) = \underset{\beta^{(b)}\in \mathbf{B}^{(b)}} {\mbox{arg min}}\;\left[\Xi_c f_n\left(\beta^{(b)}, \gamma_0^{(-b)}\right)\right]'\left[\Xi_c \widetilde{W}\Xi_c' \right]\left[\Xi_c f_n\left(\beta^{(b)}, \gamma_0^{(-b)}\right)\right].
 	\end{equation}
-A particularly important special case is the estimator using only the moment conditions in $g$ to estimate the full parameter vector $\beta = \left(\theta', \gamma' \right)'$, the \emph{valid} estimator:
+
+  A particularly important special case is the estimator using only the moment conditions in $g$ to estimate the full parameter vector $\beta = \left(\theta', \gamma' \right)'$.
+  We call this the \emph{valid} estimator and denote it by $\widehat{\beta}_v$.  
+  Because it is assumed correctly specified both for finite $n$ and in the limit, the valid estimator contains the information we use to identify $\tau$ and $\delta$, and thus carry out moment and model selection. 
+We assume throughout that the valid estimator is identified.
+
+\begin{assump}[GFIC Identification Condition]
+  Let $\widehat{\beta}_v$ denote the GMM estimator for $\beta = \left(\theta', \gamma' \right)'$ based solely on the moment conditions contained in g:
 \begin{equation}
   \widehat{\beta}_v =\left[\begin{array}{c}\widehat{\gamma}_{v} \\  \widehat{\theta}_{v} \end{array} \right] =\underset{\beta \in \mathbf{B}}{\mbox{arg min}}\; g_n(\beta)' \widetilde{W}_{gg} \; g_n(\beta).
 \end{equation}
-Because it is correctly specified both for finite $n$ and in the limit, the valid estimator contains the information we use to identify $\tau$ and $\delta$, and thus carry out moment and model selection. 
-For estimation based on $g$ alone to be possible, we require $p \geq r+s$. 
-This is assumed throughout.
+We call this the ``valid estimator'' and assume that it satisfies all the conditions of Assumption \ref{assump:high-level} given below.
+In particular assume that $\widehat{\beta}_v$ is identified, which implies $p \geq r+s$.
+\end{assump}
+
 Because Assumption \ref{assump:local} ensures that they are correctly specified in the limit, \emph{all} candidate specifications $(b,c)\in \mathcal{BC}$ provide consistent estimators of $\theta_0$ under standard, high level regularity conditions (see Assumption \ref{assump:high-level}).
 Essential differences arise, however, when we consider their respective asymptotic distributions. 
 Let
