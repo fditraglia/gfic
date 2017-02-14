@@ -1,5 +1,5 @@
 %!TEX root = main.tex
-\section{Empirical Example: Demand for Cigarettes}
+\section{Empirical Example: The Demand for Cigarettes}
 \label{sec:cigarettes}
 We now consider an empirical example illustrating the GFIC in the dynamic panel setting introduced in Section \ref{sec:Dpanel}.
 Out exercise is based on \cite{BaltagiEtAl2000} who study the demand for cigarettes using panel data for 46 U.S.\ states between 1963 and 1992. 
@@ -12,7 +12,8 @@ The lagged dependent variable in this model is meant to capture habit-persistenc
 
 \cite{BaltagiEtAl2000} consider an exhaustive list of possible estimators for two target parameters, the short-run price elasticity $\theta$ and the long-run price elasticity $\theta/(1 - \gamma)$, and explore how the resulting estimates vary.
 Here we consider selecting between four alternative estimators of the short-run price elasticity $\theta$, as in the second simulation experiment from Section \ref{sec:Dpanel_sim}.
-Each specification is estimated by TSLS in first differences, using the expressions from section \ref{sec:Dpanel}.\footnote{Say how we try to be as similar as possible to Baltagi et al but there are a couple of differences. Explain how these specifications are similar to some results in Baltagi and how they're not!}
+Each specification is estimated by TSLS in first differences, using the expressions from section \ref{sec:Dpanel}.\footnote{Our baseline specification is similar to the estimator that \cite{BaltagiEtAl2000} refer to as FD2SLS. There are two differences however. First, whereas they use lags of the exogenous controls $\ln Y_{it}$ and $\ln Pn_{it}$, our instrument set follows \cite{AndersonHsiao}. 
+Second, whereas \cite{BaltagiEtAl2000} appear to have inadvertantly omitted the time dummies from their FD2SLS specification, we include them.}
 For simplicity, we assume that the controls $\ln Y_{it}$ and $\ln Pn_{it}$ are exogenous with respect to $v_{it}$.
 We focus on two questions.
 First: exogeneity assumption should we impose on $\ln P_{it}$?
@@ -81,23 +82,3 @@ Moreover, for a given sample period, the estimators with a large instrument set 
 The third row of each panel gives our estimate of the squared asymptotic bias of the various estimators of $\theta$.
 Note that this is \emph{negative} for $\text{LS}$ and $\text{S}$ in the 1975--1980 sample.
 
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\newpage
-
-\[
-\Delta \ln C_{it} = \gamma \Delta \ln C_{i,t-1} +  \theta \Delta \ln P_{it} +\alpha \Delta W_{it} +  \Delta v_{it}
-\]
- Suppose we are interested in whether to use a dynamic specification of cigarette demand to estimate price elasticity. Then we can project out $\Delta W_{it}$ to rewrite the model as
-\[
-\widetilde{C}_{it} = \gamma \widetilde{C}_{i,t-1} + \theta \widetilde{P}_{it} + \widetilde{v}_{it} 
-\] 
- 
- where $\widetilde{C}_{it}$ and $\widetilde{P}_{it}$ are the residuals of $\Delta \ln C_{it}$ and $\Delta \ln P_{it}$ respectively, after projecting out $\Delta W_{it}$.
- 
-The model selection decision is whether or not to set $\gamma = 0$. The moment selection is whether or not to use $\ln P_{it}$ (after projecting out $\Delta W_{it})$ as an instrument for period $t$.  There are four specifications:  LW, LS, W, and S.\footnote{The specification LW we consider is different from FD-2SLS in Baltagi et al. (2000). Baltagi et al. (2000) consider the following specification without time dummies:
- \[
-\Delta \ln C_{it} = \beta_1 \Delta \ln C_{i,t-1} +  \beta_2 \Delta \ln P_{it} +\beta_3 \Delta \ln Pn_{it} +  \beta_4 \Delta \ln Y_{it} + \Delta v_{it}.
-\]
-Furthermore, they instrument $\Delta \ln C_{i,t-1}$ by the lagged values of exogenous variables $\ln P_{it}, \ln Pn_{it}, \ln Y_{it},$ $\ln P_{i,t-1}, \ln Pn_{i,t-1}, \ln Y_{i,t-1}, \ln P_{i,t-2}, \ln Pn_{i,t-2}, \ln Y_{i,t-2}$. Instead, our specification LW use instrument $\ln C_{i, t-2}$ for $\Delta \ln C_{i,t-1}$ as suggested in Anderson and Hsiao (1982).}
- Both LW and LS include a lagged dependent variable. LW and W designate the letter W for weak exogeneity assumption. Our aim is to use the GFIC to choose between competing 2SLS estimators of $\theta$ on the basis of AMSE. 
