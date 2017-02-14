@@ -27,11 +27,6 @@ Like $\text{LP}$ and $\text{LS}$, the specifications $\text{P}$ and $\text{S}$ d
 In contrast, however, they set $\gamma = 0$ and estimate a model with no habit persistence ($\ell =0$).
 This increases the number of time periods available for estimation.
 
-Estimates and GFIC results for all specifications appear in Table \ref{tab:cigarettes}.
-In Table \ref{tab:cigarettesShort}, we use data from 1975--1980 only ($T=6$).
-After first-differencing, this leaves 4 time periods for estimation in specifications that include a lag ($\text{LP}$ and $\text{LS}$) versus 5 for those that do not ($\text{P}$ and $\text{S}$).
-We choose to artificially shorten the time dimension of the panel to illustrate a key feature of the GFIC, namely that it explicitly considers the number of available time periods when selecting over parameter restrictions and moment conditions. 
-
 
 \begin{table}[htbp]
   \centering
@@ -43,7 +38,7 @@ We choose to artificially shorten the time dimension of the panel to illustrate 
          & \multicolumn{1}{c}{$\text{LP}$} & \multicolumn{1}{c}{$\text{LS}$} 
           & \multicolumn{1}{c}{$\text{P}$} & \multicolumn{1}{c}{$\text{S}$}\\
         \hline
-        $\widehat{\mu}$ & -0.68 & \textcolor{blue}{\textbf{-0.32}} &  -0.28 &  -0.37\\
+        $\widehat{\theta}$ & -0.68 & \textcolor{blue}{\textbf{-0.32}} &  -0.28 &  -0.37\\
         Var.\ & 0.16 &  0.02 & 0.07 & 0.01\\ 
         Bias$^2$ & \multicolumn{1}{c}{---} & -4.20 & 0.01 & -3.56 \\
         GFIC  & 0.16 & -4.18 & 0.08  & -3.54  \\
@@ -60,7 +55,7 @@ We choose to artificially shorten the time dimension of the panel to illustrate 
          & \multicolumn{1}{c}{$\text{LP}$} & \multicolumn{1}{c}{$\text{LS}$} 
           & \multicolumn{1}{c}{$\text{P}$} & \multicolumn{1}{c}{$\text{S}$}\\
         \hline
-        $\widehat{\mu}$ & \textcolor{blue}{\textbf{-0.30}} & -0.26 &  -0.38 &  -0.28\\
+        $\widehat{\theta}$ & \textcolor{blue}{\textbf{-0.30}} & -0.26 &  -0.38 &  -0.28\\
         Var.\ & 0.06 & 0.01 & 0.05 & 0.01\\ 
         Bias$^2$ & \multicolumn{1}{c}{---} & 2.21 & 0.03 & 1.29\\
         GFIC  &0.06 & 2.22 & 0.08 &  1.30\\
@@ -72,10 +67,23 @@ We choose to artificially shorten the time dimension of the panel to illustrate 
     \label{tab:cigarettes}
 \end{table}
 
-instrument set.
-In contrast, $\text{LS}$ estimates both parameters using the ``strict exogeneity'' instrument set.
-The specifications $\text{P}$ and $\text{S}$ set $\gamma=0$ and estimate only $\gamma$, using the predetermined and strictly exogenous instrument sets, respectively.
-Equation \ref{eq:Zdpanel} with the instrument sets $\mathbf{z}_{it}(\ell, \text{P})$ versus $\mathbf{z}_{it}(\ell, \text{S})$ with lag length $\ell$.
+Estimates and GFIC results for all specifications appear in Table \ref{tab:cigarettes}.
+In Panel \ref{tab:cigarettesShort} we use data from 1975--1980 only ($T=6$).
+After first-differencing, this leaves 4 time periods for estimation in specifications that include a lag ($\text{LP}$ and $\text{LS}$) versus 5 for those that do not ($\text{P}$ and $\text{S}$).
+In panel \ref{tab:cigarettesLong} we use data from 1975--1985 ($T=11$).
+After first-differencing this leaves 9 time periods for estimation without a lag versus 10 for estimation with a lag.
+We choose to artificially shorten the time dimension of the panel from \cite{BaltagiEtAl2000} to illustrate a key feature of the GFIC, namely that it implicitly considers the number of available time periods when selecting over parameter restrictions and moment conditions. 
+Each column in Table \ref{tab:cigarettes} refers to a particular specification: $\text{LP}$, $\text{LS}$, $\text{S}$ or $\text{P}$.
+The first row of each panel gives the associated estimate of the target parameter $\theta$ while the second gives the estimated asymptotic variance of $\sqrt{n}(\widehat{\theta} - \theta_0)$, one of the two ingredients of the GFIC.\footnote{We estimate the asymptotic variance matrix as in \cite{BaltagiEtAl2000}.}
+Unsurprisingly the asymptotic variance decreases with the number of time periods available for estimation: for a given sample period $\text{LP}$ and $\text{LS}$ have a higher asymptotic variance than $\text{P}$ and $\text{S}$, and all the estimates based on the 1975--1985 sample are more precise than their counterparts for the 1975-1980 sample.
+Moreover, for a given sample period, the estimators with a large instrument set show a lower asymptotic variance: $\text{LS}$ is more precisely estimated than $\text{LP}$ and $\text{S}$ is more precisely estimated than $\text{P}$.
+
+The third row of each panel gives our estimate of the squared asymptotic bias of the various estimators of $\theta$.
+Note that this is \emph{negative} for $\text{LS}$ and $\text{S}$ in the 1975--1980 sample.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
 
 \[
 \Delta \ln C_{it} = \gamma \Delta \ln C_{i,t-1} +  \theta \Delta \ln P_{it} +\alpha \Delta W_{it} +  \Delta v_{it}
