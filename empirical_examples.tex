@@ -16,10 +16,10 @@ Each specification is estimated by TSLS in first differences, using the expressi
 Second, whereas \cite{BaltagiEtAl2000} appear to have inadvertantly omitted the time dummies from their FD2SLS specification, we include them.}
 For simplicity, we assume that the controls $\ln Y_{it}$ and $\ln Pn_{it}$ are exogenous with respect to $v_{it}$.
 We focus on two questions.
-First: exogeneity assumption should we impose on $\ln P_{it}$?
+First: what exogeneity assumption should we impose on $\ln P_{it}$?
 Second: should we allow for habit persistence model by estimating $\gamma$?
 
-Our baseline specification, $\text{LP}$, estimates estimates both $\gamma$ and $\theta$ and assumes only that $\ln P_{it}$ is predetermined with respect to $v_{it}$. 
+Our baseline specification, $\text{LP}$, estimates both $\gamma$ and $\theta$ and assumes only that $\ln P_{it}$ is predetermined with respect to $v_{it}$. 
 This estimator uses the instrument set $\mathbf{z}_{it}(\ell, \text{P})$ with $\ell = 1$ from Equation \ref{eq:Zdpanel}.
 For the purposes of this exercise we assume that $\text{LP}$ is correctly specified.
 The specification $\text{LS}$ also estimates $\gamma$, but uses the expanded instrument set $\mathbf{z}_{it}(\ell, \text{S})$ with $\ell=1$ from equation \ref{eq:Zdpanel}.
@@ -75,7 +75,7 @@ After first-differencing, this leaves 4 time periods for estimation in specifica
 In panel \ref{tab:cigarettesLong} we use data from 1975--1985 ($T=11$).
 After first-differencing this leaves 9 time periods for estimation without a lag versus 10 for estimation with a lag.
 We choose to artificially shorten the time dimension of the panel from \cite{BaltagiEtAl2000} to illustrate a key feature of the GFIC, namely that it implicitly considers the number of available time periods when selecting over parameter restrictions and moment conditions. 
-Each column in Table \ref{tab:cigarettes} refers to a particular specification: $\text{LP}$, $\text{LS}$, $\text{S}$ or $\text{P}$.
+Each column in Table \ref{tab:cigarettes} refers to a particular specification: $\text{LP}$, $\text{LS}$, $\text{P}$ or $\text{S}$.
 The first row of each panel gives the associated estimate of the target parameter $\theta$ while the second gives the estimated asymptotic variance of $\sqrt{n}(\widehat{\theta} - \theta_0)$, one of the two ingredients of the GFIC.\footnote{We estimate the asymptotic variance matrix as in \cite{BaltagiEtAl2000}.}
 Unsurprisingly the asymptotic variance decreases with the number of time periods available for estimation: for a given sample period $\text{LP}$ and $\text{LS}$ have a higher asymptotic variance than $\text{P}$ and $\text{S}$, and all the estimates based on the 1975--1985 sample are more precise than their counterparts for the 1975-1980 sample.
 Moreover, for a given sample period, the estimators with a large instrument set show a lower asymptotic variance: $\text{LS}$ is more precisely estimated than $\text{LP}$ and $\text{S}$ is more precisely estimated than $\text{P}$.
@@ -88,10 +88,10 @@ Accordingly, we consider two alternative ways of constructing the GFIC from the 
 The first, labelled ``GFIC,'' simply adds squared bias and variance.
 The second, labelled ``GFIC+,'' first \emph{truncates} a negative squared bias estimate to zero, and then adds the result to the variance estimate.
 For the 1975--1980 sample period we find no evidence of appreciable bias in any of the three ``suspect'' specifications: $\text{LS}$, $\text{P}$, and $\text{LP}$.
-In contrast, each of these has a substantially small asymptotic variance than $\text{LP}$, so we would select either $\text{LP}$ or $\text{S}$ depending on whether we prefer to use GFIC or GFIC+.\footnote{When GFIC and GFIC+ disagree, we prefer GFIC+ for the same reason that the positive-part Stein estimator is preferred to the ``plain-vanilla'' Stein estimator.}
+In contrast, each of these has a substantially small asymptotic variance than $\text{LP}$, so we would select either $\text{LS}$ or $\text{S}$ depending on whether we prefer to use GFIC or GFIC+.\footnote{When GFIC and GFIC+ disagree, we prefer GFIC+ for the same reason that the positive-part Stein estimator is preferred to the ``plain-vanilla'' Stein estimator.}
 In the 1975--1985 sample, the situation changes drastically.
-Over this longer time period, the relative advantage of $\text{LS}$, $\text{P}$ and $\text{S}$ over $\text{LP}$ is asymptotic variance decreases substantially and we find evidence of substantial bias in both the $\text{LS}$ and $\text{S}$ specifications.
+Over this longer time period, the relative advantage of $\text{LS}$, $\text{P}$ and $\text{S}$ over $\text{LP}$ in asymptotic variance decreases substantially and we find evidence of substantial bias in both the $\text{LS}$ and $\text{S}$ specifications.
 It appears that over these additional time periods, the assumption that $\ln P_{it}$ is strictly exogenous fails.
 Interestingly the difference in GFIC values between $\text{LP}$ and $\text{P}$ in this longer sample is negligible.
-As we saw that $\text{LP}$ had a lower GFIC value than $\text{P}$ in the 1975--1980 sample, it appears that accounting for habit persistence is relatively unimportant in estimating the short-run price elasticity of cigarette demand.
+As $\text{P}$ has a lower GFIC value than $\text{LP}$ in the 1975--1980 sample, it appears that accounting for habit persistence is relatively unimportant in estimating the short-run price elasticity of cigarette demand.
 
