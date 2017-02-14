@@ -58,15 +58,21 @@ While first-order asymptotic efficiency requires that we use all available corre
 
 In contrast to these suggestions, the GFIC does not aim to identify the correct model and moment conditions: its goal is a low MSE estimate of a quantity of interest, even if this entails using a specification that is not exactly correct.  
 As such, the GFIC is an ``efficient'' rather than a consistent selection criterion.
+There is an unavoidable trade-off between consistent selection and estimators with desirable risk properties \citep{Yang2005}.
+Indeed, the worst-case risk of any consistent selection procedure is \emph{unbounded} as sample size tends to infinity \citep{LeebPoetscher2008}.
+In this sense, the fact that the GFIC is not consistent is a benefit rather than a liability.
+As we show in simulations below, its worst-case performance is much better than that of competing selection procedures.
 
-Although their combined moments (CM) estimator is not strictly a selection procedure, \cite{JudgeMittelhammer} take a similar perspective, emphasizing that incoporating the information from an incorrect specification could lead to favorable bias-variance tradeoff under the right circumstances. 
-Their proposal uses a Cressie-Read divergence measure to combine the information from competing moment specifications, for example OLS versus two-stage least squares (2SLS), yielding a data-driven compromise estimator. 
+Although not strictly a selection procedure, the combined moments (CM) estimator of \cite{JudgeMittelhammer} takes a similar perspective to that of the GFIC, emphasizing that incoporating the information from an incorrect specification could lead to favorable bias-variance tradeoff under the right circumstances. 
+Their proposal uses a Cressie-Read divergence measure to combine the information from competing moment specifications, for example OLS versus two-stage least squares, yielding a data-driven compromise estimator. 
 Unlike the GFIC, however, the CM estimator is not targeted to a particular research goal.
+A key point of the GFIC is that two different researchers working with the same dataset may find it optimal to use different specifications.
+We explore this idea further in our dynamic panel example below.
 
 The remainder of this paper is organized as follows. Section \ref{sec:asymp} derives the asymptotic distribution of GMM estimators under locally mis-specified moment conditions and parameter restrictions. 
 Section \ref{sec:GFIC} uses this information to calculate the AMSE of a user-specified target parameter and provides asymptotically unbiased estimators of the required bias parameters, yielding the GFIC. 
 Section \ref{sec:avg} extends the results on averaging estimators and post-selection inference from \cite{DiTraglia2016} to the more general setting of this paper.
-Section \ref{sec:REvsFE} specializes the GFIC to the problem of choosing between random effects and fixed effects estimators, and proposes an estimator that optimally averages the two while Section ??? considers a dynamic panel example.
-Section ??? presents the results of simulation studies for each of the two examples and Section ??? concludes. 
-Proofs appear in the Appendix.
+Section \ref{sec:examples} specializes the GFIC to three panel data examples, and Section \ref{sec:simulation} presents simulation results.
+Finally, Section \ref{sec:cigarettes} presents our empirical example and  Section \ref{sec:conclude} concludes.  
+Proofs and supplementary simulation results appear in the Appendix.
 
