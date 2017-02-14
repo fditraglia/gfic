@@ -218,91 +218,47 @@ The result follows, after some algebra, by a LLN and the Lindeberg-Feller CLT.
 \end{proof}
 
 \begin{proof}[Proof of Theorem \ref{thm:sim}]
+To simplify the argument let $\xi = (\delta', \tau')'$ and $\mathscr{M} = \xi + \Psi \mathscr{N}$.
+Now, let $a(\xi^*)$ and  $b(\xi^*)$ be quantiles of the distribution of $\Lambda$ calculated under the assumption that the true bias parameter $\xi$ is equal to $\xi^*$ such that $P\{a(\xi^*) \leq \Lambda(\xi^*)\leq b(\xi^*)\} = 1-\alpha_2$.
+Define
+\begin{align*}
+  a_{min}(\mathscr{M}) &= \min\left\{a(\xi^*) \colon \xi^* \in \mathscr{R}(\mathscr{M}|\alpha_1)  \right\}\\
+  b_{max}(\mathscr{M}) &= \max\left\{b(\xi^*) \colon \xi^* \in \mathscr{R}(\mathscr{M}|\alpha_1)  \right\}\\
+  \mathscr{R}(\mathscr{M}|\alpha_1) &= \left\{ \xi^* \colon \left[\left(\mathscr{M} - \xi^*\right)' \left( \Psi \Omega \Psi' \right)^{-1}\left( \mathscr{M} - \xi^* \right)\right] \leq \chi^2_{p+q}(\alpha_1) \right\}
+\end{align*}
+where $\chi_{p+q}^2(\alpha_1)$ is the $1-\alpha_1$ quantile of a $\chi_{p+q}^2$ distribution. 
 By Theorem 3.1. and Corollary 4.1, 
 \[
-P\{ \mu_0 \in CI_{sim}\} \rightarrow P\{ a_{min} \leq \Lambda(\delta, \tau) \leq b_{max}\}
+P\{ \mu_0 \in CI_{sim}\} \rightarrow P\{ a_{min} \leq \Lambda(\delta, \tau) \leq b_{max}\}.
 \]
-
-where $a(\delta^{*}, \tau^{*}), b(\delta^{*}, \tau^{*})$ define a collection of $(1-\alpha_2) \times $ 100\% intervals indexed by $(\delta^{*}, \tau^{*})$, each of which is constructed under the assumption that $\delta=\delta^{*}, \tau=\tau^{*}$
+Let $A = \left \{\xi \in \mathscr{R}(\mathscr{M}|\alpha_1) \right\}$.
+By construction $P(A) = 1 - \alpha_1$.
+Decomposing $P\left\{ a(\xi^*) \leq \Lambda(\xi^*) \leq b(\xi^*)  \right\}$ into the sum of mutually exclusive events, we have
 \[
-P\{a(\delta^{*},\tau^{*}) \leq \Lambda(\delta^{*}, \tau^{*})\leq b(\delta^{*}, \tau^{*})\} = 1-\alpha_2
+P\left[\left\{ a(\xi^*) \leq \Lambda(\xi^*) \leq b(\xi^*)  \right\} \cap A \right] + P\left[\left\{ a(\xi^*) \leq \Lambda(\xi^*) \leq b(\xi^*)  \right\} \cap A^c \right] = 1-\alpha_2
 \]
-
-and we define the shorthand $a_{min}, b_{max}$ as follows
-\begin{align*}
-a_{min}\left( \begin{bmatrix}
-\delta & \tau
-\end{bmatrix}' + \Psi \mathscr{N} \right) &= \min\left \{ a(\delta^{*}, \tau^{*}): (\delta^{*}, \tau^{*}) \in \mathscr{R} \left( \begin{bmatrix}
-\delta & \tau
-\end{bmatrix}' + \Psi \mathscr{N}, \,\, \alpha_1 \right)  \right \}\\
-b_{max}\left( \begin{bmatrix}
-\delta & \tau
-\end{bmatrix}' + \Psi \mathscr{N} \right) &= \max\left \{ b(\delta^{*}, \tau^{*}): (\delta^{*}, \tau^{*}) \in \mathscr{R} \left( \begin{bmatrix}
-\delta & \tau
-\end{bmatrix}' + \Psi \mathscr{N}, \,\, \alpha_1 \right)  \right \}\\
-\mathscr{R}\left( \begin{bmatrix}
-\delta & \tau
-\end{bmatrix}' + \Psi \mathscr{N}, \,\, \alpha_1 \right ) &= \left \{ (\delta^{*}, \tau^{*}): \Delta \left( \begin{bmatrix}
-\delta & \tau
-\end{bmatrix}', \begin{bmatrix}
-\delta^{*} & \tau^{*}
-\end{bmatrix}' \right) \leq \chi_{p+q}^2(\alpha_1) \right \}\\
-\Delta \left( \begin{bmatrix}
-\delta & \tau
-\end{bmatrix}', \begin{bmatrix}
-\delta^{*} & \tau^{*}
-\end{bmatrix}' \right)& = \left( \begin{bmatrix}
-\delta & \tau
-\end{bmatrix}' + \Psi \mathscr{N} - \begin{bmatrix}
-\delta^{*} & \tau^{*}
-\end{bmatrix}' \right)' (\Psi\Omega\Psi')^{-1}\left( \begin{bmatrix}
-\delta & \tau
-\end{bmatrix}' + \Psi \mathscr{N} - \begin{bmatrix}
-\delta^{*} & \tau^{*}
-\end{bmatrix}' \right)
-\end{align*}
-
-Now, let $A = \left \{\Delta \left( \begin{bmatrix}
-\delta & \tau
-\end{bmatrix}', \begin{bmatrix}
-\delta^{*} & \tau^{*}
-\end{bmatrix}' \right) \leq \chi_{p+q}^2(\alpha_1)  \right \}$ where $\chi_{p+q}^2(\alpha_1)$ is the $1-\alpha_1$ quantile of a $\chi_{p+q}^2$ random variable. This is the event that the limiting version of the confidence region for $(\delta, \tau)$ contains the true bias parameter. Since $\Delta \left( \begin{bmatrix}
-\delta & \tau
-\end{bmatrix}', \begin{bmatrix}
-\delta & \tau
-\end{bmatrix}' \right) \sim \chi_{p+q}^2$, $P(A) = 1-\alpha_1$. For every $(\delta^{*}, \tau^{*}) \in  \mathscr{R} \left( \begin{bmatrix}
-\delta & \tau
-\end{bmatrix}' + \Psi \mathscr{N}, \,\, \alpha_1 \right)$ we have
+for every $\xi \in \mathscr{R}(\mathcal{M}|\alpha_1)$.
+But since 
 \[
-P\left[\left\{ a(\delta^{*}, \tau^{*}) \leq \Lambda(\delta^{*}, \tau^{*}) \leq b(\delta^{*}, \tau^{*})  \right\} \cap A \right] + P\left[\left\{ a(\delta^{*}, \tau^{*}) \leq \Lambda(\delta^{*}, \tau^{*}) \leq b(\delta^{*}, \tau^{*})  \right\} \cap A^C \right] = 1-\alpha_2
-\]
-
-by decomposing $P\left\{ a(\delta^{*}, \tau^{*}) \leq \Lambda(\delta^{*}, \tau^{*}) \leq b(\delta^{*}, \tau^{*})  \right\}$ into the sum of mutually exclusive events. But since 
-\[
-P\left[\left\{ a(\delta^{*}, \tau^{*}) \leq \Lambda(\delta^{*}, \tau^{*}) \leq b(\delta^{*}, \tau^{*})  \right\} \cap A^C \right] \leq P(A^C) = \alpha_1
+P\left[\left\{ a(\xi^*) \leq \Lambda(\xi^*) \leq b(\xi^*)  \right\} \cap A^c \right] \leq P(A^c) = \alpha_1
 \]
 we see that
 \[
-P\left[\left\{ a(\delta^{*}, \tau^{*}) \leq \Lambda(\delta^{*}, \tau^{*}) \leq b(\delta^{*}, \tau^{*})  \right\} \cap A \right] \geq 1- \alpha_1 - \alpha_2
+P\left[\left\{ a(\xi^*) \leq \Lambda(\xi^*) \leq b(\xi^*)  \right\} \cap A \right] \geq 1- \alpha_1 - \alpha_2
 \]
-for every $ (\delta^{*}, \tau^{*}) \in  \mathscr{R} \left( \begin{bmatrix}
-\delta & \tau
-\end{bmatrix}' + \Psi \mathscr{N}, \,\, \alpha_1 \right)$. Now, by definition, if $A$ occurs then the true bias parameter is contained in $ \mathscr{R} \left( \begin{bmatrix}
-\delta & \tau
-\end{bmatrix}' + \Psi \mathscr{N}, \,\, \alpha_1 \right)$ and hence 
+for every $\xi^* \in \mathscr{R}(\mathscr{M}|\alpha_1)$.
+By definition, if $A$ occurs then $\xi \in \mathscr{R}(\mathscr{M}|\alpha_1)$ and hence 
 \[
-P\left[\left\{ a(\delta, \tau) \leq \Lambda(\delta, \tau) \leq b(\delta, \tau)  \right\} \cap A \right] \geq 1- \alpha_1 - \alpha_2.
+P\left[\left\{ a(\xi) \leq \Lambda(\xi) \leq b(\xi)  \right\} \cap A \right] \geq 1- \alpha_1 - \alpha_2.
 \]
-But when $ (\delta^{*}, \tau^{*}) \in  \mathscr{R} \left( \begin{bmatrix}
-\delta & \tau
-\end{bmatrix}' + \Psi \mathscr{N}, \,\, \alpha_1 \right)$, $a_{min} \leq a(\delta, \tau)$ and $b(\delta, \tau) \leq b_{max}$. It follows that 
+But when $\xi^* \in  \mathscr{R}(\mathscr{M}|\alpha_1)$ we have
+$a_{min} \leq a(\xi)$ and $b(\xi) \leq b_{max}$. It follows that 
 \[
-\left \{ a(\delta, \tau) \leq \Lambda (\delta, \tau) \leq b(\delta, \tau) \right \} \cap A \subseteq \left\{ a_{min} \leq \Lambda (\delta, \tau) \leq b_{max}\right \}
+\left \{ a(\xi) \leq \Lambda (\xi) \leq b(\xi) \right \} \cap A \subseteq \left\{ a_{min} \leq \Lambda (\xi) \leq b_{max}\right \}
 \]
 and therefore
-\begin{align*}
-1-\alpha_1 - \alpha_2 &\leq P\left[\left \{ a(\delta, \tau) \leq \Lambda (\delta, \tau) \leq b(\delta, \tau) \right \} \cap A  \right]\\
-&\leq P\left[ a_{min} \leq \Lambda(\delta, \tau) \leq b_{max} \right]
-\end{align*}
-as asserted.
+\[
+  1-\alpha_1 - \alpha_2 \leq P\left[\left \{ a(\xi) \leq \Lambda (\xi) \leq b(\xi) \right \} \cap A  \right]
+\leq P\left[ a_{min} \leq \Lambda(\xi) \leq b_{max} \right].
+\]
 \end{proof}
