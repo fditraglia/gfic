@@ -65,8 +65,8 @@ Given the instrument sets that we consider, this is the only violation of strict
 
 In the examples and simulations described below we consider two-stage least squares (TSLS) estimation of $\mu_{SR}$ and $\mu_{LR}$ using the instruments defined in Equation \ref{eq:Zdpanel}. 
 For simplicity, we select between two lag length specifications: the first is correct, $\ell = k$, and the second includes one lag too few: $\ell = r$ where $r = k-1$.
-Accordingly, we make coefficient associated with the $k$\textsuperscript{th} lag local to zero.
-Let $\boldsymbol{\gamma}' = (\gamma_1, \cdots, \gamma_{k-1}, \gamma_{k})$ denote the full vector of lag coefficients that $\boldsymbol{\gamma}_{r} = (\gamma_1, \cdots, \gamma_{r})$ the first $r = k-1$ lag coefficients.
+Accordingly, we make the coefficient associated with the $k$\textsuperscript{th} lag local to zero.
+Let $\boldsymbol{\gamma}' = (\gamma_1, \cdots, \gamma_{k-1}, \gamma_{k})$ denote the full vector of lag coefficients and $\boldsymbol{\gamma}_{r} = (\gamma_1, \cdots, \gamma_{r})$ denote the first $r = k-1$ lag coefficients.
 Then, the true parameter vector is $\beta_n = (\theta, \boldsymbol{\gamma}'_{r}, \delta/\sqrt{n})'$ which becomes, in the limit, $\beta = (\theta, \boldsymbol{\gamma}'_r, 0)'$.
 To indicate the subvector of $\beta$ that excludes the $k$\textsuperscript{th} lag coefficient, let $\beta_{r} = (\theta, \boldsymbol{\gamma}_r')'$.
 
@@ -90,9 +90,9 @@ Now we define the matrices of regressors for the two specifications:
   \end{array}
 \right].
 \end{align*}
-Note that $W_i^{+}(r)$ contains one more row than $W_i(k)$ but $W_i(k)$ contains one more column that $W_i^{+}(r)$: removing the $k$\textsuperscript{th} lag from the model by setting $\ell = r = k-1$ allows us to use an additional time period in estimation and reduces the number of regressors by one. 
+Note that $W_i^{+}(r)$ contains one more row than $W_i(k)$ but $W_i(k)$ contains one more column than $W_i^{+}(r)$: removing the $k$\textsuperscript{th} lag from the model by setting $\ell = r = k-1$ allows us to use an additional time period in estimation and reduces the number of regressors by one. 
 Stacking over individuals, let $\Delta \mathbf{y} = [\Delta \mathbf{y}'_1 \cdots \Delta \mathbf{y}'_n]'$, $W_\ell = [W_1(\ell) \cdots W_n(\ell)]'$ and define $\Delta \mathbf{y}^{+}$ and $W_\ell^{+}$ analogously, where $\ell$ denotes the lag length used in estimation.
-Finally, let $Z'(\ell,\cdot) = [Z'_1(\ell,\cdot) \cdots Z'_n(\ell,\cdot)]$ where $(\cdot)$ is $\text{P}$ or $\text{S}$ depending on the instrument set is in use.
+Finally, let $Z'(\ell,\cdot) = [Z'_1(\ell,\cdot) \cdots Z'_n(\ell,\cdot)]$ where $(\cdot)$ is $\text{P}$ or $\text{S}$ depending on the instrument set in use.
 Using this notation, under local mis-specification the true model is
 \begin{align}
   \Delta \mathbf{y} &= W(k)\beta_n + \Delta \mathbf{v} &  \Delta \mathbf{y}^{+} &= W(k)^{+}\beta_n + \Delta \mathbf{v}^+

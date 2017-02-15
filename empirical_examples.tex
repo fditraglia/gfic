@@ -2,7 +2,7 @@
 \section{Empirical Example: The Demand for Cigarettes}
 \label{sec:cigarettes}
 We now consider an empirical example illustrating the GFIC in the dynamic panel setting introduced in Section \ref{sec:Dpanel}.
-Out exercise is based on \cite{BaltagiEtAl2000} who study the demand for cigarettes using panel data for 46 U.S.\ states between 1963 and 1992. 
+Our exercise is based on \cite{BaltagiEtAl2000} who study the demand for cigarettes using panel data for 46 U.S.\ states between 1963 and 1992. 
 Their model is
 \[
   \ln C_{it} =  \gamma \ln C_{i,t-1} + \theta \ln P_{it} + \beta_1 \ln Y_{it} + \beta_2 \ln Pn_{it} + \eta_i + \lambda_t + v_{it}
@@ -17,7 +17,7 @@ Second, whereas \cite{BaltagiEtAl2000} appear to have inadvertantly omitted the 
 For simplicity, we assume that the controls $\ln Y_{it}$ and $\ln Pn_{it}$ are exogenous with respect to $v_{it}$.
 We focus on two questions.
 First: what exogeneity assumption should we impose on $\ln P_{it}$?
-Second: should we allow for habit persistence model by estimating $\gamma$?
+Second: should we allow for habit persistence by estimating $\gamma$?
 
 Our baseline specification, $\text{LP}$, estimates both $\gamma$ and $\theta$ and assumes only that $\ln P_{it}$ is predetermined with respect to $v_{it}$. 
 This estimator uses the instrument set $\mathbf{z}_{it}(\ell, \text{P})$ with $\ell = 1$ from Equation \ref{eq:Zdpanel}.

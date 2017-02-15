@@ -30,7 +30,7 @@ In the presence of heterogeneity, however, the situation is more complicated.
 If $E[\mathbf{x}_i' \mathbf{x}_i \eta_i]\neq 0$ then $\widehat{\beta}_{OLS}$ will show a bias whereas $\widehat{\beta}_{MG}$ will not.
 To encode this idea within the local mis-specification framework, we take $E[\mathbf{x}_i'\mathbf{x}_i \eta_i] = \tau/\sqrt{n}$ so that, for any fixed $n$ the OLS estimator is biased unless $\tau = 0$ but this bias disappears in the limit.
 Turning our attention from bias to variance, we might expect that $\widehat{\beta}_{OLS}$ would remain the more precise estimator in the presence of heterogeneity.
-In fact, however, this need not be the case: as we show below $\widehat{\beta}_{MG}$ will have a \emph{lower} variance than $\widehat{\beta}_{OLS}$ if $\sigma_{\eta}^2$ is sufficiently large.
+In fact, however, this need not be the case: as we show below, $\widehat{\beta}_{MG}$ will have a \emph{lower} variance than $\widehat{\beta}_{OLS}$ if $\sigma_{\eta}^2$ is sufficiently large.
 To construct the GFIC for this example, we estimate the bias parameter $\tau$ by substituting the mean group estimator into the OLS moment condition:
 \begin{equation}
 \widehat{\tau} = \frac{1}{\sqrt{n}} \sum_{i=1}^n \mathbf{x}_i' (\mathbf{y}_i - \mathbf{x}_i \widehat{\beta}_{MG}).

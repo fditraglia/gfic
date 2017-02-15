@@ -3,8 +3,7 @@
 \label{sec:avg}
 
 While we are primarily concerned in this paper with the mean-squared error performance of our proposed selection techniques, it is important to have tools for carrying out  inference post-selection.
-In this section we briefly present results that can be used to carry out valid inference for a range of model averaging and post-selection estimators, including the GFIC.
-Because the conceptual issues are largely the same regardless of whether one considers moment selection, model selection, or both simultaneously, we direct the reader to \cite{DiTraglia2016} Section 4 and the references contained therein for a more detailed discussion of inference post-selection.
+In this section we briefly present results that can be used to carry out valid inference for a range of model averaging and post-selection estimators, including the GFIC.\footnote{Because the conceptual issues are largely the same regardless of whether one considers moment selection, model selection, or both simultaneously, we direct the reader to \cite{DiTraglia2016} and the references contained therein for a more detailed discussion of inference post-selection.}
 
 The GFIC is an efficient rather than consistent selection criterion: it aims to estimate a particular target parameter with minimum AMSE rather than selecting the correct specification with probability approaching one in the limit.
 As pointed out by \cite{Yang2005}, among others, there is an unavoidable trade-off between consistent selection and desirable risk properties.
@@ -52,7 +51,7 @@ where
 Note that the limit distribution from the preceding corollary is highly non-normal: it is a \emph{randomly} weighted average of a normal random vector, $\mathscr{N}$.
 To tabulate this distribution for the purposes of inference, we will in general need to resort to simulation.
 If $\tau$ and $\delta$ were known, the story would end here.
-In this case we could simply substitute consistent estimators of $K$ and $M$ repeatedly draw $\mathscr{N} \sim N(0, \widehat{\Omega})$, where $\widehat{\Omega}$ is a consistent estimator of $\Omega$, to tabulate the distribution of $\Lambda$ to arbitrary precision as follows.
+In this case we could simply substitute consistent estimators of $K$ and $M$ and then repeatedly draw $\mathscr{N} \sim N(0, \widehat{\Omega})$, where $\widehat{\Omega}$ is a consistent estimator of $\Omega$, to tabulate the distribution of $\Lambda$ to arbitrary precision as follows.
 
 \begin{alg}[Approximating Quantiles of $\Lambda(\delta,\tau)$]
 \mbox{}

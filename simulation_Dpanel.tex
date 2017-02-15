@@ -51,7 +51,7 @@ Our simulation design takes $\theta = 0.5, \gamma_1 = 0.4, \sigma_{x\eta} = 0.2$
 Table \ref{tab:MAD_SRvsLR} presents the results of the simulation, based on 1000 replications at each grid point.
 Because they are based on \emph{ratios} of estimators of $\theta$ and $\gamma_1, \gamma_2$, estimators of the long-run effect may not have finite moments, making finite-sample MSE undefined.
 The usual solution to this problem in simulation settings is to work with so-called ``trimmed'' MSE by discarding observations that fall outside, say, a range $[-M, M]$ before calculating MSE.\footnote{Note that \emph{asymptotic} MSE remains well-defined even for estimators that do not possess finite-sample moments so that GFIC comparisons remain meaningful. By taking the trimming constant $M$ to infinity, one can formalize the notion that asymptotic MSE comparisons can be used to ``stand in'' for finite-sample MSE even when the latter does not exist. For more details, See \cite{HansenShrink} and online appendix C of \cite{DiTraglia2016}.}
-Because there is no clear way to set the trimming constant $M$, it can be difficult to interpret results based on trimmed MSE unless they consider multiple values of $M$.
+Because there is no clear way to set the trimming constant $M$, it can be difficult to interpret results based on trimmed MSE unless one considers a variety of values of $M$. 
 To avoid this issue, Table \ref{tab:MAD_SRvsLR} reports simulation results for median absolute deviation (MAD).
 Results for trimmed MSE with different choices of $M$ are similar and are available upon request.
 
@@ -90,7 +90,7 @@ Nonetheless, $\mbox{L1}$ yields lower MAD estimators of both the short-run and l
 When $\gamma_2 = 0.2$, for example, MAD for is 0.582 for the long-run effect estimator based on $\mbox{L1}$ versus 0.801 for that based on $\mbox{L2}$.
 Note moreover that the point at which $\gamma_2$ becomes large enough for $\mbox{L2}$ to be preferred depends on which effect we seek to estimate.
 When $\gamma_2$ equals 0.15 or 0.16, $\mbox{L1}$ gives a lower MAD for the short-run effect while $\mbox{L2}$ gives a lower MAD for the long-run effect.
-Because it chooses between $\mbox{L1}$ and $\mbox{L2}$ and is subject to random model selection errors, the GFIC can never outperform the oracle estimator that uses $\mbox{L1}$ when it is optimal in terms of MAD and $\mbox{L2}$ otherwise.
+Because it is subject to random model selection errors, the GFIC can never outperform the oracle estimator that uses $\mbox{L1}$ when it is optimal in terms of MAD and $\mbox{L2}$ otherwise.
 Instead, the GFIC represents a compromise between two extremes: its MAD is never as large as that of the worst specification and never as small as that of the best specification.
 When there are large MAD differences between $\mbox{L1}$ and $\mbox{L2}$, however, GFIC is generally quite close to the optimum.
 
@@ -178,7 +178,7 @@ We also consider the GMM model and moment selection criteria of \cite{AndrewsLu}
 where $|b|$ is the number of parameters estimated, and $|c|$ the number of moment conditions used. 
 Under certain assumptions, it can be shown that both the GMM-BIC and GMM-HQ are consistent: they select the maximal correctly specified estimator with probability approaching one in the limit. 
 To implement these criteria, we calculate the J-test based on the optimal, two-step GMM estimator with a panel robust, heteroscedasticity-consistent, centered covariance matrix estimator for each specification.
-To compare selection procedures we use the same simulation grid as above, namely $\gamma$ and $\sigma_{xv}$, namely $\gamma, \sigma_{xv} \in \{0, 0.005, 0.01, \hdots, 0.195, 0.20\}$.  
+To compare selection procedures we use the same simulation grid as above, namely $\gamma, \sigma_{xv} \in \{0, 0.005, 0.01, \hdots, 0.195, 0.20\}$.  
 Again, each point on the simulation grid is calculated from 2000 simulation replications. 
 The bottom panel of Table \ref{tab:Dpanel_RMSE} presents results for these alternative selection procedures.
 Figures comparing the GFIC against each alternative in turn appear in Appendix \ref{sec:simulation_supplement}.

@@ -26,7 +26,7 @@ When the baseline assumptions identify the model, the GFIC provides an asymptoti
 The GFIC is an extension of the focused moment selection criterion (FMSC) of \cite{DiTraglia2016}.
 While the FMSC considers the problem of selecting moment conditions while holding the model specification \emph{fixed}, the GFIC allows us to select over both aspects of our specification simultaneously.
 This extension is particularly valuable in panel data applications, where we may, for example, wish to carry out selection over the lag specification as well as the exogeneity assumptions used to estimate a dynamic panel model.
-We specialize the GFIC to this example below, in addition to two others: selecting between random and fixed effects estimators, and choosing between pooled OLS and mean-group estimators of an average effect in the presence of heterogeneity.  
+We specialize the GFIC to a dynamic panel example below, in addition to two others: selecting between random and fixed effects estimators, and choosing between pooled OLS and mean-group estimators of an average effect in the presence of heterogeneity.  
 In addition to extending the FMSC to a broader class of problems and deriving specific results for well-known panel data problems, we also extend the results of \cite{DiTraglia2016} on post-selection and moment-average estimators to the more general setting of the GFIC.  
 In the random versus fixed effects example, we further derive a novel averaging estimator that optimally combines the information contained in the two specifications.
 The GFIC and averaging estimator perform well in simulation studies for our examples.
@@ -63,7 +63,7 @@ Indeed, the worst-case risk of any consistent selection procedure is \emph{unbou
 In this sense, the fact that the GFIC is not consistent is a benefit rather than a liability.
 As we show in simulations below, its worst-case performance is much better than that of competing selection procedures.
 
-Although not strictly a selection procedure, the combined moments (CM) estimator of \cite{JudgeMittelhammer} takes a similar perspective to that of the GFIC, emphasizing that incoporating the information from an incorrect specification could lead to favorable bias-variance tradeoff under the right circumstances. 
+Although not strictly a selection procedure, the combined moments (CM) estimator of \cite{JudgeMittelhammer} takes a similar perspective to that of the GFIC, emphasizing that incoporating the information from an incorrect specification could lead to a favorable bias-variance tradeoff under the right circumstances. 
 Their proposal uses a Cressie-Read divergence measure to combine the information from competing moment specifications, for example OLS versus two-stage least squares, yielding a data-driven compromise estimator. 
 Unlike the GFIC, however, the CM estimator is not targeted to a particular research goal.
 A key point of the GFIC is that two different researchers working with the same dataset may find it optimal to use different specifications.

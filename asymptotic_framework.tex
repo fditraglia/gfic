@@ -63,9 +63,27 @@ partitioned conformably to the partition of $f(Z,\beta)$ by $g(Z,\beta)$ and $h(
     \widehat{\beta}(b,c) = \underset{\beta^{(b)}\in \mathbf{B}^{(b)}} {\mbox{arg min}}\;\left[\Xi_c f_n\left(\beta^{(b)}, \gamma_0^{(-b)}\right)\right]'\left[\Xi_c \widetilde{W}\Xi_c' \right]\left[\Xi_c f_n\left(\beta^{(b)}, \gamma_0^{(-b)}\right)\right].
 	\end{equation}
 
+We now state a number of standard high-level regularity conditions that will be assumed throughout our derivations below.
+
+\begin{assump}[High-level Regularity Conditions]
+  \label{assump:high-level}
+    \mbox{}
+\begin{itemize}
+\item[(a)] $\beta_0$ lies in the interior of $\Theta$, a compact set
+\item[(b)] $\widetilde{W} \rightarrow_{p} W$, a positive definite matrix
+\item[(c)] $\widetilde{W}_c \Xi_c E[f(Z, \beta)] = 0$ if and only if $\beta = \beta_0$, where $W_c = \Xi_c W \Xi_c'$
+\item[(d)] $E[f(Z,\beta)]$ is continuous on $\Theta$
+\item[(e)] $sup_{\beta\in \Theta} ||f_n(\beta) - E[f(Z,\beta)]||\rightarrow_p 0$
+\item[(f)] $f$ is Z-almost surely differentiable in an open neighborhood $\mathcal{B}$ of $\beta_0$
+\item[(g)] $sup_{\beta \in \Theta} ||\nabla_{\beta} f_n(\beta) - F(\beta)|| \rightarrow_p 0 $
+\item[(h)] $\sqrt{n}f_n(\beta_0) - \sqrt{n}E[f(Z,\beta_0)] \rightarrow_d \mathscr{N}$ where $\mathscr{N} \sim N_{p+q}(0,\Omega)$
+\item[(i)] $F(b,c)' W_c F(b,c)$ is invertible, where $W_c = \Xi_c W \Xi_c'$
+\end{itemize}
+\end{assump}
+
   A particularly important special case is the estimator using only the moment conditions in $g$ to estimate the full parameter vector $\beta = \left(\theta', \gamma' \right)'$.
   We call this the \emph{valid} estimator and denote it by $\widehat{\beta}_v$.  
-  Because it is assumed correctly specified both for finite $n$ and in the limit, the valid estimator contains the information we use to identify $\tau$ and $\delta$, and thus carry out moment and model selection. 
+  Because it is assumed to be correctly specified both for finite $n$ and in the limit, the valid estimator contains the information we use to identify $\tau$ and $\delta$, and thus carry out moment and model selection. 
 We assume throughout that the valid estimator is identified.
 
 \begin{assump}[GFIC Identification Condition]
@@ -99,21 +117,7 @@ Thus, the corresponding expectations are taken with respect to a distribution fo
 Finally, let $F(b,c) = \Xi_c F \Xi_b'$ and similarly define $\Omega_c = \Xi_c \Omega \Xi_c'$ and $W_c = \Xi_c W \Xi_c'$ where $W$ is the positive definite probability limit of $\widetilde{W}$. 
 Under Assumption \ref{assump:local}, both $\delta$ and $\tau$ induce a bias term in the limiting distribution of $\sqrt{n}\left(\widehat{\beta}(b,c) - \beta_0^{(b)}\right)$. 
 The key result is as follows.
-\begin{assump}[High-level Regularity Conditions]
-  \label{assump:high-level}
-    \mbox{}
-\begin{itemize}
-\item[(a)] $\beta_0$ lies in the interior of $\Theta$, a compact set
-\item[(b)] $\widetilde{W} \rightarrow_{p} W$, a positive definite matrix
-\item[(c)] $\widetilde{W}_c \Xi_c E[f(Z, \beta)] = 0$ if and only if $\beta = \beta_0$, where $W_c = \Xi_c W \Xi_c'$
-\item[(d)] $E[f(Z,\beta)]$ is continuous on $\Theta$
-\item[(e)] $sup_{\beta\in \Theta} ||f_n(\beta) - E[f(Z,\beta)]||\rightarrow_p 0$
-\item[(f)] $f$ is Z-almost surely differentiable in an open neighborhood $\mathcal{B}$ of $\beta_0$
-\item[(g)] $sup_{\beta \in \Theta} ||\nabla_{\beta} f_n(\beta) - F(\beta)|| \rightarrow_p 0 $
-\item[(h)] $\sqrt{n}f_n(\beta_0) - \sqrt{n}E[f(Z,\beta_0)] \rightarrow_d \mathscr{N}$ where $\mathscr{N} \sim N_{p+q}(0,\Omega)$
-\item[(i)] $F(b,c)' W_c F(b,c)$ is invertible, where $W_c = \Xi_c W \Xi_c'$
-\end{itemize}
-\end{assump}
+
 \begin{thm}[Asymptotic Distribution]
 \label{thm:asymp}
 Under Assumptions \ref{assump:local}--\ref{assump:high-level}
