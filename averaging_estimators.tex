@@ -52,7 +52,7 @@ where
 Note that the limit distribution from the preceding corollary is highly non-normal: it is a \emph{randomly} weighted average of a normal random vector, $\mathscr{N}$.
 To tabulate this distribution for the purposes of inference, we will in general need to resort to simulation.
 If $\tau$ and $\delta$ were known, the story would end here.
-In this case we could simply substitute consistent estimators of $K$ and $M$ repeatedly draw $\mathscr{N} \sim N(0, \widehat{\Omega})$, where $\widehat{\Omega}$ is a consistent estimator of $\Omega$, to tabulate the distribution of $\Lambda$ to arbitrary precision as follows.
+In this case we could simply substitute consistent estimators of $K$ and $M$ and repeatedly draw $\mathscr{N} \sim N(0, \widehat{\Omega})$, where $\widehat{\Omega}$ is a consistent estimator of $\Omega$, to tabulate the distribution of $\Lambda$ to arbitrary precision as follows.
 
 \begin{alg}[Approximating Quantiles of $\Lambda(\delta,\tau)$]
 \mbox{}
@@ -93,7 +93,7 @@ In particular, the following procedure is guaranteed to yield an interval with a
 
 \begin{thm}[2-Step Confidence Interval for $\widehat{\mu}$]
 \label{thm:sim}
-Let $\nabla_{\beta}\widehat{\varphi}_0$, $\widehat{\psi}(\cdot|b,c)$, $\widehat{K}(b,c)$ and $\widehat{M}(b,c)$ be consistent estimators of $\nabla_\beta \varphi$, $\psi(\cdot|b,c)$, $K(b,c)$ and $M(b,c)$ and let $R$ be a $(1-\alpha_1)\times 100\%$ confidence region for $(\delta,\tau)$ constructed from Theorem \ref{thm:jointbias}.
+Let $\nabla_{\beta}\widehat{\varphi}_0$, $\widehat{\psi}(\cdot|b,c)$, $\widehat{K}(b,c)$ and $\widehat{M}(b,c)$ be consistent estimators of $\nabla_\beta \varphi_0$, $\psi(\cdot|b,c)$, $K(b,c)$ and $M(b,c)$ and let $R$ be a $(1-\alpha_1)\times 100\%$ confidence region for $(\delta,\tau)$ constructed from Theorem \ref{thm:jointbias}.
 Then $CI_2(\alpha_1, \alpha_2)$, defined in Algorithm \ref{alg:2step} has asymptotic coverage probability no less than $1-\left( \alpha_1 + \alpha_2 \right)$ as $J,n\rightarrow \infty$. 
 \end{thm}
 
