@@ -54,7 +54,7 @@ To express the estimators themselves, define the sample analogue of the expectat
 \begin{equation}
 	f_n(\beta) = \frac{1}{n}\sum_{i=1}^n f(Z_{ni}, \gamma, \theta) = \left[\begin{array}{c}g_n(\beta)\\ h_n(\beta) \end{array} \right] = \left[\begin{array}{c} n^{-1}\sum_{i=1}^n g(Z_{ni}, \gamma, \theta)\\n^{-1}\sum_{i=1}^n h(Z_{ni}, \gamma, \theta) \end{array}\right]
 \end{equation}
-and let $\widetilde{W}$ be a $(q+p)\times(q+p)$ positive semi-definite weighting matrix
+and let $\widetilde{W}$ be a $(p+q)\times(p+q)$ positive semi-definite weighting matrix
 \begin{equation}
 	\widetilde{W} = \left[\begin{array}{cc} \widetilde{W}_{gg} & \widetilde{W}_{gh}\\ \widetilde{W}_{hg} & \widetilde{W}_{hh}  \end{array}\right]
 \end{equation}
@@ -63,13 +63,13 @@ partitioned conformably to the partition of $f(Z,\beta)$ by $g(Z,\beta)$ and $h(
     \widehat{\beta}(b,c) = \underset{\beta^{(b)}\in \mathbf{B}^{(b)}} {\mbox{arg min}}\;\left[\Xi_c f_n\left(\beta^{(b)}, \gamma_0^{(-b)}\right)\right]'\left[\Xi_c \widetilde{W}\Xi_c' \right]\left[\Xi_c f_n\left(\beta^{(b)}, \gamma_0^{(-b)}\right)\right].
 	\end{equation}
 
-  A particularly important special case is the estimator using only the moment conditions in $g$ to estimate the full parameter vector $\beta = \left(\theta', \gamma' \right)'$.
+  A particularly important special case is the estimator using only the moment conditions in $g$ to estimate the full parameter vector $\beta = \left(\gamma', \theta' \right)'$.
   We call this the \emph{valid} estimator and denote it by $\widehat{\beta}_v$.  
   Because it is assumed correctly specified both for finite $n$ and in the limit, the valid estimator contains the information we use to identify $\tau$ and $\delta$, and thus carry out moment and model selection. 
 We assume throughout that the valid estimator is identified.
 
 \begin{assump}[GFIC Identification Condition]
-  Let $\widehat{\beta}_v$ denote the GMM estimator for $\beta = \left(\theta', \gamma' \right)'$ based solely on the moment conditions contained in g:
+  Let $\widehat{\beta}_v$ denote the GMM estimator for $\beta = \left(\gamma', \theta' \right)'$ based solely on the moment conditions contained in g:
 \begin{equation}
   \widehat{\beta}_v =\left[\begin{array}{c}\widehat{\gamma}_{v} \\  \widehat{\theta}_{v} \end{array} \right] =\underset{\beta \in \mathbf{B}}{\mbox{arg min}}\; g_n(\beta)' \widetilde{W}_{gg} \; g_n(\beta).
 \end{equation}
@@ -105,7 +105,7 @@ The key result is as follows.
 \begin{itemize}
 \item[(a)] $\beta_0$ lies in the interior of $\Theta$, a compact set
 \item[(b)] $\widetilde{W} \rightarrow_{p} W$, a positive definite matrix
-\item[(c)] $\widetilde{W}_c \Xi_c E[f(Z, \beta)] = 0$ if and only if $\beta = \beta_0$, where $W_c = \Xi_c W \Xi_c'$
+\item[(c)] $W_c \Xi_c E[f(Z, \beta)] = 0$ if and only if $\beta = \beta_0$, where $W_c = \Xi_c W \Xi_c'$
 \item[(d)] $E[f(Z,\beta)]$ is continuous on $\Theta$
 \item[(e)] $sup_{\beta\in \Theta} ||f_n(\beta) - E[f(Z,\beta)]||\rightarrow_p 0$
 \item[(f)] $f$ is Z-almost surely differentiable in an open neighborhood $\mathcal{B}$ of $\beta_0$
@@ -120,7 +120,7 @@ Under Assumptions \ref{assump:local}--\ref{assump:high-level}
 		\begin{equation}
 		\sqrt{n}\left(\widehat{\beta}(b,c) - \beta_0^{(b)}\right) \overset{d}{\rightarrow} - K(b,c)\Xi_c \left(\mathscr{N}+ \left[ \begin{array}{c} 0\\ \tau\end{array}\right] - F_\gamma\delta\right)
 	\end{equation}
-where $\beta_0^{(b)'} = (\theta_0, \gamma_0^{(b)})$, $K(b,c) = \left[F(b,c)'W_c F(b,c)\right]^{-1} F(b,c)' W_c$
+where $\beta_0^{(b)'} = (\gamma_0^{(b)'}, \theta_0')'$, $K(b,c) = \left[F(b,c)'W_c F(b,c)\right]^{-1} F(b,c)' W_c$
 and
 	\begin{equation}
 		\mathscr{N} = \left[\begin{array}{c} \mathscr{N}_g\\  \mathscr{N}_h\end{array}\right]\sim \mbox{N}\left(\left[\begin{array}{c} 0\\ 0\end{array}\right] , \left[ \begin{array}{cc}\Omega_{gg} & \Omega_{gh}\\ \Omega_{hg}& \Omega_{hh} \end{array} \right]\right).
