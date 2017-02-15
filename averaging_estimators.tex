@@ -3,7 +3,7 @@
 \label{sec:avg}
 
 While we are primarily concerned in this paper with the mean-squared error performance of our proposed selection techniques, it is important to have tools for carrying out  inference post-selection.
-In this section we briefly present results that can be used to carry out valid inference for a range of model averaging and post-selection estimators, including the GFIC.\footnote{Because the conceptual issues are largely the same regardless of whether one considers moment selection, model selection, or both simultaneously, we direct the reader to \cite{DiTraglia2016} and the references contained therein for a more detailed discussion of inference post-selection.}
+In this section we briefly present results that can be used to carry out valid inference for a range of model averaging and post-selection estimators, including the GFIC.\footnote{We direct the reader to \cite{DiTraglia2016} and the references contained therein for a more detailed discussion of inference post-selection.}
 
 The GFIC is an efficient rather than consistent selection criterion: it aims to estimate a particular target parameter with minimum AMSE rather than selecting the correct specification with probability approaching one in the limit.
 As pointed out by \cite{Yang2005}, among others, there is an unavoidable trade-off between consistent selection and desirable risk properties.
@@ -29,8 +29,9 @@ Accordingly, to carry out inference post-GFIC, we need a limiting theory that is
 To this end, consider an estimator of the form 
 	$$\widehat{\mu} = \sum_{(b,c) \in \mathcal{BC}} \widehat{\omega}(b,c) \widehat{\mu}(b,c)$$
 where $\widehat{\mu}(b,c)$ denotes the target parameter under the moment conditions and parameter restrictions indexed by $(b,c)$, $\mathcal{BC}$ denotes the full set of candidate specifications, and $\widehat{\omega}(b,c)$ denotes a collection of data-dependent weights.
-These could be zero-one weights correponding to a moment or model selction criterion, e.g.\ select the estimator of $\mu$ that minimizes GFIC, or genuine model averaging weights.\footnote{For an example that averages over fixed and random effects estimators, see Section \ref{sec:REvsFE}.}
-Imposing some mild restrictions on the weights $\widehat{\omega}$, we can determine the limit distribution of $\mu$ as follows.
+These could be zero-one weights correponding to a moment or model selction criterion, e.g.\ select the estimator that minimizes GFIC, or model averaging weights.\footnote{For an example that averages over fixed and random effects estimators, see Section \ref{sec:REvsFE}.}
+We impose the following mild restrictions on the weights $\widehat{\omega}$.
+
 \begin{assump}[Conditions on the Weights]\mbox{}
 	\begin{enumerate}[(a)] 
 		\item $\sum_{(b,c) \in \mathcal{BC}} \widehat{\omega}(b,c) = 1$, almost surely
@@ -38,6 +39,8 @@ Imposing some mild restrictions on the weights $\widehat{\omega}$, we can determ
 	\end{enumerate}
 \label{assump:weight}
 \end{assump}
+
+Under the preceding conditions, we can derive the limit distribution of $\widehat{\mu}$ shown in the following Corollary.
 
 \begin{cor}[Limit Distribution of Averaging Estimators]
   Under Assumption \ref{assump:weight} and the hypotheses of Theorem \ref{thm:asymp},  
@@ -77,7 +80,7 @@ The following ``1-step'' confidence interval is constructed by substituting thes
 The 1-Step interval defined in Algorithm \ref{alg:1step} is conceptually simple, easy to compute, and can perform well in practice.\footnote{For more discussion on this point, see \cite{DiTraglia2016}.}
 But as it fails to account for sampling uncertainty in $\widehat{\tau}$, $\mbox{CI}_1$ does \emph{not} necessarily yield asymptotically valid inference for $\mu$.
 Fully valid inference requires the addition of a second step to the algorithm and comes at a cost: conservative rather than exact inference.
-In particular, the following procedure is guaranteed to yield an interval with asymptotic coverage probability of \emph{at least} $(1- \alpha_1 - \alpha_2)\times 100\%$.
+In particular, the two-step procedure described in the following algorithm is guaranteed to yield an interval with asymptotic coverage probability of \emph{no less than} $(1- \alpha_1 - \alpha_2)\times 100\%$.
 
 \begin{alg}[2-Step Confidence Interval for $\widehat{\mu}$]
 \mbox{}
@@ -92,7 +95,7 @@ In particular, the following procedure is guaranteed to yield an interval with a
 
 \begin{thm}[2-Step Confidence Interval for $\widehat{\mu}$]
 \label{thm:sim}
-Let $\nabla_{\beta}\widehat{\varphi}_0$, $\widehat{\psi}(\cdot|b,c)$, $\widehat{K}(b,c)$ and $\widehat{M}(b,c)$ be consistent estimators of $\nabla_\beta \varphi$, $\psi(\cdot|b,c)$, $K(b,c)$ and $M(b,c)$ and let $R$ be a $(1-\alpha_1)\times 100\%$ confidence region for $(\delta,\tau)$ constructed from Theorem \ref{thm:jointbias}.
+Let $\nabla_{\beta}\widehat{\varphi}_0$, $\widehat{\psi}(\cdot|b,c)$, $\widehat{K}(b,c)$ and $\widehat{M}(b,c)$ be consistent estimators of $\nabla_\beta \varphi_0$, $\psi(\cdot|b,c)$, $K(b,c)$ and $M(b,c)$ and let $R$ be a $(1-\alpha_1)\times 100\%$ confidence region for $(\delta,\tau)$ constructed from Theorem \ref{thm:jointbias}.
 Then $CI_2(\alpha_1, \alpha_2)$, defined in Algorithm \ref{alg:2step} has asymptotic coverage probability no less than $1-\left( \alpha_1 + \alpha_2 \right)$ as $J,n\rightarrow \infty$. 
 \end{thm}
 

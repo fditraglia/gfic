@@ -27,8 +27,8 @@ Thus, the valid estimator of $\mu$ is asymptotically unbiased and its AMSE equal
 \begin{cor}
 \label{cor:muvalid}
 Under the hypotheses of Theorem \ref{thm:asymp},
-	$$\sqrt{n}\left( \widehat{\mu}_v - \mu_n\right) \overset{d}{\rightarrow} -\nabla_\beta \varphi(\theta_0, \gamma_0)' K_v\mathscr{N}_g$$
-where $\widehat{\mu}_v = \varphi(\widehat{\theta}_v,\widehat{\gamma}_v)$. Thus, the valid estimator $\widehat{\mu}_v$ shows no asymptotic bias and has asymptotic variance $\nabla_\beta \varphi(\theta_0, \gamma_0)'K_v \Omega_{gg}K_v'\nabla_\beta \varphi(\theta_0, \gamma_0)$.
+	$$\sqrt{n}\left( \widehat{\mu}_v - \mu_n\right) \overset{d}{\rightarrow} -\nabla_\beta \varphi(\gamma_0, \theta_0)' K_v\mathscr{N}_g$$
+where $\widehat{\mu}_v = \varphi(\widehat{\gamma}_v,\widehat{\theta}_v)$. Thus, the valid estimator $\widehat{\mu}_v$ shows no asymptotic bias and has asymptotic variance $\nabla_\beta \varphi(\gamma_0, \theta_0)'K_v \Omega_{gg}K_v'\nabla_\beta \varphi(\gamma_0, \theta_0)$.
 \end{cor}
  
 Using Corollary \ref{cor:mulimit}, the AMSE of $\widehat{\mu}(b,c)$ is as follows,
@@ -83,7 +83,7 @@ Under the hypotheses of Theorem \ref{thm:asymp},
 	where $K_v = \left[G'W_{gg}G\right]^{-1}G'W_{gg}$  is partitioned according to $K_v' = (K_v^{\gamma '}, K_v^{\theta '})$.
 \end{thm}
 Now, we see immediately from Equation \ref{eq:bias} that
-$$\mbox{BIAS}\left(\widehat{\mu}\left(b,c\right)\right)^2 = \nabla_\beta \varphi_0' M(b,c) \left[\begin{array}{cc}  \tau \tau'& \tau \delta'\\ \delta \tau'& \delta \delta'\end{array}\right] M(b,c)' \nabla_\beta \varphi_0$$
+$$\mbox{BIAS}\left(\widehat{\mu}\left(b,c\right)\right)^2 = \nabla_\beta \varphi_0' M(b,c) \left[\begin{array}{cc}  \delta \delta'& \delta \tau'\\ \tau \delta'& \tau \tau'\end{array}\right] M(b,c)' \nabla_\beta \varphi_0$$
 Thus, the bias parameters $\tau$ and $\delta$ enter the AMSE expression in Equation \ref{eq:AMSE} as outer products: $\tau\tau'$, $\delta\delta'$ and $\tau\delta'$.
 Although $\widehat{\tau}$ and $\widehat{\delta}$ are asymptotically unbiased estimators of $\tau$ and $\delta$, it does \emph{not} follow that $\widehat{\tau}\widehat{\tau}$, $\widehat{\delta}\widehat{\delta}$ and $\widehat{\tau}\widehat{\delta}'$ are  asymptotically unbiased estimators of $\tau\tau'$, $\delta\delta'$, and $\tau\delta'$. 
 The following result shows how to adjust these quantities to provide the required asymptotically unbiased estimates. 
@@ -92,8 +92,8 @@ The following result shows how to adjust these quantities to provide the require
 \label{cor:biasestimators}
 Suppose that $\widehat{\Psi}$ and $\widehat{\Omega}$ are consistent estimators of $\Psi$ and $\Omega$. Then, $\widehat{B}$ is an asymptotically unbiased estimator of $B$, where
 \[
-  \widehat{B} = \left[\begin{array}{cc}  \widehat{\tau} \widehat{\tau}'& \widehat{\tau} \widehat{\delta}'\\ \widehat{\delta} \widehat{\tau}'& \widehat{\delta} \widehat{\delta}'\end{array}\right] - \widehat{\Psi} \widehat{\Omega} \widehat{\Psi}', \quad B = 
-\left[\begin{array}{cc}  \tau \tau'& \tau \delta'\\ \delta \tau'& \delta \delta'\end{array}\right].
+  \widehat{B} = \left[\begin{array}{cc}  \widehat{\delta} \widehat{\delta}'& \widehat{\delta} \widehat{\tau}'\\ \widehat{\tau} \widehat{\delta}'& \widehat{\tau} \widehat{\tau}'\end{array}\right] - \widehat{\Psi} \widehat{\Omega} \widehat{\Psi}', \quad B = 
+\left[\begin{array}{cc}  \delta \delta'& \delta \tau'\\ \tau \delta'& \tau \tau'\end{array}\right].
 \]
 \end{cor}
 Combining Corollary \ref{cor:biasestimators} with consistent estimates of the remaining quantities yields the GFIC, an asymptotically unbiased estimator of the AMSE of our estimator of a target parameter $\mu$ under each specification $(b,c)\in \mathcal{BC}$

@@ -148,7 +148,7 @@ The following result describes the limit distribution of $\widehat{\beta}(k,\tex
 To operationalize the GFIC, we need to provide appropriate estimators of all quantities that appear in Theorem \ref{thm:limitDpanel}.
 To estimate ${Q}(k,\text{P})$, ${Q}(k,\text{S})$, ${Q}(r,\text{P})$, and ${Q}(r,\text{S})$ we employ the usual sample analogues $\widehat{Q}(\cdot,\cdot)$ given above, which remain consistent under local mis-specification.
 There are many consistent estimators for the variance matrices $\mathcal{V}(k,\text{P})$, $\mathcal{V}(k,\text{S})$, $\mathcal{V}(r,\text{P})$, $\mathcal{V}(r,\text{S})$ under local mis-specification.
-In our simulations and empirical example below, we employ the usual heteroskedasticity-consistent, panel-robust variance matrix estimator.
+In our simulations below, we employ the usual heteroskedasticity-consistent, panel-robust variance matrix estimator.
 Because $E[\mathbf{z}_{it}(\ell,\text{S})\Delta v_{it}]\neq 0$, we center our estimators of $\mathcal{V}(\ell, \text{S})$ by subtracting the sample analogue of this expectation when calculating the sample variance.
 We estimate $\boldsymbol{\psi}_{\text{P}}$ and $\psi_{\text{S}}$ as follows
 \begin{align*}
@@ -257,7 +257,7 @@ and the derivatives of $\varphi$ are
 Using this notation, the limiting value of $\mu_{LR}$ is $\mu_{LR}^{0} =  \varphi(\theta, \boldsymbol{\gamma}_r, 0)$
 while the true value is
 $\mu_{LR}^{n} = \varphi(\theta, \boldsymbol{\gamma}_r, \delta/\sqrt{n})$.
-Similarly, the limiting value of $\nabla\varphi$ is $\nabla \varphi_0 = \nabla \varphi(\theta, \boldsymbol{\gamma}_r, 0)'$, obtained by putting zero in place of $\gamma_r$. 
+Similarly, the limiting value of $\nabla\varphi$ is $\nabla \varphi_0 = \nabla \varphi(\theta, \boldsymbol{\gamma}_r, 0)'$, obtained by putting zero in place of $\gamma_k$. 
 We estimate this quantity consistently by plugging in the estimates from $\widehat{\beta}(k, \text{P})$.
 
 %The following corollary collects the remaining limit results that we need to implement the GFIC for $\mu_{LR}$.  
