@@ -52,16 +52,14 @@ Unfortunately, neither of these quantities is consistently estimable under local
 Intuitively, the data become less and less informative about $\tau$ and $\delta$ as the sample size increases since each term is divided by $\sqrt{n}$. 
 Multiplying through by $\sqrt{n}$ counteracts this effect, but also stabilizes the variance of our estimators. 
 Hence, the best we can do is to construct \emph{asymptotically unbiased} estimators of $\tau$ and $\delta$. 
-Corollary \ref{cor:valid} provides the required estimator for $\delta$, namely $\widehat{\delta} = \sqrt{n}\left(\widehat{\gamma}_v - \gamma_0\right)$, while Lemma \ref{lem:tauhatasymp} provides an asymptotically unbiased estimator of $\tau$ by plugging $\widehat{\beta}_v$ into the sample analogue of the $h$-block of moment conditions.
+Corollary \ref{cor:deltahat} provides the required estimator for $\delta$, namely $\widehat{\delta} = \sqrt{n}\left(\widehat{\gamma}_v - \gamma_0\right)$, while Lemma \ref{lem:tauhatasymp} provides an asymptotically unbiased estimator of $\tau$ by plugging $\widehat{\beta}_v$ into the sample analogue of the $h$-block of moment conditions.
 
 \begin{cor} 
 \label{cor:deltahat}
 Under the hypotheses of Theorem \ref{thm:asymp},
 	$\widehat{\delta} = \sqrt{n}\left(\widehat{\gamma}_v - \gamma_0\right) \overset{d}{\rightarrow} \delta - K_{v}^{\gamma} \mathscr{N}_g$
 where 
-$K_v = \left[G'W_{gg}G\right]^{-1}G'W_{gg}$.
-%= \left(K_{v}^{\gamma '}, K_{v}^{\theta '}\right)'$. 
-Hence, $\widehat{\delta}$ is an asymptotically unbiased estimator of $\delta$.
+$K_v = \left[G'W_{gg}G\right]^{-1}G'W_{gg} = \left(K_{v}^{\gamma '}, K_{v}^{\theta '}\right)'$, so $\widehat{\delta}$ is an asymptotically unbiased estimator of $\delta$.
 \end{cor} 
 
 \begin{lem}

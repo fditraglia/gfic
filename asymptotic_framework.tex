@@ -23,6 +23,8 @@ Let $\{Z_{ni}\colon 1\leq i \leq n, n =1, 2, \hdots\}$ be an iid triangular arra
 	where $\gamma_0$ is a (known) $r$-vector of parameter restrictions, $\delta$ an unknown $r$-vector of constants, and $\tau$ an unknown $q$-vector of constants.
 \end{assump}
 
+For simplicity, and because it is the case for all examples we consider below, we assume that the triangular array from Assumption \ref{assump:local} is iid, although this is not strictly necessary.
+
 Under Assumption \ref{assump:local}, the true parameter vector $\beta_n = \left(\gamma_n', \theta_0' \right)'$, changes with sample size but converges to $\beta_0 = \left(\gamma_0', \theta_0'\right)'$ as $n\rightarrow \infty$. 
 Unless some elements of $\delta$ are zero, any estimator that restricts $\gamma$ is mis-specified for fixed $n$. 
 In the limit, however, the restriction $\gamma = \gamma_0$ holds. 
@@ -32,7 +34,24 @@ In the limit, however, \emph{every} estimator is correctly specified, regardless
 The purpose of local mis-specification is to ensure that squared asymptotic bias is of the same order as asymptotic variance: Assumption \ref{assump:local} is a device rather than literal description of real-world data. 
 Note that, by Assumption \ref{assump:local}, the limiting random variable $Z_i$ satisfies the population moment condition $E[f\left(Z_i,\gamma_0, \theta_0\right)]=0$. 
 Since the $Z_i$ are assumed to have a common marginal law, we will use the shorthand $Z$ for $Z_i$ throughout.
-For simplicity, and because it is the case for all examples we consider below, we assume that the triangular array from Assumption \ref{assump:local} is iid, although this is not strictly necessary.
+Accordingly, define:
+		\begin{equation}F  =  \left[\begin{array}{cc}  \nabla_{\gamma'}g\left(Z,\gamma_0, \theta_0\right) &   \nabla_{\theta'}g\left(Z,\gamma_0, \theta_0\right) \\
+ \nabla_{\gamma'}h\left(Z,\gamma_0, \theta_0\right)  &   \nabla_{\theta'}h\left(Z,\gamma_0, \theta_0\right)  
+		 \end{array}\right] 
+	\end{equation}
+partitioned according to
+	\begin{equation}F  = \left[\begin{array}{cc}F_\gamma & F_\theta \end{array}\right] = 
+		  \left[\begin{array}{cc} G_\gamma & G_\theta \\
+					 H_\gamma& H_\theta
+		 \end{array}\right] = \left[\begin{array}{c} G\\ H \end{array}\right]
+	\end{equation}
+and define
+	\begin{equation}
+		\Omega = Var\left[ \begin{array}{c} g(Z, \gamma_0, \theta_0) \\ h(Z, \gamma_0, \theta_0) \end{array}\right] =\left[ \begin{array}{cc}\Omega_{gg} & \Omega_{gh}\\ \Omega_{hg}& \Omega_{hh} \end{array} \right].
+	\end{equation}
+Each of these expressions involves the limiting random variable $Z$ rather than $Z_{ni}$. 
+Thus, the corresponding expectations are taken with respect to a distribution for which all moment conditions have expectation zero  evaluated at $(\gamma_0,\theta_0)$.
+Finally, let $F(b,c) = \Xi_c F \Xi_b'$ and $\Omega_c = \Xi_c \Omega \Xi_c'$ and $W_c = \Xi_c W \Xi_c'$ where $W$ is the positive definite probability limit of $\widetilde{W}$. 
 
 Before defining the estimators under consideration, we require some further notation. Let $b$ be a \emph{model selection vector}, an $r$-vector of ones and zeros indicating which elements of $\gamma$ we have chosen to estimate. 
 When $b = 1_r$, where $1_m$ represents an $m$-vector of ones, we estimate both $\theta$ and the full vector $\gamma$. 
@@ -52,7 +71,7 @@ Similarly, multiplying a vector by the $|c|\times(p+q)$ moment selection matrix 
 
 To express the estimators themselves, define the sample analogue of the expectations in Assumption \ref{assump:local} as follows,
 \begin{equation}
-	f_n(\beta) = \frac{1}{n}\sum_{i=1}^n f(Z_{ni}, \gamma, \theta) = \left[\begin{array}{c}g_n(\beta)\\ h_n(\beta) \end{array} \right] = \left[\begin{array}{c} n^{-1}\sum_{i=1}^n g(Z_{ni}, \gamma, \theta)\\n^{-1}\sum_{i=1}^n h(Z_{ni}, \gamma, \theta) \end{array}\right]
+	f_n(\beta) = \frac{1}{n}\sum_{i=1}^n f(Z_{ni}, \gamma, \theta) = \left[\begin{array}{c}g_n(\beta)\\ h_n(\beta) \end{array} \right] = \left[\begin{array}{c} n^{-1}\sum_{i=1}^n g(Z_{ni}, \theta, \gamma)\\n^{-1}\sum_{i=1}^n h(Z_{ni}, \theta, \gamma) \end{array}\right]
 \end{equation}
 and let $\widetilde{W}$ be a $(p+q)\times(p+q)$ positive semi-definite weighting matrix
 \begin{equation}
@@ -63,6 +82,7 @@ partitioned conformably to the partition of $f(Z,\beta)$ by $g(Z,\beta)$ and $h(
     \widehat{\beta}(b,c) = \underset{\beta^{(b)}\in \mathbf{B}^{(b)}} {\mbox{arg min}}\;\left[\Xi_c f_n\left(\beta^{(b)}, \gamma_0^{(-b)}\right)\right]'\left[\Xi_c \widetilde{W}\Xi_c' \right]\left[\Xi_c f_n\left(\beta^{(b)}, \gamma_0^{(-b)}\right)\right].
 	\end{equation}
 
+
 We now state a number of standard high-level regularity conditions that will be assumed throughout our derivations below.
 
 \begin{assump}[High-level Regularity Conditions]
@@ -71,7 +91,7 @@ We now state a number of standard high-level regularity conditions that will be 
 \begin{itemize}
 \item[(a)] $\beta_0$ lies in the interior of $\Theta$, a compact set
 \item[(b)] $\widetilde{W} \rightarrow_{p} W$, a positive definite matrix
-\item[(c)] $\widetilde{W}_c \Xi_c E[f(Z, \beta)] = 0$ if and only if $\beta = \beta_0$, where $W_c = \Xi_c W \Xi_c'$
+\item[(c)] $W_c \Xi_c E[f(Z, \beta)] = 0$ if and only if $\beta = \beta_0$, where $W_c = \Xi_c W \Xi_c'$
 \item[(d)] $E[f(Z,\beta)]$ is continuous on $\Theta$
 \item[(e)] $sup_{\beta\in \Theta} ||f_n(\beta) - E[f(Z,\beta)]||\rightarrow_p 0$
 \item[(f)] $f$ is Z-almost surely differentiable in an open neighborhood $\mathcal{B}$ of $\beta_0$
@@ -97,24 +117,6 @@ In particular assume that $\widehat{\beta}_v$ is identified, which implies $p \g
 
 Because Assumption \ref{assump:local} ensures that they are correctly specified in the limit, \emph{all} candidate specifications $(b,c)\in \mathcal{BC}$ provide consistent estimators of $\theta_0$ under standard, high level regularity conditions (see Assumption \ref{assump:high-level}).
 Essential differences arise, however, when we consider their respective asymptotic distributions. 
-Let
-		\begin{equation}F  =  \left[\begin{array}{cc}  \nabla_{\gamma'}g\left(Z,\gamma_0, \theta_0\right) &   \nabla_{\theta'}g\left(Z,\gamma_0, \theta_0\right) \\
- \nabla_{\gamma'}h\left(Z,\gamma_0, \theta_0\right)  &   \nabla_{\theta'}h\left(Z,\gamma_0, \theta_0\right)  
-		 \end{array}\right] 
-	\end{equation}
-partitioned according to
-	\begin{equation}F  = \left[\begin{array}{cc}F_\gamma & F_\theta \end{array}\right] = 
-		  \left[\begin{array}{cc} G_\gamma & G_\theta \\
-					 H_\gamma& H_\theta
-		 \end{array}\right] = \left[\begin{array}{c} G\\ H \end{array}\right]
-	\end{equation}
-and define
-	\begin{equation}
-		\Omega = Var\left[ \begin{array}{c} g(Z, \gamma_0, \theta_0) \\ h(Z, \gamma_0, \theta_0) \end{array}\right] =\left[ \begin{array}{cc}\Omega_{gg} & \Omega_{gh}\\ \Omega_{hg}& \Omega_{hh} \end{array} \right].
-	\end{equation}
-Notice that each of these expressions involves the limiting random variable $Z$ rather than $Z_{ni}$. 
-Thus, the corresponding expectations are taken with respect to a distribution for which all moment conditions have expectation zero  evaluated at $(\gamma_0,\theta_0)$.
-Finally, let $F(b,c) = \Xi_c F \Xi_b'$ and similarly define $\Omega_c = \Xi_c \Omega \Xi_c'$ and $W_c = \Xi_c W \Xi_c'$ where $W$ is the positive definite probability limit of $\widetilde{W}$. 
 Under Assumption \ref{assump:local}, both $\delta$ and $\tau$ induce a bias term in the limiting distribution of $\sqrt{n}\left(\widehat{\beta}(b,c) - \beta_0^{(b)}\right)$. 
 The key result is as follows.
 

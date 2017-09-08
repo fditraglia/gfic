@@ -110,7 +110,7 @@ Both instrument sets are defined in Equation \ref{eq:Zdpanel}.
 We consider four specifications, each estimated by TSLS using the expressions from section \ref{sec:Dpanel}.
 The correct specification, $\text{LP}$, estimates both $\gamma$ and $\theta$ using only the ``predetermined'' instrument set.
 In contrast, $\text{LS}$ estimates both parameters using the ``strict exogeneity'' instrument set.
-The specifications $\text{P}$ and $\text{S}$ set $\gamma=0$ and estimate only $\gamma$, using the predetermined and strictly exogenous instrument sets, respectively.
+The specifications $\text{P}$ and $\text{S}$ set $\gamma=0$ and estimate only $\theta$, using the predetermined and strictly exogenous instrument sets, respectively.
 Our simulation design sets $\theta = 0.5$, $\sigma_{x\eta}=0.2$ and varies  $\gamma$, $\sigma_{xv}$, $T$ and $n$ over a grid.
 Specifically, we take $\gamma, \sigma_{xv} \in \{0, 0.005, 0.01, \hdots, 0.195, 0.2\}$, $n \in \{250,500\}$, $T \in \{4,5\}$.\footnote{Setting $T$ no smaller than 4 ensures that MSE exists for all four estimators: the finite sample moments of the TSLS estimator only exist up to the order of over-identification.}
 All values are computed based on 2000 simulation replications.
@@ -190,6 +190,3 @@ For example, when $T=5$ and $n=500$ the worst-case RMSE of GFIC is approximately
 The consistent criteria, GMM-BIC and GMM-HQ, perform particularly poorly in terms of worst-case RMSE.
 This is unsurprising given that the worst-case risk of any consistent selection criteria diverges as sample size increases.\footnote{See, e.g., \cite{LeebPoetscher2008}.}
 
-\subsection{Slope Heterogeneity Example}
-In the interest of space we omit the simulation results for the slope heterogeneity example from Section \ref{sec:slopeHet}.
-These are available upon request.
