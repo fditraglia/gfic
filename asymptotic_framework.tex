@@ -35,15 +35,12 @@ Since the $Z_i$ are assumed to have a common marginal law, we will use the short
 Accordingly, define:
 		\begin{equation}F  =  \left[\begin{array}{cc}  \nabla_{\gamma'}g\left(Z,\gamma_0, \theta_0\right) &   \nabla_{\theta'}g\left(Z,\gamma_0, \theta_0\right) \\
  \nabla_{\gamma'}h\left(Z,\gamma_0, \theta_0\right)  &   \nabla_{\theta'}h\left(Z,\gamma_0, \theta_0\right)  
-		 \end{array}\right] 
-	\end{equation}
-partitioned according to
-	\begin{equation}F  = \left[\begin{array}{cc}F_\gamma & F_\theta \end{array}\right] = 
+		 \end{array}\right] = \left[\begin{array}{cc}F_\gamma & F_\theta \end{array}\right] = 
 		  \left[\begin{array}{cc} G_\gamma & G_\theta \\
 					 H_\gamma& H_\theta
 		 \end{array}\right] = \left[\begin{array}{c} G\\ H \end{array}\right]
 	\end{equation}
-and define
+along with 
 	\begin{equation}
 		\Omega = Var\left[ \begin{array}{c} g(Z, \gamma_0, \theta_0) \\ h(Z, \gamma_0, \theta_0) \end{array}\right] =\left[ \begin{array}{cc}\Omega_{gg} & \Omega_{gh}\\ \Omega_{hg}& \Omega_{hh} \end{array} \right].
 	\end{equation}
@@ -71,11 +68,8 @@ To express the estimators themselves, define the sample analogue of the expectat
 \begin{equation}
 	f_n(\beta) = \frac{1}{n}\sum_{i=1}^n f(Z_{ni}, \gamma, \theta) = \left[\begin{array}{c}g_n(\beta)\\ h_n(\beta) \end{array} \right] = \left[\begin{array}{c} n^{-1}\sum_{i=1}^n g(Z_{ni}, \theta, \gamma)\\n^{-1}\sum_{i=1}^n h(Z_{ni}, \theta, \gamma) \end{array}\right]
 \end{equation}
-and let $\widetilde{W}$ be a $(p+q)\times(p+q)$ positive semi-definite weighting matrix
-\begin{equation}
-	\widetilde{W} = \left[\begin{array}{cc} \widetilde{W}_{gg} & \widetilde{W}_{gh}\\ \widetilde{W}_{hg} & \widetilde{W}_{hh}  \end{array}\right]
-\end{equation}
-partitioned conformably to the partition of $f(Z,\beta)$ by $g(Z,\beta)$ and $h(Z,\beta)$. Each model and moment selection pair $(b,c)\in \mathcal{BC}$ defines a $(|b|+s)$-dimensional estimator $\widehat{\beta}(b,c)=( \widehat{\gamma}^{(b)}(b,c)',\widehat{\theta}(b,c)')'$ of $\beta^{(b)}= \left(\gamma^{(b)'}, \theta'  \right)'$ according to
+and let $\widetilde{W}$ be a $(p+q)\times(p+q)$ positive semi-definite weighting matrix with blocks $\widetilde{W}_{gg}, \widetilde{W}_{gh}, \widetilde{W}_{hg}$ and $\widetilde{W}_{hh}$, partitioned conformably to the partition of $f(Z,\beta)$ by $g(Z,\beta)$ and $h(Z,\beta)$. 
+Each model and moment selection pair $(b,c)\in \mathcal{BC}$ defines a $(|b|+s)$-dimensional estimator $\widehat{\beta}(b,c)=( \widehat{\gamma}^{(b)}(b,c)',\widehat{\theta}(b,c)')'$ of $\beta^{(b)}= \left(\gamma^{(b)'}, \theta'  \right)'$ according to
 	\begin{equation}
     \widehat{\beta}(b,c) = \underset{\beta^{(b)}\in \mathbf{B}^{(b)}} {\mbox{arg min}}\;\left[\Xi_c f_n\left(\beta^{(b)}, \gamma_0^{(-b)}\right)\right]'\left[\Xi_c \widetilde{W}\Xi_c' \right]\left[\Xi_c f_n\left(\beta^{(b)}, \gamma_0^{(-b)}\right)\right].
 	\end{equation}
@@ -102,12 +96,12 @@ We now state a number of standard high-level regularity conditions that will be 
   A particularly important special case is the estimator using only the moment conditions in $g$ to estimate the full parameter vector $\beta = \left(\gamma', \theta' \right)'$.
   We call this the \emph{valid} estimator and denote it by $\widehat{\beta}_v$.  
   Because it is assumed to be correctly specified both for finite $n$ and in the limit, the valid estimator contains the information we use to identify $\tau$ and $\delta$, and thus carry out moment and model selection. 
-We assume throughout that the valid estimator is identified.
+We assume that the valid estimator is identified.
 
 \begin{assump}[GFIC Identification Condition]
   Let $\widehat{\beta}_v$ denote the GMM estimator for $\beta = \left(\gamma', \theta' \right)'$ based solely on the moment conditions contained in g:
 \begin{equation}
-  \widehat{\beta}_v =\left[\begin{array}{c}\widehat{\gamma}_{v} \\  \widehat{\theta}_{v} \end{array} \right] =\underset{\beta \in \mathbf{B}}{\mbox{arg min}}\; g_n(\beta)' \widetilde{W}_{gg} \; g_n(\beta).
+  \widehat{\beta}_v = \left(\widehat{\gamma}_{v}', \widehat{\theta}_{v}'\right)' =\underset{\beta \in \mathbf{B}}{\mbox{arg min}}\; g_n(\beta)' \widetilde{W}_{gg} \; g_n(\beta).
 \end{equation}
 We call this the ``valid estimator'' and assume that it satisfies all the conditions of Assumption \ref{assump:high-level}.
 In particular assume that $\widehat{\beta}_v$ is identified, which implies $p \geq r+s$.
@@ -116,7 +110,6 @@ In particular assume that $\widehat{\beta}_v$ is identified, which implies $p \g
 Because Assumption \ref{assump:local} ensures that they are correctly specified in the limit, \emph{all} candidate specifications $(b,c)\in \mathcal{BC}$ provide consistent estimators of $\theta_0$ under standard, high level regularity conditions (see Assumption \ref{assump:high-level}).
 Essential differences arise, however, when we consider their respective asymptotic distributions. 
 Under Assumption \ref{assump:local}, both $\delta$ and $\tau$ induce a bias term in the limiting distribution of $\sqrt{n}\left(\widehat{\beta}(b,c) - \beta_0^{(b)}\right)$. 
-The key result is as follows.
 
 \begin{thm}[Asymptotic Distribution]
 \label{thm:asymp}
@@ -125,10 +118,7 @@ Under Assumptions \ref{assump:local}--\ref{assump:high-level}
 		\sqrt{n}\left(\widehat{\beta}(b,c) - \beta_0^{(b)}\right) \overset{d}{\rightarrow} - K(b,c)\Xi_c \left(\mathscr{N}+ \left[ \begin{array}{c} 0\\ \tau\end{array}\right] - F_\gamma\delta\right)
 	\end{equation}
 where $\beta_0^{(b)'} = (\gamma_0^{(b)'}, \theta_0')'$, $K(b,c) = \left[F(b,c)'W_c F(b,c)\right]^{-1} F(b,c)' W_c$
-and
-	\begin{equation}
-		\mathscr{N} = \left[\begin{array}{c} \mathscr{N}_g\\  \mathscr{N}_h\end{array}\right]\sim \mbox{N}\left(\left[\begin{array}{c} 0\\ 0\end{array}\right] , \left[ \begin{array}{cc}\Omega_{gg} & \Omega_{gh}\\ \Omega_{hg}& \Omega_{hh} \end{array} \right]\right).
-	\end{equation}
+and $\mathscr{N} \sim \mbox{N}(0, \Omega)$ with $\mathscr{N} = (\mathscr{N}_g', \mathscr{N}_h')'$.
 \end{thm}	
 Because it employs the correct specification, the valid estimator of $\theta$ shows no asymptotic bias.
 Moreover, the valid estimator of $\gamma$ has an asymptotic distribution that is centered around $\delta$, suggesting an estimator of this bias parameter.

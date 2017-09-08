@@ -3,7 +3,7 @@
 \begin{proof}[Proof of Theorem \ref{thm:asymp}]
 By a mean-value expansion around $(\gamma_0,\theta_0)$,
 	$$\sqrt{n}\left(\widehat{\beta}(b,c) - \beta_0^{(b)}\right) = - K(b,c)\Xi_c \sqrt{n} f_n(\gamma_0,\theta_0) + o_p(1)$$
-  and by assumption \ref{assump:high-level},
+  and by Assumption \ref{assump:high-level},
 $\sqrt{n} f_n(\gamma_0,\theta_0) - \sqrt{n}E\left[f(Z_{ni},\gamma_0,\theta_0) \right]\overset{d}{\rightarrow} (\mathscr{N}_g', \mathscr{N}_h')'$. 
 Now, by a mean-value expansion around $\gamma_n$,
 	\begin{align*}
@@ -48,8 +48,7 @@ The result follows since $\sqrt{n}\left(\widehat{\mu}(b,c) - \mu_n \right)  = \s
 The result follows from Corollaries \ref{cor:valid} and \ref{cor:mulimit} since,
 	\begin{eqnarray*}
 		\sqrt{n}\left( \widehat{\mu}_v - \mu_n\right) &\overset{d}{\rightarrow}&\nabla_\beta\varphi_0' \left\{ \left[\begin{array}{c} 0\\ \delta \end{array}\right] -K_v\mathscr{N}_g  \right\}-\nabla_\gamma \varphi_0' \delta\\ 
-			&=& -\nabla_\beta\varphi_0' K_v\mathscr{N}_g + \left[\begin{array}{cc} \nabla_\theta\varphi_0'  & \nabla_\gamma\varphi_0' \end{array}\right]\left[\begin{array}{c} 0\\ \delta\end{array}\right]-\nabla_\gamma \varphi_0' \delta\\
-			&=& -\nabla_\beta(\gamma_0,\theta_0)' K_v\mathscr{N}_g.
+			&=& -\nabla_\beta\varphi_0' K_v\mathscr{N}_g + \left[\begin{array}{cc} \nabla_\theta\varphi_0'  & \nabla_\gamma\varphi_0' \end{array}\right]\left[\begin{array}{c} 0\\ \delta\end{array}\right]-\nabla_\gamma \varphi_0' \delta = -\nabla_\beta(\gamma_0,\theta_0)' K_v\mathscr{N}_g.
 	\end{eqnarray*}
 \end{proof}
 
@@ -97,11 +96,14 @@ E\left[\begin{array}{cc}
 To simplify the argument let $\xi = (\delta', \tau')'$ and $\mathscr{M} = \xi + \Psi \mathscr{N}$.
 Now, let $a(\xi^*)$ and  $b(\xi^*)$ be quantiles of the distribution of $\Lambda$ calculated under the assumption that the true bias parameter $\xi$ is equal to $\xi^*$ such that $P\{a(\xi^*) \leq \Lambda(\xi^*)\leq b(\xi^*)\} = 1-\alpha_2$.
 Define
-\begin{align*}
-  a_{min}(\mathscr{M}) &= \min\left\{a(\xi^*) \colon \xi^* \in \mathscr{R}(\mathscr{M}|\alpha_1)  \right\}\\
-  b_{max}(\mathscr{M}) &= \max\left\{b(\xi^*) \colon \xi^* \in \mathscr{R}(\mathscr{M}|\alpha_1)  \right\}\\
-  \mathscr{R}(\mathscr{M}|\alpha_1) &= \left\{ \xi^* \colon \left[\left(\mathscr{M} - \xi^*\right)' \left( \Psi \Omega \Psi' \right)^{-1}\left( \mathscr{M} - \xi^* \right)\right] \leq \chi^2_{p+q}(\alpha_1) \right\}
-\end{align*}
+\[
+  a_{min}(\mathscr{M}) = \min\left\{a(\xi^*) \colon \xi^* \in \mathscr{R}(\mathscr{M}|\alpha_1)  \right\}, \quad
+  b_{max}(\mathscr{M}) = \max\left\{b(\xi^*) \colon \xi^* \in \mathscr{R}(\mathscr{M}|\alpha_1)  \right\}
+\]
+and
+\[
+  \mathscr{R}(\mathscr{M}|\alpha_1) = \left\{ \xi^* \colon \left[\left(\mathscr{M} - \xi^*\right)' \left( \Psi \Omega \Psi' \right)^{-1}\left( \mathscr{M} - \xi^* \right)\right] \leq \chi^2_{p+q}(\alpha_1) \right\}
+\]
 where $\chi_{p+q}^2(\alpha_1)$ is the $1-\alpha_1$ quantile of a $\chi_{p+q}^2$ distribution. 
 By Theorem \ref{thm:jointbias} and Corollary \ref{cor:avg}, 
 \[
@@ -115,28 +117,20 @@ P\left[\left\{ a(\xi^*) \leq \Lambda(\xi^*) \leq b(\xi^*)  \right\} \cap A \righ
 \]
 for every $\xi \in \mathscr{R}(\mathcal{M}|\alpha_1)$.
 But since 
-\[
-P\left[\left\{ a(\xi^*) \leq \Lambda(\xi^*) \leq b(\xi^*)  \right\} \cap A^c \right] \leq P(A^c) = \alpha_1
-\]
+$P\left[\left\{ a(\xi^*) \leq \Lambda(\xi^*) \leq b(\xi^*)  \right\} \cap A^c \right] \leq P(A^c) = \alpha_1$,
 we see that
-\[
-P\left[\left\{ a(\xi^*) \leq \Lambda(\xi^*) \leq b(\xi^*)  \right\} \cap A \right] \geq 1- \alpha_1 - \alpha_2
-\]
+$P\left[\left\{ a(\xi^*) \leq \Lambda(\xi^*) \leq b(\xi^*)  \right\} \cap A \right] \geq 1- \alpha_1 - \alpha_2$,
 for every $\xi^* \in \mathscr{R}(\mathscr{M}|\alpha_1)$.
 By definition, if $A$ occurs then $\xi \in \mathscr{R}(\mathscr{M}|\alpha_1)$ and hence 
-\[
-P\left[\left\{ a(\xi) \leq \Lambda(\xi) \leq b(\xi)  \right\} \cap A \right] \geq 1- \alpha_1 - \alpha_2.
-\]
+$P\left[\left\{ a(\xi) \leq \Lambda(\xi) \leq b(\xi)  \right\} \cap A \right] \geq 1- \alpha_1 - \alpha_2$.
 But when $\xi^* \in  \mathscr{R}(\mathscr{M}|\alpha_1)$ we have
 $a_{min} \leq a(\xi)$ and $b(\xi) \leq b_{max}$. It follows that 
 \[
 \left \{ a(\xi) \leq \Lambda (\xi) \leq b(\xi) \right \} \cap A \subseteq \left\{ a_{min} \leq \Lambda (\xi) \leq b_{max}\right \}
 \]
 and therefore
-\[
-  1-\alpha_1 - \alpha_2 \leq P\left[\left \{ a(\xi) \leq \Lambda (\xi) \leq b(\xi) \right \} \cap A  \right]
-\leq P\left[ a_{min} \leq \Lambda(\xi) \leq b_{max} \right].
-\]
+$1-\alpha_1 - \alpha_2 \leq P\left[\left \{ a(\xi) \leq \Lambda (\xi) \leq b(\xi) \right \} \cap A  \right]
+\leq P\left[ a_{min} \leq \Lambda(\xi) \leq b_{max} \right]$.
 \end{proof}
 
 \begin{proof}[Proof of Theorem \ref{thm:REvsFE}]
