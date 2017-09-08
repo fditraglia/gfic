@@ -23,9 +23,7 @@ Let $\{Z_{ni}\colon 1\leq i \leq n, n =1, 2, \hdots\}$ be an iid triangular arra
 	where $\gamma_0$ is a (known) $r$-vector of parameter restrictions, $\delta$ an unknown $r$-vector of constants, and $\tau$ an unknown $q$-vector of constants.
 \end{assump}
 
-For simplicity, and because it is the case for all examples we consider below, we assume that the triangular array from Assumption \ref{assump:local} is iid, although this is not strictly necessary.
-
-Under Assumption \ref{assump:local}, the true parameter vector $\beta_n = \left(\gamma_n', \theta_0' \right)'$, changes with sample size but converges to $\beta_0 = \left(\gamma_0', \theta_0'\right)'$ as $n\rightarrow \infty$. 
+Assumption \ref{assump:local} specifies a triangular array data generating process in which the the true parameter vector $\beta_n = \left(\gamma_n', \theta_0' \right)'$, changes with sample size but converges to $\beta_0 = \left(\gamma_0', \theta_0'\right)'$ as $n\rightarrow \infty$.\footnote{For simplicity, and because it is the case for all examples we consider below, we assume that the triangular array from Assumption \ref{assump:local} is iid within each row. Note however, that the $Z_{ni}$ are not iid \emph{across} rows: $\gamma_n$ and $\tau_n$ change with $n$. As such, the triangular array machinery is still required to describe our results.}
 Unless some elements of $\delta$ are zero, any estimator that restricts $\gamma$ is mis-specified for fixed $n$. 
 In the limit, however, the restriction $\gamma = \gamma_0$ holds. 
 Similarly, for any fixed sample size $n$, the expectation of $h$ evaluated at the true parameter value $\beta_n$ depends on the unknown constant vector $\tau$, but this source of mis-specification disappears in the limit. 
