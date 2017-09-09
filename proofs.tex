@@ -1,5 +1,5 @@
 %!TEX root = main.tex
-\section{Proofs}
+\section*{Proofs}
 \begin{proof}[Proof of Theorem \ref{thm:asymp}]
 By a mean-value expansion around $(\gamma_0,\theta_0)$,
 	$$\sqrt{n}\left(\widehat{\beta}(b,c) - \beta_0^{(b)}\right) = - K(b,c)\Xi_c \sqrt{n} f_n(\gamma_0,\theta_0) + o_p(1)$$
@@ -8,15 +8,14 @@ $\sqrt{n} f_n(\gamma_0,\theta_0) - \sqrt{n}E\left[f(Z_{ni},\gamma_0,\theta_0) \r
 Now, by a mean-value expansion around $\gamma_n$,
 	\begin{align*}
 		\sqrt{n}E\left[ f(Z_{ni}, \gamma_0, \theta_0) \right] &= \sqrt{n}E\left[ f(Z_{ni}, \gamma_n,\theta_0) \right] + \sqrt{n}\nabla_{\gamma'}E\left[ f(Z_{ni}, \bar{\gamma},\theta_0) \right] (\gamma_0 -\gamma_n)\\
-			&=\left(\left[ \begin{array}{c} 0\\ \tau\end{array}\right] - \nabla_{\gamma'}E\left[ f(Z_{ni}, \bar{\gamma},\theta_0) \right] \delta\right) \rightarrow \left(\left[ \begin{array}{c} 0\\ \tau\end{array}\right] - F_\gamma\delta\right).
+			&=\left(\left[ \begin{array}{c} 0\\ \tau\end{array}\right] - \nabla_{\gamma'}E\left[ f(Z_{ni}, \bar{\gamma},\theta_0) \right] \delta\right) \rightarrow \left(\left[ \begin{array}{c} 0\\ \tau\end{array}\right] - F_\gamma\delta\right)
 	\end{align*}
-  Hence, $\sqrt{n}f_n(\gamma_0, \theta_0) \overset{d}{\rightarrow} (\mathscr{N}_g', \mathscr{N}_h')' + (0', \tau')' - F_\gamma \delta$.
+  so $\sqrt{n}f_n(\gamma_0, \theta_0) \overset{d}{\rightarrow} \mathscr{N} + (0', \tau')' - F_\gamma \delta$.
   The result follows by the continuous mapping theorem.
 \end{proof}
 
 \begin{proof}[Proof of Corollary \ref{cor:valid}]
 Since $\Xi_c$ picks out only the components corresponding to $g$,
-For the valid estimator,
 	$$\Xi_c \left(\left[\begin{array}{c} \mathscr{N}_g\\  \mathscr{N}_h\end{array}\right]+ \left[ \begin{array}{c} 0\\ \tau\end{array}\right] - F_\gamma\delta\right) =  \mathscr{N}_g - G_\gamma \delta.$$
 Thus, $\sqrt{n}\left( \widehat{\beta}_v - \beta_0 \right) \overset{d}{\rightarrow} -K_v\left(\mathscr{N}_g - G_\gamma \delta\right)$.
 Finally, by the definition of a matrix inverse,
@@ -80,16 +79,7 @@ Substituting,
 	%$$\left[\begin{array}{c} U\\ V \end{array}\right]=\left[\begin{array}{c}\delta\\ \tau\end{array} \right] +\Psi\left[\begin{array}{c}\mathscr{N}_g \\ \mathscr{N}_h \end{array}\right].$$
 By the Continuous Mapping Theorem and Theorem \ref{thm:jointbias},
 	$$\left[\begin{array}{c} \widehat{\delta} \\ \widehat{\tau} \end{array}\right]\left[\begin{array}{cc} \widehat{\delta}' & \widehat{\tau}'\end{array} \right] \overset{d}{\rightarrow} \left[\begin{array}{c} U\\V \end{array}\right]\left[\begin{array}{cc}U' & V'\end{array} \right] $$
-The result follows since
-$$\Psi\Omega\Psi' =Var\left[\begin{array}{c}U\\V\end{array}\right] = 
-E\left[\begin{array}{cc} 
-				UU'&UV'\\
-				VU'&VV'
-				\end{array}\right] - 
-				\left[\begin{array}{cc}
-				\delta\delta'&\delta\tau'\\
-				\tau\delta'&\tau\tau'
-				\end{array}\right].$$
+  The result follows since $\Psi\Omega\Psi = E [(U', V')' (U', V')] - (\delta', \tau')' (\delta', \tau')$.
 \end{proof}
 
 \begin{proof}[Proof of Theorem \ref{thm:sim}]
@@ -133,34 +123,6 @@ $1-\alpha_1 - \alpha_2 \leq P\left[\left \{ a(\xi) \leq \Lambda (\xi) \leq b(\xi
 \leq P\left[ a_{min} \leq \Lambda(\xi) \leq b_{max} \right]$.
 \end{proof}
 
-\begin{proof}[Proof of Theorem \ref{thm:REvsFE}]
-  This proof is standard so we provide only a sketch.
-  First, let 
-  $A_n = (n^{-1}\sum_{i=1}^n \mathbf{x}_i' \widehat{\Omega}^{-1}\mathbf{x}_i)$, $B_n = (n^{-1} \sum_{i=1}^n \mathbf{x}_i' Q\mathbf{x}_i)$, and $C_n = T\widehat{\sigma}_\alpha^2 + \widehat{\sigma}_\varepsilon^2$.
-  Now, expanding $\widehat{\beta}_{FE}$, $\mathbf{\beta}_{RE}$, and $\widehat{\tau}$ and re-arranging
-\[
-  \left[
-  \begin{array}{c}
-\sqrt{n} (\widehat{\beta}_{RE} - \beta)\\
-\sqrt{n} (\widehat{\beta}_{FE} - \beta)\\
-\widehat{\tau}
-  \end{array}
-\right] = 
-\left[
-\begin{array}{cc}
-  A_n^{-1} & 0 \\
-  0 & B_n^{-1} \\
-  C_n & -C_nA_nB_n^{-1}
-\end{array}
-\right] \left[
-\begin{array}{c}
-  n^{-1/2} \sum_{i=1}^n \mathbf{x}_i' \widehat{\Omega}^{-1} \mathbf{v}_i\\ 
-  n^{-1/2} \sum_{i=1}^n \mathbf{x}_i' Q\mathbf{v}_i
-\end{array}
-\right].
-\]
-The result follows by applying a law of large numbers to $A_n, B_n, C_n$, and $\widehat{\Omega}$ and the Lindeberg-Feller CLT jointly to $n^{-1/2} \sum_{i=1}^n \mathbf{x}_i'Q\mathbf{v}_i$ and $n^{-1/2}\sum_{i=1}^n \mathbf{x}_i' \Omega^{-1} \mathbf{v}_i$. 
-\end{proof}
 
 \begin{proof}[Proof of Theorem \ref{thm:limitDpanel}.]
   This proof is standard, so we provide only a sketch.
@@ -229,34 +191,5 @@ The result follows, after some algebra, by applying the Lindeberg-Feller CLT to 
     \left\{n^{-1/2} X'\Delta \mathbf{v}\right\}' 
   \end{array}
 \right]'.$
-\end{proof}
-
-
-\begin{proof}[Proof of Theorem \ref{thm:OLSvsMG}]
-Expanding the definitions of the OLS and mean-group estimators, 
-\begin{align*}
-  \sqrt{n} (\widehat{\beta}_{OLS} - \beta) &=  \left[\begin{array}{cc}
-    \left(n^{-1}\sum_{i=1}^{n} \mathbf{x}_i'  \mathbf{x}_i\right)^{-1} & \left(n^{-1}\sum_{i=1}^{n} \mathbf{x}_i'  \mathbf{x}_i\right)^{-1}\end{array} \right] 
-  \left[\begin{array}{c} 
-n^{-1/2}\sum_{i=1}^{n} \mathbf{x}_i'\mathbf{x}_i\mathbf{\eta}_i   \\
-n^{-1/2}\sum_{i=1}^{n} \mathbf{x}_i'\mathbf{\varepsilon}_i   
-\end{array}\right]\\
-\sqrt{n} (\widehat{\beta}_{MG} - \beta)  &=  n^{-1/2} \sum_{i=1}^n \left[\eta_i + (\mathbf{x}_i'\mathbf{x}_i)^{-1} \mathbf{x}_i'\varepsilon_i\right]
-\end{align*}
-and proceeding similarly for $\widehat{\tau}$,
-\[
-\widehat{\tau}  =  
-\left[
-  \begin{array}{ccc}
-  1 & 1& -n^{-1}\sum_{i=1}^n \mathbf{x}_i'\mathbf{x}_i
-\end{array}\right] 
-\left[\begin{array}{c}
-n^{-1/2} \sum_{i=1}^n \mathbf{x}_i'\mathbf{x}_i \eta_i \\
-n^{-1/2} \sum_{i=1}^n \mathbf{x}_i'\varepsilon_i\\
-n^{-1/2} \sum_{i=1}^n \left\{ \eta_i + (\mathbf{x}_i'\mathbf{x}_i)^{-1} \mathbf{x}_i'\varepsilon_i\right\} 
-\end{array}
-\right].
-\]
-The result follows, after some algebra, by a LLN and the Lindeberg-Feller CLT.
 \end{proof}
 

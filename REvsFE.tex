@@ -1,7 +1,6 @@
 %!TEX root = main.tex
-\section{Examples of the GFIC in Panel Data Models}
-\label{sec:examples}
-
+\section{Additional Examples}
+\label{sec:additional}
 \subsection{Random Effects versus Fixed Effects Example}
 \label{sec:REvsFE}
 In this section we consider a simple example in which the GFIC is used to choose between and average over alternative assumptions about individual heterogeneity: Random Effects versus Fixed Effects.
@@ -79,6 +78,34 @@ where $\eta^2 = E[\mathbf{x}_i'\Omega^{-1}\mathbf{x}_i]$, $c = E[\mathbf{x}_i' Q
 \[\sigma^2 = \frac{(T\sigma_{\alpha}^2 + \sigma_{\varepsilon}^2)^2}{E\left[ \mathbf{x}_i'\Omega^{-1}\mathbf{x}_i \right]}\left( \frac{\sigma_{\varepsilon}^2}{E\left[ \mathbf{x}_i \Omega^{-1} \mathbf{x}_i \right]E\left[ \mathbf{x}_i Q \mathbf{x}_i \right]} - 1 \right). \]
 \end{thm}
 
+\begin{proof}[Proof of Theorem \ref{thm:REvsFE}]
+  This proof is standard so we provide only a sketch.
+  First, let 
+  $A_n = (n^{-1}\sum_{i=1}^n \mathbf{x}_i' \widehat{\Omega}^{-1}\mathbf{x}_i)$, $B_n = (n^{-1} \sum_{i=1}^n \mathbf{x}_i' Q\mathbf{x}_i)$, and $C_n = T\widehat{\sigma}_\alpha^2 + \widehat{\sigma}_\varepsilon^2$.
+  Now, expanding $\widehat{\beta}_{FE}$, $\mathbf{\beta}_{RE}$, and $\widehat{\tau}$ and re-arranging
+\[
+  \left[
+  \begin{array}{c}
+\sqrt{n} (\widehat{\beta}_{RE} - \beta)\\
+\sqrt{n} (\widehat{\beta}_{FE} - \beta)\\
+\widehat{\tau}
+  \end{array}
+\right] = 
+\left[
+\begin{array}{cc}
+  A_n^{-1} & 0 \\
+  0 & B_n^{-1} \\
+  C_n & -C_nA_nB_n^{-1}
+\end{array}
+\right] \left[
+\begin{array}{c}
+  n^{-1/2} \sum_{i=1}^n \mathbf{x}_i' \widehat{\Omega}^{-1} \mathbf{v}_i\\ 
+  n^{-1/2} \sum_{i=1}^n \mathbf{x}_i' Q\mathbf{v}_i
+\end{array}
+\right].
+\]
+The result follows by applying a law of large numbers to $A_n, B_n, C_n$, and $\widehat{\Omega}$ and the Lindeberg-Feller CLT jointly to $n^{-1/2} \sum_{i=1}^n \mathbf{x}_i'Q\mathbf{v}_i$ and $n^{-1/2}\sum_{i=1}^n \mathbf{x}_i' \Omega^{-1} \mathbf{v}_i$. 
+\end{proof}
 
 
 We see from Theorem \ref{thm:REvsFE} that $AMSE(\widehat{\beta}_{RE}) = c^2 \tau^2 + \eta^2$, $AMSE(\widehat{\beta}_{FE}) = c^2\sigma^2 + \eta^2$, and $\widehat{\tau}^2 - \sigma^2$ provides an asymptotically unbiased estimator of $\tau^2$.

@@ -62,6 +62,35 @@ Then, under standard regularity conditions,
 where $\kappa = E[\mathbf{x}_i' \mathbf{x}_i]$, $\lambda^2 = Var\left( \mathbf{x}_i'\mathbf{x}_i \right)$, and $\zeta = E\left[ \left( \mathbf{x}_i' \mathbf{x}_i \right)^{-1} \right]$.  
 \end{thm}
 
+\begin{proof}[Proof of Theorem \ref{thm:OLSvsMG}]
+Expanding the definitions of the OLS and mean-group estimators, 
+\begin{align*}
+  \sqrt{n} (\widehat{\beta}_{OLS} - \beta) &=  \left[\begin{array}{cc}
+    \left(n^{-1}\sum_{i=1}^{n} \mathbf{x}_i'  \mathbf{x}_i\right)^{-1} & \left(n^{-1}\sum_{i=1}^{n} \mathbf{x}_i'  \mathbf{x}_i\right)^{-1}\end{array} \right] 
+  \left[\begin{array}{c} 
+n^{-1/2}\sum_{i=1}^{n} \mathbf{x}_i'\mathbf{x}_i\mathbf{\eta}_i   \\
+n^{-1/2}\sum_{i=1}^{n} \mathbf{x}_i'\mathbf{\varepsilon}_i   
+\end{array}\right]\\
+\sqrt{n} (\widehat{\beta}_{MG} - \beta)  &=  n^{-1/2} \sum_{i=1}^n \left[\eta_i + (\mathbf{x}_i'\mathbf{x}_i)^{-1} \mathbf{x}_i'\varepsilon_i\right]
+\end{align*}
+and proceeding similarly for $\widehat{\tau}$,
+\[
+\widehat{\tau}  =  
+\left[
+  \begin{array}{ccc}
+  1 & 1& -n^{-1}\sum_{i=1}^n \mathbf{x}_i'\mathbf{x}_i
+\end{array}\right] 
+\left[\begin{array}{c}
+n^{-1/2} \sum_{i=1}^n \mathbf{x}_i'\mathbf{x}_i \eta_i \\
+n^{-1/2} \sum_{i=1}^n \mathbf{x}_i'\varepsilon_i\\
+n^{-1/2} \sum_{i=1}^n \left\{ \eta_i + (\mathbf{x}_i'\mathbf{x}_i)^{-1} \mathbf{x}_i'\varepsilon_i\right\} 
+\end{array}
+\right].
+\]
+The result follows, after some algebra, by a LLN and the Lindeberg-Feller CLT.
+\end{proof}
+
+
 As mentioned above, the OLS estimator need not have a lower variance than the mean-group estimator if $\sigma_{\eta}^2$ is sufficiently large.
 This fact follows as a corollary of Theorem \ref{thm:OLSvsMG}.
 

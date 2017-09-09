@@ -29,12 +29,8 @@
 \input{asymptotic_framework.tex}
 \input{general_gfic.tex}
 \input{averaging_estimators.tex}
-\input{REvsFE.tex}
 \input{dynamic_panel.tex}
-\input{slope_heterogeneity.tex}
-\input{simulation_REvsFE.tex}
 \input{simulation_Dpanel.tex}
-%\input{simulation_hetero.tex}
 \input{empirical_examples.tex}
 \input{conclusion.tex}
 
@@ -47,6 +43,28 @@
 
 \input{proofs.tex}
 \newpage
+
+% Online Appendix
+\clearpage
+\normalsize
+\numberwithin{equation}{section}
+\numberwithin{table}{section}
+\numberwithin{figure}{section}
+\begin{center}
+  {\Huge Online Appendix\\}
+  \vspace{1em}
+  {\Large A Generalized Focused Information Criterion for GMM\\}
+  \vspace{2em}
+  {\large Minsu Chang, Francis J.\ DiTraglia\\ University of Pennsylvania}
+\end{center}
+
+\pagenumbering{arabic}% resets `page` counter to 1
+\renewcommand*{\thepage}{Online Appendix - \arabic{page}}
+\normalsize
+\input{REvsFE.tex}
+\input{slope_heterogeneity.tex}
+\newpage
+\input{simulation_REvsFE.tex}
 \input{simulation_supplement.tex}
 
 

@@ -1,9 +1,6 @@
 %!TEX root = main.tex
-\section{Simulation Results}
-\label{sec:simulation}
-We now evaluate the performance of the GFIC in a number of simulation experiments based on the Examples form Section \ref{sec:examples}.\footnote{In the interest of space we omit the simulation results for the slope heterogeneity example from Section \ref{sec:slopeHet}.
-These are available upon request.}
-
+\section{Supplementary Simulation Results}
+\label{sec:simulation_supplement}
 \subsection{Fixed vs.\ Random Effects Example}
 \label{sec:REvsFEsim}
 We employ a simulation design similar to that used by \cite{GuggenbergerRE}, namely
@@ -65,3 +62,12 @@ The averaging estimator performs even better, providing a nearly uniform improve
 Only at very large values of $\gamma$ does it yield a higher RMSE, and these are points in the parameter space where the fixed effects, post-GFIC and averaging estimators are for all intents and purposes identical in RMSE.
 Results for $T=5$ are qualitatively similar.
 See Figure \ref{fig:REvsFE_T5} of Appendix \ref{sec:simulation_supplement} for details.
+
+%Note that in the RE vs FE simulation when $T=5$, setting $\rho = 0.3$ violates positive definiteness so we take $\rho=0.4$ as our smallest value in this case.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{figure}[H]
+  \centering
+  \input{./REvsFE/SimPlots/T=5/RMSE_coarse_rho_relative_all_v2_5.tex}
+  \caption{RMSE for Random vs.\ Fixed effects example from Section \ref{sec:REvsFEsim}: $T=5, \sigma_{\varepsilon}^2 = 2.5$}
+  \label{fig:REvsFE_T5}
+\end{figure}
