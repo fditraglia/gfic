@@ -1,5 +1,5 @@
 %!TEX root = main.tex
-\section{Dynamic Panel Example}
+\subsection{Dynamic Panel Example}
 \label{sec:Dpanel}
 We now specialize the GFIC to a dynamic panel model of the form 
 \begin{equation}
@@ -64,24 +64,24 @@ If $x$ is strictly exogenous, this expectation equals zero, but if $x$ is only p
 Given the instrument sets that we consider, this is the only violation of strict exogeneity that is relevant for our moment selection so we take $E[x_{it}v_{it-1}] = -\tau/\sqrt{n}$.
 
 In the examples and simulations described below we consider two-stage least squares (TSLS) estimation of $\mu_{SR}$ and $\mu_{LR}$ using the instruments defined in Equation \ref{eq:Zdpanel}. 
-For simplicity, we select between two lag length specifications: the first is correct, $\ell = k$, and the second includes one lag too few: $\ell = r$ where $r = k-1$.
-Accordingly, we make the coefficient associated with the $k$\textsuperscript{th} lag local to zero.
-Let $\boldsymbol{\gamma}' = (\gamma_1, \cdots, \gamma_{k-1}, \gamma_{k})$ denote the full vector of lag coefficients and $\boldsymbol{\gamma}_{r} = (\gamma_1, \cdots, \gamma_{r})$ denote the first $r = k-1$ lag coefficients.
-Then, the true parameter vector is $\beta_n = (\theta, \boldsymbol{\gamma}'_{r}, \delta/\sqrt{n})'$ which becomes, in the limit, $\beta = (\theta, \boldsymbol{\gamma}'_r, 0)'$.
-To indicate the subvector of $\beta$ that excludes the $k$\textsuperscript{th} lag coefficient, let $\beta_{r} = (\theta, \boldsymbol{\gamma}_r')'$.
+Without loss of generality, we select between two lag length specifications: the first is correct, $\ell = k$, and the second includes $m$ lags too few: $\ell = r$ where $r = k-m$.
+Accordingly, we make the coefficients associated with the $(k-m+1)$\textsuperscript{th}, $\ldots, k$\textsuperscript{th} lags local to zero.
+Let $\boldsymbol{\gamma}' = (\gamma_1, \cdots, \gamma_{k-1}, \gamma_{k})$ denote the full vector of lag coefficients and $\boldsymbol{\gamma}_{r}' = (\gamma_1, \cdots, \gamma_{r})$ denote the first $r = k-m$ lag coefficients.
+Then, the true parameter vector is $\beta_n = (\theta, \boldsymbol{\gamma}'_{r}, \boldsymbol{\delta}'/\sqrt{n})'$ which becomes, in the limit, $\beta = (\theta, \boldsymbol{\gamma}'_r, \boldsymbol{0}')'$. Both $\boldsymbol{\delta}$ and $\boldsymbol{0}$ are of length $m$. 
+To indicate the subvector of $\beta$ that excludes the $(k-m+1)$\textsuperscript{th}, $\ldots, k$\textsuperscript{th} lag coefficients, let $\beta_{r} = (\theta, \boldsymbol{\gamma}_r')'$. Lastly, let $\boldsymbol{\gamma}_{r^c}' = (\gamma_{r+1}, \gamma_{r+2}, \ldots, \gamma_k)$ which includes the last $m$ lag coefficients.
 
 Because the two lag specifications we consider use different time periods in estimation, we require some additional notation to make this clear. 
 First let
-$\Delta \mathbf{y}_{i} = [\Delta y_{i,k+2}, \cdots, \Delta y_{iT}]'$ and $\Delta \mathbf{y}^+_{i} = [\Delta y_{i,k+1}, \Delta y_{i,k+2}, \cdots, \Delta y_{iT}]'$ 
-where the superscript ``+'' indicates the inclusion of an additional time period: $t = k+1$.
+$\Delta \mathbf{y}_{i} = [\Delta y_{i,k+2}, \cdots, \Delta y_{iT}]'$ and $\Delta \mathbf{y}^+_{i} = [\Delta y_{i,k+2-m}, \Delta y_{i,k+2-(m-1)}, \cdots, \Delta y_{iT}]'$ 
+where the superscript ``+'' indicates the inclusion of $m$ additional time periods: $t = k+2-m, \ldots, k+1$.
 Define $\Delta \mathbf{x}_i$, $\Delta \mathbf{x}_{i}^{+}$, $\Delta \mathbf{v}_i$, and $\Delta \mathbf{v}_{i}^{+}$ analogously.
-Next, define $L^k\Delta \mathbf{y}_i^{+} = [\Delta y_{i1}, \Delta y_{i2}, \cdots, \Delta y_{iT-k}]'$ where $L^k$ denotes the element-wise application of the $k$\textsuperscript{th} order lag operator.
-Note that the first element of $L^k\Delta \mathbf{y}_{i}^{+}$ is unobserved since $\Delta y_{i1} = y_{i1} - y_{i0}$ but $t=1$ is the first time period.
+Next, define $L^{k-m+1}\Delta \mathbf{y}_i^{+} = [\Delta y_{i1}, \Delta y_{i2}, \cdots, \Delta y_{iT-(k-m+1)}]'$ where $L^{k-m+1}$ denotes the element-wise application of the $(k-m+1)$\textsuperscript{th} order lag operator.
+Note that the first element of $L^{k-m+1}\Delta \mathbf{y}_{i}^{+}$ is unobserved since $\Delta y_{i1} = y_{i1} - y_{i0}$ but $t=1$ is the first time period.
 Now we define the matrices of regressors for the two specifications: 
 \begin{align*}
   W_i^{+'}(r) &= \left[
   \begin{array}{ccccc}
-    \Delta \mathbf{x}_i^+ & L \Delta \mathbf{y}_i^{+} &  L^2 \Delta \mathbf{y}_i^{+} & \cdots & L^{k-1}\Delta \mathbf{y}_i^{+} 
+    \Delta \mathbf{x}_i^+ & L \Delta \mathbf{y}_i^{+} &  L^2 \Delta \mathbf{y}_i^{+} & \cdots & L^{k-m}\Delta \mathbf{y}_i^{+} 
   \end{array}
 \right]\\
   W_i'(k) &= \left[
@@ -90,7 +90,7 @@ Now we define the matrices of regressors for the two specifications:
   \end{array}
 \right].
 \end{align*}
-Note that $W_i^{+}(r)$ contains one more row than $W_i(k)$ but $W_i(k)$ contains one more column than $W_i^{+}(r)$: removing the $k$\textsuperscript{th} lag from the model by setting $\ell = r = k-1$ allows us to use an additional time period in estimation and reduces the number of regressors by one. 
+Note that $W_i^{+}(r)$ contains $m$ more rows than $W_i(k)$ but $W_i(k)$ contains $m$ more columns than $W_i^{+}(r)$: removing the $(k-m+1)$\textsuperscript{th}, $\ldots, k$\textsuperscript{th} lags from the model by setting $\ell = r = k-m$ allows us to use $m$ additional time periods in estimation and reduces the number of regressors by $m$. 
 Stacking over individuals, let $\Delta \mathbf{y} = [\Delta \mathbf{y}'_1 \cdots \Delta \mathbf{y}'_n]'$, $W_\ell = [W_1(\ell) \cdots W_n(\ell)]'$ and define $\Delta \mathbf{y}^{+}$ and $W_\ell^{+}$ analogously, where $\ell$ denotes the lag length used in estimation.
 Finally, let $Z'(\ell,\cdot) = [Z'_1(\ell,\cdot) \cdots Z'_n(\ell,\cdot)]$ where $(\cdot)$ is $\text{P}$ or $\text{S}$ depending on the instrument set in use.
 Using this notation, under local mis-specification the true model is
@@ -103,26 +103,26 @@ Using the shorthand $\widehat{Q} \equiv n[W' Z(Z'Z)^{-1} Z'W]^{-1}W'Z(Z'Z)^{-1}$
   \widehat{\beta}(r,\cdot) &= \widehat{Q}(r,\cdot)\left[ \frac{Z'(r,\cdot)\Delta \mathbf{y}^{+}}{n} \right]
   \label{eq:DpanelEstimators}
 \end{align}
-where $(\cdot)$ is either $\text{P}$ or $\text{S}$ depending on which instrument set is used and $r = k-1$, one lag fewer than the true lag length $k$.
+where $(\cdot)$ is either $\text{P}$ or $\text{S}$ depending on which instrument set is used and $r = k-m$, $m$ lags fewer than the true lag length $k$.
 The following result describes the limit distribution of $\widehat{\beta}(k,\text{P})$, $\widehat{\beta}(k,\text{S})$, $\widehat{\beta}(r,\text{P})$, and $\widehat{\beta}(r,\text{S})$ which we will use to construct the GFIC.
 
 \begin{thm}[Limit Distributions for Dynamic Panel Estimators]
   \label{thm:limitDpanel}
-  Let $(y_{nit},x_{nit}, v_{nit})$ be a triangular array of random variables that is iid over $i$, stationary over $t$, and satisfies Equation \ref{eq:truepaneldiff} with $\gamma_k = \delta / \sqrt{n}$.
+  Let $(y_{nit},x_{nit}, v_{nit})$ be a triangular array of random variables that is iid over $i$, stationary over $t$, and satisfies Equation \ref{eq:truepaneldiff} with $(\gamma_{k-m+1}, \ldots, \gamma_k)' = \boldsymbol{\delta} / \sqrt{n}$.
   Suppose further that $x_{it}$ is predetermined with respect to $v_{it}$ but not strictly exogenous: $E[x_{it}\Delta v_{it}] = \tau/\sqrt{n}$.
   Then, under standard regularity conditions,
   \begin{align*}
     \sqrt{n}\left[ \widehat{\beta}(k,\text{P})-\beta \right] &\rightarrow^d 
     \left[
     \begin{array}{ccc}
-    0 & \mathbf{0}_{k-1}'& \delta 
+    0 & \mathbf{0}_{k-m}'& \boldsymbol{\delta}'
     \end{array}
   \right]' + 
     Q\left(k,\text{P} \right) \mbox{N}\left(\mathbf{0}, \mathcal{V}(k,\text{P})\right)  \\
     \sqrt{n}\left[ \widehat{\beta}(k,\text{S})-\beta \right] &\rightarrow^d 
     \left[
     \begin{array}{ccc}
-    0 & \mathbf{0}_{k-1}'& \delta
+    0 & \mathbf{0}_{k-m}'& \boldsymbol{\delta}'
     \end{array}
   \right]' + 
      Q\left(k,\text{S} \right) \left\{ \boldsymbol{\iota}_{T-(k +1)} \otimes \left[
@@ -130,19 +130,19 @@ The following result describes the limit distribution of $\widehat{\beta}(k,\tex
       \mathbf{0}_{k+1} \\ \tau
     \end{array}
   \right] + \mbox{N}\left(\mathbf{0}, \mathcal{V}(k,\text{S})\right)\right\}\\
-    \sqrt{n}\left[ \widehat{\beta}(r,\text{P})- \beta_r \right] &\rightarrow^d Q(r,\text{P}) \left[\boldsymbol{\iota}_{T-k} \otimes \delta \boldsymbol{\psi}_{\text{P}} + \mbox{N}\left(\mathbf{0}, \mathcal{V}(r,\text{P}) \right) \right]\\
-    \sqrt{n}\left[ \widehat{\beta}(r,\text{S})- \beta_r\right] &\rightarrow^d Q(r,\text{S}) \left[\boldsymbol{\iota}_{T-k} \otimes 
-    \left( \delta \left[
+    \sqrt{n}\left[ \widehat{\beta}(r,\text{P})- \beta_r \right] &\rightarrow^d Q(r,\text{P}) \left[\boldsymbol{\iota}_{T-(k-m+1)} \otimes  \boldsymbol{\psi}_{\text{P}}\, \boldsymbol{\delta} + \mbox{N}\left(\mathbf{0}, \mathcal{V}(r,\text{P}) \right) \right]\\
+    \sqrt{n}\left[ \widehat{\beta}(r,\text{S})- \beta_r\right] &\rightarrow^d Q(r,\text{S}) \left[\boldsymbol{\iota}_{T-(k-m+1)} \otimes 
+    \left(  \left[
   \begin{array}{c}
-    \boldsymbol{\psi}_{\text{P}} \\ \psi_{\text{S}}
+    \boldsymbol{\psi}_{\text{P}}\, \boldsymbol{\delta} \\ \boldsymbol{\psi}_{\text{S}}\, \boldsymbol{\delta}
 \end{array}
 \right] + \left[
 \begin{array}{c}
-  \mathbf{0}_{k} \\ \tau
+  \mathbf{0}_{k-m+1} \\ \tau
 \end{array}
 \right]\right) + \mbox{N}\left( \mathbf{0}, \mathcal{V}\left(r,\text{S}\right) \right)\right]
   \end{align*}
-  where $k = r - 1$, $\beta' = (\theta, \gamma_1, \hdots, \gamma_{r}, 0)$, $\beta_r' = (\theta, \gamma_1, \hdots, \gamma_{r})$, $\mathcal{V}(k,\cdot) = \mbox{Var}\left[ Z_i(k,\cdot) \Delta \mathbf{v}_i  \right]$, $\mathcal{V}(r,\cdot) = \mbox{Var}\left[ Z_i(r,\cdot) \Delta \mathbf{v}^{+}_i  \right]$, $\widehat{Q}(\ell,\cdot) \rightarrow_p Q(\ell,\cdot)$, $\boldsymbol{\psi}_{\text{P}} = E[\textbf{z}_{it}(r,\text{P}) \Delta y_{it -k}]$, $\psi_{\text{S}} = E[x_{it} \Delta y_{it-k}]$, $\mathbf{z}_{it}(\ell,\cdot)$ is as in Equation \ref{eq:Zdpanel}, $Z_i(\ell, \cdot)= \mbox{diag}\{\mathbf{z}_{it}'(\ell, \cdot)\}_{t=\ell+2}^T$ and $\boldsymbol{\iota}_{d}$ denotes a $d$-vector of ones.
+  where $k = r + m$, $\beta' = (\theta, \gamma_1, \hdots, \gamma_{r}, \boldsymbol{0}_m')$, $\beta_r' = (\theta, \gamma_1, \hdots, \gamma_{r})$, $\mathcal{V}(k,\cdot) = \mbox{Var}\left[ Z_i(k,\cdot) \Delta \mathbf{v}_i  \right]$, $\mathcal{V}(r,\cdot) = \mbox{Var}\left[ Z_i(r,\cdot) \Delta \mathbf{v}^{+}_i  \right]$, $\widehat{Q}(\ell,\cdot) \rightarrow_p Q(\ell,\cdot)$, $\boldsymbol{\psi}_{\text{P}} = E[\textbf{z}_{it}(r,\text{P}) (\Delta y_{it -(k-m+1)}, \ldots, \Delta y_{it-k})]$, $\boldsymbol{\psi}_{\text{S}} = E[x_{it} (\Delta y_{it -(k-m+1)}, \ldots, \Delta y_{it-k})]$, $\mathbf{z}_{it}(\ell,\cdot)$ is as in Equation \ref{eq:Zdpanel}, $Z_i(\ell, \cdot)= \mbox{diag}\{\mathbf{z}_{it}'(\ell, \cdot)\}_{t=\ell+2}^T$ and $\boldsymbol{\iota}_{d}$ denotes a $d$-vector of ones.
 \end{thm}
 
 To operationalize the GFIC, we need to provide appropriate estimators of all quantities that appear in Theorem \ref{thm:limitDpanel}.
@@ -150,38 +150,47 @@ To estimate ${Q}(k,\text{P})$, ${Q}(k,\text{S})$, ${Q}(r,\text{P})$, and ${Q}(r,
 There are many consistent estimators for the variance matrices $\mathcal{V}(k,\text{P})$, $\mathcal{V}(k,\text{S})$, $\mathcal{V}(r,\text{P})$, $\mathcal{V}(r,\text{S})$ under local mis-specification.
 In our simulations below, we employ the usual heteroskedasticity-consistent, panel-robust variance matrix estimator.
 Because $E[\mathbf{z}_{it}(\ell,\text{S})\Delta v_{it}]\neq 0$, we center our estimators of $\mathcal{V}(\ell, \text{S})$ by subtracting the sample analogue of this expectation when calculating the sample variance.
-We estimate $\boldsymbol{\psi}_{\text{P}}$ and $\psi_{\text{S}}$ as follows
+We estimate $\boldsymbol{\psi}_{\text{P}}$ and $\boldsymbol{\psi}_{\text{S}}$ as follows
 \begin{align*}
-  \widehat{\boldsymbol{\psi}}_{\text{P}} &= \frac{1}{n(T - k - 1)}\sum_{t = k+2}^T \sum_{i = 1}^n \mathbf{z}_{it}(r,\text{P}) \Delta y_{it-k} &
-  \widehat{\psi}_{\text{S}} &= \frac{1}{n(T - k - 1)}\sum_{t = k+2}^T \sum_{i = 1}^n x_{it} \Delta y_{it-k}
+  \widehat{\boldsymbol{\psi}}_{\text{P}}' &=\begin{bmatrix}
+  \frac{\sum_{t = k+2}^T \sum_{i = 1}^n \mathbf{z}_{it}(r,\text{P}) \Delta y_{it-(k-m+1)}}{n(T-k-1)}\\
+  \vdots \\
+   \frac{\sum_{t = k+2}^T \sum_{i = 1}^n \mathbf{z}_{it}(r,\text{P}) \Delta y_{it-k}}{n(T-k-1)}
+\end{bmatrix},   &
+  \widehat{\boldsymbol{\psi}}_{\text{S}}' &=\begin{bmatrix}
+   \frac{\sum_{t = k+2}^T \sum_{i = 1}^n x_{it} \Delta y_{it-(k-m+1)}}{n(T-k-1)}\\
+   \vdots\\
+    \frac{\sum_{t = k+2}^T \sum_{i = 1}^n x_{it} \Delta y_{it-k}}{n(T-k-1)}
+\end{bmatrix}  
 \end{align*}
 using our assumption of stationarity from above.
-The only remaining quantities we need to construct the GFIC involve the bias parameters $\delta$ and $\tau$. 
-We can read off an asymptotically unbiased estimator of $\delta$ directly from Theorem \ref{thm:limitDpanel}, namely $\widehat{\delta} = \sqrt{n}\; \widehat{\gamma}_k(k,\text{P})$ the estimator of $\gamma_k$ based on the instrument set that assumes only that $x$ is pre-determined rather than strictly exogenous.
+The only remaining quantities we need to construct the GFIC involve the bias parameters $\boldsymbol{\delta}$ and $\tau$. 
+We can read off an asymptotically unbiased estimator of $\boldsymbol{\delta}$ directly from Theorem \ref{thm:limitDpanel}, namely $\widehat{\boldsymbol{\delta}} = \sqrt{n}\; (\widehat{\gamma}_{k-m+1}(k,\text{P}), \ldots, \widehat{\gamma}_k(k,\text{P}))'$ based on the instrument set that assumes only that $x$ is pre-determined rather than strictly exogenous.
 To construct an asymptotically unbiased estimator of $\tau$, we use the residuals from the specification that uses \emph{both} the correct moment conditions and the correct lag specification, specifically
 \begin{equation}
   \label{eq:DpanelTau}
   \widehat{\tau} = \left( \frac{\boldsymbol{\iota}_{T-k-1}'}{T - k - 1} \right) n^{-1/2} X' \left[\Delta \mathbf{y} - W(k)\widehat{\beta}(k,\text{P})  \right]
 \end{equation}
 where $X' = [X_1 \cdots X_n]$ and $X_i = \mbox{diag}\left\{ x_{it} \right\}_{t = k + 2}^{T}$.
-The following result gives the joint limiting behavior of $\widehat{\delta}$ and $\widehat{\tau}$, which we will use to construct the GFIC.
+The following result gives the joint limiting behavior of $\widehat{\boldsymbol{\delta}}$ and $\widehat{\tau}$, which we will use to construct the GFIC.
 
-\begin{thm}[Joint Limit Distribution of $\widehat{\delta}$ and $\widehat{\tau}$]
+\begin{thm}[Joint Limit Distribution of $\widehat{\boldsymbol{\delta}}$ and $\widehat{\tau}$]
   \label{thm:DpanelJoint}
   Under the conditions of Theorem \ref{thm:limitDpanel},
   \[
     \left[
       \begin{array}{c} 
-        \widehat{\delta} - \delta \\ \widehat{\tau} - \tau 
+        \widehat{\boldsymbol{\delta}} - \boldsymbol{\delta} \\ \widehat{\tau} - \tau 
       \end{array} 
     \right] \overset{d}{\rightarrow} \Psi \mbox{N}\left(\mathbf{0}, \Pi\,\mathcal{V}\left(k,\text{S}\right)\,\Pi'\right)
   \]
-  where $\widehat{\delta} = \sqrt{n}[ \mathbf{e}_k' \,\widehat{\beta}(k,\text{P})]$, $\mathbf{e}_k = (0, \mathbf{0}_{k-1}', 1)'$,  $\widehat{\tau}$ is as defined in Equation \ref{eq:DpanelTau}, 
+  where $\widehat{\boldsymbol{\delta}} = \sqrt{n}[ \mathbf{e}_k' \,\widehat{\beta}(k,\text{P})]$, $\mathbf{e}_k = (0, \mathbf{0}_{k-m}', \boldsymbol{\iota}_m')'$,  $\widehat{\tau}$ is as defined in Equation \ref{eq:DpanelTau}, 
 \[
   \Psi = \left[
   \begin{array}{cc}
-    \displaystyle\left( \frac{\boldsymbol{\iota}'_{T-k-1}}{T-k-1} \right)  \left\{ \boldsymbol{\xi}' Q(k,\text{P}) \otimes \boldsymbol{\iota}'_{T-k-1} \right\}& \displaystyle \left(\frac{\boldsymbol{\iota}_{T-k-1}}{T-k-1}\right) \\ 
-    \mathbf{e}_k' Q(k,\text{P}) & \mathbf{0}'_{T-k-1}
+    \displaystyle
+    \mathbf{e}_k' Q(k,\text{P}) & \mathbf{0}'_{T-k-1}\\
+    \left( \frac{\boldsymbol{\iota}'_{T-k-1}}{T-k-1} \right)  \left\{ \boldsymbol{\xi}' Q(k,\text{P}) \otimes \boldsymbol{\iota}'_{T-k-1} \right\}& \displaystyle \left(\frac{\boldsymbol{\iota}_{T-k-1}}{T-k-1}\right) 
   \end{array}
 \right],
 \]
@@ -204,7 +213,7 @@ The following result gives the joint limiting behavior of $\widehat{\delta}$ and
   $\boldsymbol{\iota}_{d}$ is a $d$-vector of ones and $I_d$ the $(d\times d)$ identity matrix.
 \end{thm}
 
-To provide asymptotically unbiased estimators of the quantities $\tau^2$, $\delta^2$ and $\tau\delta$ that appear in the AMSE expressions for our estimators, we apply a bias correction to the asymptotically unbiased estimators of $\delta$ and $\tau$ from Theorem \ref{thm:DpanelJoint}.
+To provide asymptotically unbiased estimators of the quantities $\tau^2$, $\boldsymbol{\delta}\boldsymbol{\delta}'$ and $\boldsymbol{\delta}\tau$ that appear in the AMSE expressions for our estimators, we apply a bias correction to the asymptotically unbiased estimators of $\boldsymbol{\delta}$ and $\tau$ from Theorem \ref{thm:DpanelJoint}.
 
 \begin{cor}
   Let $\widehat{\Psi}$ be a consistent estimator of $\Psi$, defined in Theorem \ref{thm:DpanelJoint}, and $\widehat{\mathcal{V}}(k,\text{S})$ be a consistent estimator of $\mathcal{V}(k,\text{S})$, defined in Theorem \ref{thm:limitDpanel}.
@@ -212,12 +221,12 @@ To provide asymptotically unbiased estimators of the quantities $\tau^2$, $\delt
   \[
     \left[
     \begin{array}{cc}
-      \widehat{\delta}^2 & \widehat{\delta} \widehat{\tau} \\
-      \widehat{\tau} \widehat{\delta} & \widehat{\tau}^2
+      \widehat{\boldsymbol{\delta}} \widehat{\boldsymbol{\delta}}' & \widehat{\boldsymbol{\delta}} \widehat{\tau} \\
+      \widehat{\tau} \widehat{\boldsymbol{\delta}}' & \widehat{\tau}^2
     \end{array}
   \right] - \widehat{\Psi}\, \Pi \, \widehat{V}(k,\text{S}) \, \Pi' \, \widehat{\Psi}'
   \]
-  provide asymptotically unbiased estimators of of $\delta^2$, $\tau^2$ and $\tau\delta$, where $\Pi$ is the permutation matrix defined in Theorem \ref{thm:DpanelJoint}.
+  provide asymptotically unbiased estimators of of $\boldsymbol{\delta}\boldsymbol{\delta}'$, $\tau^2$ and $\boldsymbol{\delta}\tau$, where $\Pi$ is the permutation matrix defined in Theorem \ref{thm:DpanelJoint}.
 \end{cor}
 
 We have already discussed consistent estimation of $\widehat{\mathcal{V}}(k,\text{S})$.
@@ -234,79 +243,29 @@ The sample analogue $\widehat{Q}(k,\text{P})$ is a consistent estimator for $Q(k
 is consistent for $\xi'$.
 We now have all the quantities needed to construct the GFIC for $\mu_{SR}$, the short-run effect of $x$ on $y$.
 Since $\mu_{SR} = \theta$, we can read off the AMSE expression for this parameter directly from Theorem \ref{thm:limitDpanel}.
-For the long-run effect $\mu_{LR}$, however, we need to formally apply the Delta-method and account for the fact that the true value of $\gamma_k$ is $\delta/\sqrt{n}$.
+For the long-run effect $\mu_{LR}$, however, we need to formally apply the Delta-method and account for the fact that the true value of $\boldsymbol{\gamma}_{r^c} = (\gamma_{k-m+1}, \ldots, \gamma_k)'$ is $\boldsymbol{\delta}/\sqrt{n}$.
 Expressed as a function $\varphi$ of the underlying model parameters, 
 \[
-  \mu_{LR} = \varphi(\theta, \boldsymbol{\gamma}_r, \gamma_k) = \frac{\theta}{1 - \boldsymbol{\iota}_r' \boldsymbol{\gamma}_r - \gamma_k}
+  \mu_{LR} = \varphi(\theta, \boldsymbol{\gamma}_r, \boldsymbol{\gamma}_{r^c}) = \frac{\theta}{1 - \boldsymbol{\iota}_r' \boldsymbol{\gamma}_r - \boldsymbol{\iota}_m'\boldsymbol{\gamma}_{r^c}}
 \]
 and the derivatives of $\varphi$ are
 \[
-  \nabla \varphi(\theta, \boldsymbol{\gamma}_r, \gamma_k)' = \left[
+  \nabla \varphi(\theta, \boldsymbol{\gamma}_r, \boldsymbol{\gamma}_{r^c})' = \left[
   \begin{array}{ccc}
     \displaystyle\frac{\partial \varphi}{\partial \theta} & 
     \displaystyle\frac{\partial \varphi}{\partial \boldsymbol{\gamma}_r'} &
-    \displaystyle\frac{\partial \varphi}{\partial \gamma_k} 
+    \displaystyle\frac{\partial \varphi}{\partial \boldsymbol{\gamma}_{r^c}'} 
   \end{array}
 \right] = 
-\left( \frac{1}{1 - \boldsymbol{\iota}_r' \boldsymbol{\gamma}_r - \gamma_k} \right)^2 \left[
+\left( \frac{1}{1 - \boldsymbol{\iota}_r' \boldsymbol{\gamma}_r - \boldsymbol{\iota}_m' \boldsymbol{\gamma}_{r^c}} \right)^2 \left[
 \begin{array}{ccc}
-  \left( 1 - \boldsymbol{\iota}_r' \boldsymbol{\gamma}_r - \gamma_k \right) & \theta \,\boldsymbol{\iota}_r' & \theta 
+  \left( 1 - \boldsymbol{\iota}_r' \boldsymbol{\gamma}_r - \boldsymbol{\iota}_m'\boldsymbol{\gamma}_{r^c} \right) & \theta \,\boldsymbol{\iota}_r' & \theta \, \boldsymbol{\iota}_m' 
 \end{array}
 \right].
 \]
-Using this notation, the limiting value of $\mu_{LR}$ is $\mu_{LR}^{0} =  \varphi(\theta, \boldsymbol{\gamma}_r, 0)$
+Using this notation, the limiting value of $\mu_{LR}$ is $\mu_{LR}^{0} =  \varphi(\theta, \boldsymbol{\gamma}_r, \boldsymbol{0}_m')$
 while the true value is
-$\mu_{LR}^{n} = \varphi(\theta, \boldsymbol{\gamma}_r, \delta/\sqrt{n})$.
-Similarly, the limiting value of $\nabla\varphi$ is $\nabla \varphi_0 = \nabla \varphi(\theta, \boldsymbol{\gamma}_r, 0)'$, obtained by putting zero in place of $\gamma_k$. 
+$\mu_{LR}^{n} = \varphi(\theta, \boldsymbol{\gamma}_r, \boldsymbol{\delta}/\sqrt{n})$.
+Similarly, the limiting value of $\nabla\varphi$ is $\nabla \varphi_0 = \nabla \varphi(\theta, \boldsymbol{\gamma}_r, \boldsymbol{0}_m')'$, obtained by putting zero in place of $\boldsymbol{\gamma}_{r^c}$. 
 We estimate this quantity consistently by plugging in the estimates from $\widehat{\beta}(k, \text{P})$.
-
-%The following corollary collects the remaining limit results that we need to implement the GFIC for $\mu_{LR}$.  
-
-%\begin{cor}[Limit Distribution for $\widehat{\mu}_{LR}$]
-%  Under the conditions of Theorem \ref{thm:limitDpanel}
-%  \begin{align*}
-%    \sqrt{n}\left[ \widehat{\mu}_{LR}(k,\text{P})-\mu_{LR}^n \right] &\rightarrow^d 
-%    \left[
-%    \begin{array}{cc}
-%      1 & \theta \,\boldsymbol{\iota}_k' 
-%    \end{array}
-%  \right] 
-%  \left[ \frac{Q(k, \text{P})}{1 - \boldsymbol{\iota}_r' \boldsymbol{\gamma}_r} \right] 
-%  \mbox{N}\left(\mathbf{0}, \mathcal{V}(k,\text{P})\right)  \\
-%    \sqrt{n}\left[ \widehat{\mu}_{LR}(k,\text{S})-\mu_{LR}^n \right] &\rightarrow^d 
-%    \left[
-%    \begin{array}{cc}
-%      1 & \theta \,\boldsymbol{\iota}_k' 
-%    \end{array}
-%  \right] 
-%  \left[ \frac{Q(k, \text{S})}{1 - \boldsymbol{\iota}_r' \boldsymbol{\gamma}_r} \right] 
-%     \left\{ \boldsymbol{\iota}_{T-(k +1)} \otimes \left[
-%    \begin{array}{c}
-%      \mathbf{0}_{k+1} \\ \tau
-%    \end{array}
-%  \right] + \mbox{N}\left(\mathbf{0}, \mathcal{V}(k,\text{S})\right)\right\}\\
-%  \sqrt{n}\left[ \widehat{\mu}_{LR}(r,\text{P})- \mu_{LR}^n \right] &\rightarrow^d 
-%    \left[
-%    \begin{array}{cc}
-%      1 & \theta \,\boldsymbol{\iota}_r' 
-%    \end{array}
-%  \right] 
-%  \left[ \frac{Q(r, \text{P})}{1 - \boldsymbol{\iota}_r' \boldsymbol{\gamma}_r} \right] 
-%  \left[\boldsymbol{\iota}_{T-k} \otimes \delta \boldsymbol{\psi}_{\text{P}} + \mbox{N}\left(\mathbf{0}, \mathcal{V}(r,\text{P}) \right) \right] - \frac{\delta \theta}{1 - \boldsymbol{\iota}_{r}' \boldsymbol{\gamma}_r}\\
-%  \sqrt{n}\left[ \widehat{\mu}_{LR}(r,\text{S})- \mu_{LR}^n\right] &\rightarrow^d 
-%    \left[
-%    \begin{array}{cc}
-%      1 & \theta \,\boldsymbol{\iota}_r' 
-%    \end{array}
-%  \right] 
-%  \left[ \frac{Q(r, \text{S})}{1 - \boldsymbol{\iota}_r' \boldsymbol{\gamma}_r} \right] 
-%  \left\{\boldsymbol{\iota}_{T-k} \otimes 
-%    \left[
-%  \begin{array}{c}
-%    \delta\boldsymbol{\psi}_{\text{P}} \\ \delta(\psi_{\text{S}} + \tau)
-%\end{array}
-%\right] + \mbox{N}\left( \mathbf{0}, \mathcal{V}\left(r,\text{S}\right) \right)\right\} 
-%- \frac{\delta \theta}{1 - \boldsymbol{\iota}_{r}' \boldsymbol{\gamma}_r}.
-%  \end{align*}
-%\end{cor}
 

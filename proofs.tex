@@ -128,10 +128,10 @@ $1-\alpha_1 - \alpha_2 \leq P\left[\left \{ a(\xi) \leq \Lambda (\xi) \leq b(\xi
   This proof is standard, so we provide only a sketch.
 Expanding, 
 \begin{align*}
-  \sqrt{n}\left[\widehat{\beta}(k,\cdot) - \beta\right] &=(0, \mathbf{0}_{k-1}', \delta)' + \widehat{Q}(k,\cdot)\left[ n^{-1/2}Z'(k,\cdot)\Delta \mathbf{v}\right]\\
-  \sqrt{n}\left[\widehat{\beta}(r,\cdot) - \beta_{r}\right] &=  \widehat{Q}(r,\cdot)\left\{ \delta \left[n^{-1}Z'(r,\cdot) L^{k}\Delta \mathbf{y}^+\right] + \left[n^{-1/2}Z'(r,\cdot)\Delta \mathbf{v}^{+}\right] \right\}
+  \sqrt{n}\left[\widehat{\beta}(k,\cdot) - \beta\right] &=(0, \mathbf{0}_{k-m}', \boldsymbol{\delta}')' + \widehat{Q}(k,\cdot)\left[ n^{-1/2}Z'(k,\cdot)\Delta \mathbf{v}\right]\\
+  \sqrt{n}\left[\widehat{\beta}(r,\cdot) - \beta_{r}\right] &=  \widehat{Q}(r,\cdot)\left\{  \left[n^{-1}Z'(r,\cdot)( L^{k-m+1}\Delta \mathbf{y}^+ , \ldots,  L^{k}\Delta \mathbf{y}^+)\boldsymbol{\delta}\right] + \left[n^{-1/2}Z'(r,\cdot)\Delta \mathbf{v}^{+}\right] \right\}
 \end{align*}
-The result follows, after some algebra, by applying the Lindeberg-Feller CLT to $n^{-1/2}Z'(k,\cdot)\Delta \mathbf{v}$ and $n^{-1/2}Z'(r,\cdot)\Delta \mathbf{v}^{+}$ and an appropriate law of large numbers to $n^{-1} Z'(r,\cdot)L^k \Delta \mathbf{y}^{+}$, where $(\cdot)$ is either $\text{P}$ or $\text{S}$ depending on the instrument set used.
+The result follows by applying the Lindeberg-Feller CLT to $n^{-1/2}Z'(k,\cdot)\Delta \mathbf{v}$ and $n^{-1/2}Z'(r,\cdot)\Delta \mathbf{v}^{+}$ and an appropriate law of large numbers to each element of $n^{-1} Z'(r,\cdot)(L^{k-m+1} \Delta \mathbf{y}^{+}, \ldots, L^k \Delta \mathbf{y}^{+})$, where $(\cdot)$ is either $\text{P}$ or $\text{S}$ depending on the instrument set used.
 \end{proof}
 
 
@@ -159,23 +159,23 @@ The result follows, after some algebra, by applying the Lindeberg-Feller CLT to 
   \[
     \sqrt{n}\left[ \widehat{\beta}(k,\text{P}) \right] = \left[
     \begin{array}{ccc}
-      0 & \mathbf{0}_{k-1} & \delta  
+      0 & \mathbf{0}_{k-m}' & \boldsymbol{\delta}'  
     \end{array}
-  \right] + \widehat{Q}(k,\text{P}) n^{-1/2}Z'(k,\text{P}) \Delta \mathbf{v}
+  \right]' + \widehat{Q}(k,\text{P}) n^{-1/2}Z'(k,\text{P}) \Delta \mathbf{v}
   \]
-  and since $\widehat{\delta}$ is $\sqrt{n}$ times the $k$\textsuperscript{th} element of $\widehat{\beta}(k,\text{P})$ and the $k$\textsuperscript{th} element $\beta$ is zero, we have
+  and since $\widehat{\boldsymbol{\delta}}$ is $\sqrt{n}$ times the last $m$ elements of $\widehat{\beta}(k,\text{P})$ and the last $m$ elements of $\beta$ is zero, we have
   \[
-    \widehat{\delta} = \delta + \left[
+    \widehat{\boldsymbol{\delta}} = \boldsymbol{\delta} + \left[
     \begin{array}{ccc}
-    0 & \mathbf{0}'_{k-1} & 1  
+    0 & \mathbf{0}'_{k-m} & \boldsymbol{\iota}_m'  
     \end{array}
-  \right] \widehat{Q}(k,\text{P}) n^{-1/2} Z'(k,\text{P})\Delta \mathbf{v}.
+  \right]' \widehat{Q}(k,\text{P}) n^{-1/2} Z'(k,\text{P})\Delta \mathbf{v}.
   \]
   By a law of large numbers $\widehat{Q}(k,\text{P}) \rightarrow_p Q(k,\text{P})$ and $n^{-1}X'W(k) \rightarrow_p \boldsymbol{\xi}' \otimes \boldsymbol{\iota}_{T-k-1}$, hence 
   \[
     \left[
     \begin{array}{c}
-      \widehat{\delta} - \delta \\ \widehat{\tau}
+      \widehat{\boldsymbol{\delta}} - \boldsymbol{\delta} \\ \widehat{\tau}
     \end{array}
   \right] = \Psi
   \left[
@@ -192,4 +192,3 @@ The result follows, after some algebra, by applying the Lindeberg-Feller CLT to 
   \end{array}
 \right]'.$
 \end{proof}
-
