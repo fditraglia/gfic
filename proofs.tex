@@ -1,16 +1,16 @@
 %!TEX root = main.tex
 \section*{Proofs}
 \begin{proof}[Proof of Theorem \ref{thm:asymp}]
-By a mean-value expansion around $(\gamma_0,\theta_0)$,
-	$$\sqrt{n}\left(\widehat{\beta}(b,c) - \beta_0^{(b)}\right) = - K(b,c)\Xi_c \sqrt{n} f_n(\gamma_0,\theta_0) + o_p(1)$$
+By a mean-value expansion around $(\theta_0,\gamma_0)$,
+	$$\sqrt{n}\left(\widehat{\beta}(b,c) - \beta_0^{(b)}\right) = - K(b,c)\Xi_c \sqrt{n} f_n(\theta_0,\gamma_0) + o_p(1)$$
   and by Assumption \ref{assump:high-level},
-$\sqrt{n} f_n(\gamma_0,\theta_0) - \sqrt{n}E\left[f(Z_{ni},\gamma_0,\theta_0) \right]\overset{d}{\rightarrow} (\mathscr{N}_g', \mathscr{N}_h')'$. 
+$\sqrt{n} f_n(\gamma_0,\theta_0) - \sqrt{n}E\left[f(Z_{ni},\theta_0, \gamma_0) \right]\overset{d}{\rightarrow} (\mathscr{N}_g', \mathscr{N}_h')'$. 
 Now, by a mean-value expansion around $\gamma_n$,
 	\begin{align*}
-		\sqrt{n}E\left[ f(Z_{ni}, \gamma_0, \theta_0) \right] &= \sqrt{n}E\left[ f(Z_{ni}, \gamma_n,\theta_0) \right] + \sqrt{n}\nabla_{\gamma'}E\left[ f(Z_{ni}, \bar{\gamma},\theta_0) \right] (\gamma_0 -\gamma_n)\\
+		\sqrt{n}E\left[ f(Z_{ni}, \theta_0,\gamma_0) \right] &= \sqrt{n}E\left[ f(Z_{ni}, \theta_0, \gamma_n) \right] + \sqrt{n}\nabla_{\gamma'}E\left[ f(Z_{ni}, \theta_0,\bar{\gamma}) \right] (\gamma_0 -\gamma_n)\\
 			&=\left(\left[ \begin{array}{c} 0\\ \tau\end{array}\right] - \nabla_{\gamma'}E\left[ f(Z_{ni}, \bar{\gamma},\theta_0) \right] \delta\right) \rightarrow \left(\left[ \begin{array}{c} 0\\ \tau\end{array}\right] - F_\gamma\delta\right)
 	\end{align*}
-  so $\sqrt{n}f_n(\gamma_0, \theta_0) \overset{d}{\rightarrow} \mathscr{N} + (0', \tau')' - F_\gamma \delta$.
+  so $\sqrt{n}f_n(\theta_0, \gamma_0) \overset{d}{\rightarrow} \mathscr{N} + (0', \tau')' - F_\gamma \delta$.
   The result follows by the continuous mapping theorem.
 \end{proof}
 
@@ -21,14 +21,14 @@ Thus, $\sqrt{n}\left( \widehat{\beta}_v - \beta_0 \right) \overset{d}{\rightarro
 Finally, by the definition of a matrix inverse,
 	\begin{align*}
 		K_v G_\gamma \delta
-    %&= \left(\left[\begin{array}{c}G_\gamma' \\ G_\theta'\end{array}\right] W_{gg} \left[\begin{array}{cc} G_\gamma & G_\theta \end{array}\right] \right) \left[\begin{array}{c}G_\gamma' \\ G_\theta'\end{array}\right]W_{gg} G_\gamma\delta\\ \\
+    &= \left(\left[\begin{array}{c}G_\theta' \\ G_\gamma'\end{array}\right] W_{gg} \left[\begin{array}{cc} G_\theta & G_\gamma \end{array}\right] \right)^{-1} \left[\begin{array}{c}G_\theta' \\ G_\gamma'\end{array}\right]W_{gg} G_\gamma\delta\\ \\
 			&= \left[\begin{array}{cc} 
-				G_\gamma'W_{gg}G_\gamma & G_\gamma'W_{gg}G_\theta\\
-				G_\theta'W_{gg}G_\gamma & G_\theta'W_{gg}G_\theta
+				G_\theta'W_{gg}G_\theta & G_\theta'W_{gg}G_\gamma\\
+				G_\gamma'W_{gg}G_\theta & G_\gamma'W_{gg}G_\gamma
 			\end{array} \right]^{-1}
 			\left[\begin{array}{c}
-				G_\gamma'W_{gg}G_\gamma\\
-				G_\theta'W_{gg}G_\gamma
+				G_\theta'W_{gg}G_\gamma\\
+				G_\gamma'W_{gg}G_\gamma
 			\end{array}\right]\delta =\left[\begin{array}{c} 0\\ \delta\end{array}\right].
 	\end{align*}
 \end{proof}
@@ -36,9 +36,9 @@ Finally, by the definition of a matrix inverse,
 
 \begin{proof}[Proof of Corollary \ref{cor:mulimit}]
 For some $\bar{\gamma}$ between $\gamma_0$ and $\gamma_n = \gamma_0 +\delta/\sqrt{n}$. 
-		\[\mu_n  = \varphi(\gamma_0,\theta_0)+ \nabla_\gamma \varphi(\bar{\gamma},\theta_0)'(\gamma_n - \gamma_0) = \mu_0 + \nabla_\gamma \varphi(\bar{\gamma},\theta_0)' \delta/\sqrt{n}\]
+		\[\mu_n  = \varphi(\theta_0, \gamma_0)+ \nabla_\gamma \varphi(\theta_0, \bar{\gamma})'(\gamma_n - \gamma_0) = \mu_0 + \nabla_\gamma \varphi(\theta_0, \bar{\gamma})' \delta/\sqrt{n}\]
 by a mean-value expansion.
-Hence, $\sqrt{n}(\mu_n - \mu_0) = \nabla_\gamma \varphi(\bar{\gamma},\theta_0)' \delta \rightarrow \nabla_\gamma \varphi(\gamma_0,\theta_0)' \delta$.
+Hence, $\sqrt{n}(\mu_n - \mu_0) = \nabla_\gamma \varphi(\theta_0, \bar{\gamma})' \delta \rightarrow \nabla_\gamma \varphi(\theta_0, \gamma_0)' \delta$.
 The result follows since $\sqrt{n}\left(\widehat{\mu}(b,c) - \mu_n \right)  = \sqrt{n}\left( \widehat{\mu}(b,c) - \mu_0 \right) - \sqrt{n}\left(\mu_n - \mu_0\right)$.
 \end{proof}
 
@@ -56,15 +56,15 @@ The result follows from Corollaries \ref{cor:valid} and \ref{cor:mulimit} since,
 \end{proof}
 
 \begin{proof}[Proof of Lemma \ref{lem:tauhatasymp}]
-By a mean-value expansion around $\beta_0 = ( \gamma_0', \theta_0')'$,
+By a mean-value expansion around $\beta_0 = ( \theta_0', \gamma_0')'$,
 \[
   \sqrt{n}h_n\left(\widehat{\beta}_v \right) = \sqrt{n}h_n(\beta_0) + H \sqrt{n} \left(\widehat{\beta}_v - \beta_0\right) + o_p(1).
 \]
 Now, since
 \[
-  \sqrt{n}f_n(\gamma_0,\theta_0) \overset{d}{\rightarrow} \left[\begin{array}{c} \mathscr{N}_g\\  \mathscr{N}_h\end{array}\right]+ \left[ \begin{array}{c} 0\\ \tau\end{array}\right] - \left[\begin{array}{c}G_\gamma\\ H_\gamma \end{array}\right]\delta
+  \sqrt{n}f_n(\theta_0, \gamma_0) \overset{d}{\rightarrow} \left[\begin{array}{c} \mathscr{N}_g\\  \mathscr{N}_h\end{array}\right]+ \left[ \begin{array}{c} 0\\ \tau\end{array}\right] - \left[\begin{array}{c}G_\gamma\\ H_\gamma \end{array}\right]\delta
 \]
-we have $\sqrt{n}h_n(\gamma_0,\theta_0)\overset{d}{\rightarrow} \mathscr{N}_h + \tau - H_\gamma \delta$.
+we have $\sqrt{n}h_n(\theta_0, \gamma_0)\overset{d}{\rightarrow} \mathscr{N}_h + \tau - H_\gamma \delta$.
 Substituting, 
 	\begin{align*}
 		\sqrt{n}h_n(\widehat{\beta}_v) &\overset{d}{\rightarrow}  \mathscr{N}_h + \tau - H_\gamma \delta+ H\left( -K_v \mathscr{N}_g + \left[\begin{array}{c} 0 \\ \delta \end{array} \right]\right)

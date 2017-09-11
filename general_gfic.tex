@@ -2,12 +2,12 @@
 \section{The GFIC}
 \label{sec:GFIC}
 The GFIC chooses among potentially incorrect moment conditions and parameter restrictions to minimize estimator AMSE for a scalar target parameter. 
-Denote this target parameter by $\mu = \varphi(\gamma, \theta)$, where  $\varphi$ is a real-valued, almost surely continuous function of the underlying model parameters $\theta$ and $\gamma$.
-Let $\mu_n = \varphi(\gamma_n,\theta_0)$ and define $\mu_0$ and $\widehat{\mu}(b,c)$  analogously.
+Denote this target parameter by $\mu = \varphi(\theta, \gamma)$, where  $\varphi$ is a real-valued, almost surely continuous function of the underlying model parameters $\theta$ and $\gamma$.
+Let $\mu_n = \varphi(\theta_0,\gamma_n)$ and define $\mu_0$ and $\widehat{\mu}(b,c)$  analogously.
 By Theorem \ref{thm:asymp} and the delta method, we have the following result.
 \begin{cor} Under the hypotheses of Theorem \ref{thm:asymp},
 		$$\sqrt{n}\left(\widehat{\mu}(b,c) - \mu_0 \right) \overset{d}{\rightarrow} -\nabla_\beta\varphi_0'\Xi_b '  K(b,c)\Xi_c \left(\mathscr{N}+ \left[ \begin{array}{c} 0\\ \tau\end{array}\right] - F_\gamma\delta\right) $$
-where $\varphi_0 = \varphi(\gamma_0,\theta_0)$.
+where $\varphi_0 = \varphi(\theta_0, \gamma_0)$.
 \end{cor}
 The true value of $\mu$, however,  is $\mu_n$ rather than $\mu_0$ under Assumption \ref{assump:local}.
 Accordingly, to calculate AMSE we recenter the limit distribution as follows.
@@ -15,20 +15,20 @@ Accordingly, to calculate AMSE we recenter the limit distribution as follows.
 \label{cor:mulimit}
 Under the hypotheses of Theorem \ref{thm:asymp},
 		$$\sqrt{n}\left(\widehat{\mu}(b,c) - \mu_n \right) \overset{d}{\rightarrow} -\nabla_\beta\varphi_0'\Xi_b '  K(b,c)\Xi_c \left(\mathscr{N}+ \left[ \begin{array}{c} 0\\ \tau\end{array}\right] - F_\gamma\delta\right) -\nabla_\gamma \varphi_0' \delta$$
-where $\varphi_0 = \varphi(\gamma_0,\theta_0)$.
+where $\varphi_0 = \varphi(\theta_0, \gamma_0)$.
 \end{cor}
 
 We see that the limiting distribution of $\widehat{\mu}(b,c)$ is not, in general, centered around zero: both $\tau$ and $\delta$ induce an asymptotic bias. 
 Note that, while $\tau$ enters the limit distribution only once, $\delta$ has two distinct effects. 
-First, like $\tau$, it shifts the limit distribution of $\sqrt{n}f_n(\gamma_0, \theta_0)$ away from zero, thereby influencing the asymptotic behavior of $\sqrt{n}\left(\widehat{\mu}(b,c) - \mu_0 \right)$. 
-Second, unless the derivative of $\varphi$ with respect to $\gamma$ is zero at $(\gamma_0, \theta_0)$, $\delta$ induces a second source of bias when $\widehat{\mu}(b,c)$ is recentered around $\mu_n$. 
+First, like $\tau$, it shifts the limit distribution of $\sqrt{n}f_n(\theta_0, \gamma_0)$ away from zero, thereby influencing the asymptotic behavior of $\sqrt{n}\left(\widehat{\mu}(b,c) - \mu_0 \right)$. 
+Second, unless the derivative of $\varphi$ with respect to $\gamma$ is zero at $(\theta_0,\gamma_0)$, $\delta$ induces a second source of bias when $\widehat{\mu}(b,c)$ is recentered around $\mu_n$. 
 Crucially, this second source of bias exactly cancels the asymptotic bias present in the limit distribution of $\widehat{\gamma}_v$. 
 Thus, the valid estimator of $\mu$ is asymptotically unbiased and its AMSE equals its asymptotic variance.
 \begin{cor}
 \label{cor:muvalid}
 Under the hypotheses of Theorem \ref{thm:asymp},
-	$$\sqrt{n}\left( \widehat{\mu}_v - \mu_n\right) \overset{d}{\rightarrow} -\nabla_\beta \varphi(\gamma_0, \theta_0)' K_v\mathscr{N}_g$$
-where $\widehat{\mu}_v = \varphi(\widehat{\gamma}_v,\widehat{\theta}_v)$. Thus, the valid estimator $\widehat{\mu}_v$ shows no asymptotic bias and has asymptotic variance $\nabla_\beta \varphi(\gamma_0, \theta_0)'K_v \Omega_{gg}K_v'\nabla_\beta \varphi(\gamma_0, \theta_0)$.
+	$$\sqrt{n}\left( \widehat{\mu}_v - \mu_n\right) \overset{d}{\rightarrow} -\nabla_\beta \varphi(\theta_0, \gamma_0)' K_v\mathscr{N}_g$$
+where $\widehat{\mu}_v = \varphi(\widehat{\theta}_v, \widehat{\gamma}_v)$. Thus, the valid estimator $\widehat{\mu}_v$ shows no asymptotic bias and has asymptotic variance $\nabla_\beta \varphi(\theta_0, \gamma_0)'K_v \Omega_{gg}K_v'\nabla_\beta \varphi(\theta_0,\gamma_0)$.
 \end{cor}
  
 Using Corollary \ref{cor:mulimit}, the AMSE of $\widehat{\mu}(b,c)$ is as follows,
@@ -59,7 +59,7 @@ Corollary \ref{cor:deltahat} provides the required estimator for $\delta$, namel
 Under the hypotheses of Theorem \ref{thm:asymp},
 	$\widehat{\delta} = \sqrt{n}\left(\widehat{\gamma}_v - \gamma_0\right) \overset{d}{\rightarrow} \delta - K_{v}^{\gamma} \mathscr{N}_g$
 where 
-$K_v = \left[G'W_{gg}G\right]^{-1}G'W_{gg} = \left(K_{v}^{\gamma '}, K_{v}^{\theta '}\right)'$, so $\widehat{\delta}$ is an asymptotically unbiased estimator of $\delta$.
+$K_v = \left[G'W_{gg}G\right]^{-1}G'W_{gg} = \left(K_{v}^{\theta'}, K_{v}^{\gamma'}\right)'$, so $\widehat{\delta}$ is an asymptotically unbiased estimator of $\delta$.
 \end{cor} 
 
 \begin{lem}
@@ -78,7 +78,7 @@ Under the hypotheses of Theorem \ref{thm:asymp},
   \overset{d}{\rightarrow} \left[\begin{array}{c}\delta\\ \tau\end{array} \right] +\Psi \mathscr{N}, \quad
   \Psi = \left[\begin{array}{cc} -K_{v}^\gamma&\mathbf{0} \\ -HK_v&I\end{array}\right]
 \]
-	where $K_v = \left[G'W_{gg}G\right]^{-1}G'W_{gg}$  is partitioned according to $K_v' = (K_v^{\gamma '}, K_v^{\theta '})$.
+	where $K_v = \left[G'W_{gg}G\right]^{-1}G'W_{gg}$  is partitioned according to $K_v' = (K_v^{\theta'}, K_v^{\gamma'})$.
 \end{thm}
 Now, we see immediately from Equation \ref{eq:bias} that
 $$\mbox{BIAS}\left(\widehat{\mu}\left(b,c\right)\right)^2 = \nabla_\beta \varphi_0' M(b,c) \left[\begin{array}{cc}  \delta \delta'& \delta \tau'\\ \tau \delta'& \tau \tau'\end{array}\right] M(b,c)' \nabla_\beta \varphi_0$$
