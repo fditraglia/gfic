@@ -69,7 +69,7 @@ Without loss of generality, we select between two lag length specifications: the
 Accordingly, we make the coefficients associated with the $(r+1)$\textsuperscript{th}, $\ldots, k$\textsuperscript{th} lags local to zero.
 Let $\boldsymbol{\gamma}' = (\gamma_1, \cdots, \gamma_{k-1}, \gamma_{k})$ denote the full vector of lag coefficients and $\boldsymbol{\gamma}_{r}' = (\gamma_1, \cdots, \gamma_{r})$ denote the first $r = k-m$ lag coefficients.
 Then, the true parameter vector is $\beta_n = (\theta, \boldsymbol{\gamma}'_{r}, \boldsymbol{\delta}'/\sqrt{n})'$ which becomes, in the limit, $\beta = (\theta, \boldsymbol{\gamma}'_r, \boldsymbol{0}')'$. Both $\boldsymbol{\delta}$ and $\boldsymbol{0}$ are of length $m$. 
-To indicate the subvector of $\beta$ that excludes the $(k-m+1)$\textsuperscript{th}, $\ldots, k$\textsuperscript{th} lag coefficients, let $\beta_{r} = (\theta, \boldsymbol{\gamma}_r')'$. 
+To indicate the subvector of $\beta$ that excludes the $(r+1)$\textsuperscript{th}, $\ldots, k$\textsuperscript{th} lag coefficients, let $\beta_{r} = (\theta, \boldsymbol{\gamma}_r')'$. 
 %Lastly, let $\boldsymbol{\gamma}_{r^c}' = (\gamma_{r+1}, \gamma_{r+2}, \ldots, \gamma_k)$ which includes the last $m$ lag coefficients.
 
 Because the two lag specifications we consider use different time periods in estimation, we require some additional notation to make this clear. 
@@ -250,7 +250,7 @@ Since $\mu_{SR} = \theta$, we can read off the AMSE expression for this paramete
 For the long-run effect $\mu_{LR}$, however, we need to formally apply the Delta-method and account for the fact that the true value of $(\gamma_{r+1}, \ldots, \gamma_k)'$ is $\boldsymbol{\delta}/\sqrt{n}$.
 Expressed as a function $\varphi$ of the underlying model parameters, 
 \[
-  \mu_{LR} = \varphi(\theta, \boldsymbol{\gamma}_r, \boldsymbol{\gamma}_{-r}) = \theta / \left[1 - \boldsymbol{\iota}_r' \boldsymbol{\gamma}_r - \boldsymbol{\iota}_m'\boldsymbol{\gamma}_{r^c}\right]
+  \mu_{LR} = \varphi(\theta, \boldsymbol{\gamma}_r, \boldsymbol{\gamma}_{-r}) = \theta / \left[1 - \boldsymbol{\iota}_r' \boldsymbol{\gamma}_r - \boldsymbol{\iota}_m'\boldsymbol{\gamma}_{-r}\right]
 \]
 where we define $\boldsymbol{\gamma}_{-r} \equiv (\gamma_{r+1}, \ldots, \gamma_k)'$.
 The derivatives of $\varphi$ are
@@ -262,7 +262,7 @@ The derivatives of $\varphi$ are
     \displaystyle\frac{\partial \varphi}{\partial \boldsymbol{\gamma}_{-r}'} 
   \end{array}
 \right] = 
-\left( \frac{1}{1 - \boldsymbol{\iota}_r' \boldsymbol{\gamma}_r - \boldsymbol{\iota}_m' \boldsymbol{\gamma}_{r^c}} \right)^2 \left[
+\left( \frac{1}{1 - \boldsymbol{\iota}_r' \boldsymbol{\gamma}_r - \boldsymbol{\iota}_m' \boldsymbol{\gamma}_{-r}} \right)^2 \left[
 \begin{array}{ccc}
   \left( 1 - \boldsymbol{\iota}_r' \boldsymbol{\gamma}_r - \boldsymbol{\iota}_m'\boldsymbol{\gamma}_{-r} \right) & \theta \,\boldsymbol{\iota}_r' & \theta \, \boldsymbol{\iota}_m' 
 \end{array}
@@ -271,6 +271,6 @@ The derivatives of $\varphi$ are
 Using this notation, the limiting value of $\mu_{LR}$ is $\mu_{LR}^{0} =  \varphi(\theta, \boldsymbol{\gamma}_r, \boldsymbol{0}_m')$
 while the true value is
 $\mu_{LR}^{n} = \varphi(\theta, \boldsymbol{\gamma}_r, \boldsymbol{\delta}/\sqrt{n})$.
-Similarly, the limiting value of $\nabla\varphi$ is $\nabla \varphi_0 = \nabla \varphi(\theta, \boldsymbol{\gamma}_r, \boldsymbol{0}_m')'$, obtained by putting zero in place of $\boldsymbol{\gamma}_{r^c}$. 
+Similarly, the limiting value of $\nabla\varphi$ is $\nabla \varphi_0 = \nabla \varphi(\theta, \boldsymbol{\gamma}_r, \boldsymbol{0}_m')'$, obtained by putting zero in place of $\boldsymbol{\gamma}_{-r}$. 
 We estimate this quantity consistently by plugging in the estimates from $\widehat{\beta}(k, \text{P})$.
 

@@ -46,7 +46,6 @@ along with
 	\end{equation}
 Each of these expressions involves the limiting random variable $Z$ rather than $Z_{ni}$. 
 Thus, the corresponding expectations are taken with respect to a distribution for which all moment conditions have expectation zero  evaluated at $(\gamma_0,\theta_0)$.
-Finally, let $F(b,c) = \Xi_c F \Xi_b'$ and $\Omega_c = \Xi_c \Omega \Xi_c'$ and $W_c = \Xi_c W \Xi_c'$ where $W$ is the positive definite probability limit of $\widetilde{W}$. 
 
 Before defining the estimators under consideration, we require some further notation. Let $b$ be a \emph{model selection vector}, an $r$-vector of ones and zeros indicating which elements of $\gamma$ we have chosen to estimate. 
 When $b = 1_r$, where $1_m$ represents an $m$-vector of ones, we estimate both $\theta$ and the full vector $\gamma$. 
@@ -57,12 +56,13 @@ Similarly, let $\gamma^{(-b)}_0$ denote the $(r-|b|)$-dimensional subvector cont
 Analogously, let $c=\left(c_g', c_h'\right)'$ be a \emph{moment selection vector}, a $(p+q)$-vector of ones and zeros indicating which of the moment conditions we have chosen to use in estimation. 
 We denote by $|c|$ the total number of moment conditions used in estimation. 
 Let $\mathcal{BC}$ denote the collection of all model and moment selection pairs $(b,c)$ under consideration.
-
-
 To express moment and model selection in matrix form, we define the selection matrices $\Xi_b$ and $\Xi_c$.
 Multiplying $\beta$ by the $(|b| + s)\times(r+s)$ \emph{model selection matrix} $\Xi_b$ extracts the elements corresponding to $\theta$ and the subset of $\gamma$ indicated by the model selection vector $b$. 
 Thus $\Xi_b \beta = \left(\gamma^{(b)'}, \theta' \right)'$.
 Similarly, multiplying a vector by the $|c|\times(p+q)$ moment selection matrix $\Xi_c$ extracts the components corresponding to the moment conditions indicated by the moment selection vector $c$. 
+To simplify the notation, we adopt the shorthand $F(b,c) = \Xi_c F \Xi_b'$ and $\Omega_c = \Xi_c \Omega \Xi_c'$ throughout.
+%and $W_c = \Xi_c W \Xi_c'$ where $W$ is the positive definite probability limit of $\widetilde{W}$. 
+
 
 To express the estimators themselves, define the sample analogue of the expectations in Assumption \ref{assump:local} as follows,
 \begin{equation}
