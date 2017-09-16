@@ -1,0 +1,84 @@
+%!TEX root = main.tex
+\section{Supplementary Results for the Empirical Example}
+\label{sec:append_empirical}
+
+Table \ref{tab:cigarettesappend} presents additional empirical results to supplement those discussed in Section \ref{sec:cigarettes}: \ref{tab:cigarettesLongerappend} is based on data for the 1963-1974 sub-sample ($T = 12$) while \ref{tab:cigarettesFullappend} is based on data for the full 1963--1992 sample ($T=30$).
+The results in \ref{tab:cigarettesShortappend} and \ref{tab:cigarettesLongappend} are the same as those in Table \ref{tab:cigarettes} and are included here for ease of comparison.
+Although there is some variation  in the magnitudes of coefficient estimates across sub-samples, the basic pattern of results is similar.
+In each of the longer samples ($T=11, 12$ or $30$), the GFIC ranks specification LP as the best and specification P as the second best.
+With enough time periods available for estimation, the reduction in  variance from using specifications LS, P, and S becomes negligible and is hence outweighed by any bias that they may induce.
+
+
+
+\begin{table}[h]
+  \centering
+    \begin{subtable}[h]{0.45\textwidth}
+        \centering
+     \caption{1975--1980 ($T=6$)}
+     \label{tab:cigarettesShortappend}
+     \begin{tabular}{lrrrr}\hline\hline 
+         & \multicolumn{1}{c}{$\text{LP}$} & \multicolumn{1}{c}{$\text{LS}$} 
+          & \multicolumn{1}{c}{$\text{P}$} & \multicolumn{1}{c}{$\text{S}$}\\
+        \hline
+        $\widehat{\theta}$ & -0.68 & -0.32 &  -0.28 &  -0.37\\
+        Var.\ & 0.16 &  0.02 & 0.07 & 0.01\\ 
+        Bias$^2$ & \multicolumn{1}{c}{---} & -4.20 & 0.01 & -3.56 \\
+        GFIC  & 0.16 & -4.18 & 0.08  & -3.54  \\
+        GFIC+  & 0.16 &  0.02 & 0.08  & 0.01    \\
+        \hline
+      \end{tabular}
+    \end{subtable}
+    ~
+    \begin{subtable}[h]{0.45\textwidth}
+      \centering
+     \caption{1975--1985 ($T=11$)}
+     \label{tab:cigarettesLongappend}
+     \begin{tabular}{lrrrr}\hline\hline 
+         & \multicolumn{1}{c}{$\text{LP}$} & \multicolumn{1}{c}{$\text{LS}$} 
+          & \multicolumn{1}{c}{$\text{P}$} & \multicolumn{1}{c}{$\text{S}$}\\
+        \hline
+        $\widehat{\theta}$ & -0.30 & -0.26 &  -0.38 &  -0.28\\
+        Var.\ & 0.06 & 0.01 & 0.05 & 0.01\\ 
+        Bias$^2$ & \multicolumn{1}{c}{---} & 2.21 & 0.03 & 1.29\\
+        GFIC  &0.06 & 2.22 & 0.08 &  1.30\\
+        GFIC+  & 0.06 & 2.22 & 0.08  & 1.30  \\
+           \hline
+      \end{tabular}     
+    \end{subtable}
+     \begin{subtable}[h]{0.45\textwidth}
+        \centering
+     \caption{1963--1974 ($T=12$)}
+     \label{tab:cigarettesLongerappend}
+     \begin{tabular}{lrrrr}\hline\hline 
+         & \multicolumn{1}{c}{$\text{LP}$} & \multicolumn{1}{c}{$\text{LS}$} 
+          & \multicolumn{1}{c}{$\text{P}$} & \multicolumn{1}{c}{$\text{S}$}\\
+        \hline
+        $\widehat{\theta}$ & -0.31 & -0.52 &  -0.16 &  -0.51\\
+        Var.\ & 0.03 &  0.00 & 0.04 & 0.00\\ 
+        Bias$^2$ & \multicolumn{1}{c}{---} & 1.15 & 0.61 & 1.28 \\
+        GFIC  & 0.03 & 1.15 & 0.66  & 1.28   \\
+        GFIC+  & 0.03 &  1.15 & 0.66  & 1.28    \\
+        \hline
+      \end{tabular}
+    \end{subtable}
+     ~
+    \begin{subtable}[h]{0.45\textwidth}
+      \centering
+     \caption{1963--1992 ($T=30$)}
+     \label{tab:cigarettesFullappend}
+     \begin{tabular}{lrrrr}\hline\hline 
+         & \multicolumn{1}{c}{$\text{LP}$} & \multicolumn{1}{c}{$\text{LS}$} 
+          & \multicolumn{1}{c}{$\text{P}$} & \multicolumn{1}{c}{$\text{S}$}\\
+        \hline
+        $\widehat{\theta}$ & -0.15 & -0.38 &  -0.07 &  -0.38\\
+        Var.\ & 0.01 & 0.00 & 0.01 & 0.00\\ 
+        Bias$^2$ & \multicolumn{1}{c}{---} & 2.36 & 0.35 & 2.18\\
+        GFIC  & 0.01 & 2.36 & 0.36 &  2.18\\
+        GFIC+  & 0.01 & 2.36 & 0.36  & 2.18  \\
+           \hline
+      \end{tabular}     
+    \end{subtable}
+    \caption{Estimates and GFIC values for the price elasticity of demand for cigarettes example from Section \ref{sec:cigarettes} under four alternative specifications. GFIC+ gives an alternative version of the GFIC in which a negative squared bias estimate is set equal to zero.}
+    \label{tab:cigarettesappend}
+\end{table}
+

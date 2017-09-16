@@ -62,8 +62,16 @@ The averaging estimator performs even better, providing a nearly uniform improve
 Only at very large values of $\gamma$ does it yield a higher RMSE, and these are points in the parameter space where the fixed effects, post-GFIC and averaging estimators are for all intents and purposes identical in RMSE.
 Results for $T=5$ are qualitatively similar.
 See Figure \ref{fig:REvsFE_T5} of Appendix \ref{sec:simulation_supplement} for details.
+Note that in when $T=5$, setting $\rho = 0.3$ violates positive definiteness so we take $\rho=0.4$ as our smallest value in this case.
 
-%Note that in the RE vs FE simulation when $T=5$, setting $\rho = 0.3$ violates positive definiteness so we take $\rho=0.4$ as our smallest value in this case.
+The results we have discussed here focus on the comparison of the GFIC to the fixed effects, random effects, and averaging estimators.
+One might also wonder how the GFIC compares to a Durbin-Hausman-Wu (DHW) pre-test estimator that reports the random effects estimator unless the difference between $\widehat{\beta}_{FE}$ and $\widetilde{\beta}_{RE}$ is sufficiently large.
+By an argument similar to that of \cite{DiTraglia2016} Section 3.2, the GFIC in this particular example is essentially equivalent to a DHW pre-test estimator based on a \emph{particular} significance level dictated by our desire to minimize an asymptotically unbiased estimator of AMSE.
+As such, a comparison of the GFIC to a DHW pre-test estimator based on the more standard significance levels $0.1$ and $0.05$ will be qualitatively similar to \cite{DiTraglia2016} Figure 2.
+In particular, there is no choice of significance level for which one DHW-based pre-test estimator, including in this case the GFIC, uniformly dominates any other.
+
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{figure}[H]
   \centering
