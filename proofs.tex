@@ -4,11 +4,11 @@
 By a mean-value expansion around $(\theta_0,\gamma_0)$,
 	$$\sqrt{n}\left(\widehat{\beta}(b,c) - \beta_0^{(b)}\right) = - K(b,c)\Xi_c \sqrt{n} f_n(\theta_0,\gamma_0) + o_p(1)$$
   and by Assumption \ref{assump:high-level},
-$\sqrt{n} f_n(\gamma_0,\theta_0) - \sqrt{n}E\left[f(Z_{ni},\theta_0, \gamma_0) \right]\overset{d}{\rightarrow} (\mathscr{N}_g', \mathscr{N}_h')'$. 
+$\sqrt{n} f_n(\theta_0, \gamma_0) - \sqrt{n}E\left[f(Z_{ni},\theta_0, \gamma_0) \right]\overset{d}{\rightarrow} (\mathscr{N}_g', \mathscr{N}_h')'$. 
 Now, by a mean-value expansion around $\gamma_n$,
 	\begin{align*}
 		\sqrt{n}E\left[ f(Z_{ni}, \theta_0,\gamma_0) \right] &= \sqrt{n}E\left[ f(Z_{ni}, \theta_0, \gamma_n) \right] + \sqrt{n}\nabla_{\gamma'}E\left[ f(Z_{ni}, \theta_0,\bar{\gamma}) \right] (\gamma_0 -\gamma_n)\\
-			&=\left(\left[ \begin{array}{c} 0\\ \tau\end{array}\right] - \nabla_{\gamma'}E\left[ f(Z_{ni}, \bar{\gamma},\theta_0) \right] \delta\right) \rightarrow \left(\left[ \begin{array}{c} 0\\ \tau\end{array}\right] - F_\gamma\delta\right)
+			&=\left(\left[ \begin{array}{c} 0\\ \tau\end{array}\right] - \nabla_{\gamma'}E\left[ f(Z_{ni}, \theta_0, \bar{\gamma}) \right] \delta\right) \rightarrow \left(\left[ \begin{array}{c} 0\\ \tau\end{array}\right] - F_\gamma\delta\right)
 	\end{align*}
   so $\sqrt{n}f_n(\theta_0, \gamma_0) \overset{d}{\rightarrow} \mathscr{N} + (0', \tau')' - F_\gamma \delta$.
   The result follows by the continuous mapping theorem.

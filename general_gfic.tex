@@ -41,7 +41,12 @@ Using Corollary \ref{cor:mulimit}, the AMSE of $\widehat{\mu}(b,c)$ is as follow
 \end{align}
 where
 \begin{equation}
-	M(b,c) = \Xi_b'K(b,c) \Xi_c \left[\begin{array}{cc} -G_\gamma & 0 \\ -H_\gamma & I \end{array} \right] +\left[\begin{array}{ll} I_r & 0_{r\times q} \\ 0_{p\times r} & 0_{s\times q} \end{array} \right]
+	M(b,c) = \Xi_b'K(b,c) \Xi_c \left[\begin{array}{cc} -G_\gamma & 0 \\ -H_\gamma & I \end{array} \right] +
+  \left[\begin{array}{ll} 
+  0_{p\times r} & 0_{s\times q} \\
+    I_r & 0_{r\times q}  
+\end{array} 
+  \right]
 \end{equation}
 
 The idea behind the GFIC is to construct an estimate $\widehat{\mbox{AMSE}}\left(\widehat{\mu}(b,c)\right)$ and choose the specification $(b^*,c^*)\in\mathcal{BC}$ that makes this quantity as small as possible. 
