@@ -11,7 +11,7 @@ The subdirectories "DynamicPanel" and "REvsFE" give code for the dynamic panel e
 (Note that the random versus fixed effects example appears in the online only appendix to the paper.)
 
 Our empirical example uses the dataset of Baltagi and Levin (1992) and Griffin and Xiong (2000), as provided by the "plm" package in R. 
-The dataset is a panel of 46 U.S. states over the period 1963-1992 containing the following variables:
+The dataset is a panel of 1309 observations for 46 U.S. states over the period 1963-1992 containing the following variables:
 
 * (1) STATE = State abbreviation.
 * (2) YR = YEAR.
