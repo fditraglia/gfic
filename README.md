@@ -25,5 +25,5 @@ The dataset is a panel of 46 U.S. states over the period 1963-1992 containing th
 
 All code for our empirical example is contained in the directory "empirical_example." 
 Our code loads the dataset directly from the "plm" package.
-In case this dataset is excluded from future versions of teh package, we include a .csv file "Cigar.csv" in the "empirical_example" directory.
+In case this dataset is excluded from future versions of the package, we include a .csv file "Cigar.csv" in the "empirical_example" directory.
 
