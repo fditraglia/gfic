@@ -11,10 +11,10 @@ Simulation Studies
 Code for our simulation studies appears in the directory "simulations" which
 contains three subdirectories:
 
-  -- `DynamicPanel` contains code to replicate Table 2 from the body of the paper 
+  * `DynamicPanel` contains code to replicate Table 2 from the body of the paper 
   and figures B3 through B10 from the online Appendix.
-  -- `SRvsLR` contains code to replicate Table 1 from the body of the paper.
-  -- `REvsFE` contains code to replicate Figures B1 and B2 from the online
+  * `SRvsLR` contains code to replicate Table 1 from the body of the paper.
+  * `REvsFE` contains code to replicate Figures B1 and B2 from the online
   Appendix.
   
 To replicate any of these examples, navigate to the corresponding directory and
