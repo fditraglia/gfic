@@ -24,21 +24,20 @@ the script `RUN_ME.R`.
 Empirical Example
 -----------------
 
-Our empirical example uses the dataset of Baltagi and Levin (1992) and Griffin and Xiong (2000), as provided by the "plm" package in R. 
+Our empirical example uses the dataset of Baltagi and Levin (1992) and Griffin and Xiong (2000), as provided by the `plm` package in R. 
 The dataset is a panel of 1309 observations for 46 U.S. states over the period 1963-1992 containing the following variables:
 
-* (1) STATE = State abbreviation.
-* (2) YR = YEAR.
-* (3) Price per pack of cigarettes.
-* (4) Population.
-* (5) Population above the age of 16.
-* (6) CPI = Consumer price index with (1983=100).
-* (7) NDI = Per capita disposable income.
-* (8) C = Cigarette sales in packs per capita.
-* (9) PIMIN = Minimum price in adjoining states per pack of cigarettes. 
+* (1) `state` = State abbreviation.
+* (2) `year` = Year.
+* (3) `price` = Price per pack of cigarettes.
+* (4) `pop` = Population.
+* (5) `pop16` = Population above the age of 16.
+* (6) `cpi` = Consumer price index with (1983=100).
+* (7) `ndi` = Per capita disposable income.
+* (8) `sales` = Cigarette sales in packs per capita.
+* (9) `pimin` = Minimum price in adjoining states per pack of cigarettes. 
 
-All code for our empirical example is contained in the directory "empirical_example." 
+All code for our empirical example is contained in the directory `empirical_example`. 
 Our code loads the dataset directly from the "plm" package.
-In case this dataset is excluded from future versions of the package, we include a .csv file "Cigar.csv" in the `empirical_example` directory.
-To replicate the empirical example, navigate to the appropriate directory and 
-run the script `RUN_ME.R`
+In case this dataset is excluded from future versions of the package, we include a .csv file `Cigar.csv` in the `empirical_example` directory.
+To replicate the empirical example, navigate to the appropriate directory and run the script `RUN_ME.R`
