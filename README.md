@@ -6,8 +6,22 @@ This repository contains all .tex files and source code for the following paper:
 
 The file "main.pdf" contains a copy of the paper itself, including the online-only appendix at the end of the document.
 
+
 Required Software and Packages
 ------------------------------
+Calculations for the simulations and empirical examples were carried out in a mixture of `R` and `C++` using the package `Rcpp` as an interface to `C++` from `R`. A full list of the packages needed to replicate our results is as follows:
+
+  * `MASS`
+  * `Matrix`
+  * `Rcpp`
+  * `RcppArmadillo`
+  * `parallel`
+  * `ggplot`
+  * `RColorBrewer`
+  * `tikzDevice`
+  * `plm`
+
+Note that `plm` is used only to load the data for our empirical example (see below for details) and `ggplot`, `RcolorBrewer` and `tikzDevice` are used only to generate the Figures (B1-B10) that appear in the online-only appendix. The package `parallel` is used only the generate the Random versus Fixed Effects results from the online-only appendix (Figures B1 and B2). For more information, see the comments beginning in line 15 of `simulations/REvsFE/RUN_ME.R`.
 
 
 Simulation Studies
