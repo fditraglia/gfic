@@ -1,15 +1,15 @@
 #Source:  Baltagi and Levin (1992) and Baltagi, Griffin and Xiong (2000): To pool or not to pool:...
 #Description:  Panel Data, 46 U.S. States over the period 1963-1992.
-#Variables:
-#(1) STATE = State abbreviation.
-#(2) YR = YEAR.
-#(3) Price per pack of cigarettes.
-#(4) Population.
-#(5) Population above the age of 16.
-#(6) CPI = Consumer price index with (1983=100).
-#(7) NDI = Per capita disposable income.
-#(8) C = Cigarette sales in packs per capita.
-#(9) PIMIN = Minimum price in adjoining states per pack of cigarettes.          
+#Variables:* (1) `state` = State abbreviation.
+# (2) year = Year.
+# (3) price = Price per pack of cigarettes.
+# (4) pop = Population.
+# (5) pop16 = Population above the age of 16.
+# (6) cpi = Consumer price index with (1983=100).
+# (7) ndi = Per capita disposable income.
+# (8) sales = Cigarette sales in packs per capita.
+# (9) pimin = Minimum price in adjoining states per pack of cigarettes. 
+
 
 library(MASS)
 library(Matrix)
