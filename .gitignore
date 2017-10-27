@@ -28,3 +28,4 @@
 *.rdx
 *.tikz
 *.fls
+.DS_Store

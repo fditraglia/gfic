@@ -6,6 +6,10 @@ This repository contains all .tex files and source code for the following paper:
 
 The file "main.pdf" contains a copy of the paper itself, including the online-only appendix at the end of the document.
 
+Required Software and Packages
+------------------------------
+
+
 Simulation Studies
 -------------------
 Code for our simulation studies appears in the directory `simulations` which
