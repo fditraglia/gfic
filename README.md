@@ -8,7 +8,7 @@ The file "main.pdf" contains a copy of the paper itself, including the online-on
 
 Simulation Studies
 -------------------
-Code for our simulation studies appears in the directory "simulations" which
+Code for our simulation studies appears in the directory `simulations` which
 contains three subdirectories:
 
   * `DynamicPanel` contains code to replicate Table 2 from the body of the paper 
@@ -39,6 +39,6 @@ The dataset is a panel of 1309 observations for 46 U.S. states over the period 1
 
 All code for our empirical example is contained in the directory "empirical_example." 
 Our code loads the dataset directly from the "plm" package.
-In case this dataset is excluded from future versions of the package, we include a .csv file "Cigar.csv" in the "empirical_example" directory.
+In case this dataset is excluded from future versions of the package, we include a .csv file "Cigar.csv" in the `empirical_example` directory.
 To replicate the empirical example, navigate to the appropriate directory and 
 run the script `RUN_ME.R`
